@@ -1,4 +1,4 @@
-X0Y0::Application.routes.draw do
+Firehouse::Application.routes.draw do
   devise_for :users
   
   resources :users do

@@ -15,10 +15,10 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: x0y0_development
+  database: firehouse_development
   pool: 5
-  username: x0y0
-  password: x0y0
+  username: firehouse
+  password: firehouse
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -41,15 +41,15 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: x0y0_test
+  database: firehouse_test
   pool: 5
-  username: <%= ENV['TRAVIS'] ? 'postgres' : 'x0y0' %>
-  password: <%= ENV['TRAVIS'] ? '' : 'x0y0' %>
+  username: <%= ENV['TRAVIS'] ? 'postgres' : 'firehouse' %>
+  password: <%= ENV['TRAVIS'] ? '' : 'firehouse' %>
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: x0y0_production
+  database: firehouse_production
   pool: 5
-  username: x0y0
-  password: x0y0
+  username: firehouse
+  password: firehouse
