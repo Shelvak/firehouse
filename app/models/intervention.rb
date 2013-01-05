@@ -10,11 +10,12 @@ class Intervention < ActiveRecord::Base
     :number, :observations, :receptor_id, :truck_id, :out_at, :arrive_at, 
     :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage, :in_mileage
 
-  belongs_to :user, foreign_key: 'receptor_id'
-
   validates :address, :kind, :number, :receptor_id, presence: true
   validates :number, uniqueness: true
   validate :truck_out_in_time
+
+  belongs_to :user, foreign_key: 'receptor_id'
+  belongs_to :truck
 
   def truck_out_in_time
     validate_errors_between(self.out_at, self.arrive_at, :arrive_at)

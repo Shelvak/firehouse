@@ -18,6 +18,7 @@
 //= require twitter/bootstrap
 //= require turboevents
 //= require turbolinks
+//= require autocomplete
 //= require common
 //= require date_pickers
 //= require mobile

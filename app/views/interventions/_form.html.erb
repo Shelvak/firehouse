@@ -20,7 +20,16 @@
             <%= f.label :truck_id %>
           </div>
           <div class='span6'>
-            <%= f.input :truck_id, label: false %>
+            <%= f.input :auto_truck_number, label: false, input_html: {
+              value: @intervention.truck, class: 'span11 autocomplete-field',
+              data: {
+                'autocomplete-id-target' => '#intervention_truck_id',
+                'autocomplete-url' => autocomplete_for_truck_number_interventions_path(
+                  format: :json
+                )
+              }
+            } %>
+            <%= f.input :truck_id, as: :hidden %>
           </div>
           <div class='span4'>
             <%= t('view.interventions.mileages') %>

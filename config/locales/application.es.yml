@@ -10,6 +10,9 @@
       intervention:
         one: 'Intervención'
         other: 'Intervenciones'
+      truck:
+        one: 'Móvil'
+        other: 'Moviles'
       user:
         one: 'Usuario'
         other: 'Usuarios'
@@ -29,6 +32,9 @@
         arrive_at: 'Llegada al lugar'
         back_at: 'Vuelta del lugar'
         in_at: 'Llegada al cuartel'
+      truck:
+        number: 'Número'
+        mileage: 'Kilometros'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -60,6 +66,7 @@
     actions:
       logout: 'Salir de la aplicación'
     interventions: 'Intervenciones'
+    trucks: 'Moviles'
     users: 'Usuarios'
     
   messages:
@@ -90,6 +97,17 @@
       kinds:
         accident: 'Accidente'
       mileages: 'Kilometraje'
+    trucks:
+      index_title: 'Listado de moviles'
+      show_title: 'Detalle de móvil'
+      new_title: 'Nuevo móvil'
+      edit_title: 'Modificar móvil'
+      correctly_created: 'Móvil agregado correctamente.'
+      correctly_updated: 'Móvil actualizado correctamente.'
+      stale_object_error: 'El móvil no pudo ser actualizado, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ningún móvil hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo Móvil</span>'
+      new: 'Nuevo Móvil'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'

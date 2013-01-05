@@ -89,4 +89,12 @@ class InterventionsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def autocomplete_for_truck_number
+    trucks = Truck.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: trucks }
+    end
+  end
 end

@@ -1,0 +1,38 @@
+<% if @trucks.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <thead>
+          <tr>
+            <th><%= Truck.human_attribute_name 'number' %></th>
+            <th><%= Truck.human_attribute_name 'mileage' %></th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @trucks.each do |truck| %>
+            <tr>
+              <td><%= truck.number %></td>
+              <td><%= truck.mileage %></td>
+              <td><%= link_to_show truck %></td>
+              <td><%= link_to_edit edit_truck_path(truck) if can? :update, truck %></td>
+              <td><%= link_to_destroy truck if can? :destroy, truck %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@trucks) %>
+<% end %>
+
+<div class="form-actions">
+  <%= link_to(
+    t('view.trucks.new', default: :'label.new'),
+    new_truck_path, class: 'btn btn-primary'
+  ) if can? :create, Truck %>
+</div>
