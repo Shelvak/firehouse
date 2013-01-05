@@ -24,6 +24,11 @@
         hierarchy_id: 'Jerarquía'
         receptor_id: 'Receptor'
         observations: 'Observaciones'
+        truck_id: 'Móvil'
+        out_at: 'Salida'
+        arrive_at: 'Llegada al lugar'
+        back_at: 'Vuelta del lugar'
+        in_at: 'Llegada al cuartel'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -59,7 +64,11 @@
     
   messages:
     confirmation: '¿Está seguro?'
-    
+
+  validations:
+    date:
+      must_be_after: 'Debe ser posterior a %{date}'
+
   view:
     generic:
       empty_index:
@@ -80,6 +89,7 @@
       new: 'Nueva Intervención'
       kinds:
         accident: 'Accidente'
+      mileages: 'Kilometraje'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'
