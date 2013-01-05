@@ -37,26 +37,6 @@
     <div class='row-fluid'>
       <div class='span5'>
         <div class='row-fluid'>
-          <div class='span2'>
-            <%= f.label :truck_id %>
-          </div>
-          <div class='span6'>
-            <%= f.input :auto_truck_number, label: false, input_html: {
-              value: @intervention.truck, class: 'span11 autocomplete-field',
-              data: {
-                'autocomplete-id-target' => '#intervention_truck_id',
-                'autocomplete-url' => autocomplete_for_truck_number_interventions_path(
-                  format: :json
-                )
-              }
-            } %>
-            <%= f.input :truck_id, as: :hidden %>
-          </div>
-          <div class='span4'>
-            <%= t('view.interventions.mileages') %>
-          </div>
-        </div>
-        <div class='row-fluid'>
           <%= render partial: 'truck_output', locals: { f: f } %>
         </div>
       </div>

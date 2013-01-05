@@ -1,8 +1,9 @@
 Firehouse::Application.routes.draw do
-  resources :hierarchies
+  resources :hierarchies, :trucks
 
-
-  resources :trucks
+  resources :scos do
+    put :activate, on: :member
+  end
 
   resources :interventions do
     get :autocomplete_for_truck_number, on: :collection

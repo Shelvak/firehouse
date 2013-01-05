@@ -38,6 +38,9 @@
         back_at: 'Vuelta del lugar'
         in_at: 'Llegada al cuartel'
         hierarchy_name: 'Jerarquía'
+      sco:
+        full_name: 'Nombre y apellido'
+        current: 'Actual'
       truck:
         number: 'Número'
         mileage: 'Kilómetros'
@@ -72,6 +75,8 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    scos: 'CEOs'
+    hierarchies: 'Jerarquías'
     interventions: 'Intervenciones'
     trucks: 'Moviles'
     users: 'Usuarios'
@@ -127,6 +132,19 @@
         person_rescue: 'Rescate a persona'
         other: 'Otros'
       mileages: 'Kilometraje'
+    scos:
+      index_title: 'Listado de CEOs'
+      show_title: 'Detalle de CEO'
+      new_title: 'Nuevo CEO'
+      edit_title: 'Modificar CEO'
+      correctly_created: 'CEO agregado correctamente.'
+      correctly_updated: 'CEO actualizado correctamente.'
+      stale_object_error: 'El CEO no pudo ser actualizado, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ningún CEO hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo CEO</span>'
+      new: 'Nuevo CEO'
+      activate: 'Activar'
+      activated: 'CEO activado'
     trucks:
       index_title: 'Listado de moviles'
       show_title: 'Detalle de móvil'

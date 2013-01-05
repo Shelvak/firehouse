@@ -1,0 +1,2 @@
+module ScosHelper
+end
