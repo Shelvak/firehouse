@@ -13,6 +13,9 @@
             <%= show_menu_link(
               name: 'users', controllers: 'users', path: users_path
             ) if can?(:read, User) %>
+            <%= show_menu_link(
+              name: 'interventions', controllers: 'interventions', path: interventions_path
+            ) if can?(:read, Intervention) %>
           </ul>
           <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">

@@ -15,7 +15,7 @@
   </p>
   <p>
     <strong><%= Intervention.human_attribute_name 'kind' %></strong>:
-    <%= @intervention.kind %>
+    <%= show_kind_of_intervention @intervention.kind %>
   </p>
   <p>
     <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
@@ -23,7 +23,7 @@
   </p>
   <p>
     <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
-    <%= @intervention.receptor_id %>
+    <%= @intervention.user %>
   </p>
   <p>
     <strong><%= Intervention.human_attribute_name 'hierarchy_id' %></strong>:

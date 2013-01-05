@@ -7,11 +7,23 @@
     
   activerecord:
     models:
+      intervention:
+        one: 'Intervención'
+        other: 'Intervenciones'
       user:
         one: 'Usuario'
         other: 'Usuarios'
       
     attributes:
+      intervention:
+        number: 'Número'
+        address: 'Dirección'
+        near_corner: 'Esquina cercana'
+        kind: 'Tipo'
+        kind_notes: 'Anotaciones'
+        hierarchy_id: 'Jerarquía'
+        receptor_id: 'Receptor'
+        observations: 'Observaciones'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -42,6 +54,7 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    interventions: 'Intervenciones'
     users: 'Usuarios'
     
   messages:
@@ -54,6 +67,19 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    interventions:
+      index_title: 'Listado de intervenciones'
+      show_title: 'Detalle de intervención'
+      new_title: 'Nueva intervención'
+      edit_title: 'Modificar intervención'
+      correctly_created: 'Intervención agregada correctamente.'
+      correctly_updated: 'Intervención actualizada correctamente.'
+      stale_object_error: 'La intervención no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
+      new: 'Nueva Intervención'
+      kinds:
+        accident: 'Accidente'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'

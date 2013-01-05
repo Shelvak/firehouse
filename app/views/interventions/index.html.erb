@@ -7,13 +7,8 @@
         <thead>
           <tr>
             <th><%= Intervention.human_attribute_name 'number' %></th>
-            <th><%= Intervention.human_attribute_name 'address' %></th>
-            <th><%= Intervention.human_attribute_name 'near_corner' %></th>
             <th><%= Intervention.human_attribute_name 'kind' %></th>
-            <th><%= Intervention.human_attribute_name 'kind_notes' %></th>
             <th><%= Intervention.human_attribute_name 'receptor_id' %></th>
-            <th><%= Intervention.human_attribute_name 'hierarchy_id' %></th>
-            <th><%= Intervention.human_attribute_name 'observations' %></th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -22,15 +17,12 @@
           <% @interventions.each do |intervention| %>
             <tr>
               <td><%= intervention.number %></td>
-              <td><%= intervention.address %></td>
-              <td><%= intervention.near_corner %></td>
-              <td><%= intervention.kind %></td>
-              <td><%= intervention.kind_notes %></td>
-              <td><%= intervention.receptor_id %></td>
-              <td><%= intervention.hierarchy_id %></td>
-              <td><%= intervention.observations %></td>
+              <td><%= show_kind_of_intervention intervention.kind %></td>
+              <td><%= intervention.user %></td>
               <td><%= link_to_show intervention %></td>
-              <td><%= link_to_edit edit_intervention_path(intervention) if can? :update, intervention %></td>
+              <td><%= link_to_edit(
+                edit_intervention_path(intervention)
+              ) if can? :update, intervention %></td>
               <td><%= link_to_destroy intervention if can? :destroy, intervention %></td>
             </tr>
           <% end %>

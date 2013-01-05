@@ -3,7 +3,7 @@ class Intervention < ActiveRecord::Base
   has_magick_columns address: :string, kind: :string, number: :integer
 
   KINDS = {
-    accidente: 'a'
+    accident: 'a'
   }.with_indifferent_access.freeze
 
   attr_accessible :address, :hierarchy_id, :kind, :kind_notes, :near_corner, 
