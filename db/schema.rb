@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105215623) do
+ActiveRecord::Schema.define(:version => 20130105223251) do
 
   create_table "hierarchies", :force => true do |t|
     t.string   "name",       :null => false
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(:version => 20130105215623) do
   end
 
   add_index "hierarchies", ["name"], :name => "index_hierarchies_on_name"
+
+  create_table "informers", :force => true do |t|
+    t.string   "full_name",       :null => false
+    t.integer  "nid",             :null => false
+    t.string   "phone"
+    t.string   "address"
+    t.integer  "intervention_id", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "informers", ["intervention_id"], :name => "index_informers_on_intervention_id"
 
   create_table "interventions", :force => true do |t|
     t.integer  "number",                      :null => false

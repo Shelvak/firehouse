@@ -27,6 +27,10 @@ class Intervention < ActiveRecord::Base
 
   belongs_to :user, foreign_key: 'receptor_id'
   belongs_to :truck
+  has_many :informers
+
+  accepts_nested_attributes_for :informers, allow_destroy: false,
+    reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
 
   def truck_out_in_time
     validate_errors_between_two_datetimes(self.out_at, self.arrive_at, :arrive_at)
@@ -73,5 +77,9 @@ class Intervention < ActiveRecord::Base
       )
    
     end
+  end
+
+  def reject_informers_attributes(attrs)
+    
   end
 end
