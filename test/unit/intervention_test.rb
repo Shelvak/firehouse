@@ -100,4 +100,48 @@ class InterventionTest < ActiveSupport::TestCase
       'validations.date.must_be_after', date: I18n.l(7.minutes.ago, format: :minimal)
     )], @intervention.errors[:in_at]
   end
+
+  test 'validate truck out-in distance' do
+    @intervention.out_mileage = 10
+    @intervention.arrive_mileage = 9
+    @intervention.back_mileage = 9
+    @intervention.in_mileage = 9
+    error = [I18n.t(
+      'validations.distance.must_be_greater_than', distance: 10
+    )]
+
+    assert @intervention.invalid?
+    assert_equal 3, @intervention.errors.size
+    assert_equal error, @intervention.errors[:arrive_mileage]
+    assert_equal error, @intervention.errors[:back_mileage]
+    assert_equal error, @intervention.errors[:in_mileage]
+
+    @intervention.reload
+
+    @intervention.out_mileage = 10
+    @intervention.arrive_mileage = 12
+    @intervention.back_mileage = 11
+    @intervention.in_mileage = 11
+    error = [I18n.t(
+      'validations.distance.must_be_greater_than', distance: 12
+    )]
+
+    assert @intervention.invalid?
+    assert_equal 2, @intervention.errors.size
+    assert_equal error, @intervention.errors[:back_mileage]
+    assert_equal error, @intervention.errors[:in_mileage]
+
+    @intervention.reload
+
+    @intervention.out_mileage = 10
+    @intervention.arrive_mileage = 11
+    @intervention.back_mileage = 13
+    @intervention.in_mileage = 12
+
+    assert @intervention.invalid?
+    assert_equal 1, @intervention.errors.size
+    assert_equal [I18n.t(
+      'validations.distance.must_be_greater_than', distance: 13
+    )], @intervention.errors[:in_mileage]
+  end
 end

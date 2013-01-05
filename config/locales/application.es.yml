@@ -34,7 +34,7 @@
         in_at: 'Llegada al cuartel'
       truck:
         number: 'Número'
-        mileage: 'Kilometros'
+        mileage: 'Kilómetros'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -75,6 +75,8 @@
   validations:
     date:
       must_be_after: 'Debe ser posterior a %{date}'
+    distance:
+      must_be_greater_than: 'Debe ser mayor a %{distance} Km'
 
   view:
     generic:
