@@ -1,0 +1,41 @@
+<div class="readonly-data">
+  <h2><%= @intervention %></h2>
+
+  <p>
+    <strong><%= Intervention.human_attribute_name 'number' %></strong>:
+    <%= @intervention.number %>
+  </p>
+  <p>
+    <strong><%= Intervention.human_attribute_name 'address' %></strong>:
+    <%= @intervention.address %>
+  </p>
+  <p>
+    <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
+    <%= @intervention.near_corner %>
+  </p>
+  <p>
+    <strong><%= Intervention.human_attribute_name 'kind' %></strong>:
+    <%= @intervention.kind %>
+  </p>
+  <p>
+    <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
+    <%= @intervention.kind_notes %>
+  </p>
+  <p>
+    <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
+    <%= @intervention.receptor_id %>
+  </p>
+  <p>
+    <strong><%= Intervention.human_attribute_name 'hierarchy_id' %></strong>:
+    <%= @intervention.hierarchy_id %>
+  </p>
+  <p>
+    <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
+    <%= @intervention.observations %>
+  </p>
+  
+</div>
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_intervention_path(@intervention) if can? :update, @intervention %> |
+  <%= link_to t('label.list'), interventions_path %>
+</div>

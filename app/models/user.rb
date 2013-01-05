@@ -21,6 +21,9 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :name, :lastname, :email, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
+
+  # Relations
+  has_many :interventions, foreign_key: 'receptor_id'
   
   def initialize(attributes = nil, options = {})
     super(attributes, options)

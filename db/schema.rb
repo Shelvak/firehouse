@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306131941) do
+ActiveRecord::Schema.define(:version => 20121102045934) do
+
+  create_table "interventions", :force => true do |t|
+    t.integer  "number",                    :null => false
+    t.string   "address",                   :null => false
+    t.string   "near_corner"
+    t.string   "kind",         :limit => 1, :null => false
+    t.string   "kind_notes"
+    t.integer  "receptor_id",               :null => false
+    t.integer  "hierarchy_id"
+    t.text     "observations"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "interventions", ["kind"], :name => "index_interventions_on_kind"
+  add_index "interventions", ["number"], :name => "index_interventions_on_number", :unique => true
+  add_index "interventions", ["receptor_id"], :name => "index_interventions_on_receptor_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",                                   :null => false

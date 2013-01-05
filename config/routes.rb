@@ -1,4 +1,6 @@
 Firehouse::Application.routes.draw do
+  resources :interventions
+
   devise_for :users
   
   resources :users do
