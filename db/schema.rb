@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105203253) do
+ActiveRecord::Schema.define(:version => 20130105215623) do
+
+  create_table "hierarchies", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "hierarchies", ["name"], :name => "index_hierarchies_on_name"
 
   create_table "interventions", :force => true do |t|
     t.integer  "number",                      :null => false
@@ -20,7 +28,6 @@ ActiveRecord::Schema.define(:version => 20130105203253) do
     t.string   "kind",           :limit => 1, :null => false
     t.string   "kind_notes"
     t.integer  "receptor_id",                 :null => false
-    t.integer  "hierarchy_id"
     t.text     "observations"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
@@ -66,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20130105203253) do
     t.integer  "lock_version",           :default => 0,  :null => false
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "hierarchy_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

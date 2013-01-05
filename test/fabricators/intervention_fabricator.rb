@@ -6,7 +6,6 @@ Fabricator(:intervention) do
   kind            { Intervention::KINDS.values.sample }
   kind_notes      { Faker::Lorem.sentence }
   receptor_id     { Fabricate(:user).id }
-  hierarchy_id    { 100 }
   observations    { Faker::Lorem.paragraph }
 
   # Truck info

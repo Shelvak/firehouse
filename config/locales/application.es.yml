@@ -7,6 +7,9 @@
     
   activerecord:
     models:
+      hierarchy:
+        one: 'Jerarquía'
+        other: 'Jerarquías'
       intervention:
         one: 'Intervención'
         other: 'Intervenciones'
@@ -18,6 +21,8 @@
         other: 'Usuarios'
       
     attributes:
+      hierarchy:
+        name: 'Nombre'
       intervention:
         number: 'Número'
         address: 'Dirección'
@@ -32,6 +37,7 @@
         arrive_at: 'Llegada al lugar'
         back_at: 'Vuelta del lugar'
         in_at: 'Llegada al cuartel'
+        hierarchy_name: 'Jerarquía'
       truck:
         number: 'Número'
         mileage: 'Kilómetros'
@@ -45,6 +51,7 @@
           one: 'Perfil'
           other: 'Perfiles'
         remember_me: 'Recordarme'
+        hierarchy_id: 'Jerarquía'
         
   errors:
     title: 'Error'
@@ -85,6 +92,17 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    hierarchies:
+      index_title: 'Listado de jerarquías'
+      show_title: 'Detalle de jerarquía'
+      new_title: 'Nueva jerarquía'
+      edit_title: 'Modificar jerarquía'
+      correctly_created: 'Jerarquía agregada correctamente.'
+      correctly_updated: 'Jerarquía actualizada correctamente.'
+      stale_object_error: 'La jerarquía no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna jerarquía hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Jerarquía</span>'
+      new: 'Nueva Jerarquía'
     interventions:
       index_title: 'Listado de intervenciones'
       show_title: 'Detalle de intervención'
@@ -97,7 +115,17 @@
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
       new: 'Nueva Intervención'
       kinds:
-        accident: 'Accidente'
+        car_accident: 'Accidente de auto'
+        motorbike_accident: 'Accidente de moto'
+        truck_accident: 'Accidente de camion'
+        bus_accident: 'Accidente de bondi'
+        house_fire: 'Incendio en casa'
+        car_fire: 'Incendio en auto'
+        industry_fire: 'Incendio en industria'
+        field_fire: 'Incendio en campo'
+        animal_rescue: 'Rescate de animal'
+        person_rescue: 'Rescate a persona'
+        other: 'Otros'
       mileages: 'Kilometraje'
     trucks:
       index_title: 'Listado de moviles'

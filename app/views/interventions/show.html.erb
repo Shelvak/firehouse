@@ -1,5 +1,5 @@
 <div class="readonly-data">
-  <h2><%= @intervention %></h2>
+  <h2><%= show_kind_of_intervention @intervention.kind %></h2>
 
   <p>
     <strong><%= Intervention.human_attribute_name 'number' %></strong>:
@@ -14,24 +14,16 @@
     <%= @intervention.near_corner %>
   </p>
   <p>
-    <strong><%= Intervention.human_attribute_name 'kind' %></strong>:
-    <%= show_kind_of_intervention @intervention.kind %>
-  </p>
-  <p>
     <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
     <%= @intervention.kind_notes %>
   </p>
   <p>
     <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
-    <%= @intervention.user %>
-  </p>
-  <p>
-    <strong><%= Intervention.human_attribute_name 'hierarchy_id' %></strong>:
-    <%= @intervention.hierarchy_id %>
+    <%= link_to @intervention.user, user_path(@intervention.receptor_id) %>
   </p>
   <p>
     <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
-    <%= @intervention.observations %>
+    <%= simple_format @intervention.observations %>
   </p>
   
 </div>

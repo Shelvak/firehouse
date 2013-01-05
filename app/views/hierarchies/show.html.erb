@@ -1,0 +1,13 @@
+<div class="readonly-data">
+  <h2><%= @hierarchy %></h2>
+
+  <p>
+    <strong><%= Hierarchy.human_attribute_name 'name' %></strong>:
+    <%= @hierarchy.name %>
+  </p>
+  
+</div>
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_hierarchy_path(@hierarchy) if can? :update, @hierarchy %> |
+  <%= link_to t('label.list'), hierarchies_path %>
+</div>

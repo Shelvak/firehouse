@@ -1,4 +1,7 @@
 Firehouse::Application.routes.draw do
+  resources :hierarchies
+
+
   resources :trucks
 
   resources :interventions do
@@ -8,6 +11,7 @@ Firehouse::Application.routes.draw do
   devise_for :users
   
   resources :users do
+    get :autocomplete_for_hierarchy_name, on: :collection
     member do
       get :edit_profile
       put :update_profile

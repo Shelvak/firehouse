@@ -10,9 +10,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
     :validatable
 
+  attr_accessor :auto_hierarchy_name
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
-    :role, :remember_me, :lock_version
+    :role, :remember_me, :lock_version, :auto_hierarchy_name, :hierarchy_id
   
   # Defaul order
   default_scope order('lastname ASC')
@@ -24,6 +26,7 @@ class User < ActiveRecord::Base
 
   # Relations
   has_many :interventions, foreign_key: 'receptor_id'
+  belongs_to :hierarchy
   
   def initialize(attributes = nil, options = {})
     super(attributes, options)
