@@ -5,6 +5,8 @@ class Sco < ActiveRecord::Base
 
   validates :full_name, presence: true
 
+  has_many :interventions
+
   def to_s
     self.full_name
   end

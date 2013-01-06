@@ -102,4 +102,40 @@ class InterventionsController < ApplicationController
       format.json { render json: trucks }
     end
   end
+
+  def update_arrive
+    intervention = Intervention.find(params[:id])
+
+    respond_to do |format|
+      if intervention.update_arrive!
+        format.html { redirect_to intervention, notice: t('view.interventions.truck.arrive_updated') }
+      else
+        format.html { redirect_to intervention, notice: t('view.interventions.truck.arrive_not_updated') }
+      end
+    end
+  end
+
+  def update_back
+    intervention = Intervention.find(params[:id])
+
+    respond_to do |format|
+      if intervention.update_back!
+        format.html { redirect_to intervention, notice: t('view.interventions.truck.back_updated') }
+      else
+        format.html { redirect_to intervention, notice: t('view.interventions.truck.back_not_updated') }
+      end
+    end
+  end
+
+  def update_in
+    intervention = Intervention.find(params[:id])
+
+    respond_to do |format|
+      if intervention.update_in!
+        format.html { redirect_to intervention, notice: t('view.interventions.truck.in_updated') }
+      else
+        format.html { redirect_to intervention, notice: t('view.interventions.truck.in_not_updated') }
+      end
+    end
+  end
 end

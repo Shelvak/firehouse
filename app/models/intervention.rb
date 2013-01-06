@@ -29,6 +29,7 @@ class Intervention < ActiveRecord::Base
 
   belongs_to :user, foreign_key: 'receptor_id'
   belongs_to :truck
+  belongs_to :sco
   has_one :informer
 
   accepts_nested_attributes_for :informer, allow_destroy: true,
@@ -65,6 +66,14 @@ class Intervention < ActiveRecord::Base
         'validations.distance.must_be_greater_than', distance: first
       )
    
+    end
+  end
+
+  ['arrive', 'back', 'in'].each do |action|
+    define_method("update_#{action}!") do
+      self.update_attributes(
+        "#{action}_at".to_sym => I18n.l(Time.now, format: :hour_min)
+      )
     end
   end
 end

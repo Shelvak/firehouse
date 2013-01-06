@@ -103,4 +103,33 @@ class InterventionTest < ActiveSupport::TestCase
       'validations.distance.must_be_greater_than', distance: 13
     )], @intervention.errors[:in_mileage]
   end
+
+  test "validate update_actions!" do
+    assert_difference 'Version.count' do
+      assert_no_difference 'Intervention.count' do
+        assert @intervention.update_arrive!
+      end
+    end
+
+    # Scape the last digit (minute)
+    assert_equal I18n.l(Time.now, format: :hour_min)[0..3], @intervention.arrive_at[0..3]
+
+    assert_difference 'Version.count' do
+      assert_no_difference 'Intervention.count' do
+        assert @intervention.update_back!
+      end
+    end
+
+    # Scape the last digit (minute)
+    assert_equal I18n.l(Time.now, format: :hour_min)[0..3], @intervention.back_at[0..3]
+
+    assert_difference 'Version.count' do
+      assert_no_difference 'Intervention.count' do
+        assert @intervention.update_in!
+      end
+    end
+
+    # Scape the last digit (minute)
+    assert_equal I18n.l(Time.now, format: :hour_min)[0..3], @intervention.in_at[0..3]
+  end
 end

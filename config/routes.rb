@@ -7,6 +7,11 @@ Firehouse::Application.routes.draw do
 
   resources :interventions do
     get :autocomplete_for_truck_number, on: :collection
+    member do
+      put :update_arrive
+      put :update_back
+      put :update_in
+    end
   end
 
   devise_for :users

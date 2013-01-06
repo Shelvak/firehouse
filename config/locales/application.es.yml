@@ -43,6 +43,7 @@
         back_at: 'Vuelta del lugar'
         in_at: 'Llegada al cuartel'
         hierarchy_name: 'Jerarquía'
+        sco_id: 'CEO'
       sco:
         full_name: 'Nombre y apellido'
         current: 'Actual'
@@ -140,6 +141,13 @@
       current_sco: 'CEO actual'
       informer_title: 'Denunciante'
       output_title: 'Detalles de salida'
+      truck:
+        arrive_updated: 'Llegada al hecho actualizada'
+        arrive_not_updated: 'Ha habido un problema con la actualización de la llegada al hecho'
+        back_updated: 'Vuelta al cuartel actualizada'
+        back_not_updated: 'Ha habido un problema con la actualización de la vuelta al cuartel'
+        in_updated: 'Llegada al cuartel actualizada'
+        in_not_updated: 'Ha habido un problema con la actualización de la llegada al cuartel'
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'
