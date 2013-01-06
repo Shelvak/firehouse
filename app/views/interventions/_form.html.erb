@@ -34,15 +34,46 @@
         <%= kind_collection_for_intervention(f) %>
       </div>
     </div>
+    <% if f.object.informer.blank? && f.object.sco_id %>
+      <h3><%= Intervention.human_attribute_name 'sco_id' %></h3>
+      <%= link_to_current_sco %>
+    <% else %>
+      <div class='row-fluid'>
+        <div class='page-header'>
+          <div class='row-fluid'>
+            <div class='span6'>
+              <h3><%= t('view.interventions.informer_title') %></h3>
+            </div>
+            <div class='span3 pull-right'>
+              <h5><%= raw(
+                "(#{t('view.interventions.current_sco')}: #{link_to_current_sco})"
+              ) if f.object.informer.present? %></h5>
+              <%= f.input :sco_id, as: :hidden, input_html: { value: current_sco.id } %>
+            </div>
+          </div>
+        </div>
+        <%= f.simple_fields_for :informer do |inf| %>
+          <%= render partial: 'informer', locals: { inf: inf }  %>
+        <% end %>
+      </div>
+    <% end %>
     <div class='row-fluid'>
+      <div class='page-header'>
+        <h3><%= t('view.interventions.output_title') %></h3>
+      </div>
       <div class='span5'>
         <div class='row-fluid'>
           <%= render partial: 'truck_output', locals: { f: f } %>
         </div>
       </div>
+      <div class='span7'>
+      </div>
     </div>
     <div class='row-fluid'>
-      <%= f.input :observations, input_html: { rows: 5 } %>
+      <div class='page-header'>
+        <h3><%= Intervention.human_attribute_name :observations %></h3>
+      </div>
+      <%= f.input :observations, label: false, input_html: { class: 'span11', rows: 5 } %>
     </div>
   </div>
 

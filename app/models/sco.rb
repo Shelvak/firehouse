@@ -20,4 +20,8 @@ class Sco < ActiveRecord::Base
   def desactivate!
     self.update_attributes!(current: false)
   end
+
+  def self.current
+    where(current: true).first
+  end
 end

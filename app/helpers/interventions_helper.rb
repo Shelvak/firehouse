@@ -1,4 +1,12 @@
 module InterventionsHelper
+  def current_sco
+    Sco.current
+  end
+
+  def link_to_current_sco
+    link_to current_sco, sco_path(current_sco)
+  end
+
   def intervention_next_number_for_form
     (Intervention.order(:number).last.try(:number) || 0) + 1
   end

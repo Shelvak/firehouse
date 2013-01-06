@@ -28,16 +28,4 @@ class InformerTest < ActiveSupport::TestCase
       assert_difference('Informer.count', -1) { @informer.destroy }
     end
   end
-    
-  test 'validates blank attributes' do
-    @informer.full_name = ''
-    @informer.nid = ''
-    
-    assert @informer.invalid?
-    assert_equal 2, @informer.errors.size
-    assert_equal [error_message_from_model(@informer, :full_name, :blank)],
-      @informer.errors[:full_name]
-    assert_equal [error_message_from_model(@informer, :nid, :blank)],
-      @informer.errors[:nid]
-  end
 end

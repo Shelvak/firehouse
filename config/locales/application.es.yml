@@ -23,6 +23,11 @@
     attributes:
       hierarchy:
         name: 'Nombre'
+      informer:
+        full_name: 'Nombre y apellido'
+        nid: 'DNI/DI/Libreta/Pasaporte'
+        phone: 'Teléfono'
+        address: 'Dirección'
       intervention:
         number: 'Número'
         address: 'Dirección'
@@ -132,6 +137,9 @@
         person_rescue: 'Rescate a persona'
         other: 'Otros'
       mileages: 'Kilometraje'
+      current_sco: 'CEO actual'
+      informer_title: 'Denunciante'
+      output_title: 'Detalles de salida'
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'

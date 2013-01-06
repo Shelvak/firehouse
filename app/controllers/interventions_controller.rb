@@ -33,6 +33,7 @@ class InterventionsController < ApplicationController
   def new
     @title = t('view.interventions.new_title')
     @intervention = Intervention.new
+    @intervention.build_informer unless @intervention.informer
 
     respond_to do |format|
       format.html # new.html.erb

@@ -24,7 +24,9 @@
     <%= f.label :out_at %>
   </div>
   <div class='span4'>
-    <%= f.input :out_at, as: :datetime_picker, label: false %>
+    <%= f.input :out_at, label: false, input_html: { 
+       readonly: true, value: f.object.out_at || l(Time.now, format: :hour_min)
+    } %>
   </div>
   <div class='span4'>
     <%= f.input :out_mileage, label: false %>
@@ -36,7 +38,7 @@
     <%= f.label :arrive_at %>
   </div>
   <div class='span4'>
-    <%= f.input :arrive_at, as: :datetime_picker, label: false %>
+    <%= f.input :arrive_at, label: false, input_html: { readonly: true } %>
   </div>
   <div class='span4'>
     <%= f.input :arrive_mileage, label: false %>
@@ -48,7 +50,7 @@
     <%= f.label :back_at %>
   </div>
   <div class='span4'>
-    <%= f.input :back_at, as: :datetime_picker, label: false %>
+    <%= f.input :back_at, label: false, input_html: { readonly: true } %>
   </div>
   <div class='span4'>
     <%= f.input :back_mileage, label: false %>
@@ -60,7 +62,7 @@
     <%= f.label :in_at %>
   </div>
   <div class='span4'>
-    <%= f.input :in_at, as: :datetime_picker, label: false %>
+    <%= f.input :in_at, label: false, input_html: { readonly: true  } %>
   </div>
   <div class='span4'>
     <%= f.input :in_mileage, label: false %>

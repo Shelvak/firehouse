@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105230130) do
+ActiveRecord::Schema.define(:version => 20130106011042) do
 
   create_table "hierarchies", :force => true do |t|
     t.string   "name",       :null => false
@@ -44,14 +44,15 @@ ActiveRecord::Schema.define(:version => 20130105230130) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "truck_id"
-    t.datetime "out_at"
-    t.datetime "arrive_at"
-    t.datetime "back_at"
-    t.datetime "in_at"
+    t.string   "out_at",         :limit => 5
+    t.string   "arrive_at",      :limit => 5
+    t.string   "back_at",        :limit => 5
+    t.string   "in_at",          :limit => 5
     t.integer  "out_mileage"
     t.integer  "arrive_mileage"
     t.integer  "back_mileage"
     t.integer  "in_mileage"
+    t.integer  "sco_id"
   end
 
   add_index "interventions", ["kind"], :name => "index_interventions_on_kind"
