@@ -48,7 +48,9 @@
               <h5><%= raw(
                 "(#{t('view.interventions.current_sco')}: #{link_to_current_sco})"
               ) if f.object.informer.present? %></h5>
-              <%= f.input :sco_id, as: :hidden, input_html: { value: current_sco.id } %>
+              <% if current_sco %>
+                <%= f.input :sco_id, as: :hidden, input_html: { value: current_sco.id } %>
+              <% end %>
             </div>
           </div>
         </div>
