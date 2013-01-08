@@ -1,3 +1,6 @@
+<%- if @no_active_ceo %>
+    <div class='alert alert-danger'><%= t('view.interventions.no_active_ceo') %></div>
+<% end %>
 <h2><%= t('view.interventions.new_title') %></h2>
 <%= simple_form_for @intervention, defaults: { input_html: { class: 'span10' } } do |f| %>
   <%= f.error_notification %>
