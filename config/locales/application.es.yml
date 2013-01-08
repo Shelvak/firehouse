@@ -148,6 +148,7 @@
         back_not_updated: 'Ha habido un problema con la actualización de la vuelta al cuartel'
         in_updated: 'Llegada al cuartel actualizada'
         in_not_updated: 'Ha habido un problema con la actualización de la llegada al cuartel'
+      no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'
