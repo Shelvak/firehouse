@@ -1,0 +1,22 @@
+<%= simple_form_for([@intervention, @mobile_intervention, @building]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs clearfix">
+    <span class='span5'>
+      <%= f.input :address %>
+      <%= f.input :description %>
+    </span>
+    <span class='span5'>
+      <%= f.input :floor %>
+      <%= f.input :roof %>
+      <%= f.input :window %>
+      <%= f.input :electrics %>
+      <%= f.input :damage %>
+    </span>
+  </div>
+
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

@@ -21,17 +21,65 @@
   </div>
   <hr/>
   <div class='row-fluid'>
-    <p><%= link_to 'Agregar Inmueble', '', class: 'btn btn-primary' %></p>
+    <h3>Datos de inmuebles</h3>
+    <% @mobile_intervention.buildings.each do |building| %>
+      <div class='row-fluid'>
+        <span class='span4'>
+          <h4>
+          Dirección:
+          <%= building.address %>
+          <%= link_to_edit ['edit', @intervention, @mobile_intervention, building] %>
+          </h4>
+          <p>
+          Descripción:
+          <%= building.description %>
+          </p>
+          <p>
+          Piso:
+          <%= building.floor %>
+          </p>
+          <p>
+          Techo:
+          <%= building.roof %>
+          </p>
+          <p>
+          Ventanas y puertas
+          <%= building.window %>
+          </p>
+          <p>
+          Instalación eléctrica:
+          <%= building.electrics %>
+          </p>
+          <p>
+          Daños:
+          <%= building.damage%>
+          </p>
+        </span>
+        <span class='span7'>
+          <table class='table table-bordered table-striped'>
+            <thead>
+              <th></th>
+            </thead>
+          </table>
+        </span>
+      </div>
+    <% end %>
+    <p><%= link_to 'Agregar Inmueble', new_intervention_mobile_intervention_building_path(@intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
+
   <hr/>
+
   <div class='row-fluid'>
     <p><%= link_to 'Agregar Vehículo', '', class: 'btn btn-primary' %></p>
   </div>
+
   <hr/>
+
   <div class='row-fluid'>
     <p><%= link_to 'Agregar Movilidad Apoyo', '', class: 'btn btn-primary' %></p>
   </div>
 </div>
+
 <div class="form-actions">
   <%= link_to t('label.edit'), edit_intervention_mobile_intervention_path(@intervention, @mobile_intervention) if can? :update, @mobile_intervention %> |
   <%= link_to t('activerecord.models.intervention.one'), @intervention %>

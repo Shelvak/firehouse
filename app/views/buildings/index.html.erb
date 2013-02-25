@@ -1,0 +1,48 @@
+<% if @buildings.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <thead>
+          <tr>
+            <th><%= Building.human_attribute_name 'address' %></th>
+            <th><%= Building.human_attribute_name 'description' %></th>
+            <th><%= Building.human_attribute_name 'floor' %></th>
+            <th><%= Building.human_attribute_name 'roof' %></th>
+            <th><%= Building.human_attribute_name 'window' %></th>
+            <th><%= Building.human_attribute_name 'electrics' %></th>
+            <th><%= Building.human_attribute_name 'damage' %></th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @buildings.each do |building| %>
+            <tr>
+              <td><%= building.address %></td>
+              <td><%= building.description %></td>
+              <td><%= building.floor %></td>
+              <td><%= building.roof %></td>
+              <td><%= building.window %></td>
+              <td><%= building.electrics %></td>
+              <td><%= building.damage %></td>
+              <!--<td><%#= link_to_show building %></td>-->
+              <!--<td><%#= link_to_edit edit_building_path(building) if can? :update, building %></td>-->
+              <!--<td><%#= link_to_destroy building if can? :destroy, building %></td>-->
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@buildings) %>
+<% end %>
+
+<div class="form-actions">
+  <%= link_to(
+    t('view.buildings.new', default: :'label.new'),
+    new_building_path, class: 'btn btn-primary'
+  ) if can? :create, Building %>
+</div>
