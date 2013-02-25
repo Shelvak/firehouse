@@ -12,6 +12,7 @@ Firehouse::Application.routes.draw do
       put :update_back
       put :update_in
     end
+    resources :mobile_interventions
   end
 
   devise_for :users

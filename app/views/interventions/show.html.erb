@@ -47,6 +47,7 @@
         <strong><%= Intervention.human_attribute_name 'sco_id' %></strong>:
         <%= link_to @intervention.sco, sco_path(@intervention.sco) %>
       <% end %>
+      <div><%= link_to 'Planilla Movil', (@intervention.mobile_intervention ? [@intervention, @intervention.mobile_intervention] : new_intervention_mobile_intervention_path(@intervention) ), class: 'btn btn-primary' %></div>
     </div>
   </div>
 

@@ -1,0 +1,38 @@
+<div class="readonly-data">
+  <h2><%= show_kind_of_intervention @intervention.kind %> - Planilla Móvil</h2>
+  <div class='row-fluid'>
+    <span class='span3'>
+      <p>
+        <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
+        <%= @mobile_intervention.date.strftime('%d/%m/%Y - %H:%MHs.') %>
+      </p>
+    </span>
+    <span class='span9'>
+
+      <p>
+      <strong><%= MobileIntervention.human_attribute_name 'emergency' %></strong>:
+      <%= @mobile_intervention.emergency %>
+      </p>
+      <p>
+      <strong><%= MobileIntervention.human_attribute_name 'observations' %></strong>:
+      <%= @mobile_intervention.observations %>
+      </p>
+    </span>
+  </div>
+  <hr/>
+  <div class='row-fluid'>
+    <p><%= link_to 'Agregar Inmueble', '', class: 'btn btn-primary' %></p>
+  </div>
+  <hr/>
+  <div class='row-fluid'>
+    <p><%= link_to 'Agregar Vehículo', '', class: 'btn btn-primary' %></p>
+  </div>
+  <hr/>
+  <div class='row-fluid'>
+    <p><%= link_to 'Agregar Movilidad Apoyo', '', class: 'btn btn-primary' %></p>
+  </div>
+</div>
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_intervention_mobile_intervention_path(@intervention, @mobile_intervention) if can? :update, @mobile_intervention %> |
+  <%= link_to t('activerecord.models.intervention.one'), @intervention %>
+</div>
