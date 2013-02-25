@@ -24,7 +24,7 @@
     <h3>Datos de inmuebles</h3>
     <% @mobile_intervention.buildings.each do |building| %>
       <div class='row-fluid'>
-        <span class='span4'>
+        <span class='span3'>
           <h4>
           Dirección:
           <%= building.address %>
@@ -55,12 +55,36 @@
           <%= building.damage%>
           </p>
         </span>
-        <span class='span7'>
-          <table class='table table-bordered table-striped'>
-            <thead>
-              <th></th>
-            </thead>
-          </table>
+        <span class='span8'>
+          <% if building.persons.any? %>
+            <table class='table table-bordered table-striped'>
+              <thead>
+                <tr>
+                  <th>Vínculo:</th>
+                  <th>Nombre y Apellido:</th>
+                  <th>DNI:</th>
+                  <th>Edad:</th>
+                  <th>Teléfono:</th>
+                  <th>Trasladado a:</th>
+                  <th>Lesiones:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% building.persons.each do |person| %>
+                  <tr>
+                    <td><%= person.relation %></td>
+                    <td><%= person.name%> <%= person.last_name %></td>
+                    <td><%= person.dni_type + person.dni_number %></td>
+                    <td><%= person.age %></td>
+                    <td><%= person.phone_number %></td>
+                    <td><%= person.moved_to %></td>
+                    <td><%= person.injuries %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+          <p><%= link_to 'Agregar Persona', new_intervention_mobile_intervention_building_person_path(@intervention, @mobile_intervention, building), class: 'btn btn-success btn-mini' %></p>
         </span>
       </div>
     <% end %>

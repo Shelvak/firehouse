@@ -13,7 +13,9 @@ Firehouse::Application.routes.draw do
       put :update_in
     end
     resources :mobile_interventions do
-      resources :buildings
+      resources :buildings do
+        resources :people
+      end
     end
   end
 
