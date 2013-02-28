@@ -16,16 +16,18 @@ class Intervention < ActiveRecord::Base
     other: 'o'
   }.with_indifferent_access.freeze
 
-  attr_accessor :auto_truck_number
+  attr_accessor :auto_truck_number, :auto_receptor_name
   
   attr_accessible :address, :kind, :kind_notes, :near_corner, 
     :number, :observations, :receptor_id, :truck_id, :out_at, :arrive_at, 
     :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage, :in_mileage,
-    :sco_id, :informer_attributes, :auto_truck_number
+    :sco_id, :informer_attributes, :auto_truck_number, :auto_receptor_name 
 
   validates :address, :kind, :number, :receptor_id, presence: true
   validates :number, uniqueness: true
   validate :truck_out_in_distance
+
+  before_save :assign_intervention_number
 
   belongs_to :user, foreign_key: 'receptor_id'
   belongs_to :truck
@@ -37,6 +39,10 @@ class Intervention < ActiveRecord::Base
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
+  end
+
+  def receptor
+    self.user
   end
 
   def truck_out_in_distance
@@ -75,5 +81,9 @@ class Intervention < ActiveRecord::Base
         "#{action}_at".to_sym => I18n.l(Time.now, format: :hour_min)
       )
     end
+  end
+
+  def assign_intervention_number
+    self.number = (Intervention.order(:number).last.try(:number) || 0) + 1
   end
 end

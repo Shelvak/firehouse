@@ -117,7 +117,7 @@
     interventions:
       index_title: 'Listado de intervenciones'
       show_title: 'Detalle de intervención'
-      new_title: 'Nueva intervención'
+      new_title: 'Nueva intervención - Nº: %{number}'
       edit_title: 'Modificar intervención'
       correctly_created: 'Intervención agregada correctamente.'
       correctly_updated: 'Intervención actualizada correctamente.'

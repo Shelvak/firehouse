@@ -1,7 +1,9 @@
 <%- if @no_active_ceo %>
     <div class='alert alert-danger'><%= t('view.interventions.no_active_ceo') %></div>
 <% end %>
-<h2><%= t('view.interventions.new_title') %></h2>
+<h2><%= t(
+  'view.interventions.new_title', number: intervention_next_number_for_form
+) %></h2>
 <%= simple_form_for @intervention, defaults: { input_html: { class: 'span10' } } do |f| %>
   <%= f.error_notification %>
 
@@ -9,23 +11,19 @@
     <div class='row-fluid'>
       <div class='span8'>
         <div class='row-fluid'>
-          <div class='span4'>
-            <%= f.input :number, input_html: { 
-              readonly: true, value: intervention_next_number_for_form
-            } %>
-          </div>
-          <div class='span4'>
+          <div class='span5'>
             <%= f.label :receptor_id %>
-            <%= f.input :receptor_name, label: false, input_html: {
-              value: current_user, disabled: true
+            <%= f.input :auto_receptor_name, label: false, input_html: {
+              value: @intervention.receptor || current_user, class: 'span10 autocomplete-field',
+              data: {
+                'autocomplete-id-target' => '#intervention_receptor_id',
+                'autocomplete-url' => autocomplete_for_receptor_name_interventions_path(
+                  format: :json
+                )
+              }
             } %>
             <%= f.input :receptor_id, as: :hidden, input_html: {
               value: current_user.id
-            } %>
-          </div>
-          <div class='span4'>
-            <%= f.input :hierarchy_name, input_html: {
-              value: current_user.hierarchy, disabled: true
             } %>
           </div>
         </div>

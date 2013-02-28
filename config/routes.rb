@@ -7,6 +7,7 @@ Firehouse::Application.routes.draw do
 
   resources :interventions do
     get :autocomplete_for_truck_number, on: :collection
+    get :autocomplete_for_receptor_name, on: :collection
     member do
       put :update_arrive
       put :update_back
