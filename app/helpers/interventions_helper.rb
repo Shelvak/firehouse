@@ -4,7 +4,10 @@ module InterventionsHelper
   end
 
   def link_to_current_sco
-    link_to current_sco, sco_path(current_sco) if current_sco
+    link_title = current_sco ? current_sco : t('view.interventions.select_sco')
+    link_to link_title, mini_index_scos_path, id: 'sco_name', data: {
+      toggle: 'modal', 'modal-remote' => true 
+    }
   end
 
   def intervention_next_number_for_form

@@ -10,23 +10,6 @@
   <div class="form-inputs">
     <div class='row-fluid'>
       <div class='span8'>
-        <div class='row-fluid'>
-          <div class='span5'>
-            <%= f.label :receptor_id %>
-            <%= f.input :auto_receptor_name, label: false, input_html: {
-              value: @intervention.receptor || current_user, class: 'span10 autocomplete-field',
-              data: {
-                'autocomplete-id-target' => '#intervention_receptor_id',
-                'autocomplete-url' => autocomplete_for_receptor_name_interventions_path(
-                  format: :json
-                )
-              }
-            } %>
-            <%= f.input :receptor_id, as: :hidden, input_html: {
-              value: current_user.id
-            } %>
-          </div>
-        </div>
         <%= f.input :address %>
         <%= f.input :near_corner %>
         <%= f.input :kind_notes %>
@@ -46,18 +29,37 @@
               <h3><%= t('view.interventions.informer_title') %></h3>
             </div>
             <div class='span3 pull-right'>
-              <h5><%= raw(
-                "(#{t('view.interventions.current_sco')}: #{link_to_current_sco})"
-              ) if f.object.informer.present? %></h5>
+              <h5><%= raw([
+                t('view.interventions.current_sco'), link_to_current_sco
+              ].join(': ')) if f.object.informer.present? %></h5>
               <% if current_sco %>
                 <%= f.input :sco_id, as: :hidden, input_html: { value: current_sco.id } %>
               <% end %>
             </div>
           </div>
         </div>
+        <div class="hide" id="scos">
+        </div>
         <%= f.simple_fields_for :informer do |inf| %>
           <%= render partial: 'informer', locals: { inf: inf }  %>
         <% end %>
+        <div class="row-fluid">
+          <div class='span5'>
+            <%= f.label :receptor_id %>
+            <%= f.input :auto_receptor_name, label: false, input_html: {
+              value: @intervention.receptor || current_user, class: 'span10 autocomplete-field',
+              data: {
+                'autocomplete-id-target' => '#intervention_receptor_id',
+                'autocomplete-url' => autocomplete_for_receptor_name_interventions_path(
+                  format: :json
+                )
+              }
+            } %>
+            <%= f.input :receptor_id, as: :hidden, input_html: {
+              value: current_user.id
+            } %>
+          </div>
+        </div>
       </div>
     <% end %>
     <div class='row-fluid'>

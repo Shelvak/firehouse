@@ -12,15 +12,21 @@ class Sco < ActiveRecord::Base
   end
 
   def activate!
-    if self.update_attributes!(current: true)
-      Sco.where(current: true).first.desactivate!
-    else
-      false
-    end
+    keep_only_one_current
+    Sco.current.try(:desactivate!) if Sco.current
+    self.update_attributes!(current: true)
   end
 
   def desactivate!
     self.update_attributes!(current: false)
+  end
+
+  def keep_only_one_current
+    if Sco.where(current: true).count > 1
+      Sco.where(current: true).order('updated_at DESC').each_with_index do |sco, i|
+        sco.desactivate! if i != 0
+      end
+    end
   end
 
   def self.current
