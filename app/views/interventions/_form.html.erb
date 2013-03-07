@@ -62,16 +62,21 @@
         </div>
       </div>
     <% end %>
+
+    <div class='page-header'>
+      <h3><%= t('view.interventions.output_title') %></h3>
+    </div>
+
     <div class='row-fluid'>
-      <div class='page-header'>
-        <h3><%= t('view.interventions.output_title') %></h3>
-      </div>
       <div class='span5'>
         <div class='row-fluid'>
           <%= render partial: 'truck_output', locals: { f: f } %>
         </div>
       </div>
       <div class='span7'>
+        <%= f.simple_fields_for :endowments do |e| %>
+          <%= render partial: 'endowment', locals: { e: e } %>
+        <% end %>
       </div>
     </div>
     <div class='row-fluid'>

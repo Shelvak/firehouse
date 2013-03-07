@@ -1,11 +1,6 @@
 Firehouse::Application.routes.draw do
-  resources :firefighters
 
-
-  resources :endowments
-
-
-  resources :hierarchies, :trucks
+  resources :firefighters, :hierarchies, :trucks
 
   resources :scos do
     put :activate, on: :member
