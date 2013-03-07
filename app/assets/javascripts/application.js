@@ -23,5 +23,6 @@
 //= require common
 //= require date_pickers
 //= require endless_pagination
+//= require dynamic_form
 //= require mobile
 //= require users

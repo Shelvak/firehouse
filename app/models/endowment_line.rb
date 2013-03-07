@@ -7,4 +7,8 @@ class EndowmentLine < ActiveRecord::Base
   belongs_to :firefighter
 
   validates :firefighter_id, :charge, presence: true
+
+  def initialize(attributes = nil, options = {})
+    super(attributes, options)
+  end
 end

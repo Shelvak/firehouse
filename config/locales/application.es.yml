@@ -155,6 +155,7 @@
       empty_index:
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
       new: 'Nueva Intervención'
+      add_endowment_link: 'Agregar nueva dotación'
       kinds:
         car_accident: 'Accidente de auto'
         motorbike_accident: 'Accidente de moto'

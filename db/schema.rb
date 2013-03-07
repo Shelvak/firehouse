@@ -25,11 +25,13 @@ ActiveRecord::Schema.define(:version => 20130307012847) do
   add_index "endowment_lines", ["firefighter_id"], :name => "index_endowment_lines_on_firefighter_id"
 
   create_table "endowments", :force => true do |t|
-    t.integer  "number",     :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "number",          :null => false
+    t.integer  "intervention_id", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
+  add_index "endowments", ["intervention_id"], :name => "index_endowments_on_intervention_id"
   add_index "endowments", ["number"], :name => "index_endowments_on_number"
 
   create_table "firefighters", :force => true do |t|

@@ -7,4 +7,8 @@ class Endowment < ActiveRecord::Base
   has_many :endowment_lines
 
   validates :number, presence: true
+
+  def initialize(attributes = nil, options = {})
+    super(attributes, options)
+  end
 end
