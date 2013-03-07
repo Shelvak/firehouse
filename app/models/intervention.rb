@@ -33,6 +33,7 @@ class Intervention < ActiveRecord::Base
   belongs_to :truck
   belongs_to :sco
   has_one :informer
+  has_many :endowments
 
   accepts_nested_attributes_for :informer, allow_destroy: true,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }

@@ -11,7 +11,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106011042) do
+ActiveRecord::Schema.define(:version => 20130307012847) do
+
+  create_table "endowment_lines", :force => true do |t|
+    t.integer  "firefighter_id", :null => false
+    t.string   "charge",         :null => false
+    t.integer  "endowment_id",   :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "endowment_lines", ["endowment_id"], :name => "index_endowment_lines_on_endowment_id"
+  add_index "endowment_lines", ["firefighter_id"], :name => "index_endowment_lines_on_firefighter_id"
+
+  create_table "endowments", :force => true do |t|
+    t.integer  "number",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "endowments", ["number"], :name => "index_endowments_on_number"
+
+  create_table "firefighters", :force => true do |t|
+    t.string   "firstname",      :null => false
+    t.string   "lastname",       :null => false
+    t.string   "identification", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "firefighters", ["firstname"], :name => "index_firefighters_on_firstname"
+  add_index "firefighters", ["identification"], :name => "index_firefighters_on_identification", :unique => true
+  add_index "firefighters", ["lastname"], :name => "index_firefighters_on_lastname"
 
   create_table "hierarchies", :force => true do |t|
     t.string   "name",       :null => false

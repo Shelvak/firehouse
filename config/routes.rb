@@ -1,4 +1,10 @@
 Firehouse::Application.routes.draw do
+  resources :firefighters
+
+
+  resources :endowments
+
+
   resources :hierarchies, :trucks
 
   resources :scos do
