@@ -84,11 +84,13 @@
               </tbody>
             </table>
           <% end %>
-          <p><%= link_to 'Agregar Persona', new_intervention_mobile_intervention_building_person_path(@intervention, @mobile_intervention, building), class: 'btn btn-success btn-mini' %></p>
+          <p><%= link_to 'Agregar Persona', new_intervention_mobile_intervention_building_person_path(
+              @intervention, @mobile_intervention, building), class: 'btn btn-success btn-mini' %></p>
         </span>
       </div>
     <% end %>
-    <p><%= link_to 'Agregar Inmueble', new_intervention_mobile_intervention_building_path(@intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
+    <p><%= link_to 'Agregar Inmueble', new_intervention_mobile_intervention_building_path(
+        @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
 
   <hr/>
@@ -100,7 +102,40 @@
   <hr/>
 
   <div class='row-fluid'>
-    <p><%= link_to 'Agregar Movilidad Apoyo', '', class: 'btn btn-primary' %></p>
+    <h3>Movilidades de apoyo</h3>
+    <% if @mobile_intervention.supports.any? %>
+      <table class='table table-bordered table-striped'>
+        <thead>
+          <tr>
+            <th>En el lugar</th>
+            <th>Móvil número:</th>
+            <th>A cargo</th>
+            <th>Conduce</th>
+            <th>Pertenece</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @mobile_intervention.supports.each do |support| %>
+            <tr>
+              <td><%= support.support_type %></td>
+              <td><%= support.number %></td>
+              <td><%= support.responsible %></td>
+              <td><%= support.driver %></td>
+              <td><%= support.owner %></td>
+              <td>
+                <%= link_to_edit edit_intervention_mobile_intervention_support_path(
+                                     @intervention, @mobile_intervention, support)  %>
+                <%= link_to_destroy intervention_mobile_intervention_support_path(
+                                        @intervention, @mobile_intervention, support)  %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <p><%= link_to 'Agregar Móvil de Apoyo', new_intervention_mobile_intervention_support_path(
+        @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
 </div>
 
