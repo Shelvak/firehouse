@@ -23,7 +23,7 @@
   <div class='row-fluid'>
     <h3>Datos de inmuebles</h3>
     <% @mobile_intervention.buildings.each do |building| %>
-      <div class='row-fluid'>
+      <div class='row-fluid well span11'>
         <span class='span3'>
           <h4>
           Dirección:
@@ -55,7 +55,7 @@
           <%= building.damage%>
           </p>
         </span>
-        <span class='span8'>
+        <span class='span9'>
           <% if building.persons.any? %>
             <table class='table table-bordered table-striped'>
               <thead>
