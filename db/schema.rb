@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20130307012847) do
 
   create_table "informers", :force => true do |t|
     t.string   "full_name",       :null => false
-    t.integer  "nid",             :null => false
+    t.integer  "nid"
     t.string   "phone"
     t.string   "address"
     t.integer  "intervention_id", :null => false

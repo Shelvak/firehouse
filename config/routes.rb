@@ -9,8 +9,9 @@ Firehouse::Application.routes.draw do
 
   resources :interventions do
     collection do
-      get :autocomplete_for_truck_number
       get :autocomplete_for_receptor_name
+      get :autocomplete_for_sco_name
+      get :autocomplete_for_truck_number
     end
     member do
       put :update_arrive

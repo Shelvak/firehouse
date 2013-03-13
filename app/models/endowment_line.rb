@@ -21,5 +21,7 @@ class EndowmentLine < ActiveRecord::Base
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
+
+    self.firefighter_id ||= 1
   end
 end

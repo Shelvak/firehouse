@@ -3,13 +3,6 @@ module InterventionsHelper
     Sco.current
   end
 
-  def link_to_current_sco
-    link_title = current_sco ? current_sco : t('view.interventions.select_sco')
-    link_to link_title, mini_index_scos_path, id: 'sco_name', data: {
-      toggle: 'modal', 'modal-remote' => true 
-    }
-  end
-
   def intervention_next_number_for_form
     (Intervention.order(:number).last.try(:number) || 0) + 1
   end

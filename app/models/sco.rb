@@ -1,5 +1,6 @@
 class Sco < ActiveRecord::Base
   has_paper_trail
+  has_magick_columns full_name: :string
 
   attr_accessible :full_name, :current
 
@@ -9,6 +10,21 @@ class Sco < ActiveRecord::Base
 
   def to_s
     self.full_name
+  end
+
+  alias_method :label, :to_s
+
+  def as_json(options = nil)
+    default_options = {
+      only: [:id],
+      methods: [:label]
+    }
+
+    super(default_options.merge(options || {}))
+  end
+
+  def self.filtered_list(query)
+    query.present? ? magick_search(query) : scoped
   end
 
   def activate!
