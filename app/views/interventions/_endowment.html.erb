@@ -1,15 +1,9 @@
-<% e ||= build_endowment_form %>
-<fieldset class="row-fluid">
-  <div class="row-fluid form-horizontal">
-    <%= e.input :number, label: t('activerecord.attributes.endowment.number') %>
-    <% # WTF?!?!? The traduction don't work fine %>
-  </div>
-
-  <div class='row-fluid'>
-    <%= e.simple_fields_for :endowment_lines, 
+<div class="tab-pane" id="endowment_lines_dynamicContent">
+  <fieldset>
+    <%= f.simple_fields_for :endowment_lines, 
       defaults: { label: false, input_html: { class: 'span11' } } do |el| %>
 
-      <%= render partial: 'endowment_line', locals: { el: el } %>
+      <%= render partial: 'endowment_line', locals: { f: el } %>
     <% end %>
-  </div>
-</fieldset>
+  </fieldset>
+</div>

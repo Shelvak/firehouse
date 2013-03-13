@@ -6,13 +6,16 @@ class InterventionTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Intervention.count', 'Version.count'] do
-      @intervention = Intervention.create(
-        Fabricate.attributes_for(
-          :intervention, receptor_id: @intervention.receptor_id,
-          sco_id: @intervention.sco_id, truck_id: @intervention.truck_id
+    assert_difference 'Intervention.count' do
+      # Versions = 4 firefighter, endow_line, endowment, intervention
+      assert_difference 'Version.count', 4 do
+        @intervention = Intervention.create(
+          Fabricate.attributes_for(
+            :intervention, receptor_id: @intervention.receptor_id,
+            sco_id: @intervention.sco_id, truck_id: @intervention.truck_id
+          )
         )
-      )
+      end
     end
   end
     
@@ -39,27 +42,15 @@ class InterventionTest < ActiveSupport::TestCase
     @intervention.receptor_id = ''
     
     assert @intervention.invalid?
-    assert_equal 4, @intervention.errors.size
+    assert_equal 3, @intervention.errors.size
     assert_equal [error_message_from_model(@intervention, :address, :blank)],
       @intervention.errors[:address]
     assert_equal [error_message_from_model(@intervention, :kind, :blank)],
       @intervention.errors[:kind]
-    assert_equal [error_message_from_model(@intervention, :number, :blank)],
-      @intervention.errors[:number]
     assert_equal [error_message_from_model(@intervention, :receptor_id, :blank)],
       @intervention.errors[:receptor_id]
   end
     
-  test 'validates unique attributes' do
-    new_intervention = Fabricate(:intervention)
-    @intervention.number = new_intervention.number
-
-    assert @intervention.invalid?
-    assert_equal 1, @intervention.errors.size
-    assert_equal [error_message_from_model(@intervention, :number, :taken)],
-      @intervention.errors[:number]
-  end
-
   test 'validate truck out-in distance' do
     @intervention.out_mileage = 10
     @intervention.arrive_mileage = 9

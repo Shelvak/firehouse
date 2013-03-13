@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20130307012847) do
 
   create_table "endowment_lines", :force => true do |t|
     t.integer  "firefighter_id", :null => false
-    t.string   "charge",         :null => false
+    t.integer  "charge",         :null => false
     t.integer  "endowment_id",   :null => false
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false

@@ -1,7 +1,10 @@
-<div class='span3'>
-  <%= el.input :charge %>
-</div>
-<div class='span9'>
-  <%= el.input :auto_firefighter_name %>
-  <%= el.input :firefighter_id, as: :hidden %>
+<div class='row-fluid'>
+  <div class='span3 label'>
+    <%= f.label :auto_firefighter_name, show_charge_name(f.object.charge) %>
+    <%= f.input :charge, as: :hidden %>
+  </div>
+  <div class='span9'>
+    <%= f.input :auto_firefighter_name %>
+    <%= f.input :firefighter_id, as: :hidden %>
+  </div>
 </div>

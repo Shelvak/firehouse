@@ -1,7 +1,18 @@
 class EndowmentLine < ActiveRecord::Base
   has_paper_trail
 
-  attr_accessible :firefighter_id, :charge, :endowment_id
+  CHARGES = {
+    1 => 'head',
+    2 => 'pitonero',
+    3 => 'firefighters',
+    4 => 'radio',
+    5 => 'driver',
+    6 => 'backup'
+  }.with_indifferent_access.freeze
+
+  attr_accessible :firefighter_id, :charge, :auto_firefighter_name
+
+  attr_accessor :auto_firefighter_name
 
   belongs_to :endowments
   belongs_to :firefighter

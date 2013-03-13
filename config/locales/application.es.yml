@@ -180,6 +180,13 @@
         in_updated: 'Llegada al cuartel actualizada'
         in_not_updated: 'Ha habido un problema con la actualización de la llegada al cuartel'
       no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
+      endowments_charges:
+        head: 'A cargo'
+        pitonero: 'Pitonero'
+        firefighters: 'Bomberos #'
+        radio: 'Radioperador'
+        driver: 'Chofer'
+        backup: 'Reserva'
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'

@@ -28,4 +28,9 @@ module InterventionsHelper
     key = Intervention::KINDS.invert[kind]
     t("view.interventions.kinds.#{key}")
   end
+
+  def show_charge_name(key)
+    charge = EndowmentLine::CHARGES[key]
+    content_tag(:strong, t("view.interventions.endowments_charges.#{charge}"))
+  end
 end

@@ -2,12 +2,19 @@ require 'test_helper'
 
 class EndowmentTest < ActiveSupport::TestCase
   def setup
-    @endowment = Fabricate(:endowment)
+    intervention = Fabricate(:intervention)
+    @endowment = intervention.endowments.sample
   end
 
   test 'create' do
-    assert_difference ['Endowment.count', 'Version.count'] do
-      Endowment.create(Fabricate.attributes_for(:endowment))
+    assert_difference 'Endowment.count' do
+      # Versions = 3 - firefighter, endowment_line, endowment
+      assert_difference 'Version.count', 3 do
+        endowment = Endowment.new(Fabricate.attributes_for(
+          :endowment))
+        endowment.intervention_id = @endowment.intervention_id
+        endowment.save
+      end 
     end 
   end
     

@@ -26,3 +26,4 @@
 //= require dynamic_form
 //= require mobile
 //= require users
+//= require interventions

@@ -2,27 +2,29 @@ require 'test_helper'
 
 class EndowmentLineTest < ActiveSupport::TestCase
   def setup
-    @endowment_line = Fabricate(:endowment_line)
+    intervention = Fabricate(:intervention)
+    @endowment_line = intervention.endowments.sample.endowment_lines.sample
   end
 
   test 'create' do
     assert_difference ['EndowmentLine.count', 'Version.count'] do
-      EndowmentLine.create(Fabricate.attributes_for(
+      endowment_line = EndowmentLine.new(Fabricate.attributes_for(
         :endowment_line, 
-        endowment_id: @endowment_line.endowment_id,
         firefighter_id: @endowment_line.firefighter_id
       ))
+      endowment_line.endowment_id = @endowment_line.endowment_id
+      endowment_line.save
     end 
   end
     
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'EndowmentLine.count' do
-        assert @endowment_line.update_attributes(charge: 'Updated')
+        assert @endowment_line.update_attributes(charge: 99)
       end
     end
 
-    assert_equal 'Updated', @endowment_line.reload.charge
+    assert_equal 99, @endowment_line.reload.charge
   end
     
   test 'destroy' do 
