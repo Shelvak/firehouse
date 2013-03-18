@@ -1,0 +1,26 @@
+<table class='table table-bordered table-striped'>
+  <thead>
+  <tr>
+    <th>Vínculo:</th>
+    <th>Nombre y Apellido:</th>
+    <th>DNI:</th>
+    <th>Edad:</th>
+    <th>Teléfono:</th>
+    <th>Trasladado a:</th>
+    <th>Lesiones:</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% people.each do |person| %>
+    <tr>
+      <td><%= person.relation %></td>
+      <td><%= person.name%> <%= person.last_name %></td>
+      <td><%= person.dni_type + person.dni_number %></td>
+      <td><%= person.age %></td>
+      <td><%= person.phone_number %></td>
+      <td><%= person.moved_to %></td>
+      <td><%= person.injuries %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

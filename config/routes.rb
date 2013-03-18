@@ -17,6 +17,9 @@ Firehouse::Application.routes.draw do
         resources :people
       end
       resources :supports, only: [:new, :edit, :destroy, :create, :update]
+      resources :vehicles, only: [:new, :edit, :destroy, :create, :update] do
+        resources :people
+      end
     end
   end
 

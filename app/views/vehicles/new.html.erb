@@ -1,0 +1,9 @@
+<div class="container-fluid">
+  <h2><%= show_kind_of_intervention @intervention.kind %> - Inmueble involucrado</h2>
+</div>
+<%= content_for :form_actions do %>
+  <%= link_to t('activerecord.models.intervention.one'), @intervention %> |
+  <%= link_to 'Planilla móvil', [@intervention, @mobile_intervention] %>
+<% end %>
+
+<%= render 'form' %>

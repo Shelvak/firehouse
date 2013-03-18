@@ -1,0 +1,32 @@
+<div class='row-fluid well span11'>
+  <span class='span3'>
+    <h4>
+      Vehículo:
+      <%= number %>
+      <%= link_to_edit ['edit', @intervention, @mobile_intervention, vehicle] %>
+    </h4>
+    <p>
+      Marca:
+      <%= vehicle.mark %>
+    </p>
+    <p>
+      Modelo:
+    <%= vehicle.model %>
+    </p>
+    <p>
+      Año:
+      <%= vehicle.year %>
+    </p>
+    <p>
+      Dominio:
+      <%= vehicle.domain %>
+    </p>
+  </span>
+  <span class='span9'>
+    <% if vehicle.persons.any? %>
+      <%= render 'mobile_interventions/people_table', people: vehicle.persons %>
+    <% end %>
+    <p><%= link_to 'Agregar Persona', new_intervention_mobile_intervention_vehicle_person_path(
+        @intervention, @mobile_intervention, vehicle), class: 'btn btn-success btn-mini' %></p>
+  </span>
+</div>

@@ -1,0 +1,29 @@
+<table class='table table-bordered table-striped'>
+  <thead>
+  <tr>
+    <th>En el lugar</th>
+    <th>Móvil número:</th>
+    <th>A cargo</th>
+    <th>Conduce</th>
+    <th>Pertenece</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @mobile_intervention.supports.each do |support| %>
+    <tr>
+      <td><%= support.support_type %></td>
+      <td><%= support.number %></td>
+      <td><%= support.responsible %></td>
+      <td><%= support.driver %></td>
+      <td><%= support.owner %></td>
+      <td>
+        <%= link_to_edit edit_intervention_mobile_intervention_support_path(
+                             @intervention, @mobile_intervention, support)  %>
+        <%= link_to_destroy intervention_mobile_intervention_support_path(
+                                @intervention, @mobile_intervention, support)  %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

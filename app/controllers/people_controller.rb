@@ -1,7 +1,6 @@
 class PeopleController < ApplicationController
   before_filter :get_intervention
-  # GET /people
-  # GET /people.json
+
   def index
     @title = t('view.people.index_title')
     @people = Person.page(params[:page])
@@ -12,8 +11,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  # GET /people/1
-  # GET /people/1.json
   def show
     @title = t('view.people.show_title')
     @person = Person.find(params[:id])
@@ -24,8 +21,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  # GET /people/new
-  # GET /people/new.json
   def new
     @title = t('view.people.new_title')
     @person = Person.new
@@ -36,17 +31,15 @@ class PeopleController < ApplicationController
     end
   end
 
-  # GET /people/1/edit
   def edit
     @title = t('view.people.edit_title')
     @person = Person.find(params[:id])
   end
 
-  # POST /people
-  # POST /people.json
   def create
     @title = t('view.people.new_title')
-    @person = @building.persons.build(params[:person])
+    @person = @building.persons.build(params[:person]) if @building
+    @person = @vehicle.persons.build(params[:person]) if @vehicle
 
     respond_to do |format|
       if @person.save
@@ -59,8 +52,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  # PUT /people/1
-  # PUT /people/1.json
   def update
     @title = t('view.people.edit_title')
     @person = Person.find(params[:id])
@@ -78,8 +69,6 @@ class PeopleController < ApplicationController
     redirect_to ['edit',@intervention, @mobile_intervention, @building, @person], alert: t('view.people.stale_object_error')
   end
 
-  # DELETE /people/1
-  # DELETE /people/1.json
   def destroy
     @person = Person.find(params[:id])
     @person.destroy
@@ -94,6 +83,7 @@ class PeopleController < ApplicationController
     def get_intervention
       @intervention = Intervention.includes(:mobile_intervention).find(params[:intervention_id])
       @mobile_intervention = @intervention.mobile_intervention
-      @building = Building.find(params[:building_id])
+      @building = Building.find(params[:building_id]) if params[:building_id]
+      @vehicle = Vehicle.find(params[:vehicle_id]) if params[:vehicle_id]
     end
 end

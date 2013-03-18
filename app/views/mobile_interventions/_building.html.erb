@@ -1,0 +1,40 @@
+<div class='row-fluid well span11'>
+  <span class='span3'>
+    <h4>
+      Dirección:
+      <%= building.address %>
+      <%= link_to_edit ['edit', @intervention, @mobile_intervention, building] %>
+    </h4>
+    <p>
+      Descripción:
+      <%= building.description %>
+    </p>
+    <p>
+      Piso:
+      <%= building.floor %>
+    </p>
+    <p>
+      Techo:
+      <%= building.roof %>
+    </p>
+    <p>
+      Ventanas y puertas
+      <%= building.window %>
+    </p>
+    <p>
+      Instalación eléctrica:
+      <%= building.electrics %>
+    </p>
+    <p>
+      Daños:
+      <%= building.damage%>
+    </p>
+  </span>
+  <span class='span9'>
+    <% if building.persons.any? %>
+      <%= render 'mobile_interventions/people_table', people: building.persons %>
+    <% end %>
+    <p><%= link_to 'Agregar Persona', new_intervention_mobile_intervention_building_person_path(
+        @intervention, @mobile_intervention, building), class: 'btn btn-success btn-mini' %></p>
+  </span>
+</div>
