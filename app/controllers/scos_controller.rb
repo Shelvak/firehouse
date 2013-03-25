@@ -4,6 +4,8 @@ class ScosController < ApplicationController
   check_authorization
   load_and_authorize_resource
 
+  layout ->(c) { c.request.xhr? ? false : 'application' }
+
   # GET /scos
   # GET /scos.json
   def index
@@ -71,7 +73,7 @@ class ScosController < ApplicationController
 
     respond_to do |format|
       if @sco.update_attributes(params[:sco])
-        format.html { redirect_to @sco, notice: t('view.scos.correctly_updated') }
+        format.html { redirect_to scos_url, notice: t('view.scos.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -96,11 +98,21 @@ class ScosController < ApplicationController
 
   def activate
     sco = Sco.find(params[:id])
+    notice = sco.activate! ? 
+      t('view.scos.activated') : 
+      t('view.scos.stale_object_error')
 
-    if sco.activate!
-      respond_to do |format|
-        format.html { redirect_to scos_path, notice: t('view.scos.activated') }
-      end
+    respond_to do |format|
+      format.html { redirect_to :back, notice: notice }
+    end
+  end
+
+  def mini_index
+    @title = t('view.scos.index_title')
+    @scos = Sco.order('current DESC')
+
+    respond_to do |format|
+      format.html 
     end
   end
 end

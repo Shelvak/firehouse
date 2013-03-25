@@ -1,0 +1,9 @@
+<div class="tab-pane" id="endowment_lines_dynamicContent">
+  <fieldset>
+    <%= f.simple_fields_for :endowment_lines, 
+      defaults: { label: false, input_html: { class: 'span11' } } do |el| %>
+
+      <%= render partial: 'endowment_line', locals: { f: el } %>
+    <% end %>
+  </fieldset>
+</div>

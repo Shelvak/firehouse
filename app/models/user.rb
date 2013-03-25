@@ -37,7 +37,18 @@ class User < ActiveRecord::Base
   def to_s
     [self.name, self.lastname].compact.join(' ')
   end
-  
+
+  alias_method :label, :to_s
+
+  def as_json(options = nil)
+    default_options = {
+      only: [:id],
+      methods: [:label]
+    }
+
+    super(default_options.merge(options || {}))
+  end
+
   def role
     self.roles.first.try(:to_sym)
   end

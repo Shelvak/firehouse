@@ -51,7 +51,7 @@ class ScosControllerTest < ActionController::TestCase
   test "should update sco" do
     put :update, id: @sco, 
       sco: Fabricate.attributes_for(:sco)
-    assert_redirected_to sco_url(assigns(:sco))
+    assert_redirected_to scos_url
   end
 
   test "should destroy sco" do

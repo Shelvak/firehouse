@@ -24,4 +24,5 @@ jQuery ($) ->
     $(this).find('a.submit').removeClass('submit').addClass('disabled')
     $(this).find('.dropdown-toggle').addClass('disabled')
 
+
   Inspector.instance().load()

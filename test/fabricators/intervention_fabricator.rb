@@ -19,4 +19,7 @@ Fabricator(:intervention) do
   arrive_mileage  { |attr| attr[:out_mileage] + 10 }
   back_mileage    { |attr| attr[:arrive_mileage] + 10 }
   in_mileage      { |attr| attr[:back_mileage] + 10 }
+    
+  # Endowment
+  endowments_attributes { { 1 => Fabricate.attributes_for(:endowment) } }
 end

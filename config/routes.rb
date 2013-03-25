@@ -1,12 +1,19 @@
 Firehouse::Application.routes.draw do
-  resources :hierarchies, :trucks
+
+  resources :firefighters, :hierarchies, :trucks
 
   resources :scos do
     put :activate, on: :member
+    get :mini_index, on: :collection
   end
 
   resources :interventions do
-    get :autocomplete_for_truck_number, on: :collection
+    collection do
+      get :autocomplete_for_firefighter_name
+      get :autocomplete_for_receptor_name
+      get :autocomplete_for_sco_name
+      get :autocomplete_for_truck_number
+    end
     member do
       put :update_arrive
       put :update_back

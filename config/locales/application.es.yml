@@ -7,6 +7,15 @@
     
   activerecord:
     models:
+      endowment:
+        one: 'Dotación'
+        other: 'Dotaciones'
+      endowment_line:
+        one: 'Item dotación'
+        other: 'Items dotación'
+      firefighter:
+        one: 'Bombero'
+        other: 'Bomberos'
       hierarchy:
         one: 'Jerarquía'
         other: 'Jerarquías'
@@ -21,6 +30,15 @@
         other: 'Usuarios'
       
     attributes:
+      endowment_line:
+        firefighter_id: 'Bombero'
+        charge: 'Cargo'
+      endowment:
+        number: 'Numero'
+      firefighter:
+        firstname: 'Nombres'
+        lastname: 'Apellidos'
+        identification: 'Identificación DNI/Legajo'
       hierarchy:
         name: 'Nombre'
       informer:
@@ -81,9 +99,10 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
-    scos: 'CEOs'
+    firefighters: 'Bomberos'
     hierarchies: 'Jerarquías'
     interventions: 'Intervenciones'
+    scos: 'CEOs'
     trucks: 'Moviles'
     users: 'Usuarios'
     
@@ -103,6 +122,17 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    firefighters:
+      index_title: 'Listado de bomberos'
+      show_title: 'Detalle de bombero'
+      new_title: 'Nuevo bombero'
+      edit_title: 'Modificar bombero'
+      correctly_created: 'Bombero agregado correctamente.'
+      correctly_updated: 'Bombero actualizado correctamente.'
+      stale_object_error: 'El bombero no pudo ser actualizado, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ningún bombero hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo Bombero</span>'
+      new: 'Nuevo Bombero'
     hierarchies:
       index_title: 'Listado de jerarquías'
       show_title: 'Detalle de jerarquía'
@@ -117,7 +147,7 @@
     interventions:
       index_title: 'Listado de intervenciones'
       show_title: 'Detalle de intervención'
-      new_title: 'Nueva intervención'
+      new_title: 'Nueva intervención - Nº: %{number}'
       edit_title: 'Modificar intervención'
       correctly_created: 'Intervención agregada correctamente.'
       correctly_updated: 'Intervención actualizada correctamente.'
@@ -125,6 +155,7 @@
       empty_index:
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
       new: 'Nueva Intervención'
+      add_endowment_link: 'Agregar nueva dotación'
       kinds:
         car_accident: 'Accidente de auto'
         motorbike_accident: 'Accidente de moto'
@@ -149,6 +180,13 @@
         in_updated: 'Llegada al cuartel actualizada'
         in_not_updated: 'Ha habido un problema con la actualización de la llegada al cuartel'
       no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
+      endowments_charges:
+        head: 'A cargo'
+        pitonero: 'Pitonero'
+        firefighters: 'Bomberos #'
+        radio: 'Radioperador'
+        driver: 'Chofer'
+        backup: 'Reserva'
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'
