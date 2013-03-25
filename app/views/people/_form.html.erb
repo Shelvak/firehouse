@@ -12,7 +12,7 @@
     <span class='span5'>
       <%= f.input :age %>
       <%= f.input :phone_number %>
-      <%= f.input :relation, collection: ['Propietario','Inquilino'], default: 'Propietario' %>
+      <%= f.input :relation, collection: (params[:vehicle_id] ? ['Propietario', 'Conductor'] : ['Propietario','Inquilino']), default: 'Propietario' %>
       <%= f.input :moved_to %>
       <%= f.input :injuries %>
     </span>

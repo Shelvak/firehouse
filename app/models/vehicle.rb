@@ -4,6 +4,6 @@ class Vehicle < ActiveRecord::Base
   belongs_to :mobile_intervention
   has_many :persons
 
-  attr_accessible :mark, :model, :year, :domain, :mobile_intervention_id
+  attr_accessible :mark, :model, :year, :domain, :damage, :mobile_intervention_id
 
   end

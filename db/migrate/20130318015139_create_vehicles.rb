@@ -5,6 +5,7 @@ class CreateVehicles < ActiveRecord::Migration
       t.string :model
       t.string :year
       t.string :domain
+      t.text :damage
       t.integer :mobile_intervention_id
 
       t.timestamps

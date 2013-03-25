@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20130318015139) do
     t.string   "model"
     t.string   "year"
     t.string   "domain"
+    t.text     "damage"
     t.integer  "mobile_intervention_id"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
