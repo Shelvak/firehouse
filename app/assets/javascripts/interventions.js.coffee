@@ -1,10 +1,6 @@
 new Rule
+  condition: -> $('#c_interventions').length
   load: ->
-    #if $('.tab-pane.active').length == 1
-    #  $('.tab-pane')
-    #    .addClass('active')
-    #    .attr('id', 'endowments_1')
-
     @map.addNewTab ||= (e)->
       e.preventDefault()
 
@@ -47,12 +43,30 @@ new Rule
             .find('input[name$="[out_mileage]"]')
             .val(parseInt data[0].mileage)
 
+    @map.setCurrentTimeToTruckData ||= ->
+      clicked = $(this)
+      inputTarget = clicked.parents('.row-fluid:first')
+        .find("input[name$='[#{clicked.data('set-time-to')}]']")
       
+      now = new Date
+      inputTarget.val Helpers.getHour()
 
-    $('#add_new_endowment').on 'click', @map.addNewTab
+    @map.setCurrentTimeToObservations ||= ->
+      input = $('#intervention_observations')
+      writed = input.val()
+      writed += "\n" if writed.length
+
+      input.focus()
+      input.val(writed + "[#{Helpers.getHour()}]  ")
+
+    $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
+    $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
+    $(document).on 'click', '#add_current_time', @map.setCurrentTimeToObservations
 
   unload: ->
-    $('#add_new_endowment').off 'click', @map.addNewTab
+    $(document).off 'click', '#add_new_endowment', @map.addNewTab
     $(document).off 'change', '[data-truck-number]', @map.assignTruckMileage
+    $(document).off 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
+    $(document).off 'click', '#add_current_time', @map.setCurrentTimeToObservations
     

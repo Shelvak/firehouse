@@ -188,6 +188,7 @@
         radio: 'Radioperador'
         driver: 'Chofer'
         backup: 'Reserva'
+      set_time: 'Ingresar hora'
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'

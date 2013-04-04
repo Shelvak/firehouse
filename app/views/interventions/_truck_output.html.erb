@@ -15,12 +15,12 @@
 
 <div class= 'row-fluid'>
   <div class='span4'>
-    <%= f.label :out_at %>
+    <%= f.label :out_at, title: t('view.interventions.set_time'),
+      data: { 'set-time-to' => 'out_at' } %>
   </div>
   <div class='span4'>
     <%= f.input :out_at, label: false, input_html: { 
-      value: f.object.out_at || l(Time.now, format: :hour_min),
-      class: 'span10'
+      value: f.object.out_at, class: 'span10'
     } %>
   </div>
   <div class='span4'>
@@ -30,7 +30,8 @@
 
 <div class='row-fluid'>
   <div class='span4'>
-    <%= f.label :arrive_at %>
+    <%= f.label :arrive_at, title: t('view.interventions.set_time'),
+      data: { 'set-time-to' => 'arrive_at' } %>
   </div>
   <div class='span4'>
     <%= f.input :arrive_at, label: false, input_html: { class: 'span10' } %>
@@ -42,7 +43,8 @@
 
 <div class='row-fluid'>
   <div class='span4'>
-    <%= f.label :back_at %>
+    <%= f.label :back_at, title: t('view.interventions.set_time'),
+      data: { 'set-time-to' => 'back_at' } %>
   </div>
   <div class='span4'>
     <%= f.input :back_at, label: false, input_html: { class: 'span10' } %>
@@ -54,7 +56,8 @@
 
 <div class='row-fluid'>
   <div class='span4'>
-    <%= f.label :in_at %>
+    <%= f.label :in_at, title: t('view.interventions.set_time'),
+      data: { 'set-time-to' => 'in_at' } %>
   </div>
   <div class='span4'>
     <%= f.input :in_at, label: false, input_html: { class: 'span10' } %>
