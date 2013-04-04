@@ -1,9 +1,9 @@
 new Rule
   load: ->
-    if $('.tab-pane.active').length == 0
-      $('.tab-pane')
-        .addClass('active')
-        .attr('id', 'endowment_lines_1')
+    #if $('.tab-pane.active').length == 1
+    #  $('.tab-pane')
+    #    .addClass('active')
+    #    .attr('id', 'endowments_1')
 
     @map.addNewTab ||= (e)->
       e.preventDefault()
@@ -35,8 +35,24 @@ new Rule
         .addClass('active')
         .insertBefore('#add_new_endowment')
 
+    @map.assignTruckMileage ||= ->
+      input = $(this)
+
+      $.ajax
+        url: '/trucks'
+        dataType: 'json'
+        data: { q: input.val() }
+        success: (data)->
+          input.parents('[data-endowment-item]')
+            .find('input[name$="[out_mileage]"]')
+            .val(parseInt data[0].mileage)
+
+      
+
     $('#add_new_endowment').on 'click', @map.addNewTab
+    $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
 
   unload: ->
     $('#add_new_endowment').off 'click', @map.addNewTab
+    $(document).off 'change', '[data-truck-number]', @map.assignTruckMileage
     

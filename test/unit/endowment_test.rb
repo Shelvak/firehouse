@@ -11,7 +11,7 @@ class EndowmentTest < ActiveSupport::TestCase
       # Versions = 3 - firefighter, endowment_line, endowment
       assert_difference 'Version.count', 3 do
         endowment = Endowment.new(Fabricate.attributes_for(
-          :endowment))
+          :endowment, truck_id: @endowment.truck_id))
         endowment.intervention_id = @endowment.intervention_id
         endowment.save
       end 
@@ -41,5 +41,78 @@ class EndowmentTest < ActiveSupport::TestCase
     assert_equal 1, @endowment.errors.size
     assert_equal [error_message_from_model(@endowment, :number, :blank)],
       @endowment.errors[:number]
+  end
+
+  test 'validate truck out-in distance' do
+    @endowment.out_mileage = 10
+    @endowment.arrive_mileage = 9
+    @endowment.back_mileage = 9
+    @endowment.in_mileage = 9
+    error = [I18n.t(
+      'validations.distance.must_be_greater_than', distance: 10
+    )]
+
+    assert @endowment.invalid?
+    assert_equal 3, @endowment.errors.size
+    assert_equal error, @endowment.errors[:arrive_mileage]
+    assert_equal error, @endowment.errors[:back_mileage]
+    assert_equal error, @endowment.errors[:in_mileage]
+
+    @endowment.reload
+
+    @endowment.out_mileage = 10
+    @endowment.arrive_mileage = 12
+    @endowment.back_mileage = 11
+    @endowment.in_mileage = 11
+    error = [I18n.t(
+      'validations.distance.must_be_greater_than', distance: 12
+    )]
+
+    assert @endowment.invalid?
+    assert_equal 2, @endowment.errors.size
+    assert_equal error, @endowment.errors[:back_mileage]
+    assert_equal error, @endowment.errors[:in_mileage]
+
+    @endowment.reload
+
+    @endowment.out_mileage = 10
+    @endowment.arrive_mileage = 11
+    @endowment.back_mileage = 13
+    @endowment.in_mileage = 12
+
+    assert @endowment.invalid?
+    assert_equal 1, @endowment.errors.size
+    assert_equal [I18n.t(
+      'validations.distance.must_be_greater_than', distance: 13
+    )], @endowment.errors[:in_mileage]
+  end
+
+  test "validate update_actions!" do
+    assert_difference 'Version.count' do
+      assert_no_difference 'Endowment.count' do
+        assert @endowment.update_arrive!
+      end
+    end
+
+    # Scape the last digit (minute)
+    assert_equal I18n.l(Time.now, format: :hour_min)[0..3], @endowment.arrive_at[0..3]
+
+    assert_difference 'Version.count' do
+      assert_no_difference 'Endowment.count' do
+        assert @endowment.update_back!
+      end
+    end
+
+    # Scape the last digit (minute)
+    assert_equal I18n.l(Time.now, format: :hour_min)[0..3], @endowment.back_at[0..3]
+
+    assert_difference 'Version.count' do
+      assert_no_difference 'Endowment.count' do
+        assert @endowment.update_in!
+      end
+    end
+
+    # Scape the last digit (minute)
+    assert_equal I18n.l(Time.now, format: :hour_min)[0..3], @endowment.in_at[0..3]
   end
 end
