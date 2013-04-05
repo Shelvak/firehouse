@@ -1,25 +1,16 @@
 <div class="readonly-data">
   <h2><%= show_kind_of_intervention @intervention.kind %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
-  <div class='row-fluid'>
-    <span class='span3'>
-      <br/>
-      <p>
-        <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
-        <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
-      </p>
-    </span>
-    <span class='span7'>
-      <%= simple_form_for([@intervention, @mobile_intervention]) do |f| %>
-        <div class="pull-right">
-          <%= f.button :submit, class: 'btn-primary' %>
-        </div>
-        <%= f.error_notification %>
-        <div class="form-inputs">
-          <%= f.input :observations %>
-        </div>
-      <% end %>
-    </span>
-  </div>
+  <p>
+    <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
+    <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
+  </p>
+  <%= simple_form_for([@intervention, @mobile_intervention]) do |f| %>
+    <div class="pull-right">
+      <%= f.button :submit, class: 'btn-primary' %>
+    </div>
+    <%= f.error_notification %>
+    <%= f.input :observations, input_html: { class: 'span9', rows: 5 } %>
+  <% end %>
   <hr/>
   <div class='row-fluid'>
     <h3><%= t 'view.mobile_interventions.buildings_info' %></h3>
