@@ -1,6 +1,6 @@
 <div class="readonly-data">
   <h2><%= show_kind_of_intervention @intervention.kind %></h2>
-  <div class='row-fluid page-header'>
+  <div class='row-fluid'>
     <div class='span6'>
       <p>
         <strong><%= Intervention.human_attribute_name 'number' %></strong>:
@@ -53,96 +53,89 @@
     </div>
   </div>
 
-  <div class='row-fluid page-header'>
-    <div class='span5'>
-      <div class='row-fluid'>
-        <div class='span4'>
-          <strong><%= Intervention.human_attribute_name 'truck_id' %></strong>
-        </div>
-        <div class='span4'>
-          <%#= @intervention.truck.number %>
-        </div>
-        <div class='span4'>
-          <strong><%= t('view.interventions.mileages') %></strong>
-        </div>
-      </div>
-      <div class='row-fluid'>
-        <div class='span4'>
-          <strong><%= Intervention.human_attribute_name 'out_at' %></strong>
-        </div>
-        <div class='span4'>
-          <%= @intervention.out_at %>
-        </div>
-        <div class='span4'>
-          <%= @intervention.out_mileage %>
-        </div>
-      </div>
-      <div class='row-fluid'>
-        <div class='span4'>
-          <% arrive_at = Intervention.human_attribute_name 'arrive_at' %>
-          <% if @intervention.out_at.present? && @intervention.arrive_at.blank? %>
-            <%= link_to(
-              arrive_at, update_arrive_intervention_path(@intervention),
-              method: :put
-            ) %>
-          <% else %>
-            <strong><%= arrive_at %></strong>
-          <% end %>
-        </div>
-        <div class='span4'>
-          <%= @intervention.arrive_at %>
-        </div>
-        <div class='span4'>
-          <%= @intervention.arrive_mileage %>
-        </div>
-      </div>
-      <div class='row-fluid'>
-        <div class='span4'>
-          <% back_at = Intervention.human_attribute_name 'back_at' %>
-          <% if @intervention.arrive_at.present? && @intervention.back_at.blank? %>
-            <%= link_to(
-              back_at, update_back_intervention_path(@intervention),
-              method: :put
-            ) %>
-          <% else %>
-            <strong><%= back_at %></strong>
-          <% end %>
-        </div>
-        <div class='span4'>
-          <%= @intervention.back_at %>
-        </div>
-        <div class='span4'>
-          <%= @intervention.back_mileage %>
-        </div>
-      </div>
-      <div class='row-fluid'>
-        <div class='span4'>
-          <% in_at = Intervention.human_attribute_name 'in_at' %>
-          <% if @intervention.back_at.present? && @intervention.in_at.blank? %>
-            <%= link_to(
-              in_at, update_in_intervention_path(@intervention), 
-              method: :put
-            ) %>
-          <% else %>
-            <strong><%= in_at %></strong>
-          <% end %>
-        </div>
-        <div class='span4'>
-          <%= @intervention.in_at %>
-        </div>
-        <div class='span4'>
-          <%= @intervention.in_mileage %>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <p>
     <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
     <%= simple_format @intervention.observations %>
   </p>
+
+  <h3><%= Intervention.human_attribute_name 'endowments_attributes' %></h3>
+  <div class='tabbable'>
+    <ul class="nav nav-tabs">
+      <% @intervention.endowments.each_with_index do |endowment, i| %>
+        <li class='<%= 'active' if i.zero? %>'>
+          <%= link_to (i + 1), "#endowment_item_#{i}", data: { toggle: 'tab' } %>
+        </li>
+      <% end %>
+    </ul>
+    <div class='tab-content'>
+      <% @intervention.endowments.each_with_index do |endowment, i| %>
+        <div class='row-fluid tab-pane <%= 'active' if i.zero? %>' 
+          id="endowment_item_<%= i %>">
+          <div class='span5'>
+            <div class='row-fluid'>
+              <div class='span4'>
+                <strong><%= Endowment.human_attribute_name 'truck_id' %></strong>
+              </div>
+              <div class='span4'>
+                <%= endowment.truck.number %>
+              </div>
+              <div class='span4'>
+                <strong><%= t('view.interventions.mileages') %></strong>
+              </div>
+            </div>
+            <div class='row-fluid'>
+              <div class='span4'>
+                <strong><%= Endowment.human_attribute_name 'out_at' %></strong>
+              </div>
+              <div class='span4'>
+                <%= endowment.out_at %>
+              </div>
+              <div class='span4'>
+                <%= endowment.out_mileage %>
+              </div>
+            </div>
+            <div class='row-fluid'>
+              <div class='span4'>
+                <strong><%= Endowment.human_attribute_name 'arrive_at' %></strong>
+              </div>
+              <div class='span4'>
+                <%= endowment.arrive_at %>
+              </div>
+              <div class='span4'>
+                <%= endowment.arrive_mileage %>
+              </div>
+            </div>
+            <div class='row-fluid'>
+              <div class='span4'>
+                <strong><%= Endowment.human_attribute_name 'back_at' %></strong>
+              </div>
+              <div class='span4'>
+                <%= endowment.back_at %>
+              </div>
+              <div class='span4'>
+                <%= endowment.back_mileage %>
+              </div>
+            </div>
+            <div class='row-fluid'>
+              <div class='span4'>
+                <strong><%= Endowment.human_attribute_name 'in_at' %></strong>
+              </div>
+              <div class='span4'>
+                <%= endowment.in_at %>
+              </div>
+              <div class='span4'>
+                <%= endowment.in_mileage %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_intervention_path(@intervention) if can? :update, @intervention %> |
+  <%= link_to t('label.edit'), 
+    edit_intervention_path(@intervention) if can? :update, @intervention %> |
   <%= link_to t('label.list'), interventions_path %>
 </div>

@@ -1,3 +1,13 @@
+window.Helpers =
+  getHour: ->
+    now = new Date
+    minutes = now.getMinutes()
+    minutes = if minutes > 9 then minutes else "0#{minutes}"
+    hours = now.getHours()
+    hours = if hours > 9 then hours else "0#{hours}"
+
+    hours + ':' + minutes
+
 new Rule
   load: ->
     # For browsers with no autofocus support

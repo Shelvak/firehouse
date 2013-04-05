@@ -7,6 +7,7 @@
 <% intervention_form = nil %>
 <%= simple_form_for @intervention, defaults: { input_html: { class: 'span10' } } do |f| %>
   <%= f.error_notification %>
+  <%= f.object.errors.full_messages.join(', ') %>
 
   <div class="form-inputs">
     <div class='row-fluid'>
@@ -72,67 +73,45 @@
     </div>
 
     <div class='row-fluid'>
-      <div class='span5'>
-        <div class='row-fluid'>
-          <%= render partial: 'truck_output', locals: { f: f } %>
-        </div>
-      </div>
-      <div class='span7'>
-        <div class='tabbable' data-endowments-items>
-          <% if f.object.errors.full_messages.empty? %>
-            <ul class="nav nav-tabs">
-              <li class="active">
-                <%= link_to(
-                  1, '#endowment_lines_1', 
-                  data: { toggle: 'tab', 'endowment-link' => true }
-                ) %>
-              </li>
-              <%= link_to(
-                '&#xe008;'.html_safe, '#', 
-                id: 'add_new_endowment', class: 'iconic'
-              ) %>
-            </ul>
-            <div class="tab-content">
-              <%= f.simple_fields_for :endowments do |e| %>
-                <%= render partial: 'endowment', locals: { f: e } %>
-              <% end %>
-            </div>
-          <% else %>
-            <ul class="nav nav-tabs">
-              <% @intervention.endowments.each_with_index do |e, i| %>
-                <li class="<%= 'active' if i.zero? %>">
-                  <%= link_to(
-                    e.number, "#endowment_lines_#{e.number}",
-                    data: { toggle: 'tab' }
-                  ) %>
+      <div class='tabbable' data-endowments-items>
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <%= link_to(
+              1, '#endowments_1', 
+              data: { toggle: 'tab', 'endowment-link' => true }
+            ) %>
+          </li>
+            <% if (count = f.object.endowments.size) > 1 %>
+              <% i = 1 %>
+              <% (count - 1).times do %>
+                <% i += 1 %>
+                <li>
+                  <%= link_to i, "#endowments_#{i}", data: { toggle: 'tab' } %>
                 </li>
               <% end %>
-            </ul>
-            <div class="tab-content">
-              <% @intervention.endowments.each_with_index do |e, i| %>
-                <div class="tab-pane <%= 'active' if i.zero? %>" 
-                  id="endowment_lines_<%= e.number %>">
-                  <% e.endowment_lines.each do |el| %>
-                    <div class="row-fluid">
-                      <div class="span3">
-                        <%= show_charge_name el.charge %>
-                      </div>
-                      <div class="span9">
-                        <%= el.firefighter %>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
+            <% end %>
+          <%= link_to(
+            '&#xe008;'.html_safe, '#', 
+            id: 'add_new_endowment', class: 'iconic'
+          ) %>
+        </ul>
+        <div class="tab-content">
+          <% i = 0 %>
+          <%= f.simple_fields_for :endowments do |e| %>
+            <%= render partial: 'endowment', locals: { f: e, i: (i += 1) } %>
           <% end %>
         </div>
       </div>
     </div>
     <div class='row-fluid'>
-      <div class='page-header'>
-        <h3><%= Intervention.human_attribute_name :observations %></h3>
-      </div>
+      <h3><%= Intervention.human_attribute_name 'observations' %>
+
+        <span id='add_current_time' class='iconic btn btn-inverse'
+          data-show-tooltip='true'
+          title="<%= t('view.interventions.set_time') %>">
+        &#xe079; 
+      </span> </h3>
+      <br />
       <%= f.input :observations, label: false, input_html: { class: 'span11', rows: 5 } %>
     </div>
   </div>
@@ -147,7 +126,7 @@
 <script type="text/javascript" charset="utf-8">
   var dynamicTab = 
     '<%= content_tag(:li, link_to(
-        "dynamicContent", "#endowment_lines_dynamicContent", 
+        "dynamicContent", "#endowments_dynamicContent", 
         data: { toggle: 'tab', 'endowment-link' => true }
       )
     ) %>'

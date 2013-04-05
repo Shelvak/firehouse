@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318015139) do
+ActiveRecord::Schema.define(:version => 20130403213422) do
 
   create_table "buildings", :force => true do |t|
     t.string   "address"
@@ -38,14 +38,24 @@ ActiveRecord::Schema.define(:version => 20130318015139) do
   add_index "endowment_lines", ["firefighter_id"], :name => "index_endowment_lines_on_firefighter_id"
 
   create_table "endowments", :force => true do |t|
-    t.integer  "number",          :null => false
-    t.integer  "intervention_id", :null => false
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "number",                       :null => false
+    t.integer  "intervention_id",              :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "truck_id"
+    t.string   "out_at",          :limit => 5
+    t.string   "arrive_at",       :limit => 5
+    t.string   "back_at",         :limit => 5
+    t.string   "in_at",           :limit => 5
+    t.integer  "out_mileage"
+    t.integer  "arrive_mileage"
+    t.integer  "back_mileage"
+    t.integer  "in_mileage"
   end
 
   add_index "endowments", ["intervention_id"], :name => "index_endowments_on_intervention_id"
   add_index "endowments", ["number"], :name => "index_endowments_on_number"
+  add_index "endowments", ["truck_id"], :name => "index_endowments_on_truck_id"
 
   create_table "firefighters", :force => true do |t|
     t.string   "firstname",      :null => false

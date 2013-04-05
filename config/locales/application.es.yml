@@ -35,6 +35,11 @@
         charge: 'Cargo'
       endowment:
         number: 'Numero'
+        truck_id: 'Móvil'
+        out_at: 'Salida'
+        arrive_at: 'Llegada al lugar'
+        back_at: 'Vuelta del lugar'
+        in_at: 'Llegada al cuartel'
       firefighter:
         firstname: 'Nombres'
         lastname: 'Apellidos'
@@ -55,13 +60,9 @@
         hierarchy_id: 'Jerarquía'
         receptor_id: 'Receptor'
         observations: 'Observaciones'
-        truck_id: 'Móvil'
-        out_at: 'Salida'
-        arrive_at: 'Llegada al lugar'
-        back_at: 'Vuelta del lugar'
-        in_at: 'Llegada al cuartel'
         hierarchy_name: 'Jerarquía'
         sco_id: 'CEO'
+        endowments_attributes: 'Dotaciones'
       sco:
         full_name: 'Nombre y apellido'
         current: 'Actual'
@@ -187,6 +188,7 @@
         radio: 'Radioperador'
         driver: 'Chofer'
         backup: 'Reserva'
+      set_time: 'Ingresar hora'
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'

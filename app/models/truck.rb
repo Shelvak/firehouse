@@ -18,7 +18,7 @@ class Truck < ActiveRecord::Base
   def as_json(options = nil)
     default_options = {
       only: [:id],
-      methods: [:label]
+      methods: [:label, :mileage]
     }
 
     super(default_options.merge(options || {}))
