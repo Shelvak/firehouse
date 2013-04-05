@@ -42,7 +42,7 @@
         floor: 'Piso'
         roof: 'Techo'
         window: 'Aberturas'
-        electrics: 'Sistema eléctrico'
+        electrics: 'Instalación eléctrica'
         damage: 'Daños'
       endowment_line:
         firefighter_id: 'Bombero'
@@ -88,7 +88,7 @@
         dni_number: 'DNI numero'
         age: 'Edad'
         phone_number: 'Teléfono'
-        relation: 'Pertenece'
+        relation: 'Vínculo'
         moved_to: 'Trasladado a'
         injuries: 'Lesiones'
       sco:
@@ -268,7 +268,7 @@
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
-      edit_profile: 'Editar perfil'
+      edit_profile: 'Editar rfil'
       roles:
         admin: 'Administrador'
         regular: 'Normal'
@@ -283,6 +283,19 @@
       buildings_info: "Datos de inmuebles"
       vehicles_info: "Vehículos"
       supports_info: "Movilidades de apoyo"
+      tables:
+        link: "Vínculo"
+        names: "Nombre y Apellido"
+        dni: "DNI"
+        age: "Edad"
+        phone: "Teléfono"
+        moved_to: "Trasladado a"
+        injuries: "Lesiones"
+        in_the_place: "En el lugar"
+        mobil_number: "Móvil número"
+        responsible: "A cargo"
+        driver: "Conduce"
+        belongs: "Pertenece"
     buildings:
       index_title: "Inmuebles"
       show_title: "Inmueble"

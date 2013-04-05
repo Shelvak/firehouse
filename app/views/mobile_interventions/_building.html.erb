@@ -1,32 +1,32 @@
 <div class='row-fluid well span11'>
   <span class='span3'>
     <h4>
-      Dirección:
+      <%= t 'activerecord.attributes.building.address' %>:
       <%= building.address %>
       <%= link_to_edit ['edit', @intervention, @mobile_intervention, building] %>
     </h4>
     <p>
-      Descripción:
+      <%= t 'activerecord.attributes.building.description' %>:
       <%= building.description %>
     </p>
     <p>
-      Piso:
+      <%= t 'activerecord.attributes.building.floor' %>:
       <%= building.floor %>
     </p>
     <p>
-      Techo:
+      <%= t 'activerecord.attributes.building.roof' %>:
       <%= building.roof %>
     </p>
     <p>
-      Ventanas y puertas
+      <%= t 'activerecord.attributes.building.window' %>:
       <%= building.window %>
     </p>
     <p>
-      Instalación eléctrica:
+      <%= t 'activerecord.attributes.building.electrics' %>:
       <%= building.electrics %>
     </p>
     <p>
-      Daños:
+      <%= t 'activerecord.attributes.building.damage' %>:
       <%= building.damage%>
     </p>
   </span>
@@ -34,7 +34,7 @@
     <% if building.persons.any? %>
       <%= render 'mobile_interventions/people_table', people: building.persons %>
     <% end %>
-    <p><%= link_to 'Agregar Persona', new_intervention_mobile_intervention_building_person_path(
+    <p><%= link_to t('view.people.new'), new_intervention_mobile_intervention_building_person_path(
         @intervention, @mobile_intervention, building), class: 'btn btn-success btn-mini' %></p>
   </span>
 </div>
