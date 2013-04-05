@@ -22,14 +22,28 @@
       intervention:
         one: 'Intervención'
         other: 'Intervenciones'
+      mobile_intervention:
+        one: 'Planilla móvil'
+        other: 'Planillas móviles'
       truck:
         one: 'Móvil'
         other: 'Moviles'
       user:
         one: 'Usuario'
         other: 'Usuarios'
+      vehicle:
+        one: 'Vehículo'
+        other: 'Vehículos'
       
     attributes:
+      building:
+        address: 'Dirección'
+        description: 'Descripción'
+        floor: 'Piso'
+        roof: 'Techo'
+        window: 'Aberturas'
+        electrics: 'Sistema eléctrico'
+        damage: 'Daños'
       endowment_line:
         firefighter_id: 'Bombero'
         charge: 'Cargo'
@@ -63,9 +77,29 @@
         hierarchy_name: 'Jerarquía'
         sco_id: 'CEO'
         endowments_attributes: 'Dotaciones'
+      mobile_intervention:
+        date: 'Fecha'
+        observations: 'Observaciones'
+      person:
+        name: 'Nombre'
+        last_name: 'Apellido'
+        address: 'Dirección'
+        dni_type: 'DNI tipo'
+        dni_number: 'DNI numero'
+        age: 'Edad'
+        phone_number: 'Teléfono'
+        relation: 'Pertenece'
+        moved_to: 'Trasladado a'
+        injuries: 'Lesiones'
       sco:
         full_name: 'Nombre y apellido'
         current: 'Actual'
+      support:
+        support_type: 'Tipo de apoyo'
+        number: 'Número'
+        responsible: 'A cargo'
+        driver: 'Conductor'
+        owner: 'Pertence'
       truck:
         number: 'Número'
         mileage: 'Kilómetros'
@@ -80,6 +114,13 @@
           other: 'Perfiles'
         remember_me: 'Recordarme'
         hierarchy_id: 'Jerarquía'
+      vehicle:
+        number: 'Número'
+        mark: 'Marca'
+        model: 'Modelo'
+        year: 'Año'
+        domain: 'Dominio'
+        damage: 'Daños'
         
   errors:
     title: 'Error'
@@ -231,3 +272,50 @@
       roles:
         admin: 'Administrador'
         regular: 'Normal'
+    mobile_interventions:
+      index_title: "Planillas moviles"
+      show_title: "Planilla móvil"
+      new_title: "Nueva planilla movil"
+      edit_title: "Editando la planilla móvil"
+      correctly_created: "Planilla móvil creada correctamente"
+      correctly_updated: "Planilla móvil actualizada"
+      stale_object_error: "La Planilla móvil no pudo ser actualizada, intente nuevamente"
+      buildings_info: "Datos de inmuebles"
+      vehicles_info: "Vehículos"
+      supports_info: "Movilidades de apoyo"
+    buildings:
+      index_title: "Inmuebles"
+      show_title: "Inmueble"
+      new_title: "Nuevo inmueble"
+      edit_title: "Editando el inmueble"
+      correctly_created: "Inmueble agregado correctamente"
+      correctly_updated: "Inmueble actualizado correctamente"
+      stale_object_error: "El inmueble no pudo ser actualizado, intente nuevamente."
+      new: "Agregar inmueble"
+    vehicles:
+      index_title: "Vehículos"
+      show_title: "Vehículo"
+      new_title: "Nuevo vehículo"
+      edit_title: "Editando el vehículo"
+      correctly_created: "Vehículo agregado correctamente"
+      correctly_updated: "Vehículo actualizado correctamente"
+      stale_object_error: "El vehículo no pudo ser actualizado, intente nuevamente."
+      new: "Agregar vehículo"
+    supports:
+      index_title: "Moviles de apoyo"
+      show_title: "Móvil de apoyo"
+      new_title: "Nuevo Móvil de apoyo"
+      edit_title: "Editando el Móvil de apoyo"
+      correctly_created: "Móvil de apoyo agregado correctamente"
+      correctly_updated: "Móvil de apoyo actualizado correctamente"
+      stale_object_error: "El Móvil de apoyo no pudo ser actualizado, intente nuevamente."
+      new: "Agregar Móvil de Apoyo"
+    people:
+      index_title: "Personas"
+      show_title: "Persona"
+      new_title: "Nueva persona"
+      edit_title: "Editando la persona"
+      correctly_created: "Persona agregada correctamente"
+      correctly_updated: "Persona actualizada correctamente"
+      stale_object_error: "La persona no pudo ser actualizada, intente nuevamente."
+      new: "Agregar persona"

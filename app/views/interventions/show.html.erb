@@ -49,7 +49,7 @@
           @intervention.sco, sco_path(@intervention.sco)
         ) if @intervention.sco %>
       <% end %>
-      <div><%= link_to 'Planilla Movil', (@intervention.mobile_intervention ? [@intervention, @intervention.mobile_intervention] : new_intervention_mobile_intervention_path(@intervention) ), class: 'btn btn-primary' %></div>
+      <div><%= link_to t('activerecord.models.mobile_intervention.one'), (@intervention.mobile_intervention ? [@intervention, @intervention.mobile_intervention] : new_intervention_mobile_intervention_path(@intervention) ), class: 'btn btn-primary' %></div>
     </div>
   </div>
 

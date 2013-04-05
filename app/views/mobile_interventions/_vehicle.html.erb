@@ -1,28 +1,28 @@
 <div class='row-fluid well span11'>
   <span class='span3'>
     <h4>
-      Vehículo:
+      <%= t 'activerecord.attributes.vehicle.number' %>:
       <%= number %>
       <%= link_to_edit ['edit', @intervention, @mobile_intervention, vehicle] %>
     </h4>
     <p>
-      Marca:
+      <%= t 'activerecord.attributes.vehicle.mark' %>:
       <%= vehicle.mark %>
     </p>
     <p>
-      Modelo:
+      <%= t 'activerecord.attributes.vehicle.model' %>:
     <%= vehicle.model %>
     </p>
     <p>
-      Año:
+      <%= t 'activerecord.attributes.vehicle.year' %>:
       <%= vehicle.year %>
     </p>
     <p>
-      Dominio:
+      <%= t 'activerecord.attributes.vehicle.domain' %>:
       <%= vehicle.domain %>
     </p>
     <p>
-      Daños del vehículo:
+      <%= t 'activerecord.attributes.vehicle.damage' %>
       <%= vehicle.damage %>
     </p>
   </span>
@@ -30,7 +30,7 @@
     <% if vehicle.persons.any? %>
       <%= render 'mobile_interventions/people_table', people: vehicle.persons %>
     <% end %>
-    <p><%= link_to 'Agregar Persona', new_intervention_mobile_intervention_vehicle_person_path(
+    <p><%= link_to t('view.vehicles.new'), new_intervention_mobile_intervention_vehicle_person_path(
         @intervention, @mobile_intervention, vehicle), class: 'btn btn-success btn-mini' %></p>
   </span>
 </div>

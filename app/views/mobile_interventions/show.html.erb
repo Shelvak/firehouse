@@ -1,5 +1,5 @@
 <div class="readonly-data">
-  <h2><%= show_kind_of_intervention @intervention.kind %> - Planilla Móvil</h2>
+  <h2><%= show_kind_of_intervention @intervention.kind %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
   <div class='row-fluid'>
     <span class='span3'>
       <br/>
@@ -22,35 +22,35 @@
   </div>
   <hr/>
   <div class='row-fluid'>
-    <h3>Datos de inmuebles</h3>
+    <h3><%= t 'view.mobile_interventions.buildings_info' %></h3>
     <% @mobile_intervention.buildings.each do |building| %>
       <%= render 'mobile_interventions/building', building: building %>
     <% end %>
-    <p><%= link_to 'Agregar Inmueble', new_intervention_mobile_intervention_building_path(
+    <p><%= link_to t('view.buildings.new'), new_intervention_mobile_intervention_building_path(
         @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
 
   <hr/>
 
   <div class='row-fluid'>
-    <h3>Vehículos</h3>
+    <h3><%= t 'view.mobile_interventions.vehicles_info' %></h3>
     <% number = 0 %>
     <% @mobile_intervention.vehicles.each do |vehicle| %>
       <% number += 1 %>
       <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
     <% end %>
-    <p><%= link_to 'Agregar Vehículo', new_intervention_mobile_intervention_vehicle_path(
+    <p><%= link_to t('view.vehicles.new'), new_intervention_mobile_intervention_vehicle_path(
         @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
 
   <hr/>
 
   <div class='row-fluid'>
-    <h3>Movilidades de apoyo</h3>
+    <h3><%= t 'view.mobile_interventions.supports_info' %></h3>
     <% if @mobile_intervention.supports.any? %>
       <%= render 'mobile_interventions/support_table' %>
     <% end %>
-    <p><%= link_to 'Agregar Móvil de Apoyo', new_intervention_mobile_intervention_support_path(
+    <p><%= link_to t('view.supports.new'), new_intervention_mobile_intervention_support_path(
         @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
 </div>
