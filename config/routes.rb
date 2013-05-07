@@ -19,14 +19,17 @@ Firehouse::Application.routes.draw do
       put :update_back
       put :update_in
     end
-    resources :mobile_interventions do
-      resources :buildings do
-        resources :people
-      end
-      resources :supports, only: [:new, :edit, :destroy, :create, :update]
-      resources :vehicles, only: [:new, :edit, :destroy, :create, :update] do
-        resources :people
-      end
+    resources :endowements do
+      resources :mobile_interventions
+    end
+  end
+  resources :mobile_interventions do
+    resources :buildings do
+      resources :people
+    end
+    resources :supports, only: [:new, :edit, :destroy, :create, :update]
+    resources :vehicles, only: [:new, :edit, :destroy, :create, :update] do
+      resources :people
     end
   end
 

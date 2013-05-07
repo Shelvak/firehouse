@@ -3,7 +3,7 @@
 </div>
 <%= content_for :form_actions do %>
   <%= link_to t('activerecord.models.intervention.one'), @intervention %> |
-  <%= link_to t('activerecord.models.mobile_intervention.one'), [@intervention, @mobile_intervention] %>
+  <%= link_to t('activerecord.models.mobile_intervention.one'), [@intervention, @mobile_intervention.endowment, @mobile_intervention] %>
 <% end %>
 
 <%= render 'form' %>
