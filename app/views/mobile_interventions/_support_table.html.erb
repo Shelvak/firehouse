@@ -18,10 +18,8 @@
       <td><%= support.driver %></td>
       <td><%= support.owner %></td>
       <td>
-        <%= link_to_edit edit_intervention_mobile_intervention_support_path(
-                             @intervention, @mobile_intervention, support)  %>
-        <%= link_to_destroy intervention_mobile_intervention_support_path(
-                                @intervention, @mobile_intervention, support)  %>
+        <%= link_to_edit edit_mobile_intervention_support_path(@mobile_intervention, support)  %>
+        <%= link_to_destroy mobile_intervention_support_path(@mobile_intervention, support)  %>
       </td>
     </tr>
   <% end %>

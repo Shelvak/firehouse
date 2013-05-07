@@ -3,7 +3,7 @@
     <h4>
       <%= t 'activerecord.attributes.building.address' %>:
       <%= building.address %>
-      <%= link_to_edit ['edit', @intervention, @mobile_intervention, building] %>
+      <%= link_to_edit ['edit', @mobile_intervention, building] %>
     </h4>
     <p>
       <%= t 'activerecord.attributes.building.description' %>:
@@ -34,7 +34,7 @@
     <% if building.persons.any? %>
       <%= render 'mobile_interventions/people_table', people: building.persons %>
     <% end %>
-    <p><%= link_to t('view.people.new'), new_intervention_mobile_intervention_building_person_path(
-        @intervention, @mobile_intervention, building), class: 'btn btn-success btn-mini' %></p>
+    <p><%= link_to t('view.people.new'), new_mobile_intervention_building_person_path(@mobile_intervention, building),
+                   class: 'btn btn-success btn-mini' %></p>
   </span>
 </div>

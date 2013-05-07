@@ -2,7 +2,7 @@
   <h2><%= show_kind_of_intervention @intervention.kind %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
 </div>
 <%= content_for :form_actions do %>
-  <%= link_to t('label.show'), [@intervention, @mobile_intervention] %> |
+  <%= link_to t('label.show'), [@intervention, @endowement, @mobile_intervention] %> |
   <%= link_to t('activerecord.models.intervention.one'), @intervention %>
 <% end %>
 

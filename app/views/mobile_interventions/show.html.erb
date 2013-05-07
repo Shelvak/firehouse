@@ -4,7 +4,7 @@
     <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
     <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
   </p>
-  <%= simple_form_for([@intervention, @mobile_intervention]) do |f| %>
+  <%= simple_form_for([@intervention, @endowment, @mobile_intervention]) do |f| %>
     <div class="pull-right">
       <%= f.button :submit, class: 'btn-primary' %>
     </div>
@@ -17,8 +17,7 @@
     <% @mobile_intervention.buildings.each do |building| %>
       <%= render 'mobile_interventions/building', building: building %>
     <% end %>
-    <p><%= link_to t('view.buildings.new'), new_intervention_mobile_intervention_building_path(
-        @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
+    <p><%= link_to t('view.buildings.new'), new_mobile_intervention_building_path(@mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
 
   <hr/>
@@ -30,8 +29,7 @@
       <% number += 1 %>
       <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
     <% end %>
-    <p><%= link_to t('view.vehicles.new'), new_intervention_mobile_intervention_vehicle_path(
-        @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
+    <p><%= link_to t('view.vehicles.new'), new_mobile_intervention_vehicle_path(@mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
 
   <hr/>
@@ -41,12 +39,11 @@
     <% if @mobile_intervention.supports.any? %>
       <%= render 'mobile_interventions/support_table' %>
     <% end %>
-    <p><%= link_to t('view.supports.new'), new_intervention_mobile_intervention_support_path(
-        @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
+    <p><%= link_to t('view.supports.new'), new_mobile_intervention_support_path(@mobile_intervention), class: 'btn btn-primary' %></p>
   </div>
 </div>
 
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_intervention_mobile_intervention_path(@intervention, @mobile_intervention) if can? :update, @mobile_intervention %> |
+  <%= link_to t('label.edit'), edit_mobile_intervention_path(@mobile_intervention) if can? :update, @mobile_intervention %> |
   <%= link_to t('activerecord.models.intervention.one'), @intervention %>
 </div>
