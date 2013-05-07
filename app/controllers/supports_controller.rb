@@ -22,8 +22,8 @@ class SupportsController < ApplicationController
 
     respond_to do |format|
       if @support.save
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.support.correctly_created') }
-        format.json { render json: [@intervention, @mobile_intervention], status: :created, location: @person }
+        format.html { redirect_to [@intervention, @mobile_intervention.endowment, @mobile_intervention], notice: t('view.support.correctly_created') }
+        format.json { render json: [@intervention, @mobile_intervention.endowment, @mobile_intervention], status: :created, location: @person }
       else
         format.html { render action: 'new' }
         format.json { render json: @person.errors, status: :unprocessable_entity }
@@ -37,7 +37,7 @@ class SupportsController < ApplicationController
 
     respond_to do |format|
       if @support.update_attributes(params[:person])
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.support.correctly_updated') }
+        format.html { redirect_to [@intervention, @mobile_intervention.endowment, @mobile_intervention], notice: t('view.support.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -45,7 +45,7 @@ class SupportsController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit',@intervention, @mobile_intervention, @support], alert: t('view.support.stale_object_error')
+    redirect_to ['edit', @mobile_intervention, @support], alert: t('view.support.stale_object_error')
   end
 
   def destroy
@@ -53,14 +53,14 @@ class SupportsController < ApplicationController
     @support.destroy
 
     respond_to do |format|
-      format.html { redirect_to [@intervention, @mobile_intervention] }
+      format.html { redirect_to [@intervention, @mobile_intervention.endowment, @mobile_intervention] }
       format.json { head :ok }
     end
   end
 
   private
   def get_intervention
-    @intervention = Intervention.includes(:mobile_intervention).find(params[:intervention_id])
-    @mobile_intervention = @intervention.mobile_intervention
+    @mobile_intervention = MobileIntervention.find params[:mobile_intervention_id]
+    @intervention = @mobile_intervention.endowment.intervention
   end
 end

@@ -22,8 +22,8 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.save
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.vehicles.correctly_created') }
-        format.json { render json: [@intervention, @mobile_intervention], status: :created, location: @vehicle }
+        format.html { redirect_to [@intervention, @mobile_intervention.endowment, @mobile_intervention], notice: t('view.vehicles.correctly_created') }
+        format.json { render json: [@intervention, @mobile_intervention.endowment, @mobile_intervention], status: :created, location: @vehicle }
       else
         format.html { render action: 'new' }
         format.json { render json: @vehicle.errors, status: :unprocessable_entity }
@@ -37,7 +37,7 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.update_attributes(params[:vehicle])
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.vehicles.correctly_updated') }
+        format.html { redirect_to [@intervention, @mobile_intervention.endowment, @mobile_intervention], notice: t('view.vehicles.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -45,7 +45,7 @@ class VehiclesController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit', @intervention, @mobile_intervention, @vehicle], alert: t('view.vehicles.stale_object_error')
+    redirect_to ['edit', @mobile_intervention, @vehicle], alert: t('view.vehicles.stale_object_error')
   end
 
   def destroy
@@ -60,7 +60,7 @@ class VehiclesController < ApplicationController
 
   private
     def get_intervention
-      @intervention = Intervention.includes(:mobile_intervention).find(params[:intervention_id])
-      @mobile_intervention = @intervention.mobile_intervention
+      @mobile_intervention = MobileIntervention.find params[:mobile_intervention_id]
+      @intervention = @mobile_intervention.endowment.intervention
     end
 end

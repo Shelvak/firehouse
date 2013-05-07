@@ -2,7 +2,6 @@
   <h2><%= show_kind_of_intervention @intervention.kind %></h2>
   <div class='row-fluid'>
     <div class='span6'>
-      <div><%= link_to t('activerecord.models.mobile_intervention.one'), (@intervention.mobile_intervention ? [@intervention, @intervention.mobile_intervention] : new_intervention_mobile_intervention_path(@intervention) ), class: 'btn btn-primary' %></div>
       <p>
       <strong><%= Intervention.human_attribute_name 'number' %></strong>:
       <%= @intervention.number %>
@@ -69,6 +68,8 @@
     </ul>
     <div class='tab-content'>
       <% @intervention.endowments.each_with_index do |endowment, i| %>
+        <div><%= link_to t('activerecord.models.mobile_intervention.one'), (endowment.mobile_intervention ?
+            [@intervention, endowment, endowment.mobile_intervention] : new_intervention_endowement_mobile_intervention_path(@intervention, endowment) ), class: 'btn btn-primary' %></div>
         <div class='row-fluid tab-pane <%= 'active' if i.zero? %>'
           id="endowment_item_<%= i %>">
           <div class='span5'>
