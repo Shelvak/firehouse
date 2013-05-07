@@ -10,7 +10,7 @@ class Endowment < ActiveRecord::Base
   belongs_to :intervention
   belongs_to :truck
   has_many :endowment_lines
-  has_one :mobile_intervention
+  belongs_to :mobile_intervention
 
   validates :number, presence: true
   validate :truck_out_in_distance
