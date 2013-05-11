@@ -56,8 +56,6 @@ class InterventionsController < ApplicationController
 
     respond_to do |format|
       if @intervention.save
-        @mobile_intervention = @intervention.build_mobile_intervention
-        @mobile_intervention.save
         format.html { redirect_to @intervention, notice: t('view.interventions.correctly_created') }
         format.json { render json: @intervention, status: :created, location: @intervention }
       else

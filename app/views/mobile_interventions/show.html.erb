@@ -4,12 +4,11 @@
     <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
     <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
   </p>
-  <%= simple_form_for([@intervention, @endowment, @mobile_intervention]) do |f| %>
-    <div class="pull-right">
-      <%= f.button :submit, class: 'btn-primary' %>
+  <%= form_for @mobile_intervention, url: intervention_endowement_mobile_intervention_path( @intervention, @endowment, @mobile_intervention ) do |f| %>
+    <span class="pull-right"><%= f.submit t('view.mobile_interventions.edit_button'), class: 'btn btn-primary' %></span>
+    <div class="form-inputs">
+      <%= f.text_area :observations, class: 'span9', rows: 5 %>
     </div>
-    <%= f.error_notification %>
-    <%= f.input :observations, input_html: { class: 'span9', rows: 5 } %>
   <% end %>
   <hr/>
   <div class='row-fluid'>
@@ -44,6 +43,5 @@
 </div>
 
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_mobile_intervention_path(@mobile_intervention) if can? :update, @mobile_intervention %> |
   <%= link_to t('activerecord.models.intervention.one'), @intervention %>
 </div>

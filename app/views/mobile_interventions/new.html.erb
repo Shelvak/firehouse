@@ -4,5 +4,6 @@
 <%= content_for :form_actions do %>
   <%= link_to t('activerecord.models.intervention.one'), @intervention %>
 <% end %>
-
-<%= render 'form' %>
+<%= form_for @mobile_intervention, url: intervention_endowement_mobile_interventions_path( @intervention, @endowment ) do |f| %>
+  <%= render 'form', f: f %>
+<% end %>

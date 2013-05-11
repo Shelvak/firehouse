@@ -51,8 +51,8 @@ class MobileInterventionsController < ApplicationController
 
     respond_to do |format|
       if @mobile_intervention.save
-        format.html { redirect_to [@intervention, @endowment,  @mobile_intervention], notice: t('view.mobile_interventions.correctly_created') }
-        format.json { render json: [@intervention, @endowment,  @mobile_intervention], status: :created, location: @mobile_intervention }
+        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.mobile_interventions.correctly_created') }
+        format.json { render json: intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @mobile_intervention }
       else
         format.html { render action: 'new' }
         format.json { render json: @mobile_intervention.errors, status: :unprocessable_entity }
@@ -68,7 +68,7 @@ class MobileInterventionsController < ApplicationController
 
     respond_to do |format|
       if @mobile_intervention.update_attributes(params[:mobile_intervention])
-        format.html { redirect_to [@intervention, @endowment,  @mobile_intervention], notice: t('view.mobile_interventions.correctly_updated') }
+        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.mobile_interventions.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
