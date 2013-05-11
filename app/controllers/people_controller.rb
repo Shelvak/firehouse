@@ -43,8 +43,8 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to [@intervention, @mobile_intervention.endowment, @mobile_intervention], notice: t('view.people.correctly_created') }
-        format.json { render json: [@intervention, @mobile_intervention.endowment, @mobile_intervention], status: :created, location: @person }
+        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.people.correctly_created') }
+        format.json { render json: intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @person }
       else
         format.html { render action: 'new' }
         format.json { render json: @person.errors, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to [@intervention, @mobile_intervention.endowment, @mobile_intervention], notice: t('view.people.correctly_updated') }
+        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.people.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -74,7 +74,7 @@ class PeopleController < ApplicationController
     @person.destroy
 
     respond_to do |format|
-      format.html { redirect_to [@intervention, @mobile_intervention.endowment, @mobile_intervention] }
+      format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) }
       format.json { head :ok }
     end
   end
@@ -82,7 +82,8 @@ class PeopleController < ApplicationController
   private
     def get_intervention
       @mobile_intervention = MobileIntervention.find params[:mobile_intervention_id]
-      @intervention = @mobile_intervention.endowment.intervention
+      @endowment = @mobile_intervention.endowment
+      @intervention = @endowment.intervention
       @building = Building.find(params[:building_id]) if params[:building_id]
       @vehicle = Vehicle.find(params[:vehicle_id]) if params[:vehicle_id]
     end
