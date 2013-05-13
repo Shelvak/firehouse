@@ -1,23 +1,18 @@
-<div class="quick-button-div" id="quick-button-div">
-  <div class="quick-button button-1">
-    <span class="texto">Fuego</span>
-  </div>
-  <div class="quick-button button-2">
-    Choque
-  </div>
-  <div class="quick-button button-3">
-    Rescate
-  </div>
-  <div class="quick-button button-4">
-    Derrumbe
-  </div>
-</div>
 <%= content_for :form_actions do %>
   <%= link_to t('label.list'), interventions_path %>
 <% end %>
+<h2><%= t('view.interventions.new_title', number: intervention_next_number_for_form) %></h2>
+<div id="show-quick-buttons" class="btn btn-mini btn-info pull-right">Mostrar botones rapidos</div>
+<div class="quick-button-div" id="quick-button-div">
+  <div class="quick-button-fire" id="button-fire" target="fire"></div>
+  <div class="quick-button-crash" id="button-crash" target="crash"></div>
+  <div class="quick-button-rescue" id="button-rescue" target="rescue"></div>
+  <div class="quick-button-other" id="button-other" target="other"></div>
+</div>
 
 <%= render 'form' %>
 
 <script type="text/javascript">
   extend_button_div();
+  apply_quick_button_functions();
 </script>

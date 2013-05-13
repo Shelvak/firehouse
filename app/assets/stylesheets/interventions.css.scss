@@ -8,15 +8,15 @@
 }
 
 .quick-button-div {
-  position: relative;
-  top: -20px;
+  border-radius: 15px;
   background-color: #363636;
   min-height: 300px;
   padding: 20px;
   text-align: center;
 
-  .quick-button {
-    transition: all 0.7s ease-in-out;
+  [class^="quick-button-"],
+  [class*=" quick-button-"] {
+    transition: all 0.4s ease-in-out;
     display: inline-block;
     margin: 10px;
     width: 200px;
@@ -24,18 +24,29 @@
     min-width: 200px;
     min-height: 200px;
     background-color: #ffffff;
+    border: 2px solid #363636;
     border-radius: 15px;
     box-shadow: 0px 15px 15px #000000;
-    .texto{
-      position: relative;
-      top: 45%;
-      color: red;
-    }
+    position: relative;
+    top: 20%;
   }
 
-  .quick-button:hover {
-    transition: all 0.7s ease-in-out;
-    width: 250px;
-    height: 250px;
+  [class^="quick-button-"]:hover,
+  [class*=" quick-button-"]:hover {
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 5px 10px #85001a;
+  }
+
+  .quick-button-fire {
+    background-image: url('incendio.png');
+    background-size: cover;
+  }
+  .quick-button-crash {
+    background-image: url('choque.gif');
+    background-size: cover;
+  }
+  .quick-button-rescue {
+    background-image: url('rescate.jpg');
+    background-size: cover;
   }
 }
