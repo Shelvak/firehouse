@@ -2,12 +2,12 @@
   <%= link_to t('label.list'), interventions_path %>
 <% end %>
 <h2><%= t('view.interventions.new_title', number: intervention_next_number_for_form) %></h2>
-<div id="show-quick-buttons" class="btn btn-mini btn-info pull-right">Mostrar botones rapidos</div>
+<div id="show-quick-buttons" class="btn btn-mini btn-inverse pull-right">Mostrar botones rapidos</div>
 <div class="quick-button-div" id="quick-button-div">
-  <div class="quick-button-fire" id="button-fire" target="fire"></div>
-  <div class="quick-button-crash" id="button-crash" target="crash"></div>
-  <div class="quick-button-rescue" id="button-rescue" target="rescue"></div>
-  <div class="quick-button-other" id="button-other" target="other"></div>
+  <div class="quick-button-fire alarm-button" target="fire"></div>
+  <div class="quick-button-crash alarm-button" target="crash"></div>
+  <div class="quick-button-rescue alarm-button" target="rescue"></div>
+  <div class="quick-button-other alarm-button" target="other"></div>
 </div>
 
 <%= render 'form' %>

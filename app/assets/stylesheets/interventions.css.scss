@@ -29,24 +29,28 @@
     box-shadow: 0px 15px 15px #000000;
     position: relative;
     top: 20%;
+    background-size: cover;
   }
 
   [class^="quick-button-"]:hover,
   [class*=" quick-button-"]:hover {
     transition: all 0.4s ease-in-out;
-    box-shadow: 0px 5px 10px #85001a;
+    box-shadow: 0px 20px 20px #000000;
+    -ms-transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2);
+    -moz-transform: scale(1.2, 1.2);
+    -o-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
   }
 
   .quick-button-fire {
     background-image: url('incendio.png');
-    background-size: cover;
   }
   .quick-button-crash {
     background-image: url('choque.gif');
-    background-size: cover;
   }
   .quick-button-rescue {
     background-image: url('rescate.jpg');
-    background-size: cover;
+
   }
 }
