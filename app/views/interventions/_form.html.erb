@@ -4,7 +4,7 @@
 <% intervention_form = nil %>
 <%= simple_form_for @intervention, defaults: { input_html: { class: 'span10' } } do |f| %>
   <%= f.error_notification %>
-  <%= f.object.errors.full_messages.join(', ') %>
+  <!--<%= f.object.errors.full_messages.join(', ') %>-->
 
   <div class="form-inputs">
     <div class='row-fluid'>
