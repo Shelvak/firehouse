@@ -9,9 +9,9 @@ class EndowmentLineTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference ['EndowmentLine.count', 'Version.count'] do
       endowment_line = EndowmentLine.new(Fabricate.attributes_for(
-        :endowment_line, 
-        firefighter_id: @endowment_line.firefighter_id
+        :endowment_line
       ))
+      endowment_line.firefighter_ids << @endowment_line.firefighters.map(&:id)
       endowment_line.endowment_id = @endowment_line.endowment_id
       endowment_line.save
     end 
@@ -35,14 +35,10 @@ class EndowmentLineTest < ActiveSupport::TestCase
     
   test 'validates blank attributes' do
     @endowment_line.charge = ''
-    @endowment_line.firefighter_id = ''
     
     assert @endowment_line.invalid?
-    assert_equal 2, @endowment_line.errors.size
+    assert_equal 1, @endowment_line.errors.size
     assert_equal [error_message_from_model(@endowment_line, :charge, :blank)],
       @endowment_line.errors[:charge]
-    assert_equal [
-      error_message_from_model(@endowment_line, :firefighter_id, :blank)
-    ], @endowment_line.errors[:firefighter_id]
   end
 end

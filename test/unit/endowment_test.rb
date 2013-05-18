@@ -8,8 +8,7 @@ class EndowmentTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference 'Endowment.count' do
-      # Versions = 3 - firefighter, endowment_line, endowment
-      assert_difference 'Version.count', 3 do
+      assert_difference 'Version.count', 2 do
         endowment = Endowment.new(Fabricate.attributes_for(
           :endowment, truck_id: @endowment.truck_id))
         endowment.intervention_id = @endowment.intervention_id

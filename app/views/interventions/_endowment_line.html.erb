@@ -4,18 +4,13 @@
     <%= f.input :charge, as: :hidden %>
   </div>
   <div class='span9'>
-    <%= f.input :auto_firefighter_name, label: false, input_html: {
-      value: f.object.firefighter,
-      class: 'span10 autocomplete-field',
+    <%= f.input :firefighters_names, label: false, input_html: {
+      class: 'span10 token-autocomplete',
+      autocomplete: 'off',
       data: {
-        'autocomplete-url' => autocomplete_for_firefighter_name_interventions_path(
-          format: :json
-        ),
-        'autocomplete-class-target' => '.autocomplete-id'
-      }
+        load: f.object.firefighters,
+        'token-limit' => ([3, 6].include?(f.object.charge) ? nil : 1)
+      } 
     } %>
-
-    <%= f.input :firefighter_id, as: :hidden, 
-      input_html: { class: 'autocomplete-id' } %>
   </div>
 </div>

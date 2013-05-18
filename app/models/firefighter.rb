@@ -5,7 +5,9 @@ class Firefighter < ActiveRecord::Base
 
   attr_accessible :firstname, :lastname, :identification
 
-  has_many :endowment_lines
+  has_many :endowment_line_firefighter_relations
+  has_many :endowment_lines, through: :endowment_line_firefighter_relations,
+   autosave: true
 
   validates :firstname, :lastname, :identification, presence: true
   validates :identification, uniqueness: true

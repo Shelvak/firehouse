@@ -1,6 +1,6 @@
 Fabricator(:intervention) do
   # Gral info
-  number          { 10000 * rand }
+  number          { rand(999) * rand(999) }
   address         { Faker::Address.street_address }
   near_corner     { Faker::Address.street_name }
   kind            { Intervention::KINDS.values.sample }

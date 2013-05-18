@@ -11,18 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403213422) do
+ActiveRecord::Schema.define(:version => 20130518054740) do
+
+  create_table "endowment_line_firefighter_relations", :force => true do |t|
+    t.integer  "endowment_line_id", :null => false
+    t.integer  "firefighter_id",    :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "endowment_line_firefighter_relations", ["endowment_line_id", "firefighter_id"], :name => "endowment_line_id_firefighter_id_relation_index", :unique => true
 
   create_table "endowment_lines", :force => true do |t|
-    t.integer  "firefighter_id", :null => false
-    t.integer  "charge",         :null => false
-    t.integer  "endowment_id",   :null => false
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer  "charge",       :null => false
+    t.integer  "endowment_id", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "endowment_lines", ["endowment_id"], :name => "index_endowment_lines_on_endowment_id"
-  add_index "endowment_lines", ["firefighter_id"], :name => "index_endowment_lines_on_firefighter_id"
 
   create_table "endowments", :force => true do |t|
     t.integer  "number",                       :null => false

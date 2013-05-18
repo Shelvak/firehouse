@@ -7,7 +7,7 @@ class Truck < ActiveRecord::Base
   validates :number, presence: true
   validates :number, uniqueness: true
 
-  has_many :interventions
+  has_many :endowments
 
   def to_s
     self.number

@@ -27,6 +27,7 @@ class Intervention < ActiveRecord::Base
   validate :sco_presence
 
   before_validation :assign_intervention_number, :assign_endowment_number
+  after_create :assign_mileage_to_trucks
 
   belongs_to :user, foreign_key: 'receptor_id'
   belongs_to :sco
@@ -65,5 +66,11 @@ class Intervention < ActiveRecord::Base
 
   def assign_endowment_number
     self.endowments.each_with_index { |e, i| e.number = i + 1}
+  end
+
+  def assign_mileage_to_trucks
+    self.endowments.each do |e|
+      e.truck.update_attributes(mileage: e.in_mileage) if e.in_mileage
+    end
   end
 end

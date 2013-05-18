@@ -10,16 +10,26 @@ class EndowmentLine < ActiveRecord::Base
     6 => 'backup'
   }.with_indifferent_access.freeze
 
-  attr_accessible :firefighter_id, :charge, :auto_firefighter_name
+  attr_accessible :charge, :firefighters_names
 
-  attr_accessor :auto_firefighter_name
+  attr_accessor :firefighters_names
 
   belongs_to :endowments
-  belongs_to :firefighter
+  has_many :endowment_line_firefighter_relations
+  has_many :firefighters, through: :endowment_line_firefighter_relations, 
+    autosave: true
 
-  validates :firefighter_id, :charge, presence: true
+  validates :charge, presence: true
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
+  end
+
+  def firefighters_names=(ids)
+    self.firefighter_ids = ids.split(',')
+  end
+
+  def firefighters_names
+    self.firefighters.map(&:to_s).join(', ')
   end
 end

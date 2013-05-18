@@ -1,5 +1,5 @@
 Fabricator(:endowment) do
-  number            { 100 * rand }
+  number            { rand(999) * rand(999) }
   endowment_lines_attributes { { 1 => Fabricate.attributes_for(:endowment_line) } }
 
   # Truck info
