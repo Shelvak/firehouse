@@ -8,13 +8,14 @@
       value: f.object.firefighter,
       class: 'span10 autocomplete-field',
       data: {
-        'autocomplete-id-target' => '#intervention_firefighter_id',
         'autocomplete-url' => autocomplete_for_firefighter_name_interventions_path(
           format: :json
-        )
+        ),
+        'autocomplete-class-target' => '.autocomplete-id'
       }
     } %>
 
-    <%= f.input :firefighter_id, as: :hidden %>
+    <%= f.input :firefighter_id, as: :hidden, 
+      input_html: { class: 'autocomplete-id' } %>
   </div>
 </div>
