@@ -1,0 +1,22 @@
+<% i ||= nil %>
+<% id = i ? i : 'dynamicContent' %>
+
+<div class="tab-pane <%= 'active' if i == 1 %>" 
+  id="endowments_<%= id %>" data-endowment-item="true">
+  <fieldset>
+    <div class='row-fluid'>
+      <div class='span5'>
+        <div class='row-fluid'>
+          <%= render partial: 'truck_output', locals: { f: f } %>
+        </div>
+      </div>
+      <div class='span7'>
+        <%= f.simple_fields_for :endowment_lines, 
+          defaults: { input_html: { class: 'span11' } } do |el| %>
+
+          <%= render partial: 'endowment_line', locals: { f: el } %>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
+</div>

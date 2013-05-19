@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <%= link_to '&times;'.html_safe, '', class: 'close', data: { dismiss: 'modal' } %>
+  <h2><%= @title %></h2>
+</div>
+
+<div class="modal-body">
+  <table class="table table-condensed">
+    <thead>
+      <th></th>
+      <th><%= Sco.human_attribute_name 'full_name' %></th>
+    </thead>
+    <tbody>
+      <% @scos.each do |sco| %>
+        <tr class='<%= 'success' if sco.current %>'>
+          <td><%= link_to(
+            t('view.scos.activate'), activate_sco_path(sco),
+            class: 'active_from_intervention',
+            data: { method: :put }
+          ) unless sco.current %></td>
+          <td><%= sco.full_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

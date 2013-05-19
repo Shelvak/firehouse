@@ -1,0 +1,23 @@
+<div class="readonly-data">
+  <h2><%= @firefighter %></h2>
+
+  <p>
+    <strong><%= Firefighter.human_attribute_name 'firstname' %></strong>:
+    <%= @firefighter.firstname %>
+  </p>
+  <p>
+    <strong><%= Firefighter.human_attribute_name 'lastname' %></strong>:
+    <%= @firefighter.lastname %>
+  </p>
+  <p>
+    <strong><%= Firefighter.human_attribute_name 'identification' %></strong>:
+    <%= @firefighter.identification %>
+  </p>
+  
+</div>
+<div class="form-actions">
+  <%= link_to(
+    t('label.edit'), edit_firefighter_path(@firefighter)
+  ) if can? :update, @firefighter %> |
+  <%= link_to t('label.list'), firefighters_path %>
+</div>

@@ -1,6 +1,6 @@
 <div class="readonly-data">
   <h2><%= show_kind_of_intervention @intervention.kind %></h2>
-  <div class='row-fluid page-header'>
+  <div class='row-fluid'>
     <div class='span6'>
       <p>
         <strong><%= Intervention.human_attribute_name 'number' %></strong>:
@@ -45,7 +45,9 @@
         <% end %>
       <% else %>
         <strong><%= Intervention.human_attribute_name 'sco_id' %></strong>:
-        <%= link_to @intervention.sco, sco_path(@intervention.sco) %>
+        <%= link_to(
+          @intervention.sco, sco_path(@intervention.sco)
+        ) if @intervention.sco %>
       <% end %>
       <div><%= link_to 'Planilla Movil', (@intervention.mobile_intervention ? [@intervention, @intervention.mobile_intervention] : new_intervention_mobile_intervention_path(@intervention) ), class: 'btn btn-primary' %></div>
     </div>
@@ -139,8 +141,74 @@
     <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
     <%= simple_format @intervention.observations %>
   </p>
+
+  <h3><%= Intervention.human_attribute_name 'endowments_attributes' %></h3>
+  <div class='tabbable'>
+    <ul class="nav nav-tabs">
+      <% @intervention.endowments.each_with_index do |endowment, i| %>
+        <li class='<%= 'active' if i.zero? %>'>
+          <%= link_to (i + 1), "#endowment_item_#{i}", data: { toggle: 'tab' } %>
+        </li>
+      <% end %>
+    </ul>
+    <div class='tab-content'>
+      <% @intervention.endowments.each_with_index do |endowment, i| %>
+        <div class='row-fluid tab-pane <%= 'active' if i.zero? %>' 
+          id="endowment_item_<%= i %>">
+          <div class='span5'>
+            <div class='row-fluid'>
+              <div class='span4'>
+                <strong><%= Endowment.human_attribute_name 'truck_id' %></strong>
+              </div>
+              <div class='span4'>
+                <%= endowment.truck.number %>
+              </div>
+              <div class='span4'>
+                <strong><%= t('view.interventions.mileages') %></strong>
+              </div>
+            </div>
+            <% ['out', 'arrive', 'back', 'in'].each do |type| %>
+              <div class='row-fluid'>
+                <div class='span4'>
+                  <strong><%= Endowment.human_attribute_name "#{type}_at" %></strong>
+                </div>
+                <div class='span4'>
+                  <%= endowment.send("#{type}_at") %>
+                </div>
+                <div class='span4'>
+                  <%= endowment.send("#{type}_mileage") %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="span7">
+            <div class="row-fluid">
+              <div class="span4">
+                <strong>
+                  <%= EndowmentLine.human_attribute_name 'charge' %>
+                </strong>
+              </div>
+              <div class="span4">
+                <strong>
+                  <%= EndowmentLine.human_attribute_name 'firefighter_id' %>
+                </strong>
+              </div>
+            </div>
+            <% endowment.endowment_lines.each do |el| %>
+              <div class="row-fluid">
+                <div class="span3"><span class="label"><%= show_charge_name(el.charge) %></span></div>
+                <div class="span9"><%= el.firefighters_names %></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_intervention_path(@intervention) if can? :update, @intervention %> |
+  <%= link_to t('label.edit'), 
+    edit_intervention_path(@intervention) if can? :update, @intervention %> |
   <%= link_to t('label.list'), interventions_path %>
 </div>

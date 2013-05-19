@@ -2,6 +2,8 @@
 
 Web application to manage firehouse
 
+[![Build Status](https://travis-ci.org/FRM-UTN/firehouse.png?branch=master)](https://travis-ci.org/FRM-UTN/firehouse)
+
 == (The MIT License)
 
 Copyright (c) 2012 FRM-UTN Néstor Coppi - Lucas Padovan

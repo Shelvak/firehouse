@@ -30,6 +30,12 @@ jQuery ($)->
         input.data('item', selected.item)
         $(input.data('autocompleteIdTarget')).val(selected.item.id)
 
+        if !input.data('autocompleteIdTarget') && input.data('autocompleteClassTarget')
+          input.parents('.row-fluid:first')
+            .find(input.data('autocompleteClassTarget'))
+              .val(selected.item.id)
+
+
         input.trigger 'autocomplete:update', input
 
         false

@@ -106,6 +106,30 @@ class InterventionsController < ApplicationController
     end
   end
 
+  def autocomplete_for_receptor_name
+    receptors = User.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: receptors }
+    end
+  end
+
+  def autocomplete_for_sco_name
+    scos = Sco.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: scos }
+    end
+  end
+
+  def autocomplete_for_firefighter_name
+    firefighters = Firefighter.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: firefighters }
+    end
+  end
+
   def update_arrive
     intervention = Intervention.find(params[:id])
 

@@ -1,0 +1,14 @@
+<%= simple_form_for(@firefighter) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :firstname %>
+    <%= f.input :lastname %>
+    <%= f.input :identification %>
+  </div>
+
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>
