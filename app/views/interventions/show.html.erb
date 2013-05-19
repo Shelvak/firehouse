@@ -3,53 +3,52 @@
   <div class='row-fluid'>
     <div class='span6'>
       <p>
-        <strong><%= Intervention.human_attribute_name 'number' %></strong>:
-        <%= @intervention.number %>
+      <strong><%= Intervention.human_attribute_name 'number' %></strong>:
+      <%= @intervention.number %>
       </p>
       <p>
-        <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
-        <%= link_to @intervention.user, user_path(@intervention.receptor_id) %>
+      <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
+      <%= link_to @intervention.user, user_path(@intervention.receptor_id) %>
       </p>
       <p>
-        <strong><%= Intervention.human_attribute_name 'address' %></strong>:
-        <%= @intervention.address %>
+      <strong><%= Intervention.human_attribute_name 'address' %></strong>:
+      <%= @intervention.address %>
       </p>
       <p>
-        <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
-        <%= @intervention.near_corner %>
+      <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
+      <%= @intervention.near_corner %>
       </p>
       <p>
-        <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
-        <%= @intervention.kind_notes %>
+      <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
+      <%= @intervention.kind_notes %>
       </p>
     </div>
     <div class='span6'>
       <% if @intervention.informer.present? %>
         <% @intervention.informer.tap do |inf| %>
           <p>
-            <strong><%= Informer.human_attribute_name 'full_name' %></strong>:
-            <%= inf.full_name %>
+          <strong><%= Informer.human_attribute_name 'full_name' %></strong>:
+          <%= inf.full_name %>
           </p>
           <p>
-            <strong><%= Informer.human_attribute_name 'nid' %></strong>:
-            <%= inf.nid %>
+          <strong><%= Informer.human_attribute_name 'nid' %></strong>:
+          <%= inf.nid %>
           </p>
           <p>
-            <strong><%= Informer.human_attribute_name 'phone' %></strong>:
-            <%= inf.phone %>
+          <strong><%= Informer.human_attribute_name 'phone' %></strong>:
+          <%= inf.phone %>
           </p>
           <p>
-            <strong><%= Informer.human_attribute_name 'address' %></strong>:
-            <%= inf.address %>
+          <strong><%= Informer.human_attribute_name 'address' %></strong>:
+          <%= inf.address %>
           </p>
-        <% end %>
-      <% else %>
+    <% end %>
+    <% else %>
         <strong><%= Intervention.human_attribute_name 'sco_id' %></strong>:
         <%= link_to(
-          @intervention.sco, sco_path(@intervention.sco)
+        @intervention.sco, sco_path(@intervention.sco)
         ) if @intervention.sco %>
       <% end %>
-      <div><%= link_to 'Planilla Movil', (@intervention.mobile_intervention ? [@intervention, @intervention.mobile_intervention] : new_intervention_mobile_intervention_path(@intervention) ), class: 'btn btn-primary' %></div>
     </div>
   </div>
 
@@ -138,8 +137,8 @@
   </div>
 
   <p>
-    <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
-    <%= simple_format @intervention.observations %>
+  <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
+  <%= simple_format @intervention.observations %>
   </p>
 
   <h3><%= Intervention.human_attribute_name 'endowments_attributes' %></h3>
@@ -153,7 +152,9 @@
     </ul>
     <div class='tab-content'>
       <% @intervention.endowments.each_with_index do |endowment, i| %>
-        <div class='row-fluid tab-pane <%= 'active' if i.zero? %>' 
+        <div><%= link_to t('activerecord.models.mobile_intervention.one'), (endowment.mobile_intervention ?
+            intervention_endowement_mobile_intervention_path(@intervention, endowment, endowment.mobile_intervention) : new_intervention_endowement_mobile_intervention_path(@intervention, endowment) ), class: 'btn btn-primary' %></div>
+        <div class='row-fluid tab-pane <%= 'active' if i.zero? %>'
           id="endowment_item_<%= i %>">
           <div class='span5'>
             <div class='row-fluid'>

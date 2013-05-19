@@ -6,3 +6,51 @@
   font-size: 1.8em;
   padding: 0.3em;
 }
+
+.quick-button-div {
+  border-radius: 15px;
+  background-color: #363636;
+  min-height: 300px;
+  padding: 20px;
+  text-align: center;
+
+  [class^="quick-button-"],
+  [class*=" quick-button-"] {
+    transition: all 0.4s ease-in-out;
+    display: inline-block;
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    background-color: #ffffff;
+    border: 2px solid #363636;
+    border-radius: 15px;
+    box-shadow: 0px 15px 15px #000000;
+    position: relative;
+    top: 20%;
+    background-size: cover;
+  }
+
+  [class^="quick-button-"]:hover,
+  [class*=" quick-button-"]:hover {
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 20px 20px #000000;
+    -ms-transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2);
+    -moz-transform: scale(1.2, 1.2);
+    -o-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+  }
+
+  .quick-button-fire {
+    background-image: url('incendio.png');
+  }
+  .quick-button-crash {
+    background-image: url('choque.gif');
+  }
+  .quick-button-rescue {
+    background-image: url('rescate.jpg');
+
+  }
+}

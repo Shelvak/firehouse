@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20130318015139) do
+ActiveRecord::Schema.define(:version => 20130518054740) do
 
   create_table "buildings", :force => true do |t|
     t.string   "address"
@@ -26,8 +25,6 @@ ActiveRecord::Schema.define(:version => 20130318015139) do
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
   end
-=======
-ActiveRecord::Schema.define(:version => 20130518054740) do
 
   create_table "endowment_line_firefighter_relations", :force => true do |t|
     t.integer  "endowment_line_id", :null => false
@@ -78,7 +75,6 @@ ActiveRecord::Schema.define(:version => 20130518054740) do
   add_index "firefighters", ["firstname"], :name => "index_firefighters_on_firstname"
   add_index "firefighters", ["identification"], :name => "index_firefighters_on_identification", :unique => true
   add_index "firefighters", ["lastname"], :name => "index_firefighters_on_lastname"
->>>>>>> ba8ca0482d198dd7464a0fdaa2fe4b8bce461cc4
 
   create_table "hierarchies", :force => true do |t|
     t.string   "name",       :null => false
@@ -90,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20130518054740) do
 
   create_table "informers", :force => true do |t|
     t.string   "full_name",       :null => false
-    t.integer  "nid"
+    t.integer  "nid",             :null => false
     t.string   "phone"
     t.string   "address"
     t.integer  "intervention_id", :null => false
@@ -101,29 +97,39 @@ ActiveRecord::Schema.define(:version => 20130518054740) do
   add_index "informers", ["intervention_id"], :name => "index_informers_on_intervention_id"
 
   create_table "interventions", :force => true do |t|
-    t.integer  "number",                    :null => false
-    t.string   "address",                   :null => false
+    t.integer  "number",                      :null => false
+    t.string   "address",                     :null => false
     t.string   "near_corner"
-    t.string   "kind",         :limit => 1, :null => false
+    t.string   "kind",           :limit => 1, :null => false
     t.string   "kind_notes"
-    t.integer  "receptor_id",               :null => false
+    t.integer  "receptor_id",                 :null => false
     t.text     "observations"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "truck_id"
+    t.string   "out_at",         :limit => 5
+    t.string   "arrive_at",      :limit => 5
+    t.string   "back_at",        :limit => 5
+    t.string   "in_at",          :limit => 5
+    t.integer  "out_mileage"
+    t.integer  "arrive_mileage"
+    t.integer  "back_mileage"
+    t.integer  "in_mileage"
     t.integer  "sco_id"
   end
 
   add_index "interventions", ["kind"], :name => "index_interventions_on_kind"
   add_index "interventions", ["number"], :name => "index_interventions_on_number", :unique => true
   add_index "interventions", ["receptor_id"], :name => "index_interventions_on_receptor_id"
+  add_index "interventions", ["truck_id"], :name => "index_interventions_on_truck_id"
 
   create_table "mobile_interventions", :force => true do |t|
     t.datetime "date"
     t.string   "emergency"
     t.text     "observations"
-    t.integer  "intervention_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "endowment_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "people", :force => true do |t|

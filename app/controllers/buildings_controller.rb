@@ -1,5 +1,5 @@
 class BuildingsController < ApplicationController
-  before_filter :get_intervention
+  before_filter :get_mobile_intervention
   # GET /buildings
   # GET /buildings.json
   def index
@@ -50,8 +50,8 @@ class BuildingsController < ApplicationController
 
     respond_to do |format|
       if @building.save
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.buildings.correctly_created') }
-        format.json { render json: [@intervention, @mobile_intervention], status: :created, location: @building }
+        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.buildings.correctly_created') }
+        format.json { render json: intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @building }
       else
         format.html { render action: 'new' }
         format.json { render json: @building.errors, status: :unprocessable_entity }
@@ -67,7 +67,7 @@ class BuildingsController < ApplicationController
 
     respond_to do |format|
       if @building.update_attributes(params[:building])
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.buildings.correctly_updated') }
+        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.buildings.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -75,7 +75,7 @@ class BuildingsController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit', @intervention, @mobile_intervention, @building], alert: t('view.buildings.stale_object_error')
+    redirect_to ['edit', @mobile_intervention, @building], alert: t('view.buildings.stale_object_error')
   end
 
   # DELETE /buildings/1
@@ -85,14 +85,15 @@ class BuildingsController < ApplicationController
     @building.destroy
 
     respond_to do |format|
-      format.html { redirect_to [@intervention, @mobile_intervention] }
+      format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) }
       format.json { head :ok }
     end
   end
 
   private
-    def get_intervention
-      @intervention = Intervention.includes(:mobile_intervention).find(params[:intervention_id])
-      @mobile_intervention = @intervention.mobile_intervention
+    def get_mobile_intervention
+      @mobile_intervention = MobileIntervention.find params[:mobile_intervention_id]
+      @endowment = @mobile_intervention.endowment
+      @intervention = @endowment.intervention
     end
 end
