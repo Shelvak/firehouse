@@ -5,10 +5,19 @@
 <div id="show-quick-buttons" class="btn btn-mini btn-inverse pull-right">Mostrar botones rapidos</div>
 <% unless @intervention.errors.present? %>
   <div class="quick-button-div" id="quick-button-div">
-    <div class="quick-button-fire alarm-button" target="fire"></div>
-    <div class="quick-button-crash alarm-button" target="crash"></div>
-    <div class="quick-button-rescue alarm-button" target="rescue"></div>
-    <div class="quick-button-other alarm-button" target="other"></div>
+    <div class="quick-button-division" style="background-color: #ff9b90;">
+      <div class="quick-button-fire alarm-button" target="fire"></div>
+    </div>
+    <div class="quick-button-division" style="background-color: #748aff;">
+      <div class="quick-button-crash alarm-button" target="crash"></div>
+    </div>
+    <div class="quick-button-division" style="background-color: #468041;">
+      <div class="quick-button-rescue alarm-button" target="rescue"></div>
+    </div>
+    <div class="quick-button-division" style="background-color: #feff90;">
+      <div class="quick-button-other alarm-button" target="other"></div>
+    </div>
+    <div class="clearfix"></div>
   </div>
 <% end %>
 

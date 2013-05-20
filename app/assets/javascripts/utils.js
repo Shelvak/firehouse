@@ -1,11 +1,11 @@
 var extend_button_div = function(){
-    $('#quick-button-div').css({ "height": $(window).height() });
+//    $('#quick-button-div').css({ "height": $(window).height() });
     $('#show-quick-buttons').hide();
 };
 
 var apply_quick_button_functions = function(){
     $('.alarm-button').click(function(){
-        console.log($(this).attr('target'));
+//        console.log($(this).attr('target'));
         switch( $(this).attr('target') ){
             case 'fire':
                 $('#intervention_kind_e').prop('checked', true);
@@ -22,6 +22,7 @@ var apply_quick_button_functions = function(){
         };
         $('#quick-button-div').slideUp(function(){
             $('#show-quick-buttons').toggle();
+            window.scrollTo(0);
         });
     });
 

@@ -14,43 +14,50 @@
   padding: 20px;
   text-align: center;
 
-  [class^="quick-button-"],
-  [class*=" quick-button-"] {
-    transition: all 0.4s ease-in-out;
-    display: inline-block;
-    margin: 10px;
-    width: 200px;
-    height: 200px;
-    min-width: 200px;
-    min-height: 200px;
-    background-color: #ffffff;
-    border: 2px solid #363636;
-    border-radius: 15px;
-    box-shadow: 0px 15px 15px #000000;
-    position: relative;
-    top: 20%;
-    background-size: cover;
-  }
+  .quick-button-division{
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
 
-  [class^="quick-button-"]:hover,
-  [class*=" quick-button-"]:hover {
-    transition: all 0.4s ease-in-out;
-    box-shadow: 0px 20px 20px #000000;
-    -ms-transform: scale(1.2, 1.2);
-    -webkit-transform: scale(1.2, 1.2);
-    -moz-transform: scale(1.2, 1.2);
-    -o-transform: scale(1.2, 1.2);
-    transform: scale(1.2, 1.2);
-  }
+    [class^="quick-button-"],
+    [class*=" quick-button-"] {
+      transition: all 0.3s ease-in-out;
+      display: inline-block;
+      margin: 10px;
+      width: 150px;
+      height: 150px;
+      min-width: 150px;
+      min-height: 150px;
+      background-color: #ffffff;
+      border: 2px solid #363636;
+      border-radius: 15px;
+      box-shadow: 0px 5px 5px #000000;
+      position: relative;
+      top: 20%;
+      background-size: cover;
+    }
 
-  .quick-button-fire {
-    background-image: url('incendio.png');
-  }
-  .quick-button-crash {
-    background-image: url('choque.gif');
-  }
-  .quick-button-rescue {
-    background-image: url('rescate.jpg');
+    [class^="quick-button-"]:hover,
+    [class*=" quick-button-"]:hover {
+      transition: all 0.4s ease-in-out;
+      box-shadow: 0px 15px 15px #000000;
+      -ms-transform: scale(1.2, 1.2);
+      -webkit-transform: scale(1.2, 1.2);
+      -moz-transform: scale(1.2, 1.2);
+      -o-transform: scale(1.2, 1.2);
+      transform: scale(1.2, 1.2);
+    }
 
+    .quick-button-fire {
+      background-image: url('incendio.png');
+    }
+    .quick-button-crash {
+      background-image: url('choque.gif');
+    }
+    .quick-button-rescue {
+      background-image: url('rescate.jpg');
+
+    }
   }
 }
+
