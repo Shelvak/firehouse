@@ -1,0 +1,6 @@
+<%= content_for :form_actions do %>
+  <%= link_to t('label.list'), intervention_types_path %>
+<% end %>
+<%= form_for @intervention_type, url: intervention_types_path(father: params[:father]) do |f| %>
+  <%= render partial: 'form', locals: {f: f} %>
+<% end %>

@@ -42,6 +42,8 @@ Firehouse::Application.routes.draw do
       put :update_profile
     end
   end
-  
+
+  resources :intervention_types
+
   root to: redirect('/users/sign_in')
 end

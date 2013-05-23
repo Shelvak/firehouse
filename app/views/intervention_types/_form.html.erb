@@ -1,0 +1,27 @@
+<div class="form-inputs">
+  <p>
+    name:
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    priority:
+    <%= f.number_field :priority %>
+  </p>
+  <p>
+    image:
+    <%= f.text_field :image %>
+  </p>
+  <p>
+    target:
+    <%= f.text_field :target %>
+  </p>
+  <p>
+    callback:
+    <%= f.text_field :callback %>
+  </p>
+</div>
+
+<div class="form-actions">
+  <div class="pull-right"><%= yield :form_actions %></div>
+  <%= f.button :submit, class: 'btn-primary' %>
+</div>

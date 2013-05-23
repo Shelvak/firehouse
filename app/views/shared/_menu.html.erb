@@ -31,6 +31,10 @@
               name: 'firefighters', controllers: 'firefighters', 
               path: firefighters_path
             ) if can?(:read, Firefighter) %>
+            <%= show_menu_link(
+              name: 'intervention types', controllers: 'intervention_types',
+              path: intervention_types_path
+            ) if can?(:read, InterventionType) %>
           </ul>
           <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">
