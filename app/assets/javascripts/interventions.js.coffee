@@ -1,3 +1,14 @@
+window.Intervention =
+  tokenizeAutocompleteInputs: ->
+    $('.token-autocomplete').each ->
+      input = $(this)
+      input.tokenInput '/interventions/autocomplete_for_firefighter_name.json',
+        prePopulate: input.data('load'),
+        theme: 'facebook',
+        propertyToSearch: 'label',
+        preventDuplicates: true,
+        tokenLimit: input.data('token-limit')
+
 new Rule
   condition: -> $('#c_interventions').length
   load: ->
@@ -30,6 +41,8 @@ new Rule
       $(dynamicTab.replace(/dynamicContent/g, itemCount))
         .addClass('active')
         .insertBefore('#add_new_endowment')
+      
+      Intervention.tokenizeAutocompleteInputs()
 
     @map.assignTruckMileage ||= ->
       input = $(this)
@@ -59,24 +72,21 @@ new Rule
       input.focus()
       input.val(writed + "[#{Helpers.getHour()}]  ")
 
-    @map.tokenizeAutocompleteInput ||= ->
-      input = $(this)
-      input.tokenInput '/interventions/autocomplete_for_firefighter_name.json',
-        prePopulate: input.data('load'),
-        theme: 'facebook',
-        propertyToSearch: 'label',
-        preventDuplicates: true,
-        tokenLimit: input.data('token-limit')
-
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
     $(document).on 'click', '#add_current_time', @map.setCurrentTimeToObservations
-    $(document).on 'focus', '.token-autocomplete', @map.tokenizeAutocompleteInput
 
   unload: ->
     $(document).off 'click', '#add_new_endowment', @map.addNewTab
     $(document).off 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).off 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
     $(document).off 'click', '#add_current_time', @map.setCurrentTimeToObservations
-    $(document).off 'focus', '.token-autocomplete', @map.tokenizeAutocompleteInput
+
+jQuery ($) ->
+  $(document).on 'page:change', ->
+    if $('.token-autocomplete').length
+      Intervention.tokenizeAutocompleteInputs()
+
+
+
