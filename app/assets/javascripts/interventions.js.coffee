@@ -1,6 +1,6 @@
 window.Intervention =
   tokenizeAutocompleteInputs: ->
-    $('.token-autocomplete').each ->
+    $('.token-autocomplete:not(.tokenized)').each ->
       input = $(this)
       input.tokenInput '/interventions/autocomplete_for_firefighter_name.json',
         prePopulate: input.data('load'),
@@ -19,12 +19,15 @@ new Rule
     @map.addNewTab ||= (e)->
       e.preventDefault()
 
+      $('.token-autocomplete:not(.tokenized)').each ->
+        $(this).addClass('tokenized')
+
       navTabs = $('[data-endowments-items] .nav-tabs')
       navTabs.find('.active').removeClass('active')
       tabContent= $('.tab-content')
       tabContent.find('.active').removeClass('active')
                                                                                     
-      itemCount = $('[data-endowment-link]').size() + 1
+      itemCount = $('[data-endowment-link]:last').data('number') + 1
 
       dynamicNumber = dynamicForm.match(
         /intervention\[endowments_attributes\]\[(\d+)\]/
@@ -38,13 +41,17 @@ new Rule
         .replace(regExp, itemCount)
         .replace(/dynamicContent/g, itemCount)
 
-      tabContent.append($(endowmentForm).addClass('active'))
+      tabContent.append(
+        $(endowmentForm).addClass('active').data('number', itemCount)
+      )
 
       $('[data-endowments-items]').append()
 
       $(dynamicTab.replace(/dynamicContent/g, itemCount))
         .addClass('active')
         .insertBefore('#add_new_endowment')
+
+      $('input[name$="[number]"]:visible:first').val(itemCount)
       
       Intervention.tokenizeAutocompleteInputs()
 
@@ -76,16 +83,28 @@ new Rule
       input.focus()
       input.val(writed + "[#{Helpers.getHour()}]  ")
 
+    @map.changeEndowmentNumber ||= ->
+      input = $(this)
+      value = input.val()
+  
+      input.parents('.tab-pane.active:first').attr('id', "endowments_#{value}")
+      input.parents('[data-endowments-items]').find('li.active').html(
+        "<a href='#endowments_#{value}' data-toggle='tab' data-number='#{value}' 
+        data-endowment-link=true> #{value} </a>"
+      )
+
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
     $(document).on 'click', '#add_current_time', @map.setCurrentTimeToObservations
+    $(document).on 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
 
   unload: ->
     $(document).off 'click', '#add_new_endowment', @map.addNewTab
     $(document).off 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).off 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
     $(document).off 'click', '#add_current_time', @map.setCurrentTimeToObservations
+    $(document).off 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
 
 jQuery ($) ->
   # Doble iniciador por turbolinks

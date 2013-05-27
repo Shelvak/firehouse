@@ -1,0 +1,25 @@
+<% if @intervention.informer.present? %>
+  <% @intervention.informer.tap do |inf| %>
+    <p>
+      <strong><%= Informer.human_attribute_name 'full_name' %></strong>:
+      <%= inf.full_name %>
+    </p>
+    <p>
+      <strong><%= Informer.human_attribute_name 'nid' %></strong>:
+      <%= inf.nid %>
+    </p>
+    <p>
+      <strong><%= Informer.human_attribute_name 'phone' %></strong>:
+      <%= inf.phone %>
+    </p>
+    <p>
+      <strong><%= Informer.human_attribute_name 'address' %></strong>:
+      <%= inf.address %>
+    </p>
+  <% end %>
+<% else %>
+  <strong><%= Intervention.human_attribute_name 'sco_id' %></strong>:
+  <%= link_to(
+    @intervention.sco, sco_path(@intervention.sco)
+  ) if @intervention.sco %>
+<% end %>

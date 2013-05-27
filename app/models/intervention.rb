@@ -65,7 +65,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def assign_endowment_number
-    self.endowments.each_with_index { |e, i| e.number = i + 1}
+    self.endowments.each_with_index { |e, i| e.number ||= i + 1}
   end
 
   def assign_mileage_to_trucks

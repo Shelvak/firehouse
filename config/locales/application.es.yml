@@ -34,7 +34,7 @@
         firefighter_id: 'Bombero'
         charge: 'Cargo'
       endowment:
-        number: 'Numero'
+        number: 'Número de dotación'
         truck_id: 'Móvil'
         out_at: 'Salida'
         arrive_at: 'Llegada al lugar'
@@ -188,7 +188,7 @@
         firefighters: 'Bomberos #'
         radio: 'Radioperador'
         driver: 'Chofer'
-        backup: 'Reserva'
+        backup: 'Reserva #'
       set_time: 'Ingresar hora'
     scos:
       index_title: 'Listado de CEOs'

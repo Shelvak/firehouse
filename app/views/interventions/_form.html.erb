@@ -1,13 +1,15 @@
-<%- if @no_active_ceo %>
-    <div class='alert alert-danger'><%= t('view.interventions.no_active_ceo') %></div>
-<% end %>
+<%= content_tag :div, t('view.interventions.no_active_ceo'), 
+  class: 'alert alert-danger' if @no_active_ceo %>
+
 <h2><%= t(
   'view.interventions.new_title', number: intervention_next_number_for_form
 ) %></h2>
+
 <% intervention_form = nil %>
 <%= simple_form_for @intervention, defaults: { input_html: { class: 'span10' } } do |f| %>
   <%= f.error_notification %>
-  <%= f.object.errors.full_messages.join(', ') %>
+  <%= content_tag :div, f.object.errors.full_messages.join(', '), 
+    class: 'alert alert-danger' if f.object.errors.size > 0 %>
 
   <div class="form-inputs">
     <div class='row-fluid'>
@@ -43,11 +45,11 @@
           </div>
         </div>
       </div>
-      <div class="hide" id="scos">
-      </div>
+
       <%= f.simple_fields_for :informer do |inf| %>
         <%= render partial: 'informer', locals: { inf: inf }  %>
       <% end %>
+
       <div class="row-fluid">
         <div class='span5'>
           <%= f.label :receptor_id %>
@@ -78,7 +80,7 @@
           <li class="active">
             <%= link_to(
               1, '#endowments_1', 
-              data: { toggle: 'tab', 'endowment-link' => true }
+              data: { toggle: 'tab', 'endowment-link' => true, number: 1 }
             ) %>
           </li>
             <% if (count = f.object.endowments.size) > 1 %>
@@ -86,7 +88,8 @@
               <% (count - 1).times do %>
                 <% i += 1 %>
                 <li>
-                  <%= link_to i, "#endowments_#{i}", data: { toggle: 'tab' } %>
+                  <%= link_to i, "#endowments_#{i}", 
+                    data: { toggle: 'tab', number: i } %>
                 </li>
               <% end %>
             <% end %>
@@ -104,15 +107,14 @@
       </div>
     </div>
     <div class='row-fluid'>
-      <h3><%= Intervention.human_attribute_name 'observations' %>
-
+      <h3>
+        <%= Intervention.human_attribute_name 'observations' %>
         <span id='add_current_time' class='iconic btn btn-inverse'
-          data-show-tooltip='true'
-          title="<%= t('view.interventions.set_time') %>">
-        &#xe079; 
-      </span> </h3>
-      <br />
-      <%= f.input :observations, label: false, input_html: { class: 'span11', rows: 5 } %>
+          title="<%= t('view.interventions.set_time') %>"
+          data-show-tooltip='true'>&#xe079;</span> 
+      </h3>
+      <%= f.input :observations, label: false, 
+        input_html: { class: 'span11', rows: 5 } %>
     </div>
   </div>
 
@@ -127,7 +129,7 @@
   var dynamicTab = 
     '<%= content_tag(:li, link_to(
         "dynamicContent", "#endowments_dynamicContent", 
-        data: { toggle: 'tab', 'endowment-link' => true }
+        data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
       )
     ) %>'
   var dynamicForm =
