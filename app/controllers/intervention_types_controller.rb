@@ -4,7 +4,8 @@ class InterventionTypesController < ApplicationController
   # GET /intervention_types.json
   def index
     @title = t('view.intervention_types.index_title')
-    @intervention_types = InterventionType.where(intervention_type_id: nil).page(params[:page])
+    @intervention_types = InterventionType.where(intervention_type_id: nil).
+        page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,17 +30,14 @@ class InterventionTypesController < ApplicationController
   def new
     @title = t('view.intervention_types.new_title')
     @intervention_type = InterventionType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @intervention_type }
-    end
+    render partial: 'new', content_type: 'text/html'
   end
 
   # GET /intervention_types/1/edit
   def edit
     @title = t('view.intervention_types.edit_title')
     @intervention_type = InterventionType.find(params[:id])
+    render partial: 'edit', content_type: 'text/html'
   end
 
   # POST /intervention_types
@@ -47,19 +45,15 @@ class InterventionTypesController < ApplicationController
   def create
     @title = t('view.intervention_types.new_title')
     if params[:father]
-      @intervention_type = InterventionType.find(params[:father]).childrens.build(params[:intervention_type])
+      @intervention_type = InterventionType.find(params[:father]).
+          childrens.build(params[:intervention_type])
     else
       @intervention_type = InterventionType.new(params[:intervention_type])
     end
-
-    respond_to do |format|
-      if @intervention_type.save
-        format.html { redirect_to intervention_types_url, notice: t('view.intervention_types.correctly_created') }
-        format.json { render json: intervention_types_url, status: :created, location: @intervention_type }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @intervention_type.errors, status: :unprocessable_entity }
-      end
+    if @intervention_type.save
+      redirect_to intervention_types_url
+    else
+      render partial: 'new', status: :unprocessable_entity
     end
   end
 
@@ -69,17 +63,15 @@ class InterventionTypesController < ApplicationController
     @title = t('view.intervention_types.edit_title')
     @intervention_type = InterventionType.find(params[:id])
 
-    respond_to do |format|
-      if @intervention_type.update_attributes(params[:intervention_type])
-        format.html { redirect_to intervention_types_url, notice: t('view.intervention_types.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @intervention_type.errors, status: :unprocessable_entity }
-      end
+    if @intervention_type.update_attributes(params[:intervention_type])
+      render partial: @intervention_type, locals: {special_class: (
+      @intervention_type.father ? 'type' : 'subtype')}, content_type: 'text/html'
+    else
+      render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_intervention_type_url(@intervention_type), alert: t('view.intervention_types.stale_object_error')
+    redirect_to edit_intervention_type_url(@intervention_type), alert: t(
+        'view.intervention_types.stale_object_error')
   end
 
   # DELETE /intervention_types/1

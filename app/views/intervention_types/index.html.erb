@@ -4,48 +4,14 @@
   <div class="container-fluid">
   <h1>Tipos de incidentes</h1>
     <div class="row">
-      <div class="span11">
-        <table class="table resource-list">
-          <thead>
-          <tr>
-            <th><%= InterventionType.human_attribute_name 'name' %></th>
-            <th><%= InterventionType.human_attribute_name 'priority' %></th>
-            <th><%= InterventionType.human_attribute_name 'image' %></th>
-            <th><%= InterventionType.human_attribute_name 'target' %></th>
-            <th><%= InterventionType.human_attribute_name 'callback' %></th>
-            <th colspan="2"></th>
-            <th></th>
-          </tr>
-          </thead>
-
-          <tbody>
-          <% @intervention_types.each do |intervention_type| %>
-            <tr>
-              <td><%= intervention_type.name %></td>
-              <td><%= intervention_type.priority %></td>
-              <td><%= intervention_type.image %></td>
-              <td><%= intervention_type.target %></td>
-              <td><%= intervention_type.callback %></td>
-              <td><%= link_to_edit edit_intervention_type_path(intervention_type) if can? :update, intervention_type %></td>
-              <td><%= link_to_destroy intervention_type if can? :destroy, intervention_type %></td>
-              <td><%= link_to( 'Agregar subtipo', new_intervention_type_path(father: intervention_type.id), class: 'btn btn-primary' ) if can? :create, InterventionType %></td>
-            </tr>
-            <% intervention_type.childrens.order(:priority).each do |subtype| %>
-              <tr class="subtype">
-                <td><%= subtype.name %></td>
-                <td><%= subtype.priority %></td>
-                <td><%= subtype.image %></td>
-                <td><%= subtype.target %></td>
-                <td><%= subtype.callback %></td>
-                <td><%= link_to_edit edit_intervention_type_path(subtype) if can? :update, intervention_type %></td>
-                <td><%= link_to_destroy subtype if can? :destroy, intervention_type %></td>
-                <td></td>
-              </tr>
-            <% end %>
-          <% end %>
-          </tbody>
-        </table>
+      <div class="span4 intervention-types-list">
+        <% @intervention_types.each do |intervention_type| %>
+          <%= render intervention_type, special_class: 'type' %>
+          <%= render intervention_type.childrens.order(:priority),
+                     special_class: 'subtype' %>
+        <% end %>
       </div>
+      <div class="span7"></div>
     </div>
 
     <%= pagination_links(@intervention_types) %>
@@ -55,6 +21,10 @@
 <div class="form-actions">
   <%= link_to(
     t('view.intervention_types.new', default: :'label.new'),
-    new_intervention_type_path, class: 'btn btn-primary'
-  ) if can? :create, InterventionType %>
+    new_intervention_type_path, class: 'btn btn-primary', remote: true, data: {
+          target: 'modal', modal: true } ) if can? :create, InterventionType %>
 </div>
+
+<script>
+  setTooltips();
+</script>

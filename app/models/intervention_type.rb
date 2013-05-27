@@ -7,4 +7,5 @@ class InterventionType < ActiveRecord::Base
 
   attr_accessible :name, :priority, :father, :image, :target, :callback
 
-  end
+  validates_presence_of :name
+end

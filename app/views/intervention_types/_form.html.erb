@@ -2,6 +2,7 @@
   <p>
     name:
     <%= f.text_field :name %>
+    <span class="red"><%= errors_for @intervention_type, :name %></span>
   </p>
   <p>
     priority:

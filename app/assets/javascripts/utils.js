@@ -49,3 +49,7 @@ var apply_quick_button_functions = function(){
         $('#quick-button-div').slideDown();
     });
 };
+
+var setTooltips = function(){
+    $('[rel*=tooltip]').tooltip();
+};

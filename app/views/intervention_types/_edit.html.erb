@@ -1,0 +1,17 @@
+<div class="modal">
+  <div class="modal-header">
+  </div>
+  <div class="modal-body">
+    <%= form_for @intervention_type, url: intervention_type_path, html: { data: {
+        target: dom_id(@intervention_type), respond_as: :put, error: 'modal',
+        modal: true} }, remote: true do |f| %>
+      <%= render partial: 'form', locals: {f: f} %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <%= content_for :form_actions do %>
+      <%= link_to t('label.show'), @intervention_type %> |
+      <%= link_to t('label.list'), intervention_types_path %>
+    <% end %>
+  </div>
+</div>
