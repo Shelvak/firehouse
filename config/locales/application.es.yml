@@ -95,6 +95,7 @@
     loading: 'Cargando...'
     new: 'Nuevo'
     search: 'Buscar'
+    without_results: 'Sin resultados'
     show: 'Ver'
     
   menu:

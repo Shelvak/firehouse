@@ -7,7 +7,11 @@ window.Intervention =
         theme: 'facebook',
         propertyToSearch: 'label',
         preventDuplicates: true,
-        tokenLimit: input.data('token-limit')
+        tokenLimit: input.data('token-limit'),
+        minChars: 3,
+        hintText: false,
+        noResultsText: without_result,
+        searchingText: false
 
 new Rule
   condition: -> $('#c_interventions').length
@@ -84,9 +88,11 @@ new Rule
     $(document).off 'click', '#add_current_time', @map.setCurrentTimeToObservations
 
 jQuery ($) ->
+  # Doble iniciador por turbolinks
+  Intervention.tokenizeAutocompleteInputs()
+
   $(document).on 'page:change', ->
-    if $('.token-autocomplete').length
-      Intervention.tokenizeAutocompleteInputs()
+    Intervention.tokenizeAutocompleteInputs()
 
 
 
