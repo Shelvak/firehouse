@@ -4,7 +4,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="span5 intervention-types-list">
-        <h1>Tipos de incidentes</h1>
+        <h1><%= t('view.intervention_types.index_title') %></h1>
         <% @intervention_types.each do |intervention_type| %>
           <%= render intervention_type, special_class: 'type' %>
           <%= render intervention_type.childrens.order(:priority),
@@ -14,7 +14,7 @@
       </div>
       <div class="span1"></div>
       <div class="span5">
-        <h2>Prioridades</h2>
+        <h2><%= t('view.intervention_types.priorities') %></h2>
         <ol>
           <% 10.times do %>
             <li></li>
@@ -22,8 +22,6 @@
         </ol>
       </div>
     </div>
-
-    <%= pagination_links(@intervention_types) %>
   </div>
 <% end %>
 
@@ -31,7 +29,8 @@
   <%= link_to(
     t('view.intervention_types.new', default: :'label.new'),
     new_intervention_type_path, class: 'btn btn-primary', remote: true, data: {
-          target: 'modal', modal: true } ) if can? :create, InterventionType %>
+    target: 'modal', modal: true, callback: "cursorToFirstField('intervention_type_name');"
+    } ) if can? :create, InterventionType %>
 </div>
 
 <script>

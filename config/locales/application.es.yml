@@ -22,6 +22,9 @@
       intervention:
         one: 'Intervención'
         other: 'Intervenciones'
+      intervention_type:
+        one: 'Tipo de intervención'
+        other: 'Tipos de intervenciones'
       mobile_intervention:
         one: 'Planilla móvil'
         other: 'Planillas móviles'
@@ -77,6 +80,13 @@
         hierarchy_name: 'Jerarquía'
         sco_id: 'CEO'
         endowments_attributes: 'Dotaciones'
+      intervention_type:
+        name: 'Nombre'
+        priority: 'Prioridad'
+        father: 'Tipo general'
+        image: 'Imagen'
+        target: 'Destino'
+        callback: 'Función de retorno'
       mobile_intervention:
         date: 'Fecha'
         observations: 'Observaciones'
@@ -144,6 +154,7 @@
     firefighters: 'Bomberos'
     hierarchies: 'Jerarquías'
     interventions: 'Intervenciones'
+    intervention_types: 'Tipos de intervenciones'
     scos: 'CEOs'
     trucks: 'Moviles'
     users: 'Usuarios'
@@ -230,6 +241,18 @@
         driver: 'Chofer'
         backup: 'Reserva'
       set_time: 'Ingresar hora'
+    intervention_types:
+      index_title: 'Tipos de intervenciones'
+      show_title: '%{intervention_type}'
+      new_title: 'Nuevo tipo de intervención'
+      edit_title: 'Editando %{intervention_type}'
+      correctly_created: 'Tipo de intervención agregado correctamente.'
+      correctly_updated: 'Tipo de intervención actualizado correctamente.'
+      stale_object_error: 'El tipo de intervención no pudo ser actualizado, intente nuevamente.'
+      empty_index:
+        html: 'No se ha cargado ningún tipo de intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo tipo</span>'
+      new: 'Nuevo tipo'
+      priorities: 'Prioridades'
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'

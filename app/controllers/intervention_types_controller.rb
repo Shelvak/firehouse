@@ -5,7 +5,7 @@ class InterventionTypesController < ApplicationController
   def index
     @title = t('view.intervention_types.index_title')
     @intervention_types = InterventionType.where(intervention_type_id: nil).
-        page(params[:page])
+        order(:id).includes(:childrens).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,10 +80,6 @@ class InterventionTypesController < ApplicationController
   def destroy
     @intervention_type = InterventionType.find(params[:id])
     @intervention_type.destroy
-
-    respond_to do |format|
-      format.html { redirect_to intervention_types_url }
-      format.json { head :ok }
-    end
+    render false, content_type: 'text/html'
   end
 end

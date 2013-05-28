@@ -32,7 +32,7 @@
               path: firefighters_path
             ) if can?(:read, Firefighter) %>
             <%= show_menu_link(
-              name: 'intervention types', controllers: 'intervention_types',
+              name: 'intervention_types', controllers: 'intervention_types',
               path: intervention_types_path
             ) if can?(:read, InterventionType) %>
           </ul>
