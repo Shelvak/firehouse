@@ -1,16 +1,17 @@
 <div class="modal">
-  <div class="modal-header">
-  </div>
-  <div class="modal-body">
-    <%= form_for @intervention_type, url: intervention_types_path(
-        father: params[:father] ), remote: true, html: { data: { target: 'modal',
-        error: 'modal', modal: true } } do |f| %>
+  <%= form_for @intervention_type, url: intervention_types_path(
+      father: params[:father] ), remote: true, html: { data: { target: (
+      params[:father] ? "intervention_type_#{params[:father]}_children" :
+      'new_intervention_type'),  error: 'modal', modal: true  }, class: 'form-modal' } do |f| %>
+    <div class="modal-header">
+      <h2>Nuevo tipo de intervención</h2>
+    </div>
+    <div class="modal-body">
       <%= render partial: 'form', locals: {f: f} %>
+    </div>
+    <div class="modal-footer">
+      <%= link_to_function t('app.close'), "$('#modal').modal('toggle');", class: 'btn' %>
+      <%= f.button :submit, class: 'btn btn-primary' %>
+    </div>
   <% end %>
-  </div>
-  <div class="modal-footer">
-    <%= content_for :form_actions do %>
-        <%= link_to t('label.list'), intervention_types_path %>
-    <% end %>
-  </div>
 </div>

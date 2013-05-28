@@ -2,16 +2,25 @@
   <%= render 'shared/empty_index' %>
 <% else %>
   <div class="container-fluid">
-  <h1>Tipos de incidentes</h1>
     <div class="row">
-      <div class="span4 intervention-types-list">
+      <div class="span5 intervention-types-list">
+        <h1>Tipos de incidentes</h1>
         <% @intervention_types.each do |intervention_type| %>
           <%= render intervention_type, special_class: 'type' %>
           <%= render intervention_type.childrens.order(:priority),
                      special_class: 'subtype' %>
         <% end %>
+        <div id="new_intervention_type"></div>
       </div>
-      <div class="span7"></div>
+      <div class="span1"></div>
+      <div class="span5">
+        <h2>Prioridades</h2>
+        <ol>
+          <% 10.times do %>
+            <li></li>
+          <% end %>
+        </ol>
+      </div>
     </div>
 
     <%= pagination_links(@intervention_types) %>

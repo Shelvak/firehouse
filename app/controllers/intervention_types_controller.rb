@@ -51,7 +51,8 @@ class InterventionTypesController < ApplicationController
       @intervention_type = InterventionType.new(params[:intervention_type])
     end
     if @intervention_type.save
-      redirect_to intervention_types_url
+      render @intervention_type, locals: {special_class: (
+      @intervention_type.father ? 'subtype' : 'type')}, content_type: 'text/html'
     else
       render partial: 'new', status: :unprocessable_entity
     end
@@ -65,7 +66,7 @@ class InterventionTypesController < ApplicationController
 
     if @intervention_type.update_attributes(params[:intervention_type])
       render partial: @intervention_type, locals: {special_class: (
-      @intervention_type.father ? 'type' : 'subtype')}, content_type: 'text/html'
+      @intervention_type.father ? 'subtype' : 'type')}, content_type: 'text/html'
     else
       render partial: 'edit', status: :unprocessable_entity
     end
