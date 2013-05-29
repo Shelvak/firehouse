@@ -43,7 +43,12 @@ Firehouse::Application.routes.draw do
     end
   end
 
-  resources :intervention_types
+  resources :intervention_types do
+    collection do
+      get :priorities
+      put :set_priority
+    end
+  end
 
   root to: redirect('/users/sign_in')
 end

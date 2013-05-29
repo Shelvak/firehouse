@@ -1,23 +1,19 @@
-<div class="form-inputs">
-  <p>
-    name:
-    <%= f.text_field :name %>
+<div class="control-group">
+  <label class="control-label"><%= InterventionType.human_attribute_name :name %></label>
+  <div class="controls">
+    <%= f.text_field :name, autofocus: true, placeholder: InterventionType.human_attribute_name(:name) %>
     <span class="red"><%= errors_for @intervention_type, :name %></span>
-  </p>
-  <p>
-    priority:
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label"><%= InterventionType.human_attribute_name :priority %></label>
+  <div class="controls">
     <%= f.number_field :priority %>
-  </p>
-  <p>
-    image:
-    <%= f.text_field :image %>
-  </p>
-  <p>
-    target:
-    <%= f.text_field :target %>
-  </p>
-  <p>
-    callback:
-    <%= f.text_field :callback %>
-  </p>
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label"><%= InterventionType.human_attribute_name :image %></label>
+  <div class="controls">
+    <%= f.text_field :image, placeholder: InterventionType.human_attribute_name(:image) %>
+  </div>
 </div>

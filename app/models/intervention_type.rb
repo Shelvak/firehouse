@@ -8,4 +8,10 @@ class InterventionType < ActiveRecord::Base
   attr_accessible :name, :priority, :father, :image, :target, :callback
 
   validates_presence_of :name
+
+  validates_uniqueness_of :priority
+
+  scope :only_fathers, -> { where(intervention_type_id: nil) }
+
+  scope :only_childrens, -> { !only_fathers }
 end

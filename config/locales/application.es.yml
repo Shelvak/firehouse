@@ -147,6 +147,9 @@
     new: 'Nuevo'
     search: 'Buscar'
     show: 'Ver'
+    sending: 'Enviado datos...'
+    save: 'Guardar'
+    saving: 'Guardando...'
     
   menu:
     actions:
@@ -253,6 +256,7 @@
         html: 'No se ha cargado ningún tipo de intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo tipo</span>'
       new: 'Nuevo tipo'
       priorities: 'Prioridades'
+      change_priorities: "Cambiar prioridades"
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'

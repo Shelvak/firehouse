@@ -1,15 +1,13 @@
 <div class="<%= special_class %>" id="<%= dom_id(intervention_type) %>">
   <%= link_to( '&#xe008;'.html_safe, new_intervention_type_path(
       father: intervention_type.id), class: 'iconic', remote: true,
-      data: { target: 'modal', modal: true, callback:
-      "cursorToFirstField('intervention_type_name');" }, rel: 'tooltip', title:
+      data: { target: 'modal', modal: true }, rel: 'tooltip', title:
       'Agregar una subcategoría'  ) if( can?( :create, InterventionType ) &&
       special_class == 'type' )%>
   <%= intervention_type.name %>
   <span class="pull-right">
     <%= link_to_edit edit_intervention_type_path(intervention_type), remote:
-        true, data: { target: 'modal', modal: true, callback:
-        "cursorToFirstField('intervention_type_name');" } if can? :update,
+        true, data: { target: 'modal', modal: true } if can? :update,
         intervention_type %>
     <%= link_to_destroy intervention_type, remote: true, data: { target:
         dom_id(intervention_type) } if can? :destroy, intervention_type %>

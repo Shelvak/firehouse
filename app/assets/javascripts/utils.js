@@ -53,7 +53,3 @@ var apply_quick_button_functions = function(){
 var setTooltips = function(){
     $('[rel*=tooltip]').tooltip();
 };
-
-var cursorToFirstField = function(id){
-    $('#' + id).focus();
-};

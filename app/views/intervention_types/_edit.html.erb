@@ -1,7 +1,7 @@
 <div class="modal">
   <%= form_for @intervention_type, url: intervention_type_path, html: { data: {
       target: dom_id(@intervention_type), respond_as: :put, error: 'modal',
-      modal: true} }, remote: true do |f| %>
+      modal: true}, class: 'form-horizontal' }, remote: true do |f| %>
     <div class="modal-header">
       <h2>Editando: '<%= @intervention_type.name %>'</h2>
     </div>
@@ -9,8 +9,8 @@
       <%= render partial: 'form', locals: {f: f} %>
     </div>
     <div class="modal-footer">
-      <%= link_to_function t('app.close'), "$('#modal').modal('toggle');", class: 'btn' %>
-      <%= f.button :submit, class: 'btn btn-primary' %>
+      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');", class: 'btn' %>
+      <%= f.button t('label.save'), class: 'btn btn-primary', disable_with: t('label.saving') %>
     </div>
   <% end %>
 </div>
