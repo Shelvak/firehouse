@@ -5,6 +5,7 @@ class CreateInterventionTypes < ActiveRecord::Migration
       t.integer :priority
       t.integer :intervention_type_id
       t.string :image
+      t.string :color
       t.string :target
       t.string :callback
 

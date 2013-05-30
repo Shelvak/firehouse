@@ -6,38 +6,14 @@
 <% unless @intervention.errors.present? %>
   <div class="quick-button-div" id="quick-button-div">
     <div class="row">
-      <div class="quick-button-red alarm-button" target="house_fire">
-        <div class="text">Incendio en casa</div>
-      </div>
-      <div class="quick-button-red alarm-button" target="car_fire">
-        <div class="text">Incendio de automovil</div>
-      </div>
-      <div class="quick-button-red alarm-button" target="industry_fire">
-        <div class="text">Incendio en industria</div>
-      </div>
-      <div class="quick-button-red alarm-button" target="explosion">
-        <div class="text">Explosión</div>
-      </div>
-      <div class="quick-button-black alarm-button" target="matpel">
-        <div class="text">Materiales Peligrosos</div>
-      </div>
+      <% (1..5).each do |i| %>
+        <%= render partial: 'intervention_types/quick_button_row', locals: { i: i } %>
+      <% end %>
     </div>
     <div class="row">
-      <div class="quick-button-green alarm-button" target="person_rescue">
-        <div class="text">Rescate de persona</div>
-      </div>
-      <div class="quick-button-green alarm-button" target="car_crash">
-        <div class="text">Accidente de auto</div>
-      </div>
-      <div class="quick-button-green alarm-button" target="bike_crash">
-        <div class="text">Accidente de moto</div>
-      </div>
-      <div class="quick-button-green alarm-button" target="bus_crash">
-        <div class="text">Accidente de micro</div>
-      </div>
-      <div class="quick-button-green alarm-button" target="derumbe">
-        <div class="text">Derrumbe</div>
-      </div>
+      <% (6..10).each do |i| %>
+        <%= render partial: 'intervention_types/quick_button_row', locals: { i: i } %>
+      <% end %>
     </div>
   </div>
 <% end %>
@@ -45,6 +21,6 @@
 <%= render 'form' %>
 
 <script type="text/javascript">
-  extend_button_div();
+  toggle_quick_buttons_button();
   apply_quick_button_functions();
 </script>

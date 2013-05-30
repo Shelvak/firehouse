@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20130520183508) do
     t.integer  "priority"
     t.integer  "intervention_type_id"
     t.string   "image"
+    t.string   "color"
     t.string   "target"
     t.string   "callback"
     t.datetime "created_at",           :null => false

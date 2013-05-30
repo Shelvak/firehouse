@@ -5,11 +5,11 @@ class InterventionType < ActiveRecord::Base
 
   has_many :childrens, :class_name => 'InterventionType'
 
-  attr_accessible :name, :priority, :father, :image, :target, :callback
+  attr_accessible :name, :priority, :father, :image, :target, :callback, :color
 
-  validates_presence_of :name
+  validates_presence_of :name, :color
 
-  validates_uniqueness_of :priority
+  validates_numericality_of :priority
 
   scope :only_fathers, -> { where(intervention_type_id: nil) }
 

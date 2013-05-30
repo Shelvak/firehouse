@@ -75,11 +75,11 @@ class InterventionTypesController < ApplicationController
     render partial: 'priorities', content_type: 'text/html'
   end
 
-  #todo: esto no anda bien
   def set_priority
     (1..10).each do |i|
+      old_intervention_type = InterventionType.where(priority: i).first
+      old_intervention_type.update_attribute(:priority, nil) if old_intervention_type
       if params[i.to_s].present?
-        InterventionType.where(priority: i).first.update_attributes(priority: nil)
         InterventionType.find( params[i.to_s] ).update_attributes(priority: i)
       end
     end

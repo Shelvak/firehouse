@@ -1,8 +1,8 @@
 <% if @intervention_types.empty? %>
   <%= render 'shared/empty_index' %>
-<% else %>
+<% end %>
   <div class="container-fluid">
-    <div class="row">
+  <div class="row">
       <div class="span5 intervention-types-list">
         <h1><%= t('view.intervention_types.index_title') %></h1>
         <% @intervention_types.each do |intervention_type| %>
@@ -15,18 +15,17 @@
       <div class="span1"></div>
       <div class="span5">
         <h2><%= t 'view.intervention_types.priorities' %></h2>
-        <ol>
           <% @top_10_intervention_types.each do |intervention_type| %>
-            <li><%= intervention_type.name %></li>
+            <p>
+              <%= intervention_type.priority %>. <%= intervention_type.name %>
+            </p>
           <% end %>
-        </ol>
         <%= link_to t('view.intervention_types.change_priorities'),
         priorities_intervention_types_path, remote: true, data: {target: 'modal',
         modal: true }, class: 'btn btn-primary' %>
       </div>
     </div>
   </div>
-<% end %>
 
 <div class="form-actions">
   <%= link_to(

@@ -48,26 +48,10 @@
       transform: scale(1.2, 1.2);
       z-index: 5;
     }
-
-    .quick-button-fire {
-      background-image: url('incendio.png');
+    .quick-button-active {
+      cursor: pointer;
     }
-    .quick-button-crash {
-      background-image: url('choque.gif');
-    }
-    .quick-button-rescue {
-      background-image: url('rescate.jpg');
-    }
-    .quick-button-red {
-      background-color: red;
-    }
-    .quick-button-green {
-      background-color: green;
-    }
-    .quick-button-black {
-      background-color: black;
-    }
-    .quick-button-other {
+    .quick-button-empty {
       border: 2px #ffffff dotted;
     }
   }

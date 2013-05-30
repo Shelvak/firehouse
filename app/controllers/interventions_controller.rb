@@ -35,6 +35,8 @@ class InterventionsController < ApplicationController
     @title = t('view.interventions.new_title')
     @intervention = Intervention.new
     @intervention.build_informer unless @intervention.informer
+    @intervention_types = InterventionType.only_childrens.where('priority IS NOT NULL').limit(10).order(:priority)
+
 
     respond_to do |format|
       format.html # new.html.erb

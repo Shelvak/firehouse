@@ -87,6 +87,7 @@
         image: 'Imagen'
         target: 'Destino'
         callback: 'Función de retorno'
+        color: 'Color'
       mobile_intervention:
         date: 'Fecha'
         observations: 'Observaciones'
