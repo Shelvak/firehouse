@@ -4,7 +4,7 @@ var toggle_quick_buttons_button = function(){
 
 var apply_quick_button_functions = function(){
     $('.alarm-button').click(function(){
-        $('#kind').val( $(this).attr('target') );
+        $('#intervention_kind').val( $(this).attr('target') );
         $('#quick-button-div').slideUp(function(){
             window.scrollTo(0);
         });
