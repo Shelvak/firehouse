@@ -59,6 +59,6 @@ class InterventionTypesControllerTest < ActionController::TestCase
       delete :destroy, id: @intervention_type
     end
 
-    assert_redirected_to intervention_types_path
+    assert_redirected_to configs_intervention_types_path
   end
 end

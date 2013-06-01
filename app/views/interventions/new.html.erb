@@ -7,12 +7,12 @@
   <div class="quick-button-div" id="quick-button-div">
     <div class="row">
       <% (1..5).each do |i| %>
-        <%= render partial: 'intervention_types/quick_button_row', locals: { i: i } %>
+        <%= render partial: 'interventions/quick_button_row', locals: { i: i } %>
       <% end %>
     </div>
     <div class="row">
       <% (6..10).each do |i| %>
-        <%= render partial: 'intervention_types/quick_button_row', locals: { i: i } %>
+        <%= render partial: 'interventions/quick_button_row', locals: { i: i } %>
       <% end %>
     </div>
   </div>

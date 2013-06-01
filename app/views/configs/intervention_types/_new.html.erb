@@ -1,9 +1,10 @@
 <div class="modal">
-  <%= form_for @intervention_type, url: intervention_type_path, html: { data: {
-      target: dom_id(@intervention_type), respond_as: :put, error: 'modal',
-      modal: true}, class: 'form-horizontal' }, remote: true do |f| %>
+  <%= form_for @intervention_type, url: configs_intervention_types_path(
+      father: params[:father] ), remote: true, html: { data: { target: (
+      params[:father] ? "intervention_type_#{params[:father]}_children" :
+      'new_intervention_type'),  error: 'modal', modal: true  }, class: 'form-horizontal' } do |f| %>
     <div class="modal-header">
-      <h2>Editando: '<%= @intervention_type.name %>'</h2>
+      <h2>Nuevo tipo de intervención</h2>
     </div>
     <div class="modal-body">
       <%= render partial: 'form', locals: {f: f} %>

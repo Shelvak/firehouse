@@ -1,10 +1,9 @@
-class InterventionTypesController < ApplicationController
+class Configs::InterventionTypesController < ApplicationController
 
   def index
     @title = t('view.intervention_types.index_title')
     @intervention_types = InterventionType.only_fathers.
         order(:id).includes(:childrens).page(params[:page])
-    @top_10_intervention_types = InterventionType.only_childrens.where('priority IS NOT NULL').order(:priority).limit(10)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @intervention_types }
@@ -71,8 +70,12 @@ class InterventionTypesController < ApplicationController
   end
 
   def priorities
+    @top_10_intervention_types = InterventionType.only_childrens.where('priority IS NOT NULL').order(:priority).limit(10)
+  end
+
+  def edit_priorities
     @childrens = InterventionType.only_childrens.order(:intervention_type_id, :id)
-    render partial: 'priorities', content_type: 'text/html'
+    render partial: 'edit_priorities', content_type: 'text/html'
   end
 
   def set_priority
@@ -83,6 +86,6 @@ class InterventionTypesController < ApplicationController
         InterventionType.find( params[i.to_s] ).update_attributes(priority: i)
       end
     end
-    redirect_to intervention_types_path
+    redirect_to priorities_configs_intervention_types_path
   end
 end

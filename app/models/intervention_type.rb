@@ -9,7 +9,7 @@ class InterventionType < ActiveRecord::Base
 
   validates_presence_of :name, :color
 
-  validates_numericality_of :priority
+  #validates_numericality_of :priority
 
   scope :only_fathers, -> { where(intervention_type_id: nil) }
 

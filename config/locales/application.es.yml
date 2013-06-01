@@ -162,6 +162,7 @@
     scos: 'CEOs'
     trucks: 'Moviles'
     users: 'Usuarios'
+    configs: 'Configuración'
     
   messages:
     confirmation: '¿Está seguro?'
