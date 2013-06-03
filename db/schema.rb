@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130518054740) do
+ActiveRecord::Schema.define(:version => 20130520183508) do
+
+  create_table "buildings", :force => true do |t|
+    t.string   "address"
+    t.text     "description"
+    t.string   "floor"
+    t.string   "roof"
+    t.string   "window"
+    t.string   "electrics"
+    t.text     "damage"
+    t.integer  "mobile_intervention_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
 
   create_table "endowment_line_firefighter_relations", :force => true do |t|
     t.integer  "endowment_line_id", :null => false
@@ -73,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20130518054740) do
 
   create_table "informers", :force => true do |t|
     t.string   "full_name",       :null => false
-    t.integer  "nid"
+    t.integer  "nid",             :null => false
     t.string   "phone"
     t.string   "address"
     t.integer  "intervention_id", :null => false
@@ -83,28 +96,87 @@ ActiveRecord::Schema.define(:version => 20130518054740) do
 
   add_index "informers", ["intervention_id"], :name => "index_informers_on_intervention_id"
 
+  create_table "intervention_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "priority"
+    t.integer  "intervention_type_id"
+    t.string   "image"
+    t.string   "color"
+    t.string   "target"
+    t.string   "callback"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
   create_table "interventions", :force => true do |t|
-    t.integer  "number",                    :null => false
-    t.string   "address",                   :null => false
+    t.integer  "number",                      :null => false
+    t.string   "address",                     :null => false
     t.string   "near_corner"
-    t.string   "kind",         :limit => 1, :null => false
+    t.string   "kind",           :limit => 1, :null => false
     t.string   "kind_notes"
-    t.integer  "receptor_id",               :null => false
+    t.integer  "receptor_id",                 :null => false
     t.text     "observations"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "truck_id"
+    t.string   "out_at",         :limit => 5
+    t.string   "arrive_at",      :limit => 5
+    t.string   "back_at",        :limit => 5
+    t.string   "in_at",          :limit => 5
+    t.integer  "out_mileage"
+    t.integer  "arrive_mileage"
+    t.integer  "back_mileage"
+    t.integer  "in_mileage"
     t.integer  "sco_id"
   end
 
   add_index "interventions", ["kind"], :name => "index_interventions_on_kind"
   add_index "interventions", ["number"], :name => "index_interventions_on_number", :unique => true
   add_index "interventions", ["receptor_id"], :name => "index_interventions_on_receptor_id"
+  add_index "interventions", ["truck_id"], :name => "index_interventions_on_truck_id"
+
+  create_table "mobile_interventions", :force => true do |t|
+    t.datetime "date"
+    t.string   "emergency"
+    t.text     "observations"
+    t.integer  "endowment_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "people", :force => true do |t|
+    t.string   "name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "dni_type"
+    t.string   "dni_number"
+    t.integer  "age"
+    t.string   "phone_number"
+    t.string   "relation"
+    t.string   "moved_to"
+    t.text     "injuries"
+    t.integer  "building_id"
+    t.integer  "vehicle_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "scos", :force => true do |t|
     t.string   "full_name",                     :null => false
     t.boolean  "current",    :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "supports", :force => true do |t|
+    t.string   "support_type"
+    t.string   "number"
+    t.string   "responsible"
+    t.string   "driver"
+    t.string   "owner"
+    t.integer  "mobile_intervention_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   create_table "trucks", :force => true do |t|
@@ -140,6 +212,17 @@ ActiveRecord::Schema.define(:version => 20130518054740) do
   add_index "users", ["lastname"], :name => "index_users_on_lastname"
   add_index "users", ["name"], :name => "index_users_on_name"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "vehicles", :force => true do |t|
+    t.string   "mark"
+    t.string   "model"
+    t.string   "year"
+    t.string   "domain"
+    t.text     "damage"
+    t.integer  "mobile_intervention_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false

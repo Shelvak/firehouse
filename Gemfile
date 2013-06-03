@@ -15,6 +15,7 @@ gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'capistrano'
+gem 'SrBuj'
 
 group :assets do
   gem 'sass-rails'

@@ -96,4 +96,10 @@ module ApplicationHelper
     
     link_to '&#xe05a;'.html_safe, *args, options
   end
+
+  def errors_for(object, field)
+    if object && object.errors[field].any?
+      content_tag(:span, object.errors[field].to_sentence, class: 'control-group error')
+    end
+  end
 end

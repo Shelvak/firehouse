@@ -1,0 +1,10 @@
+<% intervention_type = @intervention_types.select{|x| x.priority == i}.first %>
+<% if intervention_type %>
+  <div class="quick-button-active alarm-button" style="background-color:<%= intervention_type.color %>" target="<%= intervention_type.id %>">
+    <div class="text"><%=	intervention_type.name %></div>
+  </div>
+<% else %>
+  <div class="quick-button-empty alarm-button">
+    <div class="text"><%=	'&nbsp'.html_safe %></div>
+  </div>
+<% end %>

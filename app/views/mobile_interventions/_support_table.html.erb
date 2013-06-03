@@ -1,0 +1,27 @@
+<table class='table table-bordered table-striped'>
+  <thead>
+  <tr>
+    <th><%= t 'view.mobile_interventions.tables.in_the_place' %></th>
+    <th><%= t 'view.mobile_interventions.tables.mobil_number' %></th>
+    <th><%= t 'view.mobile_interventions.tables.responsible' %></th>
+    <th><%= t 'view.mobile_interventions.tables.driver' %></th>
+    <th><%= t 'view.mobile_interventions.tables.belongs' %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @mobile_intervention.supports.each do |support| %>
+    <tr>
+      <td><%= support.support_type %></td>
+      <td><%= support.number %></td>
+      <td><%= support.responsible %></td>
+      <td><%= support.driver %></td>
+      <td><%= support.owner %></td>
+      <td>
+        <%= link_to_edit edit_mobile_intervention_support_path(@mobile_intervention, support)  %>
+        <%= link_to_destroy mobile_intervention_support_path(@mobile_intervention, support)  %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

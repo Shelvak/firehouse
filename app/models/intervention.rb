@@ -32,6 +32,7 @@ class Intervention < ActiveRecord::Base
   belongs_to :user, foreign_key: 'receptor_id'
   belongs_to :sco
   has_one :informer
+  has_one :mobile_intervention
   has_many :endowments
 
   accepts_nested_attributes_for :informer, allow_destroy: true,

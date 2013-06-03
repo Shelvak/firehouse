@@ -19,6 +19,18 @@ Firehouse::Application.routes.draw do
       put :update_back
       put :update_in
     end
+    resources :endowements do
+      resources :mobile_interventions
+    end
+  end
+  resources :mobile_interventions do
+    resources :buildings do
+      resources :people
+    end
+    resources :supports, only: [:new, :edit, :destroy, :create, :update]
+    resources :vehicles, only: [:new, :edit, :destroy, :create, :update] do
+      resources :people
+    end
   end
 
   devise_for :users
@@ -30,6 +42,17 @@ Firehouse::Application.routes.draw do
       put :update_profile
     end
   end
-  
+
+
   root to: redirect('/users/sign_in')
+
+  namespace :configs do
+    resources :intervention_types do
+      collection do
+        get :priorities
+        get :edit_priorities
+        put :set_priority
+      end
+    end
+  end
 end

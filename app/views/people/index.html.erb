@@ -1,0 +1,54 @@
+<% if @people.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <thead>
+          <tr>
+            <th><%= Person.human_attribute_name 'name' %></th>
+            <th><%= Person.human_attribute_name 'last_name' %></th>
+            <th><%= Person.human_attribute_name 'address' %></th>
+            <th><%= Person.human_attribute_name 'dni_type' %></th>
+            <th><%= Person.human_attribute_name 'dni_number' %></th>
+            <th><%= Person.human_attribute_name 'age' %></th>
+            <th><%= Person.human_attribute_name 'phone_number' %></th>
+            <th><%= Person.human_attribute_name 'relation' %></th>
+            <th><%= Person.human_attribute_name 'moved_to' %></th>
+            <th><%= Person.human_attribute_name 'injuries' %></th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @people.each do |person| %>
+            <tr>
+              <td><%= person.name %></td>
+              <td><%= person.last_name %></td>
+              <td><%= person.address %></td>
+              <td><%= person.dni_type %></td>
+              <td><%= person.dni_number %></td>
+              <td><%= person.age %></td>
+              <td><%= person.phone_number %></td>
+              <td><%= person.relation %></td>
+              <td><%= person.moved_to %></td>
+              <td><%= person.injuries %></td>
+              <!--<td><%#= link_to_show person %></td>-->
+              <!--<td><%#= link_to_edit edit_person_path(person) if can? :update, person %></td>-->
+              <!--<td><%#= link_to_destroy person if can? :destroy, person %></td>-->
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@people) %>
+<% end %>
+
+<div class="form-actions">
+  <%#= link_to(
+    t('view.people.new', default: :'label.new'),
+    new_person_path, class: 'btn btn-primary'
+  ) if can? :create, Person %>
+</div>

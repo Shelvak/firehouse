@@ -1,0 +1,19 @@
+<%= intervention_types_subnav %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="span11">
+      <h1><%= t 'view.intervention_types.priorities' %></h1>
+      <% @top_10_intervention_types.each do |intervention_type| %>
+        <p>
+          <%= intervention_type.priority %>. <%= intervention_type.name %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="form-actions">
+  <%= link_to t('view.intervention_types.change_priorities'),
+          edit_priorities_configs_intervention_types_path, remote: true, data:
+          {target: 'modal', modal: true }, class: 'btn btn-primary' %>
+</div>

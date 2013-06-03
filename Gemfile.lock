@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    SrBuj (0.6.3)
+      jquery-rails (>= 2.1)
+      railties (>= 3.1)
     actionmailer (3.2.12)
       actionpack (= 3.2.12)
       mail (~> 2.4.4)
@@ -193,6 +196,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  SrBuj
   cancan
   capistrano
   capybara

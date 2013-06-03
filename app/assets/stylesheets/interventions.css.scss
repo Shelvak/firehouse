@@ -6,3 +6,81 @@
   font-size: 1.8em;
   padding: 0.3em;
 }
+
+.quick-button-div {
+  border-radius: 15px;
+  background-color: #363636;
+  min-height: 300px;
+  padding: 20px;
+  text-align: center;
+
+  .row{
+    [class^="quick-button-"],
+    [class*=" quick-button-"] {
+      transition: all 0.3s ease-in-out;
+      display: inline-table;
+      margin: 10px;
+      width: 170px;
+      height: 170px;
+      min-width: 170px;
+      min-height: 10px;
+      border: 2px solid #363636;
+      border-radius: 15px;
+      box-shadow: 0px 5px 5px #000000;
+      position: relative;
+      top: 20%;
+      background-size: cover;
+      .text {
+        color: white;
+        padding-top: 40%;
+        font-size: 20px;
+      }
+    }
+
+    [class^="quick-button-"]:hover,
+    [class*=" quick-button-"]:hover {
+      transition: all 0.4s ease-in-out;
+      box-shadow: 0px 15px 15px #000000;
+      -ms-transform: scale(1.2, 1.2);
+      -webkit-transform: scale(1.2, 1.2);
+      -moz-transform: scale(1.2, 1.2);
+      -o-transform: scale(1.2, 1.2);
+      transform: scale(1.2, 1.2);
+      z-index: 5;
+    }
+    .quick-button-active {
+      cursor: pointer;
+    }
+    .quick-button-empty {
+      border: 2px #ffffff dotted;
+    }
+  }
+}
+
+.intervention-types-list {
+  .type:hover, .subtype:hover{
+    border: 1px solid dodgerblue;
+    border-radius: 4px;
+  }
+  .type {
+    border: 1px solid #ffffff;
+    padding: 5px;
+  }
+  .subtype{
+    padding: 5px;
+    padding-left: 25px;
+    border: 1px solid #cae7ff;
+    border-radius: 4px;
+    background-color: #cae7ff;
+  }
+}
+
+.red {
+  color: red;
+}
+
+.modal-form {
+  marign: 0px;
+}
+
+

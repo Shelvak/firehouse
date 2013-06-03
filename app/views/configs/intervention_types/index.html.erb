@@ -1,0 +1,27 @@
+<%= intervention_types_subnav %>
+<% if @intervention_types.empty? %>
+  <%= render 'shared/empty_index' %>
+<% end %>
+<div class="container-fluid">
+  <h1><%= t('view.intervention_types.index_title') %></h1>
+  <div class="row">
+    <div class="span11 intervention-types-list">
+      <% @intervention_types.each do |intervention_type| %>
+        <%= render intervention_type, special_class: 'type' %>
+        <%= render intervention_type.childrens.order(:priority),
+                   special_class: 'subtype' %>
+      <% end %>
+      <div id="new_intervention_type"></div>
+    </div>
+  </div>
+</div>
+<div class="form-actions">
+  <%= link_to(
+    t('view.intervention_types.new', default: :'label.new'),
+    new_configs_intervention_type_path, class: 'btn btn-primary', remote: true, data: {
+    target: 'modal', modal: true } ) if can? :create, InterventionType %>
+</div>
+
+<script>
+  setTooltips();
+</script>

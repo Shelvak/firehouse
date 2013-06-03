@@ -1,0 +1,45 @@
+<div class="readonly-data">
+  <h2><%= show_kind_of_intervention @intervention.kind %> - Inmueble involucrado</h2>
+
+  <p>
+    <!--<strong><%= Building.human_attribute_name 'address' %></strong>:-->
+    <strong>Dirección: </strong>:
+    <%= @building.address %>
+  </p>
+  <p>
+    <!--<strong><%= Building.human_attribute_name 'description' %></strong>:-->
+    <strong>Descripción: </strong>:
+    <%= @building.description %>
+  </p>
+  <p>
+    <!--<strong><%= Building.human_attribute_name 'floor' %></strong>:-->
+    <strong>Piso:</strong>:
+    <%= @building.floor %>
+  </p>
+  <p>
+    <!--<strong><%= Building.human_attribute_name 'roof' %></strong>:-->
+    <strong>Techo: </strong>:
+    <%= @building.roof %>
+  </p>
+  <p>
+    <!--<strong><%= Building.human_attribute_name 'window' %></strong>:-->
+    <strong>Puertas y ventanas: </strong>:
+    <%= @building.window %>
+  </p>
+  <p>
+    <!--<strong><%= Building.human_attribute_name 'electrics' %></strong>:-->
+    <strong>Instalaciones eléctricas</strong>:
+    <%= @building.electrics %>
+  </p>
+  <p>
+    <!--<strong><%= Building.human_attribute_name 'damage' %></strong>:-->
+    <strong>Daños: </strong>:
+    <%= @building.damage %>
+  </p>
+  
+</div>
+<div class="form-actions">
+  <%= link_to t('label.edit'), ['edit', @mobile_intervention, @building] if can? :update, @building %> |
+  <%= link_to t('activerecord.models.intervention.one'), @intervention %> |
+  <%= link_to t('activerecord.models.mobile_intervention.one'), intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) %>
+</div>

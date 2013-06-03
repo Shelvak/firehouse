@@ -1,0 +1,36 @@
+<div class='row-fluid well span11'>
+  <span class='span3'>
+    <h4>
+      <%= t 'activerecord.attributes.vehicle.number' %>:
+      <%= number %>
+      <%= link_to_edit ['edit', @mobile_intervention, vehicle] %>
+    </h4>
+    <p>
+      <%= t 'activerecord.attributes.vehicle.mark' %>:
+      <%= vehicle.mark %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.vehicle.model' %>:
+    <%= vehicle.model %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.vehicle.year' %>:
+      <%= vehicle.year %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.vehicle.domain' %>:
+      <%= vehicle.domain %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.vehicle.damage' %>
+      <%= vehicle.damage %>
+    </p>
+  </span>
+  <span class='span9'>
+    <% if vehicle.persons.any? %>
+      <%= render 'mobile_interventions/people_table', people: vehicle.persons %>
+    <% end %>
+    <p><%= link_to t('view.people.new'), new_mobile_intervention_vehicle_person_path(@mobile_intervention, vehicle),
+                   class: 'btn btn-success btn-mini' %></p>
+  </span>
+</div>

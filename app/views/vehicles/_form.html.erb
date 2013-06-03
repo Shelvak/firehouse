@@ -1,0 +1,20 @@
+<%= simple_form_for([@mobile_intervention, @vehicle]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs clearfix">
+    <div class="span4">
+      <%= f.input :mark %>
+      <%= f.input :model %>
+      <%= f.input :year %>
+      <%= f.input :domain %>
+    </div>
+    <div class="span7">
+      <%= f.input :damage %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>
