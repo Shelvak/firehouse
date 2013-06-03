@@ -70,6 +70,7 @@ class Configs::InterventionTypesController < ApplicationController
   end
 
   def priorities
+    @title = t 'view.intervention_types.priorities'
     @top_10_intervention_types = InterventionType.only_childrens.where('priority IS NOT NULL').order(:priority).limit(10)
   end
 
