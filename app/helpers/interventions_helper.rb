@@ -18,8 +18,9 @@ module InterventionsHelper
   end
 
   def show_kind_of_intervention(kind)
-    key = Intervention::KINDS.invert[kind]
-    t("view.interventions.kinds.#{key}")
+    #key = Intervention::KINDS.invert[kind]
+    #t("view.interventions.kinds.#{key}")
+    InterventionType.find(kind).name
   end
 
   def show_charge_name(key)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520183508) do
+ActiveRecord::Schema.define(:version => 20130603203341) do
 
   create_table "buildings", :force => true do |t|
     t.string   "address"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20130520183508) do
     t.integer  "number",                      :null => false
     t.string   "address",                     :null => false
     t.string   "near_corner"
-    t.string   "kind",           :limit => 1, :null => false
+    t.string   "kind",                        :null => false
     t.string   "kind_notes"
     t.integer  "receptor_id",                 :null => false
     t.text     "observations"
