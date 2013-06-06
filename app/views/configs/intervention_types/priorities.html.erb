@@ -6,6 +6,9 @@
       <% @top_10_intervention_types.each do |intervention_type| %>
         <p>
           <%= intervention_type.priority %>. <%= intervention_type.name %>
+          <%= link_to_edit edit_configs_intervention_type_path(intervention_type),
+              remote: true, data: { target: 'modal', modal: true } if
+              can? :update, intervention_type %>
         </p>
       <% end %>
     </div>
