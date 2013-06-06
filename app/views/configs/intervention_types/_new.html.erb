@@ -2,7 +2,7 @@
   <%= form_for @intervention_type, url: configs_intervention_types_path(
       father: params[:father] ), remote: true, html: { data: { target: (
       params[:father] ? "intervention_type_#{params[:father]}_children" :
-      'new_intervention_type'),  error: 'modal', modal: true  }, class: 'form-horizontal' } do |f| %>
+      'new_intervention_type'), error: 'modal', modal: true  }, class: 'form-horizontal' } do |f| %>
     <div class="modal-header">
       <h2>Nuevo tipo de intervención</h2>
     </div>

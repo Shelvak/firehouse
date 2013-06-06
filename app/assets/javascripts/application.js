@@ -30,3 +30,4 @@
 //= require interventions
 //= require utils
 //= require SrBuj
+//= require bootstrap-colorpicker

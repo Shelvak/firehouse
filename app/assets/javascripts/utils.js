@@ -25,3 +25,9 @@ var apply_quick_button_functions = function(){
 var setTooltips = function(){
     $('[rel*=tooltip]').tooltip();
 };
+
+var setColorPicker = function(){
+    $('.colorpicker').colorpicker().on('changeColor', function(ev){
+        $('.add-on i').css('background-color', ev.color.toHex());
+    });
+};

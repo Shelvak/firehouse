@@ -21,6 +21,7 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
+  gem 'bootstrap-colorpicker-rails'
 end
 
 group :development do

@@ -19,5 +19,7 @@
  *= require common-responsive
  *= require devise
  *= require users
-*= require interventions
+ *= require interventions
+ *= require bootstrap-colorpicker
+ *= require colorpicker-extra
 */
