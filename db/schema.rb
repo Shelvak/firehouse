@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603203341) do
+ActiveRecord::Schema.define(:version => 20130605164821) do
 
   create_table "buildings", :force => true do |t|
     t.string   "address"
@@ -109,28 +109,27 @@ ActiveRecord::Schema.define(:version => 20130603203341) do
   end
 
   create_table "interventions", :force => true do |t|
-    t.integer  "number",                      :null => false
-    t.string   "address",                     :null => false
+    t.integer  "number",                            :null => false
+    t.string   "address",                           :null => false
     t.string   "near_corner"
-    t.string   "kind",                        :null => false
     t.string   "kind_notes"
-    t.integer  "receptor_id",                 :null => false
+    t.integer  "receptor_id",                       :null => false
     t.text     "observations"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "truck_id"
-    t.string   "out_at",         :limit => 5
-    t.string   "arrive_at",      :limit => 5
-    t.string   "back_at",        :limit => 5
-    t.string   "in_at",          :limit => 5
+    t.string   "out_at",               :limit => 5
+    t.string   "arrive_at",            :limit => 5
+    t.string   "back_at",              :limit => 5
+    t.string   "in_at",                :limit => 5
     t.integer  "out_mileage"
     t.integer  "arrive_mileage"
     t.integer  "back_mileage"
     t.integer  "in_mileage"
     t.integer  "sco_id"
+    t.integer  "intervention_type_id"
   end
 
-  add_index "interventions", ["kind"], :name => "index_interventions_on_kind"
   add_index "interventions", ["number"], :name => "index_interventions_on_number", :unique => true
   add_index "interventions", ["receptor_id"], :name => "index_interventions_on_receptor_id"
   add_index "interventions", ["truck_id"], :name => "index_interventions_on_truck_id"

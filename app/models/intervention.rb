@@ -1,34 +1,21 @@
 class Intervention < ActiveRecord::Base
   has_paper_trail
-  has_magick_columns address: :string, kind: :string, number: :integer
-
-  KINDS = {
-    car_accident: 'a',
-    motorbike_accident: 'b',
-    truck_accident: 'c',
-    bus_accident: 'd',
-    house_fire: 'e',
-    car_fire: 'f',
-    industry_fire: 'g',
-    field_fire: 'h',
-    animal_rescue: 'i',
-    person_rescue: 'j',
-    other: 'o'
-  }.with_indifferent_access.freeze
+  has_magick_columns address: :string, number: :integer
 
   attr_accessor :auto_receptor_name, :auto_sco_name
   
-  attr_accessible :address, :kind, :kind_notes, :near_corner, :number, 
+  attr_accessible :address, :kind_notes, :near_corner, :number,
     :observations, :receptor_id, :endowments_attributes, :auto_sco_name,
-    :sco_id, :informer_attributes, :auto_receptor_name
+    :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id
 
-  validates :address, :kind, :number, :receptor_id, presence: true
+  validates :address, :intervention_type_id, :number, :receptor_id, presence: true
   validates :number, uniqueness: true
   validate :sco_presence
 
   before_validation :assign_intervention_number, :assign_endowment_number
   after_create :assign_mileage_to_trucks
 
+  belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
   belongs_to :sco
   has_one :informer
