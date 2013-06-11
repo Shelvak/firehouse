@@ -259,6 +259,7 @@
       new: 'Nuevo tipo'
       priorities: 'Prioridades'
       change_priorities: "Cambiar prioridades"
+      correctly_deleted: "Tipo de intervención eliminado correctamente"
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'

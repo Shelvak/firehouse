@@ -15,7 +15,7 @@ gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'capistrano'
-gem 'SrBuj'
+gem 'SrBuj', '0.9.0alpha4'
 
 group :assets do
   gem 'sass-rails'
@@ -25,7 +25,7 @@ group :assets do
 end
 
 group :development do
-  gem 'thin'
+  gem 'unicorn'
 end
 
 group :test do
@@ -35,6 +35,4 @@ group :test do
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'
-  # gem 'ZenTest'
-  # gem 'autotest-rails'
 end

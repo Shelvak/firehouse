@@ -41,6 +41,7 @@ class Configs::InterventionTypesController < ApplicationController
       @intervention_type = InterventionType.new(params[:intervention_type])
     end
     if @intervention_type.save
+      js_notify(message: t('view.intervention_types.correctly_created'), type: 'alert-success js-notify-18px-text', time: 2500)
       render @intervention_type, locals: {special_class: (
       @intervention_type.father ? 'subtype' : 'type')}, content_type: 'text/html'
     else
@@ -51,10 +52,15 @@ class Configs::InterventionTypesController < ApplicationController
   def update
     @title = t('view.intervention_types.edit_title')
     @intervention_type = InterventionType.find(params[:id])
-
     if @intervention_type.update_attributes(params[:intervention_type])
-      render partial: @intervention_type, locals: {special_class: (
-      @intervention_type.father ? 'subtype' : 'type')}, content_type: 'text/html'
+      js_notify(message: t('view.intervention_types.correctly_updated'), type: 'alert-success js-notify-18px-text', time: 2500)
+      if params[:priority]
+        render partial: 'configs/intervention_types/prority_item',
+        locals: {intervention_type: @intervention_type}, content_type: 'text/html'
+      else
+        render partial: @intervention_type, locals: {special_class: (
+        @intervention_type.father ? 'subtype' : 'type')}, content_type: 'text/html'
+      end
     else
       render partial: 'edit', status: :unprocessable_entity
     end
@@ -66,6 +72,7 @@ class Configs::InterventionTypesController < ApplicationController
   def destroy
     @intervention_type = InterventionType.find(params[:id])
     @intervention_type.destroy
+    js_notify(message: t('view.intervention_types.correctly_deleted'), type: 'alert-danger js-notify-18px-text', time: 2500)
     render false, content_type: 'text/html'
   end
 

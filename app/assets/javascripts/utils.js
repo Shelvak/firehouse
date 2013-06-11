@@ -31,3 +31,8 @@ var setColorPicker = function(){
         $('.add-on i').css('background-color', ev.color.toHex());
     });
 };
+
+var allowBackdropToCloseColorpicker = function(){
+    $('.modal-backdrop.in').on('click', function(){
+    });
+};
