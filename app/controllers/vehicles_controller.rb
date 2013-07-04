@@ -22,8 +22,8 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.save
-        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.vehicles.correctly_created') }
-        format.json { render json: intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @vehicle }
+        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.vehicles.correctly_created') }
+        format.json { render json: intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @vehicle }
       else
         format.html { render action: 'new' }
         format.json { render json: @vehicle.errors, status: :unprocessable_entity }
@@ -37,7 +37,7 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.update_attributes(params[:vehicle])
-        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.vehicles.correctly_updated') }
+        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.vehicles.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }

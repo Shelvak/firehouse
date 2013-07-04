@@ -2,20 +2,6 @@ class Intervention < ActiveRecord::Base
   has_paper_trail
   has_magick_columns address: :string, kind: :string, number: :integer
 
-  KINDS = {
-    car_accident: 'a',
-    motorbike_accident: 'b',
-    truck_accident: 'c',
-    bus_accident: 'd',
-    house_fire: 'e',
-    car_fire: 'f',
-    industry_fire: 'g',
-    field_fire: 'h',
-    animal_rescue: 'i',
-    person_rescue: 'j',
-    other: 'o'
-  }.with_indifferent_access.freeze
-
   attr_accessor :auto_receptor_name, :auto_sco_name
   
   attr_accessible :address, :kind, :kind_notes, :near_corner, :number, 
@@ -73,5 +59,9 @@ class Intervention < ActiveRecord::Base
     self.endowments.each do |e|
       e.truck.update_attributes(mileage: e.in_mileage) if e.in_mileage
     end
+  end
+
+  def type
+    self.kind.try(:to_i).zero? ? self.kind : InterventionType.find(self.kind)
   end
 end

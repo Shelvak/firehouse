@@ -17,7 +17,7 @@
           <% @interventions.each do |intervention| %>
             <tr>
               <td><%= intervention.number %></td>
-              <td><%= show_kind_of_intervention intervention.kind %></td>
+              <td><%= intervention.type %></td>
               <td><%= intervention.user %></td>
               <td><%= link_to_show intervention %></td>
               <td><%= link_to_edit(

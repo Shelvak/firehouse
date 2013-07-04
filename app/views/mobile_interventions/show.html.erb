@@ -1,10 +1,10 @@
 <div class="readonly-data">
-  <h2><%= show_kind_of_intervention @intervention.kind %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
+  <h2><%= @intervention.type %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
   <p>
     <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
     <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
   </p>
-  <%= form_for @mobile_intervention, url: intervention_endowement_mobile_intervention_path( @intervention, @endowment, @mobile_intervention ) do |f| %>
+  <%= form_for @mobile_intervention, url: intervention_endowment_mobile_intervention_path( @intervention, @endowment, @mobile_intervention ) do |f| %>
     <span class="pull-right"><%= f.submit t('view.mobile_interventions.edit_button'), class: 'btn btn-primary' %></span>
     <div class="form-inputs">
       <%= f.text_area :observations, class: 'span9', rows: 5 %>
@@ -16,7 +16,13 @@
     <% @mobile_intervention.buildings.each do |building| %>
       <%= render 'mobile_interventions/building', building: building %>
     <% end %>
-    <p><%= link_to t('view.buildings.new'), new_mobile_intervention_building_path(@mobile_intervention), class: 'btn btn-primary' %></p>
+    <p><%= link_to(
+      t('view.buildings.new'),
+      new_intervention_endowment_mobile_intervention_building_path(
+        @intervention, @endowment, @mobile_intervention
+    ),
+      class: 'btn btn-primary'
+    ) %></p>
   </div>
 
   <hr/>
@@ -28,7 +34,10 @@
       <% number += 1 %>
       <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
     <% end %>
-    <p><%= link_to t('view.vehicles.new'), new_mobile_intervention_vehicle_path(@mobile_intervention), class: 'btn btn-primary' %></p>
+    <p><%= link_to t('view.vehicles.new'),
+      new_intervention_endowment_mobile_intervention_vehicle_path(
+        @intervention, @endowment, @mobile_intervention
+      ), class: 'btn btn-primary' %></p>
   </div>
 
   <hr/>
@@ -38,7 +47,10 @@
     <% if @mobile_intervention.supports.any? %>
       <%= render 'mobile_interventions/support_table' %>
     <% end %>
-    <p><%= link_to t('view.supports.new'), new_mobile_intervention_support_path(@mobile_intervention), class: 'btn btn-primary' %></p>
+    <p><%= link_to t('view.supports.new'), 
+      new_intervention_endowment_mobile_intervention_support_path(
+        @intervention, @endowment, @mobile_intervention
+      ), class: 'btn btn-primary' %></p>
   </div>
 </div>
 

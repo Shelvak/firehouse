@@ -14,4 +14,8 @@ class InterventionType < ActiveRecord::Base
   scope :only_fathers, -> { where(intervention_type_id: nil) }
 
   scope :only_childrens, -> { !only_fathers }
+
+  def to_s
+    self.name
+  end
 end
