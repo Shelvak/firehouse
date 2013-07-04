@@ -1,9 +1,0 @@
-<div class="container-fluid">
-  <h2><%= @intervention.type %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
-</div>
-<%= content_for :form_actions do %>
-  <%= link_to t('activerecord.models.intervention.one'), @intervention %>
-<% end %>
-<%= form_for @mobile_intervention, url: intervention_endowment_mobile_intervention_path( @intervention, @endowment ) do |f| %>
-  <%= render 'form', f: f %>
-<% end %>

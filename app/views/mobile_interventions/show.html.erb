@@ -4,7 +4,10 @@
     <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
     <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
   </p>
-  <%= form_for @mobile_intervention, url: intervention_endowment_mobile_intervention_path( @intervention, @endowment, @mobile_intervention ) do |f| %>
+  <%= form_for @mobile_intervention, 
+    url: intervention_endowment_mobile_intervention_path(
+      @intervention, @endowment
+    ), method: :put do |f| %>
     <span class="pull-right"><%= f.submit t('view.mobile_interventions.edit_button'), class: 'btn btn-primary' %></span>
     <div class="form-inputs">
       <%= f.text_area :observations, class: 'span9', rows: 5 %>

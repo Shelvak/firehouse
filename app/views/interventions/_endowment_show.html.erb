@@ -16,11 +16,8 @@
         <div class='span5'>
           <%= link_to(
             t('activerecord.models.mobile_intervention.one'), 
-            (
-              e.mobile_intervention ?
-              intervention_endowment_mobile_intervention_path(@intervention, e, e.mobile_intervention) : 
-              new_intervention_endowment_mobile_intervention_path(@intervention, e)
-            ), class: 'btn btn-primary'
+            intervention_endowment_mobile_intervention_path(@intervention, e),
+            class: 'btn btn-primary'
           ) %> <br /><br />
 
           <div class='row-fluid'>
