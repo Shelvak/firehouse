@@ -247,6 +247,7 @@
         backup: 'Reserva'
       set_time: 'Ingresar hora'
     intervention_types:
+      list_title: 'Listado'
       index_title: 'Tipos de intervenciones'
       show_title: '%{intervention_type}'
       new_title: 'Nuevo tipo de intervención'

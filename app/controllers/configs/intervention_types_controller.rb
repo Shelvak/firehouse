@@ -71,9 +71,10 @@ class Configs::InterventionTypesController < ApplicationController
 
   def destroy
     @intervention_type = InterventionType.find(params[:id])
-    @intervention_type.destroy
-    js_notify(message: t('view.intervention_types.correctly_deleted'), type: 'alert-danger js-notify-18px-text', time: 2500)
-    render false, content_type: 'text/html'
+    if @intervention_type.destroy
+      js_notify(message: t('view.intervention_types.correctly_deleted'), type: 'alert-danger js-notify-18px-text', time: 2500)
+      render false, content_type: 'text/html'
+    end
   end
 
   def priorities
