@@ -16,10 +16,12 @@
 //= require jquery/jquery.ui.datepicker-es
 //= require jquery/jquery-ui-timepicker-addon
 //= require twitter/bootstrap
+//= require inspector
 //= require turboevents
 //= require turbolinks
 //= require autocomplete
 //= require common
 //= require date_pickers
+//= require endless_pagination
 //= require mobile
 //= require users
