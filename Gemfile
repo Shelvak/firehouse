@@ -15,7 +15,9 @@ gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'capistrano'
-gem 'SrBuj', '0.9.0alpha4'
+gem 'SrBuj'
+gem 'rmagick'
+gem 'carrierwave'
 
 group :assets do
   gem 'sass-rails'

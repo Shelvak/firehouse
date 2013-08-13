@@ -50,6 +50,9 @@
     }
     .quick-button-active {
       cursor: pointer;
+      .text {
+        text-shadow: black 0.1em 0.1em 0.2em;
+      }
     }
     .quick-button-empty {
       border: 2px #ffffff dotted;

@@ -1,8 +1,9 @@
 <div class="modal">
+  <!--saque el remote true-->
   <%= form_for @intervention_type, url: configs_intervention_type_path(priority: params[:priority]), html: { data: {
       target: dom_id(@intervention_type), respond_as: :put, error: 'modal',
       modal: true, callback: "$('.colorpicker.dropdown-menu').remove();" },
-      class: 'form-horizontal' }, remote: true do |f| %>
+      class: 'form-horizontal' } do |f| %>
     <div class="modal-header">
       <h2>Editando: '<%= @intervention_type.name %>'</h2>
     </div>
