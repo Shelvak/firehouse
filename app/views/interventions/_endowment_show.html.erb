@@ -11,7 +11,12 @@
 
   <div class='tab-content'>
     <% @intervention.endowments.each_with_index do |e, i| %>
-      <div class='row-fluid tab-pane <%= 'active' if i.zero? %>' 
+      <div><%= link_to t('activerecord.models.mobile_intervention.one'),
+         (e.mobile_intervention ? intervention_endowement_mobile_intervention_path(
+         @intervention, e, e.mobile_intervention) :
+         new_intervention_endowement_mobile_intervention_path(@intervention,
+         e) ), class: 'btn btn-primary' %></div>
+      <div class='row-fluid tab-pane <%= 'active' if i.zero? %>'
         id="endowment_item_<%= e.number %>">
         <div class='span5'>
           <div class='row-fluid'>
