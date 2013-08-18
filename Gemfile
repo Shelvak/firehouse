@@ -16,15 +16,18 @@ gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'capistrano'
 gem 'SrBuj'
+gem 'rmagick'
+gem 'carrierwave'
 
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
+  gem 'bootstrap-colorpicker-rails'
 end
 
 group :development do
-  gem 'thin'
+  gem 'unicorn'
 end
 
 group :test do
@@ -34,6 +37,4 @@ group :test do
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'
-  # gem 'ZenTest'
-  # gem 'autotest-rails'
 end

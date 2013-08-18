@@ -50,28 +50,13 @@
     }
     .quick-button-active {
       cursor: pointer;
+      .text {
+        text-shadow: black 0.1em 0.1em 0.2em;
+      }
     }
     .quick-button-empty {
       border: 2px #ffffff dotted;
     }
-  }
-}
-
-.intervention-types-list {
-  .type:hover, .subtype:hover{
-    border: 1px solid dodgerblue;
-    border-radius: 4px;
-  }
-  .type {
-    border: 1px solid #ffffff;
-    padding: 5px;
-  }
-  .subtype{
-    padding: 5px;
-    padding-left: 25px;
-    border: 1px solid #cae7ff;
-    border-radius: 4px;
-    background-color: #cae7ff;
   }
 }
 

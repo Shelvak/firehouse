@@ -3,7 +3,6 @@ Fabricator(:intervention) do
   number          { rand(999) * rand(999) }
   address         { Faker::Address.street_address }
   near_corner     { Faker::Address.street_name }
-  kind            { Intervention::KINDS.values.sample }
   kind_notes      { Faker::Lorem.sentence }
   receptor_id     { Fabricate(:user).id }
   observations    { Faker::Lorem.paragraph }

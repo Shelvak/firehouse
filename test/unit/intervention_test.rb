@@ -37,7 +37,6 @@ class InterventionTest < ActiveSupport::TestCase
     
   test 'validates blank attributes' do
     @intervention.address = ''
-    @intervention.kind = ''
     @intervention.receptor_id = ''
     
     assert @intervention.invalid?

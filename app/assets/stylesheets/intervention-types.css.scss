@@ -1,0 +1,50 @@
+.priority-item {
+  padding: 5px;
+  font-size: 20px;
+  border: 1px solid white;
+  border-radius: 4px;
+
+  .color-indicator {
+    width: 25px;
+    height: 25px;
+    background-color: 'white';
+    display: inline-block;
+    border-radius: 15px;
+    text-align: center;
+  }
+  .text {
+    position: relative;
+    top: 2px;
+  }
+}
+.priority-item:hover {
+  border: 1px solid dodgerblue;
+  border-radius: 4px;
+}
+
+.intervention-types-list {
+  .type:hover, .subtype:hover{
+    border: 1px solid dodgerblue;
+    border-radius: 4px;
+  }
+  .type {
+    border: 1px solid #ffffff;
+    padding: 5px;
+  }
+  .subtype{
+    padding: 5px;
+    padding-left: 25px;
+    border: 1px solid #cae7ff;
+    border-radius: 4px;
+    background-color: #cae7ff;
+  }
+}
+
+.image-thumb {
+  width: 55px;
+  height: 55px;
+  padding: 1px;
+  margin: 5px;
+  border: 1px solid #9c9c9c;
+  border-radius: 5px;
+}

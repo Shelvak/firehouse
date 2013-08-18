@@ -1,5 +1,5 @@
 <div class="readonly-data">
-  <h2><%= show_kind_of_intervention @intervention.kind %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
+  <h2><%= @intervention.intervention_type.name %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
   <p>
     <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
     <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
