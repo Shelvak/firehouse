@@ -3,9 +3,14 @@
   <%= form_for @intervention_type, url: configs_intervention_type_path(priority: params[:priority]), html: { data: {
       target: dom_id(@intervention_type), respond_as: :put, error: 'modal',
       modal: true, callback: "$('.colorpicker.dropdown-menu').remove();" },
-      class: 'form-horizontal' } do |f| %>
+      class: 'form-horizontal', multipart: true } do |f| %>
     <div class="modal-header">
-      <h2>Editando: '<%= @intervention_type.name %>'</h2>
+      <h2>
+        Editando: '<%= @intervention_type.name %>'
+        <%= image_tag(@intervention_type.image_url.to_s, class: 'image-thumb') if
+                @intervention_type.image.present?  %>
+      </h2>
+
     </div>
     <div class="modal-body">
       <%= render partial: 'form', locals: {f: f} %>
