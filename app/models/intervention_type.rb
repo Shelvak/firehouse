@@ -17,4 +17,7 @@ class InterventionType < ActiveRecord::Base
   scope :only_childrens, -> { !only_fathers }
 
   mount_uploader :image, ImageUploader
+  def to_s
+    self.name
+  end
 end

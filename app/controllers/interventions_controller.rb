@@ -9,7 +9,7 @@ class InterventionsController < ApplicationController
   # GET /interventions.json
   def index
     @title = t('view.interventions.index_title')
-    @interventions = Intervention.page(params[:page])
+    @interventions = Intervention.includes(:intervention_type).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,6 +47,7 @@ class InterventionsController < ApplicationController
   def edit
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
+    @intervention_types = InterventionType.all
   end
 
   # POST /interventions

@@ -50,8 +50,8 @@ class BuildingsController < ApplicationController
 
     respond_to do |format|
       if @building.save
-        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.buildings.correctly_created') }
-        format.json { render json: intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @building }
+        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.buildings.correctly_created') }
+        format.json { render json: intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @building }
       else
         format.html { render action: 'new' }
         format.json { render json: @building.errors, status: :unprocessable_entity }
@@ -67,7 +67,7 @@ class BuildingsController < ApplicationController
 
     respond_to do |format|
       if @building.update_attributes(params[:building])
-        format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.buildings.correctly_updated') }
+        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.buildings.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -85,7 +85,7 @@ class BuildingsController < ApplicationController
     @building.destroy
 
     respond_to do |format|
-      format.html { redirect_to intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) }
+      format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) }
       format.json { head :ok }
     end
   end

@@ -1,7 +1,9 @@
 <%= content_for :form_actions do %>
   <%= link_to t('label.list'), interventions_path %>
 <% end %>
+
 <h2><%= t('view.interventions.new_title', number: intervention_next_number_for_form) %></h2>
+
 <div id="show-quick-buttons" class="btn btn-mini btn-inverse pull-right">Mostrar botones rapidos</div>
 <% unless @intervention.errors.present? %>
   <div class="quick-button-div" id="quick-button-div">

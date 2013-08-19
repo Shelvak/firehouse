@@ -61,4 +61,8 @@ class Intervention < ActiveRecord::Base
       e.truck.update_attributes(mileage: e.in_mileage) if e.in_mileage
     end
   end
+
+  def type
+    self.intervention_type.name
+  end
 end

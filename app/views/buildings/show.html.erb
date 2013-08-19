@@ -41,5 +41,5 @@
 <div class="form-actions">
   <%= link_to t('label.edit'), ['edit', @mobile_intervention, @building] if can? :update, @building %> |
   <%= link_to t('activerecord.models.intervention.one'), @intervention %> |
-  <%= link_to t('activerecord.models.mobile_intervention.one'), intervention_endowement_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) %>
+  <%= link_to t('activerecord.models.mobile_intervention.one'), intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) %>
 </div>

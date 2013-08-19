@@ -9,27 +9,22 @@ Firehouse::Application.routes.draw do
 
   resources :interventions do
     collection do
-      get :autocomplete_for_firefighter_name
-      get :autocomplete_for_receptor_name
-      get :autocomplete_for_sco_name
+      ['firefighter', 'receptor', 'sco'].each do |obj|
+        get :"autocomplete_for_#{obj}_name"
+      end
       get :autocomplete_for_truck_number
     end
-    member do
-      put :update_arrive
-      put :update_back
-      put :update_in
-    end
-    resources :endowements do
-      resources :mobile_interventions
-    end
-  end
-  resources :mobile_interventions do
-    resources :buildings do
-      resources :people
-    end
-    resources :supports, only: [:new, :edit, :destroy, :create, :update]
-    resources :vehicles, only: [:new, :edit, :destroy, :create, :update] do
-      resources :people
+
+    resources :endowments do
+      resource :mobile_intervention, on: :member do
+        resources :buildings do
+          resources :people
+        end
+        resources :supports, except: [:index, :show]
+        resources :vehicles, except: [:index, :show] do
+          resources :people
+        end
+      end
     end
   end
 

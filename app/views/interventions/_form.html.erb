@@ -1,6 +1,10 @@
 <%= content_tag :div, t('view.interventions.no_active_ceo'),
   class: 'alert alert-danger' if @no_active_ceo %>
 
+<h2><%#= t(
+  'view.interventions.new_title', number: intervention_next_number_for_form
+) %></h2>
+
 <% intervention_form = nil %>
 <%= simple_form_for @intervention, defaults: { input_html: { class: 'span10' } } do |f| %>
   <%= f.error_notification %>
