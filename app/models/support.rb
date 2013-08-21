@@ -7,4 +7,6 @@ class Support < ActiveRecord::Base
 
   attr_accessible :support_type, :number, :responsible, :driver, :owner, :mobile_intervention_id
 
+  validates_presence_of :support_type, :responsible, :owner
+
 end

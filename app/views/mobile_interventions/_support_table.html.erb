@@ -18,8 +18,11 @@
       <td><%= support.driver %></td>
       <td><%= support.owner %></td>
       <td>
-        <%= link_to_edit edit_mobile_intervention_support_path(@mobile_intervention, support)  %>
-        <%= link_to_destroy mobile_intervention_support_path(@mobile_intervention, support)  %>
+        <%= link_to_edit ['edit', @intervention, @endowment,
+            'mobile_intervention', support], remote: true, data: {
+            target: 'modal', modal: true } %>
+        <%= link_to_destroy [@intervention, @endowment, 'mobile_intervention',
+             support], remote: true, data: { target: 'modal'} %>
       </td>
     </tr>
   <% end %>

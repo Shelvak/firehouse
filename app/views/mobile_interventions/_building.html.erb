@@ -3,7 +3,11 @@
     <h4>
       <%= t 'activerecord.attributes.building.address' %>:
       <%= building.address %>
-      <%= link_to_edit ['edit', @mobile_intervention, building] %>
+      <%= link_to_edit ['edit', @intervention, @endowment,
+                       'mobile_intervention', building], remote: true,
+                       data: {target: 'modal', modal: true} %>
+      <%= link_to_destroy [@intervention, @endowment,
+                       'mobile_intervention', building], remote: true %>
     </h4>
     <p>
       <%= t 'activerecord.attributes.building.description' %>:
@@ -34,7 +38,9 @@
     <% if building.persons.any? %>
       <%= render 'mobile_interventions/people_table', people: building.persons %>
     <% end %>
-    <p><%= link_to t('view.people.new'), new_mobile_intervention_building_person_path(@mobile_intervention, building),
+    <p><%= link_to t('view.people.new'), ['new', @intervention, @endowment,
+                   'mobile_intervention', building, 'person'], remote: true,
+                   data: { target: 'modal', modal: true },
                    class: 'btn btn-success btn-mini' %></p>
   </span>
 </div>

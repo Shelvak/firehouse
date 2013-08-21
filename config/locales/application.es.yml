@@ -87,7 +87,7 @@
         image: 'Imagen'
         target: 'Destino'
         callback: 'Función de retorno'
-        color: 'Color'
+        color: 'Color de texto'
       mobile_intervention:
         date: 'Fecha'
         observations: 'Observaciones'
@@ -248,6 +248,7 @@
         backup: 'Reserva #'
       set_time: 'Ingresar hora'
     intervention_types:
+      list_title: 'Listado'
       index_title: 'Tipos de intervenciones'
       show_title: '%{intervention_type}'
       new_title: 'Nuevo tipo de intervención'
@@ -260,6 +261,7 @@
       new: 'Nuevo tipo'
       priorities: 'Prioridades'
       change_priorities: "Cambiar prioridades"
+      correctly_deleted: "Tipo de intervención eliminado correctamente"
     scos:
       index_title: 'Listado de CEOs'
       show_title: 'Detalle de CEO'
@@ -335,6 +337,10 @@
       correctly_updated: "Inmueble actualizado correctamente"
       stale_object_error: "El inmueble no pudo ser actualizado, intente nuevamente."
       new: "Agregar inmueble"
+      edit: "Editar inmueble"
+      damages_title: "Daños"
+      modal:
+        involved_building: 'Inmueble involucrado'
     vehicles:
       index_title: "Vehículos"
       show_title: "Vehículo"
@@ -344,6 +350,9 @@
       correctly_updated: "Vehículo actualizado correctamente"
       stale_object_error: "El vehículo no pudo ser actualizado, intente nuevamente."
       new: "Agregar vehículo"
+      edit: "Editar vehículo"
+      modal:
+        involved_vehicle: 'Vehículo involucrado'
     supports:
       index_title: "Moviles de apoyo"
       show_title: "Móvil de apoyo"
@@ -353,6 +362,9 @@
       correctly_updated: "Móvil de apoyo actualizado correctamente"
       stale_object_error: "El Móvil de apoyo no pudo ser actualizado, intente nuevamente."
       new: "Agregar Móvil de Apoyo"
+      edit: "Editar Móvil de Apoyo"
+      modal:
+        involved_support: 'Móvil de apoyo'
     people:
       index_title: "Personas"
       show_title: "Persona"

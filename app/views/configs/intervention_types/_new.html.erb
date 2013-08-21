@@ -1,16 +1,23 @@
 <div class="modal">
+  <!--saque el remote: true-->
   <%= form_for @intervention_type, url: configs_intervention_types_path(
-      father: params[:father] ), remote: true, html: { data: { target: (
+      father: params[:father] ), html: { data: { target: (
       params[:father] ? "intervention_type_#{params[:father]}_children" :
-      'new_intervention_type'),  error: 'modal', modal: true  }, class: 'form-horizontal' } do |f| %>
+      'new_intervention_type'), error: 'modal', modal: true, callback:
+      "$('.colorpicker.dropdown-menu').remove();" }, class: 'form-horizontal',
+      multipart: true } do |f| %>
     <div class="modal-header">
-      <h2>Nuevo tipo de intervención</h2>
+      <h2>
+        Nuevo tipo de intervención
+        <%= image_tag(@intervention_type.image_url.to_s, class: 'image-thumb') if
+                @intervention_type.image.present?  %>
+      </h2>
     </div>
     <div class="modal-body">
       <%= render partial: 'form', locals: {f: f} %>
     </div>
     <div class="modal-footer">
-      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');", class: 'btn' %>
+      <%= link_to_function t('label.close'), "$('#modal').modal('toggle'); $('.colorpicker.dropdown-menu').remove();", class: 'btn' %>
       <%= f.button t('label.save'), class: 'btn btn-primary', disable_with: t('label.saving') %>
     </div>
   <% end %>

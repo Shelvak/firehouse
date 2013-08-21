@@ -1,0 +1,17 @@
+<div class="modal">
+  <%= simple_form_for( [@intervention, @endowment, 'mobile_intervention', @building],
+      remote: true, html: { data: { target: 'modal', error: 'modal', modal: true } }
+      ) do |f| %>
+    <div class="modal-header">
+      <h2><%= @title %></h2>
+    </div>
+    <div class="modal-body">
+      <%= render partial: 'form', locals: {f: f} %>
+    </div>
+    <div class="modal-footer">
+      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');",
+                           class: 'btn' %>
+      <%= f.button :submit, t('view.buildings.edit'), class: 'btn-primary' %>
+    </div>
+  <% end %>
+</div>

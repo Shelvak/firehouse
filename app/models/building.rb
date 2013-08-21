@@ -7,4 +7,6 @@ class Building < ActiveRecord::Base
   attr_accessible :address, :description, :floor, :roof, :window, :electrics,
     :damage, :mobile_intervention_id
 
+  validates_presence_of :address
+
 end

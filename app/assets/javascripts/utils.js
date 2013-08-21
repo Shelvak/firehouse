@@ -4,7 +4,7 @@ var toggle_quick_buttons_button = function(){
 
 var apply_quick_button_functions = function(){
     $('.alarm-button').click(function(){
-        $('#intervention_kind').val( $(this).attr('target') );
+        $('#intervention_intervention_type_id').val( $(this).attr('target') );
         $('#quick-button-div').slideUp(function(){
             window.scrollTo(0);
         });
@@ -24,4 +24,15 @@ var apply_quick_button_functions = function(){
 
 var setTooltips = function(){
     $('[rel*=tooltip]').tooltip();
+};
+
+var setColorPicker = function(){
+    $('.colorpicker').colorpicker().on('changeColor', function(ev){
+        $('.add-on i').css('background-color', ev.color.toHex());
+    });
+};
+
+var allowBackdropToCloseColorpicker = function(){
+    $('.modal-backdrop.in').on('click', function(){
+    });
 };

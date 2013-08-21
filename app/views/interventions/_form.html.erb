@@ -1,4 +1,4 @@
-<%= content_tag :div, t('view.interventions.no_active_ceo'), 
+<%= content_tag :div, t('view.interventions.no_active_ceo'),
   class: 'alert alert-danger' if @no_active_ceo %>
 
 <h2><%#= t(
@@ -19,7 +19,7 @@
         <%= f.input :kind_notes %>
       </div>
       <div class='span5'>
-        <%= f.select :kind, options_from_collection_for_select(
+        <%= f.select :intervention_type_id, options_from_collection_for_select(
             @intervention_types, 'id', 'name'),
             prompt: 'Tipo de intervención'  %>
       </div>

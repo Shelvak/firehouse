@@ -1,12 +1,12 @@
+<%= configs_subnav %>
 <%= intervention_types_subnav %>
 <div class="container-fluid">
   <div class="row">
-    <div class="span11">
+    <div class="span5">
       <h1><%= t 'view.intervention_types.priorities' %></h1>
       <% @top_10_intervention_types.each do |intervention_type| %>
-        <p>
-          <%= intervention_type.priority %>. <%= intervention_type.name %>
-        </p>
+        <%= render partial: 'configs/intervention_types/prority_item', locals:
+            { intervention_type: intervention_type } %>
       <% end %>
     </div>
   </div>

@@ -6,21 +6,23 @@
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label"><%= InterventionType.human_attribute_name :priority %></label>
-  <div class="controls">
-    <%= f.number_field :priority %>
-  </div>
-</div>
-<div class="control-group">
   <label class="control-label"><%= InterventionType.human_attribute_name :image %></label>
   <div class="controls">
-    <%= f.text_field :image, placeholder: InterventionType.human_attribute_name(:image) %>
+    <%= f.file_field :image, placeholder: InterventionType.human_attribute_name(:image) %>
+    <%= f.text_field :remote_image_url, placeholder: 'inserte la dirección' %>
+
   </div>
 </div>
-<div class="control-group">
+<div class="control-group" data-color-format="rgb" data-color="rgb(255, 255, 255)">
   <label class="control-label"><%= InterventionType.human_attribute_name :color %></label>
   <div class="controls">
-    <%= f.text_field :color, placeholder: InterventionType.human_attribute_name(:color), value: 'white' %>
+    <div class="input-append color">
+      <%= f.text_field :color, placeholder: InterventionType.human_attribute_name(:color), value: (@intervention_type.color || 'white'), class: 'colorpicker' %>
+      <span class="add-on"><i style="background-color: <%= @intervention_type.color || 'white' %>"></i></span>
+    </div>
     <span class="red"><%= errors_for @intervention_type, :color %></span>
   </div>
 </div>
+<script>
+  setColorPicker();
+</script>

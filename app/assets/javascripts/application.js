@@ -13,8 +13,6 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
-//= require jquery/jquery.ui.datepicker-es
-//= require jquery/jquery-ui-timepicker-addon
 //= require jquery/tokeninput
 //= require twitter/bootstrap
 //= require inspector
@@ -30,3 +28,4 @@
 //= require interventions
 //= require utils
 //= require SrBuj
+//= require bootstrap-colorpicker

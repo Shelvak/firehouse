@@ -1,5 +1,4 @@
 <div class="readonly-data">
-
   <h2><%= @intervention.type %></h2>
 
   <div class='row-fluid'>
@@ -34,9 +33,7 @@
   <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
   <%= simple_format @intervention.observations %>
   </p>
-
   <%= render 'endowment_show' %>
-
 </div>
 
 <div class="form-actions">
