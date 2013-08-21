@@ -27,19 +27,16 @@ class BuildingsController < ApplicationController
   # GET /buildings/new
   # GET /buildings/new.json
   def new
-    @title = t('view.buildings.new_title')
+    @title = t('view.buildings.modal.involved_building')
     @building = Building.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @building }
-    end
+    render partial: 'new', content_type: 'text/html'
   end
 
   # GET /buildings/1/edit
   def edit
-    @title = t('view.buildings.edit_title')
+    @title = t('view.buildings.modal.involved_building')
     @building = Building.find(params[:id])
+    render partial: 'edit', content_type: 'text/html'
   end
 
   # POST /buildings
@@ -47,15 +44,12 @@ class BuildingsController < ApplicationController
   def create
     @title = t('view.buildings.new_title')
     @building = @mobile_intervention.buildings.build(params[:building])
-
-    respond_to do |format|
-      if @building.save
-        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.buildings.correctly_created') }
-        format.json { render json: intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @building }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @building.errors, status: :unprocessable_entity }
-      end
+    if @building.save
+      #todo insertar con ajax
+      js_notify message: t('view.buildings.correctly_created'), type: 'info', time: 2000
+      js_redirect reload: true
+    else
+      render partial: 'new', status: :unprocessable_entity
     end
   end
 
@@ -65,14 +59,12 @@ class BuildingsController < ApplicationController
     @title = t('view.buildings.edit_title')
     @building = Building.find(params[:id])
 
-    respond_to do |format|
-      if @building.update_attributes(params[:building])
-        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.buildings.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @building.errors, status: :unprocessable_entity }
-      end
+    if @building.update_attributes(params[:building])
+      #todo insertar con ajax
+      js_notify message: t('view.buildings.correctly_created'), type: 'info', time: 2000
+      js_redirect reload: true
+    else
+      render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to ['edit', @mobile_intervention, @building], alert: t('view.buildings.stale_object_error')
@@ -83,17 +75,13 @@ class BuildingsController < ApplicationController
   def destroy
     @building = Building.find(params[:id])
     @building.destroy
-
-    respond_to do |format|
-      format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) }
-      format.json { head :ok }
-    end
+    js_redirect reload: true
   end
 
   private
     def get_mobile_intervention
-      @mobile_intervention = MobileIntervention.find params[:mobile_intervention_id]
-      @endowment = @mobile_intervention.endowment
+      @endowment = Endowment.find(params[:endowment_id])
       @intervention = @endowment.intervention
+      @mobile_intervention = @endowment.mobile_intervention
     end
 end
