@@ -67,7 +67,8 @@ class BuildingsController < ApplicationController
       render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit', @mobile_intervention, @building], alert: t('view.buildings.stale_object_error')
+    redirect_to ['edit', @intervention, @endowment, 'mobile_intervention',
+                @building], alert: t('view.buildings.stale_object_error')
   end
 
   # DELETE /buildings/1
@@ -75,6 +76,7 @@ class BuildingsController < ApplicationController
   def destroy
     @building = Building.find(params[:id])
     @building.destroy
+    #todo: tambien con ajax
     js_redirect reload: true
   end
 

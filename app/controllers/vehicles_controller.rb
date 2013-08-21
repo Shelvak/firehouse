@@ -2,66 +2,57 @@ class VehiclesController < ApplicationController
   before_filter :get_intervention
 
   def new
-    @title = t('view.vehicles.new_title')
+    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = @mobile_intervention.vehicles.build
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @vehicle }
-    end
+    render partial: 'new', content_type: 'text/html'
   end
 
   def edit
-    @title = t('view.vehicles.edit_title')
+    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = Vehicle.find(params[:id])
+
+    render partial: 'edit', content_type: 'text/html'
   end
 
   def create
     @title = t('view.vehicles.new_title')
     @vehicle = @mobile_intervention.vehicles.build(params[:vehicle])
-
-    respond_to do |format|
-      if @vehicle.save
-        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.vehicles.correctly_created') }
-        format.json { render json: intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @vehicle }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
-      end
+    #todo: ajaxify
+    if @vehicle.save
+      js_notify message: t('view.vehicles.correctly_created'), type: 'info', time: 2000
+      js_redirect reload: true
+    else
+      render partial: 'new', status: :unprocessable_entity
     end
   end
 
   def update
     @title = t('view.vehicles.edit_title')
     @vehicle = Vehicle.find(params[:id])
-
-    respond_to do |format|
+    #todo: ajaxify
       if @vehicle.update_attributes(params[:vehicle])
-        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.vehicles.correctly_updated') }
-        format.json { head :ok }
+        js_notify message: t('view.vehicles.correctly_updated'), type: 'info', time: 2000
+        js_redirect reload: true
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+        render partial: 'edit', status: :unprocessable_entity
       end
-    end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit', @mobile_intervention, @vehicle], alert: t('view.vehicles.stale_object_error')
+    redirect_to ['edit', @intervention, @endowment, 'mobile_intervention',
+                  @vehicle], alert: t('view.vehicles.stale_object_error')
   end
 
   def destroy
     @vehicle = Vehicle.find(params[:id])
     @vehicle.destroy
-
-    respond_to do |format|
-      format.html { redirect_to vehicles_url }
-      format.json { head :ok }
-    end
+    #todo: ajaxify
+    js_redirect reload: true
   end
 
   private
-    def get_intervention
-      @mobile_intervention = MobileIntervention.find params[:mobile_intervention_id]
-      @endowment = @mobile_intervention.endowment
-      @intervention = @endowment.intervention
-    end
+  def get_intervention
+    @endowment = Endowment.find(params[:endowment_id])
+    @intervention = @endowment.intervention
+    @mobile_intervention = @endowment.mobile_intervention
+  end
 end

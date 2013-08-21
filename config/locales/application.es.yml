@@ -350,6 +350,9 @@
       correctly_updated: "Vehículo actualizado correctamente"
       stale_object_error: "El vehículo no pudo ser actualizado, intente nuevamente."
       new: "Agregar vehículo"
+      edit: "Editar vehículo"
+      modal:
+        involved_vehicle: 'Vehículo involucrado'
     supports:
       index_title: "Moviles de apoyo"
       show_title: "Móvil de apoyo"

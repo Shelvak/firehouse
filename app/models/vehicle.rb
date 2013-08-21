@@ -6,4 +6,6 @@ class Vehicle < ActiveRecord::Base
 
   attr_accessible :mark, :model, :year, :domain, :damage, :mobile_intervention_id
 
+  validates_presence_of :damage, :domain
+
   end
