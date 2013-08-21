@@ -16,7 +16,7 @@ class VehiclesController < ApplicationController
   end
 
   def create
-    @title = t('view.vehicles.new_title')
+    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = @mobile_intervention.vehicles.build(params[:vehicle])
     #todo: ajaxify
     if @vehicle.save
@@ -28,15 +28,15 @@ class VehiclesController < ApplicationController
   end
 
   def update
-    @title = t('view.vehicles.edit_title')
+    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = Vehicle.find(params[:id])
     #todo: ajaxify
-      if @vehicle.update_attributes(params[:vehicle])
-        js_notify message: t('view.vehicles.correctly_updated'), type: 'info', time: 2000
-        js_redirect reload: true
-      else
-        render partial: 'edit', status: :unprocessable_entity
-      end
+    if @vehicle.update_attributes(params[:vehicle])
+      js_notify message: t('view.vehicles.correctly_updated'), type: 'info', time: 2000
+      js_redirect reload: true
+    else
+      render partial: 'edit', status: :unprocessable_entity
+    end
   rescue ActiveRecord::StaleObjectError
     redirect_to ['edit', @intervention, @endowment, 'mobile_intervention',
                   @vehicle], alert: t('view.vehicles.stale_object_error')

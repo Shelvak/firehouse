@@ -49,9 +49,9 @@
     <% if @mobile_intervention.supports.any? %>
       <%= render 'mobile_interventions/support_table' %>
     <% end %>
-    <p><%= link_to t('view.supports.new'), 
-      new_intervention_endowment_mobile_intervention_support_path(
-        @intervention, @endowment ), class: 'btn btn-primary' %></p>
+    <p><%= link_to t('view.supports.new'), ['new', @intervention, @endowment,
+           'mobile_intervention', 'support'], remote: true, data: {
+           target: 'modal', modal: true }, class: 'btn btn-primary' %></p>
   </div>
 </div>
 

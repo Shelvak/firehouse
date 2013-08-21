@@ -42,7 +42,7 @@ class BuildingsController < ApplicationController
   # POST /buildings
   # POST /buildings.json
   def create
-    @title = t('view.buildings.new_title')
+    @title = t('view.buildings.modal.involved_building')
     @building = @mobile_intervention.buildings.build(params[:building])
     if @building.save
       #todo insertar con ajax
@@ -56,7 +56,7 @@ class BuildingsController < ApplicationController
   # PUT /buildings/1
   # PUT /buildings/1.json
   def update
-    @title = t('view.buildings.edit_title')
+    @title = t('view.buildings.modal.involved_building')
     @building = Building.find(params[:id])
 
     if @building.update_attributes(params[:building])

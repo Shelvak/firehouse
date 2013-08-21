@@ -1,9 +1,0 @@
-<div class="container-fluid">
-  <h2><%= @intervention.intervention_type.name %> - Móvil de apoyo</h2>
-</div>
-<%= content_for :form_actions do %>
-  <%= link_to t('activerecord.models.intervention.one'), @intervention %> |
-  <%= link_to t('activerecord.models.mobile_intervention.one'), intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention) %>
-<% end %>
-
-<%= render 'form' %>

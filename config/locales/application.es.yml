@@ -362,6 +362,9 @@
       correctly_updated: "Móvil de apoyo actualizado correctamente"
       stale_object_error: "El Móvil de apoyo no pudo ser actualizado, intente nuevamente."
       new: "Agregar Móvil de Apoyo"
+      edit: "Editar Móvil de Apoyo"
+      modal:
+        involved_support: 'Móvil de apoyo'
     people:
       index_title: "Personas"
       show_title: "Persona"
