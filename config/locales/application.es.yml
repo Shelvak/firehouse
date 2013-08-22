@@ -374,3 +374,6 @@
       correctly_updated: "Persona actualizada correctamente"
       stale_object_error: "La persona no pudo ser actualizada, intente nuevamente."
       new: "Agregar persona"
+      edit: "Editar persona"
+      modal:
+        involved_person: 'Persona afectada'
