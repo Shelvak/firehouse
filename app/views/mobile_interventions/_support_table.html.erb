@@ -1,30 +1,32 @@
-<table class='table table-bordered table-striped'>
-  <thead>
-  <tr>
-    <th><%= t 'view.mobile_interventions.tables.in_the_place' %></th>
-    <th><%= t 'view.mobile_interventions.tables.mobil_number' %></th>
-    <th><%= t 'view.mobile_interventions.tables.responsible' %></th>
-    <th><%= t 'view.mobile_interventions.tables.driver' %></th>
-    <th><%= t 'view.mobile_interventions.tables.belongs' %></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @mobile_intervention.supports.each do |support| %>
+<div class="well">
+  <table class='table table-bordered table-striped'>
+    <thead>
     <tr>
-      <td><%= support.support_type %></td>
-      <td><%= support.number %></td>
-      <td><%= support.responsible %></td>
-      <td><%= support.driver %></td>
-      <td><%= support.owner %></td>
-      <td>
-        <%= link_to_edit ['edit', @intervention, @endowment,
-            'mobile_intervention', support], remote: true, data: {
-            target: 'modal', modal: true } %>
-        <%= link_to_destroy [@intervention, @endowment, 'mobile_intervention',
-             support], remote: true, data: { target: 'modal'} %>
-      </td>
+      <th><%= t 'view.mobile_interventions.tables.in_the_place' %></th>
+      <th><%= t 'view.mobile_interventions.tables.mobil_number' %></th>
+      <th><%= t 'view.mobile_interventions.tables.responsible' %></th>
+      <th><%= t 'view.mobile_interventions.tables.driver' %></th>
+      <th><%= t 'view.mobile_interventions.tables.belongs' %></th>
+      <th></th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <% @mobile_intervention.supports.each do |support| %>
+      <tr>
+        <td><%= support.support_type %></td>
+        <td><%= support.number %></td>
+        <td><%= support.responsible %></td>
+        <td><%= support.driver %></td>
+        <td><%= support.owner %></td>
+        <td>
+          <%= link_to_edit ['edit', @intervention, @endowment,
+                            'mobile_intervention', support], remote: true, data: {
+              target: 'modal', modal: true } %>
+          <%= link_to_destroy [@intervention, @endowment, 'mobile_intervention',
+                               support], remote: true, data: { target: 'modal'} %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

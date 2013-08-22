@@ -6,4 +6,6 @@ class Person < ActiveRecord::Base
 
   attr_accessible :name, :last_name, :address, :dni_type, :dni_number, :age, :phone_number, :relation, :moved_to, :injuries, :building_id, :vehicle_id
 
+  validates_presence_of :name
+
 end

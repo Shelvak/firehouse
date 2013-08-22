@@ -1,14 +1,8 @@
-<div class='row-fluid well span11'>
+<div class='well'>
   <span class='span3'>
     <h4>
       <%= t 'activerecord.attributes.vehicle.number' %>:
       <%= number %>
-      <%= link_to_edit ['edit', @intervention, @endowment,
-          'mobile_intervention', vehicle], remote: true,
-           data: { target: 'modal', modal: true } %>
-      <%= link_to_destroy [@intervention, @endowment,
-          'mobile_intervention', vehicle], remote: true,
-           data: { target: 'modal', modal: true } %>
     </h4>
     <p>
       <%= t 'activerecord.attributes.vehicle.mark' %>:
@@ -30,6 +24,12 @@
       <%= t 'activerecord.attributes.vehicle.damage' %>
       <%= vehicle.damage %>
     </p>
+    <%= link_to_edit ['edit', @intervention, @endowment,
+                      'mobile_intervention', vehicle], remote: true,
+                     data: { target: 'modal', modal: true } %>
+    <%= link_to_destroy [@intervention, @endowment,
+                         'mobile_intervention', vehicle], remote: true,
+                        data: { target: 'modal', modal: true } %>
   </span>
   <span class='span9'>
     <% if vehicle.persons.any? %>
@@ -40,4 +40,5 @@
            data: { target: 'modal', modal: true },
            class: 'btn btn-success btn-mini' %></p>
   </span>
+<div class="clearfix"></div>
 </div>
