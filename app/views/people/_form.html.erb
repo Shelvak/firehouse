@@ -8,6 +8,8 @@
 <div class="clearfix"></div>
 <%= f.input :address, input_html: { class: 'span10' }  %>
 <div class="span5">
+  <%= f.input :dni_type, collection: ['DNI', 'Libreta Cívica', 'Otro'],
+              default: 'DNI' %>
   <%= f.input :age %>
   <%= f.input :relation, collection: (params[:vehicle_id] ?
       ['Propietario', 'Conductor'] : ['Propietario','Inquilino']),
