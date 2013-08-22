@@ -1,5 +1,5 @@
 <div class="modal">
-  <%= simple_form_for([@intervention, @endowment, 'mobile_intervention', @support],
+  <%= simple_form_for( [@intervention, @endowment, 'mobile_intervention', @support],
       remote: true, html: { data: { target: 'modal', error: 'modal', modal: true
       } } ) do |f| %>
     <div class="modal-header">

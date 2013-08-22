@@ -1,26 +1,20 @@
 <!--todo: revisar alineacion-->
-<div class="span5">
-  <%= f.input :name %>
+<div class="row-fluid">
+  <div class="span5">
+    <%= f.input :name %>
+    <%= f.input :dni_type, collection: ['DNI', 'Libreta Cívica', 'Otro'],
+                default: 'DNI' %>
+    <%= f.input :age %>
+    <%= f.input :relation, collection: (params[:vehicle_id] ?
+        ['Propietario', 'Conductor'] : ['Propietario','Inquilino']),
+                default: 'Propietario' %>
+  </div>
+  <div class="span5 offset1">
+    <%= f.input :last_name %>
+    <%= f.input :dni_number %>
+    <%= f.input :phone_number %>
+    <%= f.input :moved_to %>
+  </div>
+  <%= f.input :address, input_html: { class: 'span11' }  %>
+  <%= f.input :injuries, input_html: { class: 'span11', rows: 5 } %>
 </div>
-<div class="span5">
-  <%= f.input :last_name %>
-</div>
-<div class="clearfix"></div>
-<%= f.input :address, input_html: { class: 'span10' }  %>
-<div class="span5">
-  <%= f.input :dni_type, collection: ['DNI', 'Libreta Cívica', 'Otro'],
-              default: 'DNI' %>
-  <%= f.input :age %>
-  <%= f.input :relation, collection: (params[:vehicle_id] ?
-      ['Propietario', 'Conductor'] : ['Propietario','Inquilino']),
-              default: 'Propietario' %>
-</div>
-<div class="span5">
-  <%= f.input :dni_number %>
-  <%= f.input :phone_number %>
-  <%= f.input :moved_to %>
-</div>
-<div class="clearfix"></div>
-<%= f.input :injuries, input_html: { class: 'span11', rows: 5 } %>
-
-
