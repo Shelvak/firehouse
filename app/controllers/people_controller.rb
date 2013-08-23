@@ -23,12 +23,9 @@ class PeopleController < ApplicationController
 
   def new
     @title = t('view.people.new_title')
-    @person = Person.new
+    @person = (@building || @vehicle).persons.build
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @person }
-    end
+    render partial: 'new'
   end
 
   def edit
@@ -41,14 +38,10 @@ class PeopleController < ApplicationController
     @person = @building.persons.build(params[:person]) if @building
     @person = @vehicle.persons.build(params[:person]) if @vehicle
 
-    respond_to do |format|
-      if @person.save
-        format.html { redirect_to intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), notice: t('view.people.correctly_created') }
-        format.json { render json: intervention_endowment_mobile_intervention_path(@intervention, @endowment,  @mobile_intervention), status: :created, location: @person }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
+    if @person.save
+      redirect_to intervention_endowment_mobile_intervention_path(@endowment), notice: t('view.people.correctly_created')
+    else
+      redirect_to intervention_endowment_mobile_intervention_path(@endowment), notice: '---'
     end
   end
 
@@ -81,10 +74,10 @@ class PeopleController < ApplicationController
 
   private
     def get_intervention
-      @mobile_intervention = MobileIntervention.find params[:mobile_intervention_id]
-      @endowment = @mobile_intervention.endowment
+      @endowment = Endowment.find(params[:endowment_id])
+      @mobile_intervention = @endowment.mobile_intervention
       @intervention = @endowment.intervention
-      @building = Building.find(params[:building_id]) if params[:building_id]
-      @vehicle = Vehicle.find(params[:vehicle_id]) if params[:vehicle_id]
+      @building = @mobile_intervention.buildings.find(params[:building_id]) if params[:building_id]
+      @vehicle = @mobile_intervention.vehicles.find(params[:vehicle_id]) if params[:vehicle_id]
     end
 end

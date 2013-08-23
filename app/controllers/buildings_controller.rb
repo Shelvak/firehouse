@@ -1,43 +1,19 @@
 class BuildingsController < ApplicationController
   before_filter :get_mobile_intervention
 
-  # GET /buildings
-  # GET /buildings.json
-  def index
-    @title = t('view.buildings.index_title')
-    @buildings = Building.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @buildings }
-    end
-  end
-
-  # GET /buildings/1
-  # GET /buildings/1.json
-  def show
-    @title = t('view.buildings.show_title')
-    @building = Building.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @building }
-    end
-  end
-
   # GET /buildings/new
   # GET /buildings/new.json
   def new
     @title = t('view.buildings.modal.involved_building')
     @building = Building.new
-    render partial: 'new', content_type: 'text/html'
+    render partial: 'new'
   end
 
   # GET /buildings/1/edit
   def edit
     @title = t('view.buildings.modal.involved_building')
     @building = Building.find(params[:id])
-    render partial: 'edit', content_type: 'text/html'
+    render partial: 'edit'
   end
 
   # POST /buildings

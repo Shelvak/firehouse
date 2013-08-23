@@ -46,7 +46,6 @@ class InterventionsController < ApplicationController
   def edit
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
-    @intervention_types = InterventionType.all
   end
 
   # POST /interventions

@@ -1,25 +1,28 @@
-<%= simple_form_for([@mobile_intervention, (@building || @vehicle), @person]) do |f| %>
+<% p @building %>
+<%= simple_form_for @person, url: people_url_for_form do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs clearfix">
-    <span class='span5'>
-      <%= f.input :name %>
-      <%= f.input :last_name %>
-      <%= f.input :address %>
-      <%= f.input :dni_type, collection: ['DNI', 'Libreta Cívica', 'Otro'], default: 'DNI' %>
-      <%= f.input :dni_number %>
-    </span>
-    <span class='span5'>
-      <%= f.input :age %>
-      <%= f.input :phone_number %>
-      <%= f.input :relation, collection: (params[:vehicle_id] ? ['Propietario', 'Conductor'] : ['Propietario','Inquilino']), default: 'Propietario' %>
-      <%= f.input :moved_to %>
-      <%= f.input :injuries %>
-    </span>
+  <div class="modal-body">
+    <div class="form-inputs clearfix">
+      <span class='span5'>
+        <%= f.input :name %>
+        <%= f.input :last_name %>
+        <%= f.input :address %>
+        <%= f.input :dni_type, collection: ['DNI', 'Libreta Cívica', 'Otro'], default: 'DNI' %>
+        <%= f.input :dni_number %>
+      </span>
+      <span class='span5'>
+        <%= f.input :age %>
+        <%= f.input :phone_number %>
+        <%= f.input :relation, collection: (params[:vehicle_id] ? ['Propietario', 'Conductor'] : ['Propietario','Inquilino']), default: 'Propietario' %>
+        <%= f.input :moved_to %>
+        <%= f.input :injuries %>
+      </span>
+    </div>
   </div>
 
-  <div class="form-actions">
+  <div class="form-actions modal-footer">
     <div class="pull-right"><%= yield :form_actions %></div>
-    <%= f.button :submit, t('view.people.new') ,  class: 'btn-primary' %>
+    <%= f.button :submit, t('view.people.new') ,  class: 'btn btn-primary pull-left' %>
   </div>
 <% end %>
