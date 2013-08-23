@@ -23,7 +23,7 @@ class PeopleController < ApplicationController
 
   def new
     @title = t('view.people.new_title')
-    @person = (@building || @vehicle).persons.build
+    @person = (@building || @vehicle).people.build
 
     render partial: 'new'
   end
@@ -35,8 +35,8 @@ class PeopleController < ApplicationController
 
   def create
     @title = t('view.people.new_title')
-    @person = @building.persons.build(params[:person]) if @building
-    @person = @vehicle.persons.build(params[:person]) if @vehicle
+    @person = @building.people.build(params[:person]) if @building
+    @person = @vehicle.people.build(params[:person]) if @vehicle
 
     if @person.save
       redirect_to intervention_endowment_mobile_intervention_path(@endowment), notice: t('view.people.correctly_created')

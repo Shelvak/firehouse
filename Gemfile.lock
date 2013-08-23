@@ -98,7 +98,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.24)
     mini_portile (0.5.1)
-    minitest (5.0.6)
     multi_json (1.7.9)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -214,7 +213,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   magick_columns
-  minitest
   paper_trail
   pg
   rails (= 3.2.13)
