@@ -17,4 +17,15 @@ module InterventionsHelper
     charge = EndowmentLine::CHARGES[key]
     content_tag(:strong, t("view.interventions.endowments_charges.#{charge}"))
   end
+
+  def intervention_types
+    InterventionType.all
+  end
+
+  def intervention_type_select(form)
+    collection = intervention_types.map { |i| [i.name, i.id] }
+
+    form.input :intervention_type_id, collection: collection,
+      input_html: { selected: form.object.try(:intervention_type_id) }
+  end
 end

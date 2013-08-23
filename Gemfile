@@ -29,6 +29,7 @@ end
 
 group :development do
   gem 'unicorn'
+  gem 'thin'
 end
 
 group :test do

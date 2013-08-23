@@ -1,5 +1,6 @@
 class BuildingsController < ApplicationController
   before_filter :get_mobile_intervention
+
   # GET /buildings
   # GET /buildings.json
   def index

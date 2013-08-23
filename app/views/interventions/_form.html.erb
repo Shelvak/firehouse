@@ -19,9 +19,7 @@
         <%= f.input :kind_notes %>
       </div>
       <div class='span5'>
-        <%= f.select :intervention_type_id, options_from_collection_for_select(
-            @intervention_types, 'id', 'name'),
-            prompt: 'Tipo de intervención'  %>
+        <%= intervention_type_select(f) %>
       </div>
     </div>
     <div class='row-fluid'>

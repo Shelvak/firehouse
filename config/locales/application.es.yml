@@ -80,6 +80,7 @@
         hierarchy_name: 'Jerarquía'
         sco_id: 'CEO'
         endowments_attributes: 'Dotaciones'
+        intervention_type_id: 'Tipo intervención'
       intervention_type:
         name: 'Nombre'
         priority: 'Prioridad'
@@ -206,7 +207,7 @@
     interventions:
       index_title: 'Listado de intervenciones'
       show_title: 'Detalle de intervención'
-      new_title: 'Nueva intervención - Nº: %{number}'
+      new_title: 'Nueva intervención'
       edit_title: 'Modificar intervención'
       correctly_created: 'Intervención agregada correctamente.'
       correctly_updated: 'Intervención actualizada correctamente.'
@@ -247,6 +248,7 @@
         driver: 'Chofer'
         backup: 'Reserva #'
       set_time: 'Ingresar hora'
+      intervention_type: 'Tipo de intervención'
     intervention_types:
       list_title: 'Listado'
       index_title: 'Tipos de intervenciones'
