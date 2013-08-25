@@ -32,8 +32,8 @@
                         data: { target: 'modal', modal: true } %>
   </span>
   <span class='span9'>
-    <% if vehicle.persons.any? %>
-      <%= render 'mobile_interventions/people_table', people: vehicle.persons %>
+    <% if vehicle.people.any? %>
+      <%= render 'mobile_interventions/people_table', people: vehicle.people %>
     <% end %>
     <p><%= link_to t('view.people.new'), ['new', @intervention, @endowment,
           'mobile_intervention', vehicle, 'person'], remote: true,

@@ -17,7 +17,7 @@ Firehouse::Application.routes.draw do
 
     resources :endowments do
       resource :mobile_intervention, on: :member do
-        resources :buildings do
+        resources :buildings, except: [:index, :show] do
           resources :people
         end
         resources :supports, except: [:index, :show]

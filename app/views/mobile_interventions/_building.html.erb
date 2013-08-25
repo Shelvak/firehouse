@@ -35,8 +35,8 @@
                          'mobile_intervention', building], remote: true %>
   </span>
   <span class='span9'>
-    <% if building.persons.any? %>
-      <%= render 'mobile_interventions/people_table', people: building.persons %>
+    <% if building.people.any? %>
+      <%= render 'mobile_interventions/people_table', people: building.people %>
     <% end %>
     <p><%= link_to t('view.people.new'), ['new', @intervention, @endowment,
                    'mobile_intervention', building, 'person'], remote: true,
