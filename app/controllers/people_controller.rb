@@ -23,7 +23,8 @@ class PeopleController < ApplicationController
 
   def new
     @title = t('view.people.modal.involved_person')
-    @person = Person.new
+    @person = (@building || @vehicle).people.build
+
     render partial: 'new', content_type: 'text/html'
   end
 
@@ -35,8 +36,9 @@ class PeopleController < ApplicationController
 
   def create
     @title = t('view.people.modal.involved_person')
-    @person = @building.persons.build(params[:person]) if @building
-    @person = @vehicle.persons.build(params[:person]) if @vehicle
+    @person = @building.people.build(params[:person]) if @building
+    @person = @vehicle.people.build(params[:person]) if @vehicle
+
     if @person.save
       js_notify message: t('view.people.correctly_created'), type: 'info', time: 2000
       js_redirect reload: true
@@ -69,9 +71,9 @@ class PeopleController < ApplicationController
   private
     def get_intervention
       @endowment = Endowment.find(params[:endowment_id])
-      @intervention = @endowment.intervention
       @mobile_intervention = @endowment.mobile_intervention
-      @building = Building.find(params[:building_id]) if params[:building_id]
-      @vehicle = Vehicle.find(params[:vehicle_id]) if params[:vehicle_id]
+      @intervention = @endowment.intervention
+      @building = @mobile_intervention.buildings.find(params[:building_id]) if params[:building_id]
+      @vehicle = @mobile_intervention.vehicles.find(params[:vehicle_id]) if params[:vehicle_id]
     end
 end

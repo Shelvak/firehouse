@@ -30,7 +30,7 @@ class Intervention < ActiveRecord::Base
   def initialize(attributes = nil, options = {})
     super(attributes, options)
 
-    self.endowments.build if self.endowments.empty?
+    #self.endowments.build if self.endowments.empty? Mommentary disabled
   end
 
   def receptor

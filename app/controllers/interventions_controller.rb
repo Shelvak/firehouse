@@ -35,7 +35,6 @@ class InterventionsController < ApplicationController
     @title = t('view.interventions.new_title')
     @intervention = Intervention.new
     @intervention.build_informer unless @intervention.informer
-    @intervention_types = InterventionType.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,7 +46,6 @@ class InterventionsController < ApplicationController
   def edit
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
-    @intervention_types = InterventionType.all
   end
 
   # POST /interventions

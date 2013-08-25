@@ -1,7 +1,4 @@
 Fabricator(:endowment) do
-  number            { rand(999) * rand(999) }
-  endowment_lines_attributes { { 1 => Fabricate.attributes_for(:endowment_line) } }
-
   # Truck info
   truck_id        { Fabricate(:truck).id }
   out_at          { I18n.l(10.minutes.ago, format: :hour_min) }
@@ -12,4 +9,9 @@ Fabricator(:endowment) do
   arrive_mileage  { |attr| attr[:out_mileage] + 10 }
   back_mileage    { |attr| attr[:arrive_mileage] + 10 }
   in_mileage      { |attr| attr[:back_mileage] + 10 }
+
+  intervention_id   { Fabricate(:intervention).id }
+  number            { rand(999) * rand(999) }
+
+  endowment_lines_attributes { { 1 => Fabricate.attributes_for(:endowment_line) } }
 end
