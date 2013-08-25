@@ -6,14 +6,14 @@ class BuildingsController < ApplicationController
   def new
     @title = t('view.buildings.modal.involved_building')
     @building = Building.new
-    render partial: 'new'
+    render partial: 'new', content_type: 'text/html'
   end
 
   # GET /buildings/1/edit
   def edit
     @title = t('view.buildings.modal.involved_building')
     @building = Building.find(params[:id])
-    render partial: 'edit'
+    render partial: 'edit', content_type: 'text/html'
   end
 
   # POST /buildings
