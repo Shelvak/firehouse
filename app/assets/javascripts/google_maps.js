@@ -1,4 +1,4 @@
-var findAddressInMap = function (address) {
+var findAddressInMap = function (address, edit_coordenates) {
     var geoCoder = new google.maps.Geocoder(address);
     var request = { address: address };
     geoCoder.geocode(request, function(result, status){
@@ -22,7 +22,7 @@ var findAddressInMap = function (address) {
             draggable: true,
             title: 'title'
         });
-        setLatitudeAndLongitude(marker.getPosition());
+        if (edit_coordenates == true) setLatitudeAndLongitude(marker.getPosition());
 
         // Register Custom "dragend" Event
         google.maps.event.addListener(marker, 'dragend', function() {

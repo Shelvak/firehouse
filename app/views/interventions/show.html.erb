@@ -14,6 +14,10 @@
       <p>
       <strong><%= Intervention.human_attribute_name 'address' %></strong>:
       <%= @intervention.address %>
+      <%= link_to t('view.interventions.show_map.show_map'),
+                  show_map_interventions_path(address: @intervention.address,
+                  edit_coordenates: 'false'), class: 'btn btn-small',
+                  remote: true, data: { target: 'modal', modal: true } %>
       </p>
       <p>
       <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:

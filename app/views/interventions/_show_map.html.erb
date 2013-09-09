@@ -15,5 +15,9 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-  findAddressInMap(document.getElementById("intervention_address").value);
+  var address = '<%= params[:address] %>';
+  if (address == '') address = document.getElementById("intervention_address").value;
+  var edit_coordenates = true
+  if ('<%= params[:edit_coordenates] %>' == 'false') edit_coordenates = false;
+  findAddressInMap(address, edit_coordenates);
 </script>

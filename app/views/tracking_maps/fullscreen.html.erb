@@ -24,12 +24,7 @@
       <strong><%= t('label.loading') %></strong>
     </div>
     <div id="map_canvas"></div>
-    <% @interventions.each_with_index do |intervention, index| %>
-      <script>
-        addInterventions('<%= intervention.address %>', '<%= intervention.latitude %>',
-            '<%= intervention.longitude %>', '<%= index %>');
-      </script>
-    <% end %>
+    <%= render partial: 'general_map_objects' %>
     <script type="text/javascript" charset="utf-8">
       setFullscreenMapSize();
       loadGeneralMap();

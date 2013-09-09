@@ -17,15 +17,8 @@
     <%= link_to t('view.interventions.index_title'),
                 interventions_path, class: 'btn' %>
   </div>
-  <% @interventions.each_with_index do |intervention, index| %>
-    <script>
-      addInterventions('<%= intervention.address %>', '<%= intervention.latitude %>',
-          '<%= intervention.longitude %>', '<%= index %>');
-    </script>
-  <% end %>
+  <%= render partial: 'tracking_maps/general_map_objects' %>
   <script type="text/javascript" charset="utf-8">
     loadGeneralMap();
   </script>
-
-
 <% end %>
