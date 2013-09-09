@@ -1,0 +1,12 @@
+<% if @interventions.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="form-actions">
+    <%= link_to(
+            t('view.interventions.new', default: :'label.new'),
+            new_intervention_path, class: 'btn btn-primary'
+        ) if can? :create, Intervention %>
+    <%= link_to t('view.interventions.index_title'),
+                interventions_path, class: 'btn' %>
+  </div>
+<% end %>

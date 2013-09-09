@@ -15,6 +15,12 @@
     <div class='row-fluid'>
       <div class='span7'>
         <%= f.input :address %>
+        <%= link_to t('view.interventions.show_map.show_map'),
+                    show_map_interventions_path, class: 'btn', remote: true,
+                    data: { target: 'modal', modal: true }
+        %>
+        <%= f.input :latitude, as: :hidden %>
+        <%= f.input :longitude, as: :hidden  %>
         <%= f.input :near_corner %>
         <%= f.input :kind_notes %>
       </div>
@@ -111,9 +117,9 @@
         <%= Intervention.human_attribute_name 'observations' %>
         <span id='add_current_time' class='iconic btn btn-inverse'
           title="<%= t('view.interventions.set_time') %>"
-          data-show-tooltip='true'>&#xe079;</span> 
+          data-show-tooltip='true'>&#xe079;</span>
       </h3>
-      <%= f.input :observations, label: false, 
+      <%= f.input :observations, label: false,
         input_html: { class: 'span11', rows: 5 } %>
     </div>
   </div>
@@ -125,10 +131,12 @@
   </div>
 <% end %>
 
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript"   src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" charset="utf-8">
-  var dynamicTab = 
+  var dynamicTab =
     '<%= content_tag(:li, link_to(
-        "dynamicContent", "#endowments_dynamicContent", 
+        "dynamicContent", "#endowments_dynamicContent",
         data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
       )
     ) %>'

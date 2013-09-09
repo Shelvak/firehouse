@@ -6,7 +6,8 @@ class Intervention < ActiveRecord::Base
   
   attr_accessible :address, :kind_notes, :near_corner, :number,
     :observations, :receptor_id, :endowments_attributes, :auto_sco_name,
-    :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id
+    :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id,
+    :latitude, :longitude
 
   validates :address, :intervention_type_id, :number, :receptor_id, presence: true
   validates :number, uniqueness: true

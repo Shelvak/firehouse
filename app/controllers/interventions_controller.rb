@@ -163,6 +163,17 @@ class InterventionsController < ApplicationController
       end
     end
   end
+
+  def show_map
+    @title = t('view.interventions.show_map.title')
+    render partial: 'show_map', content_type: 'text/html'
+  end
+
+  def map_index
+    @title = t('view.interventions.map_index.title')
+    #todo: incluir un estado que dependa si esta en curso o no la intervencion, para elegir cuales mostrar en el mapa
+    @interventions = Intervention.where('latitude IS NOT NULL AND longitude IS NOT NULL')
+  end
   private
     def active_ceo?
       @no_active_ceo = Sco.where(current: true).empty?

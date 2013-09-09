@@ -47,6 +47,7 @@
         window: 'Aberturas'
         electrics: 'Instalación eléctrica'
         damage: 'Daños'
+        damage: 'Daños'
       endowment_line:
         firefighter_id: 'Bombero'
         charge: 'Cargo'
@@ -81,6 +82,8 @@
         sco_id: 'CEO'
         endowments_attributes: 'Dotaciones'
         intervention_type_id: 'Tipo intervención'
+        latitude: 'Latitud'
+        longitude: 'Longitud'
       intervention_type:
         name: 'Nombre'
         priority: 'Prioridad'
@@ -216,6 +219,11 @@
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
       new: 'Nueva Intervención'
       add_endowment_link: 'Agregar nueva dotación'
+      show_map:
+        title: 'Mapa de:'
+        show_map: 'Ver mapa'
+      map_index:
+        title: 'Intervenciones en curso'
       kinds:
         car_accident: 'Accidente de auto'
         motorbike_accident: 'Accidente de moto'

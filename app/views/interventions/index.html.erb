@@ -39,4 +39,6 @@
     t('view.interventions.new', default: :'label.new'),
     new_intervention_path, class: 'btn btn-primary'
   ) if can? :create, Intervention %>
+  <%= link_to t('view.interventions.map_index.title'),
+              map_index_interventions_path, class: 'btn' %>
 </div>
