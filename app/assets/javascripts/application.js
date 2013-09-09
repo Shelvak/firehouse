@@ -29,3 +29,4 @@
 //= require utils
 //= require SrBuj
 //= require bootstrap-colorpicker
+//= require google_maps

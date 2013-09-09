@@ -1,0 +1,31 @@
+<% if @interventions.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="container-fluid">
+    <h1>
+      <%= @title %>
+      <%= link_to t('view.interventions.map_index.fullscreen'),
+                  fullscreen_path, class: 'btn', target: :blank %>
+    </h1>
+    <div id="map_canvas" class="google-map-large"></div>
+  </div>
+  <div class="form-actions">
+    <%= link_to(
+            t('view.interventions.new', default: :'label.new'),
+            new_intervention_path, class: 'btn btn-primary'
+        ) if can? :create, Intervention %>
+    <%= link_to t('view.interventions.index_title'),
+                interventions_path, class: 'btn' %>
+  </div>
+  <% @interventions.each_with_index do |intervention, index| %>
+    <script>
+      addInterventions('<%= intervention.address %>', '<%= intervention.latitude %>',
+          '<%= intervention.longitude %>', '<%= index %>');
+    </script>
+  <% end %>
+  <script type="text/javascript" charset="utf-8">
+    loadGeneralMap();
+  </script>
+
+
+<% end %>

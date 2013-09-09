@@ -14,7 +14,7 @@ Firehouse::Application.routes.draw do
       end
       get :autocomplete_for_truck_number
       get :show_map
-      get :map_index
+      get :map
     end
 
     resources :endowments do
@@ -40,6 +40,7 @@ Firehouse::Application.routes.draw do
     end
   end
 
+  match '/fullscreen' => 'tracking_maps#fullscreen', as: :fullscreen, via: :get
 
   root to: redirect('/users/sign_in')
 

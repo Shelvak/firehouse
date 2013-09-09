@@ -224,6 +224,7 @@
         show_map: 'Ver mapa'
       map_index:
         title: 'Intervenciones en curso'
+        fullscreen: 'Pantalla completa'
       kinds:
         car_accident: 'Accidente de auto'
         motorbike_accident: 'Accidente de moto'

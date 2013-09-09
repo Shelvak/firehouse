@@ -9,55 +9,11 @@
     <div id="map_canvas" class="google-map"></div>
   </div>
   <div class="modal-footer">
-    <%= link_to_function t('label.close'), "$('#modal').modal('toggle'); $('.colorpicker.dropdown-menu').remove();", class: 'btn' %>
-    <%#= f.button t('label.save'), class: 'btn btn-primary', disable_with: t('label.saving') %>
+    <%= link_to_function t('label.close'), "$('#modal').modal('toggle');
+    $('.colorpicker.dropdown-menu').remove();", class: 'btn' %>
   </div>
 </div>
 
 <script type="text/javascript" charset="utf-8">
-//  todo: enviar a js
-  var initializeGoogleMap = function () {
-    var address = document.getElementById("intervention_address").value;
-    var geoCoder = new google.maps.Geocoder(address);
-    // a new object for the request I called "request" , you can put there other parameters to specify a better search (check google api doc for details) ,
-    var request = { address: address };
-    geoCoder.geocode(request, function(result, status){
-      // as a result i get two parameters , result and status.
-      // results is an  array tha contenis objects with the results founds for the search made it.
-      // to simplify the example i take only the first result "result[0]" but you can use more that one if you want
-      var latlng = new google.maps.LatLng(result[0].geometry.location.lat(), result[0].geometry.location.lng());
-      var myOptions = {
-        zoom: 16,
-        center: latlng,
-        panControl: true,
-        zoomControl: true,
-        scaleControl: true,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-      var marker = new google.maps.Marker({
-        position: latlng,
-        map: map,
-        draggable: true,
-        title: 'title'
-      });
-      setLatitudeAndLongitude(marker.getPosition());
-
-      // Register Custom "dragend" Event
-      google.maps.event.addListener(marker, 'dragend', function() {
-        // Get the Current position, where the pointer was dropped
-        var point = marker.getPosition();
-        // Center the map at given point
-        map.panTo(point);
-        // Update the textbox
-        setLatitudeAndLongitude(point);
-      });
-    });
-    document.getElementById('show_map_title').innerText = address;
-  };
-  var setLatitudeAndLongitude = function(point){
-    document.getElementById('intervention_latitude').value = point.lat();
-    document.getElementById('intervention_longitude').value = point.lng();
-  };
-  initializeGoogleMap();
+  findAddressInMap(document.getElementById("intervention_address").value);
 </script>
