@@ -17,7 +17,7 @@
 
 <script type="text/javascript" charset="utf-8">
   if ('<%= params[:latitude] %>'&& '<%= params[:longitude] %>') {
-    findByCoordenates('<%= params[:latitude] %>', '<%= params[:longitude] %>');
+    findByCoordenates('<%= params[:latitude] %>', '<%= params[:longitude] %>', '<%= params[:address] %>');
   }
   else {
     //  todo: intentar con case

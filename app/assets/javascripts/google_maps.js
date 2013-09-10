@@ -20,8 +20,9 @@ var findAddressInMap = function (address) {
             position: latlng,
             map: map,
             draggable: true,
-            title: 'title'
+            title: address
         });
+        setMarkerInfo(map, marker, address, 0, new google.maps.InfoWindow());
         setLatitudeAndLongitude(marker.getPosition());
 
         // Register Custom "dragend" Event
@@ -42,12 +43,7 @@ var findAddressInMap = function (address) {
     }
 };
 
-var setLatitudeAndLongitude = function(point){
-    document.getElementById('intervention_latitude').value = point.lat();
-    document.getElementById('intervention_longitude').value = point.lng();
-};
-
-var findByCoordenates = function(latitude, longitude) {
+var findByCoordenates = function(latitude, longitude, address) {
     var latlng = new google.maps.LatLng( latitude, longitude);
     var myOptions = {
         zoom: 16,
@@ -62,12 +58,16 @@ var findByCoordenates = function(latitude, longitude) {
     var marker = new google.maps.Marker({
         position: latlng,
         map: map,
-        title: 'Intervención'
+        title: address
     });
+    setMarkerInfo(map, marker, address, 0, new google.maps.InfoWindow());
 };
 
 var loadGeneralMap = function () {
-//    todo: marcador de la estacion de bomberos
+    var firehouseStation = {
+        latitude: '-32.926887',
+        longitude: '-68.846255'
+    };
     var map = new google.maps.Map(document.getElementById('map_canvas'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
@@ -76,35 +76,46 @@ var loadGeneralMap = function () {
     for (i = 0; i < interventions.length; i++) {
         var marker = new StyledMarker({
             styleIcon: new StyledIcon(StyledIconTypes.MARKER,{
-// agregar el color de la intervención para verlo en el cosito de google y
-// diferenciarlos mejor
                 color: "ff0000",
                 text: "o",
                 fore: "000000"
             }),
-            position: new google.maps.LatLng(interventions[i][1], interventions[i][2]),
+            position: new google.maps.LatLng(interventions[i].latitude, interventions[i].longitude),
             map: map
         });
         bounds.extend(marker.position);
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                infowindow.setContent(interventions[i][0]);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
+        setMarkerInfo(map, marker, interventions[i].address, i,  infowindow);
     }
+    var firehouseMarker = new StyledMarker({
+        styleIcon: new StyledIcon(StyledIconTypes.MARKER,{
+            color: "#3A4AA8",
+            text: "B",
+            fore: "FFFFFF"
+        }),
+        position: new google.maps.LatLng(firehouseStation.latitude, firehouseStation.longitude),
+        map: map
+    });
+    setMarkerInfo(map, firehouseMarker, 'Estacion de bomberos', 0, infowindow);
     map.fitBounds(bounds);
     var listener = google.maps.event.addListener(map, "idle", function () {
-//        cambia el zoom del mapa de ser necesario.
-//        map.setZoom(14);
         google.maps.event.removeListener(listener);
     });
 };
 
+var setLatitudeAndLongitude = function(point){
+    document.getElementById('intervention_latitude').value = point.lat();
+    document.getElementById('intervention_longitude').value = point.lng();
+};
+
 var interventions = [];
-//todo: usar un objeto
 var addInterventions = function(address, latitude, longitude, index){
-    interventions.push([address, latitude, longitude, index]);
+    var object = {
+        address: address,
+        latitude: latitude,
+        longitude: longitude,
+        index: index
+    };
+    interventions.push(object);
 };
 
 var setFullscreenMapSize = function(){
@@ -112,4 +123,13 @@ var setFullscreenMapSize = function(){
     document.body.height = map_canvas.style.height = window.screen.height + 'px';
     document.body.width = map_canvas.style.width = window.screen.width + 'px';
     document.body.style.padding = '0px';
+};
+
+var setMarkerInfo = function(map, marker, title, index, infowindow) {
+    google.maps.event.addListener(marker, 'click', (function (marker, index) {
+        return function () {
+            infowindow.setContent(title);
+            infowindow.open(map, marker);
+        }
+    })(marker, index));
 };
