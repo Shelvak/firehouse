@@ -15,9 +15,22 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-  var address = '<%= params[:address] %>';
-  if (address == '') address = document.getElementById("intervention_address").value;
-  var edit_coordenates = true
-  if ('<%= params[:edit_coordenates] %>' == 'false') edit_coordenates = false;
-  findAddressInMap(address, edit_coordenates);
+//  todo: intentar con case
+  if (document.getElementById("intervention_address").value){
+    var address = document.getElementById("intervention_address").value;
+  }
+  else {
+    if (document.getElementById("intervention_address").innerText){
+    var address = document.getElementById("intervention_address").innerText;
+    }
+    else {
+      var address = document.getElementById("intervention_address").textContent;
+    }
+  }
+  if ('<%= params[:use_coordenates] %>') {
+//    findByCoordenates(latitude, longitude);
+  }
+  else {
+    findAddressInMap(address);
+  }
 </script>

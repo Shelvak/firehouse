@@ -1,4 +1,4 @@
-var findAddressInMap = function (address, edit_coordenates) {
+var findAddressInMap = function (address) {
     var geoCoder = new google.maps.Geocoder(address);
     var request = { address: address };
     geoCoder.geocode(request, function(result, status){
@@ -22,7 +22,7 @@ var findAddressInMap = function (address, edit_coordenates) {
             draggable: true,
             title: 'title'
         });
-        if (edit_coordenates == true) setLatitudeAndLongitude(marker.getPosition());
+        setLatitudeAndLongitude(marker.getPosition());
 
         // Register Custom "dragend" Event
         google.maps.event.addListener(marker, 'dragend', function() {
@@ -43,6 +43,7 @@ var setLatitudeAndLongitude = function(point){
 };
 
 var loadGeneralMap = function () {
+//    todo: marcador de la estacion de bomberos
     var map = new google.maps.Map(document.getElementById('map_canvas'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });

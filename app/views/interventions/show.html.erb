@@ -13,11 +13,13 @@
       </p>
       <p>
       <strong><%= Intervention.human_attribute_name 'address' %></strong>:
-      <%= @intervention.address %>
+      <span id="intervention_address"><%= @intervention.address %></span>
       <%= link_to t('view.interventions.show_map.show_map'),
-                  show_map_interventions_path(address: @intervention.address,
-                  edit_coordenates: 'false'), class: 'btn btn-small',
-                  remote: true, data: { target: 'modal', modal: true } %>
+                  show_map_interventions_path(use_coordenates: true),
+                  class: 'btn btn-small', remote: true, data: {
+                  target: 'modal', modal: true } %>
+      <span id="intervention_latitude" class="hidden"><%= @intervention.latitude %></span>
+      <span id="intervention_longitude" class="hidden"><%= @intervention.longitude %></span>
       </p>
       <p>
       <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
