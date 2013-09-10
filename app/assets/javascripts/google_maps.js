@@ -34,12 +34,36 @@ var findAddressInMap = function (address) {
             setLatitudeAndLongitude(point);
         });
     });
-    document.getElementById('show_map_title').innerText = address;
+    if (document.getElementById('show_map_title').innerText) {
+        document.getElementById('show_map_title').innerText = address;
+    }
+    else {
+        document.getElementById('show_map_title').textContent = address;
+    }
 };
 
 var setLatitudeAndLongitude = function(point){
     document.getElementById('intervention_latitude').value = point.lat();
     document.getElementById('intervention_longitude').value = point.lng();
+};
+
+var findByCoordenates = function(latitude, longitude) {
+    var latlng = new google.maps.LatLng( latitude, longitude);
+    var myOptions = {
+        zoom: 16,
+        center: latlng,
+        panControl: true,
+        zoomControl: true,
+        scaleControl: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        title: 'Intervención'
+    });
 };
 
 var loadGeneralMap = function () {
