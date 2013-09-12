@@ -22,6 +22,7 @@ class Intervention < ActiveRecord::Base
   has_one :informer
   has_one :mobile_intervention
   has_many :endowments
+  has_many :statuses, as: :trackeable
 
   accepts_nested_attributes_for :informer, allow_destroy: true,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }

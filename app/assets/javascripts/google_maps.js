@@ -95,6 +95,7 @@ var loadGeneralMap = function () {
         position: new google.maps.LatLng(firehouseStation.latitude, firehouseStation.longitude),
         map: map
     });
+    bounds.extend(firehouseMarker.position);
     setMarkerInfo(map, firehouseMarker, 'Estacion de bomberos', 0, infowindow);
     map.fitBounds(bounds);
     var listener = google.maps.event.addListener(map, "idle", function () {

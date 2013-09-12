@@ -56,6 +56,7 @@ class InterventionsController < ApplicationController
 
     respond_to do |format|
       if @intervention.save
+        @intervention.statuses.build(user_id: current_user.id).save
         format.html { redirect_to @intervention, notice: t('view.interventions.correctly_created') }
         format.json { render json: @intervention, status: :created, location: @intervention }
       else
@@ -84,8 +85,7 @@ class InterventionsController < ApplicationController
     redirect_to edit_intervention_url(@intervention), alert: t('view.interventions.stale_object_error')
   end
 
-  # DELETE /interventions/1
-  # DELETE /interventions/1.json
+  # no deberiamos tener deletes.
   def destroy
     @intervention = Intervention.find(params[:id])
     @intervention.destroy
@@ -171,8 +171,8 @@ class InterventionsController < ApplicationController
 
   def map
     @title = t('view.interventions.map_index.title')
-    #todo: incluir un estado que dependa si esta en curso o no la intervencion, para elegir cuales mostrar en el mapa
-    @interventions = Intervention.where('latitude IS NOT NULL AND longitude IS NOT NULL')
+    #debo buscar todas las intervenciones cuyo ULTIMO estado sea 'open'.
+    @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
   end
   private
     def active_ceo?

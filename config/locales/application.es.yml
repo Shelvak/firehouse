@@ -109,6 +109,13 @@
       sco:
         full_name: 'Nombre y apellido'
         current: 'Actual'
+      statuses:
+        allowed_statuses:
+          open: 'En curso'
+          modified: 'Modificado'
+          finished: 'Finalizado'
+          cancelled: 'Cancelado'
+          fake: 'Falsa alarma'
       support:
         support_type: 'Tipo de apoyo'
         number: 'Número'
