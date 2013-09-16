@@ -14,7 +14,7 @@
   <div class="form-inputs">
     <div class='row-fluid'>
       <div class='span7'>
-        <%= f.input :address %>
+        <%= f.input :address, input_html: { class: 'addresspicker span10' } %>
         <%= link_to t('view.interventions.show_map.show_map'),
                     show_map_interventions_path, class: 'btn', remote: true,
                     data: { target: 'modal', modal: true,
@@ -142,4 +142,5 @@
     '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
 
   var without_result = '<%= t("label.without_results") %>'
+  apply_addresspicker();
 </script>

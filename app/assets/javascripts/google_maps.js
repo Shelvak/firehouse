@@ -134,3 +134,7 @@ var setMarkerInfo = function(map, marker, title, index, infowindow) {
         }
     })(marker, index));
 };
+
+var apply_addresspicker = function(){
+    $('.addresspicker').addressPicker();
+};

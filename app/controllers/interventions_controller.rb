@@ -142,6 +142,7 @@ class InterventionsController < ApplicationController
 
   def update_back
     intervention = Intervention.find(params[:id])
+    #aca deberia marcar la intervención como finalizada, es decir, cambiar el estado a 'finished'
 
     respond_to do |format|
       if intervention.update_back!
@@ -171,7 +172,6 @@ class InterventionsController < ApplicationController
 
   def map
     @title = t('view.interventions.map_index.title')
-    #debo buscar todas las intervenciones cuyo ULTIMO estado sea 'open'.
     @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
   end
   private
