@@ -186,6 +186,13 @@
       must_be_greater_than: 'Debe ser mayor a %{distance} Km'
 
   view:
+    login:
+      title: 'Inicio de sesión'
+      help: 'Ayuda'
+      forgot_pass: '¿Olvidaste tu contraseña?'
+    misc:
+      news:
+        title: 'Novedades'
     generic:
       empty_index:
         html: 'No hay ningún elemento por el momento'
