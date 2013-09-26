@@ -360,6 +360,7 @@
       edit_title: "Editando el inmueble"
       correctly_created: "Inmueble agregado correctamente"
       correctly_updated: "Inmueble actualizado correctamente"
+      correctly_destroyed: "Inmueble eliminado correctamente"
       stale_object_error: "El inmueble no pudo ser actualizado, intente nuevamente."
       new: "Agregar inmueble"
       edit: "Editar inmueble"

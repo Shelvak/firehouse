@@ -1,4 +1,4 @@
-<div class='well'>
+<div class='well' id="<%= dom_id(building) %>">
   <span class='span3'>
     <h4>
       <%= t 'activerecord.attributes.building.address' %>:
@@ -31,8 +31,9 @@
     <%= link_to_edit ['edit', @intervention, @endowment,
                       'mobile_intervention', building], remote: true,
                      data: {target: 'modal', modal: true} %>
-    <%= link_to_destroy [@intervention, @endowment,
-                         'mobile_intervention', building], remote: true %>
+    <%= link_to_destroy [@intervention, @endowment, 'mobile_intervention',
+                         building], remote: true, data: {
+                         target: dom_id(building) } %>
   </span>
   <span class='span9'>
     <% if building.people.any? %>
