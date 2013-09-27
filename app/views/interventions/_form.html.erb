@@ -14,14 +14,18 @@
   <div class="form-inputs">
     <div class='row-fluid'>
       <div class='span7'>
-        <%= f.input :address %>
+        <%= f.input :address, input_html: { class: 'addresspicker span10' } %>
+        <%= link_to t('view.interventions.show_map.show_map'),
+                    show_map_interventions_path, class: 'btn', remote: true,
+                    data: { target: 'modal', modal: true,
+                    callback: 'bindFunctionToModalBackdrop'} %>
+        <%= f.input :latitude, as: :hidden %>
+        <%= f.input :longitude, as: :hidden  %>
         <%= f.input :near_corner %>
         <%= f.input :kind_notes %>
       </div>
       <div class='span5'>
-        <%= f.select :intervention_type_id, options_from_collection_for_select(
-            @intervention_types, 'id', 'name'),
-            prompt: 'Tipo de intervención'  %>
+        <%= intervention_type_select(f) %>
       </div>
     </div>
     <div class='row-fluid'>
@@ -113,9 +117,9 @@
         <%= Intervention.human_attribute_name 'observations' %>
         <span id='add_current_time' class='iconic btn btn-inverse'
           title="<%= t('view.interventions.set_time') %>"
-          data-show-tooltip='true'>&#xe079;</span> 
+          data-show-tooltip='true'>&#xe079;</span>
       </h3>
-      <%= f.input :observations, label: false, 
+      <%= f.input :observations, label: false,
         input_html: { class: 'span11', rows: 5 } %>
     </div>
   </div>
@@ -128,9 +132,9 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-  var dynamicTab = 
+  var dynamicTab =
     '<%= content_tag(:li, link_to(
-        "dynamicContent", "#endowments_dynamicContent", 
+        "dynamicContent", "#endowments_dynamicContent",
         data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
       )
     ) %>'
@@ -138,4 +142,5 @@
     '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
 
   var without_result = '<%= t("label.without_results") %>'
+  apply_addresspicker();
 </script>

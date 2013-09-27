@@ -35,7 +35,6 @@ class InterventionsController < ApplicationController
     @title = t('view.interventions.new_title')
     @intervention = Intervention.new
     @intervention.build_informer unless @intervention.informer
-    @intervention_types = InterventionType.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,7 +46,6 @@ class InterventionsController < ApplicationController
   def edit
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
-    @intervention_types = InterventionType.all
   end
 
   # POST /interventions
@@ -58,6 +56,7 @@ class InterventionsController < ApplicationController
 
     respond_to do |format|
       if @intervention.save
+        @intervention.statuses.build(user_id: current_user.id).save
         format.html { redirect_to @intervention, notice: t('view.interventions.correctly_created') }
         format.json { render json: @intervention, status: :created, location: @intervention }
       else
@@ -86,8 +85,7 @@ class InterventionsController < ApplicationController
     redirect_to edit_intervention_url(@intervention), alert: t('view.interventions.stale_object_error')
   end
 
-  # DELETE /interventions/1
-  # DELETE /interventions/1.json
+  # no deberiamos tener deletes.
   def destroy
     @intervention = Intervention.find(params[:id])
     @intervention.destroy
@@ -144,6 +142,7 @@ class InterventionsController < ApplicationController
 
   def update_back
     intervention = Intervention.find(params[:id])
+    #aca deberia marcar la intervención como finalizada, es decir, cambiar el estado a 'finished'
 
     respond_to do |format|
       if intervention.update_back!
@@ -164,6 +163,16 @@ class InterventionsController < ApplicationController
         format.html { redirect_to intervention, notice: t('view.interventions.truck.in_not_updated') }
       end
     end
+  end
+
+  def show_map
+    @title = t('view.interventions.show_map.title')
+    render partial: 'show_map', content_type: 'text/html'
+  end
+
+  def map
+    @title = t('view.interventions.map_index.title')
+    @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
   end
   private
     def active_ceo?

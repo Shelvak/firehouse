@@ -36,3 +36,15 @@ var allowBackdropToCloseColorpicker = function(){
     $('.modal-backdrop.in').on('click', function(){
     });
 };
+
+var cleanModal = function() {
+    var $modal = $('#modal');
+    $modal.html('');
+    $modal.removeAttr('class').removeAttr('aria-hidden').removeAttr('style');
+};
+
+var bindFunctionToModalBackdrop = function() {
+    $('.modal-backdrop').bind('click', function(){
+        cleanModal();
+    })
+};

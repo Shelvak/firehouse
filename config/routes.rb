@@ -13,11 +13,13 @@ Firehouse::Application.routes.draw do
         get :"autocomplete_for_#{obj}_name"
       end
       get :autocomplete_for_truck_number
+      get :show_map
+      get :map
     end
 
     resources :endowments do
       resource :mobile_intervention, on: :member do
-        resources :buildings do
+        resources :buildings, except: [:index, :show] do
           resources :people
         end
         resources :supports, except: [:index, :show]
@@ -38,6 +40,7 @@ Firehouse::Application.routes.draw do
     end
   end
 
+  match '/fullscreen' => 'tracking_maps#fullscreen', as: :fullscreen, via: :get
 
   root to: redirect('/users/sign_in')
 

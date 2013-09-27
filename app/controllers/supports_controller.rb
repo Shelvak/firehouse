@@ -28,11 +28,10 @@ class SupportsController < ApplicationController
   def update
     @title = t('view.supports.modal.involved_support')
     @support = Support.find(params[:id])
-    if @support.update_attributes(params[:person])
+    if @support.update_attributes(params[:support])
       js_notify message: t('view.supports.correctly_updated'), type: 'info', time: 2000
       js_redirect reload: true
     else
-      #todo: no esta entrando aca, no corre validaciones
       render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError

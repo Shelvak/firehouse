@@ -6,7 +6,8 @@ class Intervention < ActiveRecord::Base
   
   attr_accessible :address, :kind_notes, :near_corner, :number,
     :observations, :receptor_id, :endowments_attributes, :auto_sco_name,
-    :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id
+    :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id,
+    :latitude, :longitude
 
   validates :address, :intervention_type_id, :number, :receptor_id, presence: true
   validates :number, uniqueness: true
@@ -21,6 +22,7 @@ class Intervention < ActiveRecord::Base
   has_one :informer
   has_one :mobile_intervention
   has_many :endowments
+  has_many :statuses, as: :trackeable
 
   accepts_nested_attributes_for :informer, allow_destroy: true,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
@@ -30,7 +32,7 @@ class Intervention < ActiveRecord::Base
   def initialize(attributes = nil, options = {})
     super(attributes, options)
 
-    self.endowments.build if self.endowments.empty?
+    #self.endowments.build if self.endowments.empty? Mommentary disabled
   end
 
   def receptor

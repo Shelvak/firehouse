@@ -8,6 +8,7 @@
     <th><%= t 'view.mobile_interventions.tables.phone' %></th>
     <th><%= t 'view.mobile_interventions.tables.moved_to' %></th>
     <th><%= t 'view.mobile_interventions.tables.injuries' %></th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
@@ -20,6 +21,13 @@
       <td><%= person.phone_number %></td>
       <td><%= person.moved_to %></td>
       <td><%= person.injuries %></td>
+      <td><%= link_to_edit ['edit', @intervention, @endowment,
+              'mobile_intervention', (person.vehicle || person.building), person],
+              remote: true, data: { target: 'modal', modal: true } %>
+          <%= link_to_destroy [@intervention, @endowment,
+              'mobile_intervention', (person.vehicle || person.building), person],
+              remote: true %>
+      </td>
     </tr>
   <% end %>
   </tbody>

@@ -13,7 +13,13 @@
       </p>
       <p>
       <strong><%= Intervention.human_attribute_name 'address' %></strong>:
-      <%= @intervention.address %>
+      <span><%= @intervention.address %></span>
+      <%= link_to t('view.interventions.show_map.show_map'),
+                  show_map_interventions_path(latitude: @intervention.latitude,
+                  longitude: @intervention.longitude, address:
+                  @intervention.address ), class: 'btn btn-small', remote: true,
+                  data: { target: 'modal', modal: true,
+                  callback: 'bindFunctionToModalBackdrop'} %>
       </p>
       <p>
       <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:

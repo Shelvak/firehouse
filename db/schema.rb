@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130605164821) do
+ActiveRecord::Schema.define(:version => 20130912182945) do
 
   create_table "buildings", :force => true do |t|
     t.string   "address"
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(:version => 20130605164821) do
     t.integer  "in_mileage"
     t.integer  "sco_id"
     t.integer  "intervention_type_id"
+    t.string   "latitude"
+    t.string   "longitude"
   end
 
   add_index "interventions", ["number"], :name => "index_interventions_on_number", :unique => true
@@ -166,6 +168,18 @@ ActiveRecord::Schema.define(:version => 20130605164821) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
+
+  create_table "statuses", :force => true do |t|
+    t.string   "name",            :default => "open"
+    t.integer  "trackeable_id"
+    t.string   "trackeable_type"
+    t.integer  "user_id"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "statuses", ["trackeable_id"], :name => "index_statuses_on_trackeable_id"
+  add_index "statuses", ["user_id"], :name => "index_statuses_on_user_id"
 
   create_table "supports", :force => true do |t|
     t.string   "support_type"

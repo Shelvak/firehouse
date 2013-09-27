@@ -1,0 +1,6 @@
+<% @interventions.each_with_index do |intervention, index| %>
+  <script>
+    addInterventions('<%= intervention.intervention_type %>: <%= intervention.address %>', '<%= intervention.latitude %>',
+        '<%= intervention.longitude %>', '<%= index %>');
+  </script>
+<% end %>
