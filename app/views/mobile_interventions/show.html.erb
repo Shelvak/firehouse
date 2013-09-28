@@ -36,14 +36,18 @@
 
   <div class='row-fluid page-header'>
     <h3><%= t 'view.mobile_interventions.vehicles_info' %></h3>
-    <% number = 0 %>
-    <% @vehicles.each do |vehicle| %>
-      <% number += 1 %>
-      <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
-    <% end %>
+    <div id="vehicles_list">
+      <% number = 0 %>
+      <% @vehicles.each do |vehicle| %>
+        <% number += 1 %>
+        <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
+      <% end %>
+      <div id="new_vehicle"></div>
+    </div>
+    <!--todo: asignar numero al crear-->
     <p><%= link_to t('view.vehicles.new'),
       new_intervention_endowment_mobile_intervention_vehicle_path(
-        @intervention, @endowment), class: 'btn btn-primary', remote: true,
+        @intervention, @endowment, number: 'sin asignar' ), class: 'btn btn-primary', remote: true,
       data: { target: 'modal', modal: true } %></p>
   </div>
 

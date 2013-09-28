@@ -56,7 +56,7 @@ var highlightItem = function(method, container, element) {
     var $elementToHighlight = $(element);
 
     if(action == 'new') {
-        var $container = $('#' + container)
+        var $container = $('#' + container);
         $elementToHighlight = $container.children().last();
         $container.append('<div id=' + method + '></div>')
     }

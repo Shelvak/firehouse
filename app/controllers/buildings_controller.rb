@@ -57,7 +57,7 @@ class BuildingsController < ApplicationController
     @building.destroy
     js_notify message: t('view.buildings.correctly_destroyed'),
               type: 'alert-danger js-notify-18px-text', time: 2500
-    render false, content_type: 'text/html'
+    render nothing: true, content_type: 'text/html'
   end
 
   private

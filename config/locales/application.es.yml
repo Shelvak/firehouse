@@ -374,6 +374,7 @@
       edit_title: "Editando el vehículo"
       correctly_created: "Vehículo agregado correctamente"
       correctly_updated: "Vehículo actualizado correctamente"
+      correctly_destroyed: "Vehículo eliminado correctamente"
       stale_object_error: "El vehículo no pudo ser actualizado, intente nuevamente."
       new: "Agregar vehículo"
       edit: "Editar vehículo"

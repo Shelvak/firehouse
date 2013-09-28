@@ -4,7 +4,6 @@ class VehiclesController < ApplicationController
   def new
     @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = @mobile_intervention.vehicles.build
-
     render partial: 'new', content_type: 'text/html'
   end
 
@@ -18,10 +17,11 @@ class VehiclesController < ApplicationController
   def create
     @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = @mobile_intervention.vehicles.build(params[:vehicle])
-    #todo: ajaxify
     if @vehicle.save
-      js_notify message: t('view.vehicles.correctly_created'), type: 'info', time: 2000
-      js_redirect reload: true
+      js_notify message: t('view.vehicles.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/vehicle', locals: { vehicle: @vehicle,
+                       number: params[:number] }, content_type: 'text/html'
     else
       render partial: 'new', status: :unprocessable_entity
     end
@@ -30,10 +30,11 @@ class VehiclesController < ApplicationController
   def update
     @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = Vehicle.find(params[:id])
-    #todo: ajaxify
     if @vehicle.update_attributes(params[:vehicle])
-      js_notify message: t('view.vehicles.correctly_updated'), type: 'info', time: 2000
-      js_redirect reload: true
+      js_notify message: t('view.vehicles.correctly_updated'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/vehicle', locals: { vehicle: @vehicle,
+                       number: params[:number] }, content_type: 'text/html'
     else
       render partial: 'edit', status: :unprocessable_entity
     end
@@ -45,8 +46,9 @@ class VehiclesController < ApplicationController
   def destroy
     @vehicle = Vehicle.find(params[:id])
     @vehicle.destroy
-    #todo: ajaxify
-    js_redirect reload: true
+    js_notify message: t('view.vehicles.correctly_destroyed'),
+              type: 'alert-danger js-notify-18px-text', time: 2500
+    render nothing: true, content_type: 'text/html'
   end
 
   private
