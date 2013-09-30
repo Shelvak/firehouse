@@ -1,4 +1,4 @@
-<div class='well'>
+<div class='well' id="<%= dom_id(vehicle) %>" >
   <span class='span3'>
     <h4>
       <%= t 'activerecord.attributes.vehicle.number' %>:
@@ -24,12 +24,12 @@
       <%= t 'activerecord.attributes.vehicle.damage' %>
       <%= vehicle.damage %>
     </p>
-    <%= link_to_edit ['edit', @intervention, @endowment,
-                      'mobile_intervention', vehicle], remote: true,
-                     data: { target: 'modal', modal: true } %>
+    <%= link_to_edit edit_intervention_endowment_mobile_intervention_vehicle_path(
+        @intervention, @endowment, vehicle, number: number ),
+        remote: true, data: { target: 'modal', modal: true } %>
     <%= link_to_destroy [@intervention, @endowment,
                          'mobile_intervention', vehicle], remote: true,
-                        data: { target: 'modal', modal: true } %>
+                        data: { target: dom_id(vehicle) } %>
   </span>
   <span class='span9'>
     <% if vehicle.people.any? %>

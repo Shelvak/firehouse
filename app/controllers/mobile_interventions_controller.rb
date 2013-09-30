@@ -10,7 +10,9 @@ class MobileInterventionsController < ApplicationController
                            else
                              @endowment.mobile_intervention
                            end
-
+    @buildings = @mobile_intervention.buildings.order(:id)
+    @vehicles = @mobile_intervention.vehicles.order(:id)
+    @supports = @mobile_intervention.supports.order(:id)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @mobile_intervention }

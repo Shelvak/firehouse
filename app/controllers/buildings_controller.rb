@@ -22,9 +22,10 @@ class BuildingsController < ApplicationController
     @title = t('view.buildings.modal.involved_building')
     @building = @mobile_intervention.buildings.build(params[:building])
     if @building.save
-      #todo insertar con ajax
-      js_notify message: t('view.buildings.correctly_created'), type: 'info', time: 2000
-      js_redirect reload: true
+      js_notify message: t('view.buildings.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/building', locals: { building: @building },
+             content_type: 'text/html'
     else
       render partial: 'new', status: :unprocessable_entity
     end
@@ -37,9 +38,10 @@ class BuildingsController < ApplicationController
     @building = Building.find(params[:id])
 
     if @building.update_attributes(params[:building])
-      #todo insertar con ajax
-      js_notify message: t('view.buildings.correctly_created'), type: 'info', time: 2000
-      js_redirect reload: true
+      js_notify message: t('view.buildings.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/building', locals: { building: @building },
+             content_type: 'text/html'
     else
       render partial: 'edit', status: :unprocessable_entity
     end
@@ -53,8 +55,9 @@ class BuildingsController < ApplicationController
   def destroy
     @building = Building.find(params[:id])
     @building.destroy
-    #todo: tambien con ajax
-    js_redirect reload: true
+    js_notify message: t('view.buildings.correctly_destroyed'),
+              type: 'alert-danger js-notify-18px-text', time: 2500
+    render nothing: true, content_type: 'text/html'
   end
 
   private

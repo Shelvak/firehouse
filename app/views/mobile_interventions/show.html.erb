@@ -20,33 +20,40 @@
 
   <div class='row-fluid page-header'>
     <h3><%= t 'view.mobile_interventions.buildings_info' %></h3>
-    <% @mobile_intervention.buildings.each do |building| %>
-      <%= render 'mobile_interventions/building', building: building %>
-    <% end %>
+    <div id="buildings_list">
+      <% @buildings.each do |building| %>
+        <%= render 'mobile_interventions/building', building: building %>
+      <% end %>
+      <div id="new_building"></div>
+    </div>
     <p><%= link_to(
-      t('view.buildings.new'),
-      new_intervention_endowment_mobile_intervention_building_path(
-        @intervention, @endowment), class: 'btn btn-primary', remote: true,
-      data: {target: 'modal', modal: true}
-    ) %></p>
+               t('view.buildings.new'),
+               new_intervention_endowment_mobile_intervention_building_path(
+                   @intervention, @endowment), class: 'btn btn-primary', remote: true,
+               data: {target: 'modal', modal: true}
+           ) %></p>
   </div>
 
   <div class='row-fluid page-header'>
     <h3><%= t 'view.mobile_interventions.vehicles_info' %></h3>
-    <% number = 0 %>
-    <% @mobile_intervention.vehicles.each do |vehicle| %>
-      <% number += 1 %>
-      <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
-    <% end %>
+    <div id="vehicles_list">
+      <% number = 0 %>
+      <% @vehicles.each do |vehicle| %>
+        <% number += 1 %>
+        <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
+      <% end %>
+      <div id="new_vehicle"></div>
+    </div>
+    <!--todo: asignar numero al crear-->
     <p><%= link_to t('view.vehicles.new'),
       new_intervention_endowment_mobile_intervention_vehicle_path(
-        @intervention, @endowment), class: 'btn btn-primary', remote: true,
+        @intervention, @endowment, number: 'sin asignar' ), class: 'btn btn-primary', remote: true,
       data: { target: 'modal', modal: true } %></p>
   </div>
 
   <div class='row-fluid'>
     <h3><%= t 'view.mobile_interventions.supports_info' %></h3>
-    <% if @mobile_intervention.supports.any? %>
+    <% if @supports.any? %>
       <%= render 'mobile_interventions/support_table' %>
     <% end %>
     <p><%= link_to t('view.supports.new'), ['new', @intervention, @endowment,

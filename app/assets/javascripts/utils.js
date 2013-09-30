@@ -48,3 +48,18 @@ var bindFunctionToModalBackdrop = function() {
         cleanModal();
     })
 };
+
+//SrBuj ajax gem Related stuff
+
+var highlightItem = function(method, container, element) {
+    var action = method.split('_')[0];
+    var $elementToHighlight = $(element);
+
+    if(action == 'new') {
+        var $container = $('#' + container);
+        $elementToHighlight = $container.children().last();
+        $container.append('<div id=' + method + '></div>')
+    }
+//todo: el color deberia elegirse.
+    $elementToHighlight.effect("highlight", {color: '#bce8f1'}, 2500);
+};
