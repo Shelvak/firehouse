@@ -53,9 +53,7 @@
 
   <div class='row-fluid'>
     <h3><%= t 'view.mobile_interventions.supports_info' %></h3>
-    <% if @supports.any? %>
-      <%= render 'mobile_interventions/support_table' %>
-    <% end %>
+    <%= render 'mobile_interventions/support_table' %>
     <p><%= link_to t('view.supports.new'), ['new', @intervention, @endowment,
            'mobile_intervention', 'support'], remote: true, data: {
            target: 'modal', modal: true }, class: 'btn btn-primary' %></p>

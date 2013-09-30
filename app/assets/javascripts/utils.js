@@ -51,14 +51,23 @@ var bindFunctionToModalBackdrop = function() {
 
 //SrBuj ajax gem Related stuff
 
-var highlightItem = function(method, container, element) {
-    var action = method.split('_')[0];
+//modo de uso: id_new_element es el id que tiene el elemento donde se van a
+// insertar nuevos elementos
+//container es el contenedor general donde esta la lista de elementos,
+// se recomienda un div general para agregar divs, y usar el tbody de las table
+// cuando se quieran resaltar 'tr' de una tabla.
+//element es el elemento a resaltar (para el caso del edit es)
+var highlightItem = function(id_new_element, container, element) {
+    var action = id_new_element.split('_')[0];
     var $elementToHighlight = $(element);
 
     if(action == 'new') {
         var $container = $('#' + container);
         $elementToHighlight = $container.children().last();
-        $container.append('<div id=' + method + '></div>')
+        if(container.split('_')[1] == 'table')
+            $container.append('<tr id=' + id_new_element + '></tr>');
+        else
+            $container.append('<div id=' + id_new_element + '></div>');
     }
 //todo: el color deberia elegirse.
     $elementToHighlight.effect("highlight", {color: '#bce8f1'}, 2500);

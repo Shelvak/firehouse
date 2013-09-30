@@ -387,6 +387,7 @@
       edit_title: "Editando el Móvil de apoyo"
       correctly_created: "Móvil de apoyo agregado correctamente"
       correctly_updated: "Móvil de apoyo actualizado correctamente"
+      correctly_destroyed: "Móvil de apoyo eliminado correctamente"
       stale_object_error: "El Móvil de apoyo no pudo ser actualizado, intente nuevamente."
       new: "Agregar Móvil de Apoyo"
       edit: "Editar Móvil de Apoyo"
