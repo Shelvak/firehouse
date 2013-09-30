@@ -24,6 +24,7 @@ class PeopleController < ApplicationController
   def new
     @title = t('view.people.modal.involved_person')
     @person = (@building || @vehicle).people.build
+    @type = @building ? 'building' : 'vehicle'
 
     render partial: 'new', content_type: 'text/html'
   end
@@ -31,6 +32,8 @@ class PeopleController < ApplicationController
   def edit
     @title = t('view.people.modal.involved_person')
     @person = Person.find(params[:id])
+    @type = ( @building ? 'building' : 'vehicle' )
+
     render partial: 'edit', content_type: 'text/html'
   end
 
@@ -40,8 +43,10 @@ class PeopleController < ApplicationController
     @person = @vehicle.people.build(params[:person]) if @vehicle
 
     if @person.save
-      js_notify message: t('view.people.correctly_created'), type: 'info', time: 2000
-      js_redirect reload: true
+      js_notify message: t('view.people.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/person', locals: { person: @person,
+             building: ( @building ? true : false) }, content_type: 'text/html'
     else
       render partial: 'new', status: :unprocessable_entity
     end
@@ -52,8 +57,10 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
 
       if @person.update_attributes(params[:person])
-        js_notify message: t('view.people.correctly_updated'), type: 'info', time: 2000
-        js_redirect reload: true
+        js_notify message: t('view.people.correctly_updated'),
+                  type: 'alert-info js-notify-18px-text', time: 2500
+        render partial: 'mobile_interventions/person', locals: { person: @person,
+               building: ( @building ? true : false) }, content_type: 'text/html'
       else
         render partial: 'edit', status: :unprocessable_entity
       end
@@ -65,7 +72,9 @@ class PeopleController < ApplicationController
   def destroy
     @person = Person.find(params[:id])
     @person.destroy
-    js_redirect reload: true
+    js_notify message: t('view.people.correctly_destroyed'),
+              type: 'alert-danger js-notify-18px-text', time: 2500
+    render nothing: true, content_type: 'text/html'
   end
 
   private

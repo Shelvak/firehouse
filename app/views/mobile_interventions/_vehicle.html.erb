@@ -32,9 +32,8 @@
                         data: { target: dom_id(vehicle) } %>
   </span>
   <span class='span9'>
-    <% if vehicle.people.any? %>
-      <%= render 'mobile_interventions/people_table', people: vehicle.people %>
-    <% end %>
+    <%= render partial: 'mobile_interventions/people_table',
+               locals: { people: vehicle.people, building: false }%>
     <p><%= link_to t('view.people.new'), ['new', @intervention, @endowment,
           'mobile_intervention', vehicle, 'person'], remote: true,
            data: { target: 'modal', modal: true },

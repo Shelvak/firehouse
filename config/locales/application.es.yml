@@ -400,6 +400,7 @@
       edit_title: "Editando la persona"
       correctly_created: "Persona agregada correctamente"
       correctly_updated: "Persona actualizada correctamente"
+      correctly_destroyed: "Persona eliminada correctamente"
       stale_object_error: "La persona no pudo ser actualizada, intente nuevamente."
       new: "Agregar persona"
       edit: "Editar persona"

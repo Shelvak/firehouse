@@ -11,24 +11,10 @@
     <th></th>
   </tr>
   </thead>
-  <tbody>
-  <% people.each do |person| %>
-    <tr>
-      <td><%= person.relation %></td>
-      <td><%= person.name%> <%= person.last_name %></td>
-      <td><%= person.dni_type + person.dni_number %></td>
-      <td><%= person.age %></td>
-      <td><%= person.phone_number %></td>
-      <td><%= person.moved_to %></td>
-      <td><%= person.injuries %></td>
-      <td><%= link_to_edit ['edit', @intervention, @endowment,
-              'mobile_intervention', (person.vehicle || person.building), person],
-              remote: true, data: { target: 'modal', modal: true } %>
-          <%= link_to_destroy [@intervention, @endowment,
-              'mobile_intervention', (person.vehicle || person.building), person],
-              remote: true %>
-      </td>
-    </tr>
-  <% end %>
+  <tbody id="people_table_body_<%= building ? 'building' : 'vehicle' %>">
+    <% people.order(:created_at).each do |person| %>
+      <%= render partial: 'mobile_interventions/person', locals: { person: person } %>
+    <% end %>
+    <tr id="new_person_<%= building ? 'building' : 'vehicle' %>"></tr>
   </tbody>
 </table>
