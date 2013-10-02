@@ -1,7 +1,7 @@
 <div class="modal">
   <%= simple_form_for @person, url: people_url_for_form, remote: true, html: {
-      data: { target: "new_person_#{@type}", error: 'modal', modal: true, callback:
-      "highlightItem('new_person_#{@type}', 'people_table_body_#{@type}', false);",
+      data: { target: "new_person_#{dom_id(@type)}", error: 'modal', modal: true, callback:
+      "highlightItem('new_person_#{dom_id(@type)}', 'people_table_body_#{dom_id(@type)}', false);",
       replace: true } } do |f| %>
     <div class="modal-header">
       <h2><%= @title %></h2>

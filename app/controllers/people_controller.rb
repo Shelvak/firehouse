@@ -24,7 +24,7 @@ class PeopleController < ApplicationController
   def new
     @title = t('view.people.modal.involved_person')
     @person = (@building || @vehicle).people.build
-    @type = @building ? 'building' : 'vehicle'
+    @type = @building || @vehicle
 
     render partial: 'new', content_type: 'text/html'
   end

@@ -33,7 +33,7 @@
   </span>
   <span class='span9'>
     <%= render partial: 'mobile_interventions/people_table',
-               locals: { people: vehicle.people, building: false }%>
+               locals: { people: vehicle.people, type: vehicle}%>
     <p><%= link_to t('view.people.new'), ['new', @intervention, @endowment,
           'mobile_intervention', vehicle, 'person'], remote: true,
            data: { target: 'modal', modal: true },
