@@ -52,10 +52,10 @@ var bindFunctionToModalBackdrop = function() {
 //SrBuj ajax gem Related stuff
 
 //modo de uso: id_new_element es el id que tiene el elemento donde se van a
-// insertar nuevos elementos
+// insertar nuevos elementos, ej: 'new_account', 'edit_account'
 //container es el contenedor general donde esta la lista de elementos,
 // se recomienda un div general para agregar divs, y usar el tbody de las table
-// cuando se quieran resaltar 'tr' de una tabla.
+// cuando se quieran resaltar 'tr' de una tabla. Ej: 'accounts_table', 'accounts_list'
 //element es el elemento a resaltar (para el caso del edit es)
 var highlightItem = function(id_new_element, container, element) {
     var action = id_new_element.split('_')[0];

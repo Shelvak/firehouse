@@ -5,11 +5,9 @@
 <% end %>
 <div class="container-fluid">
   <div class="row">
-    <div class="span11 intervention-types-list">
+    <div class="span11 intervention-types-list" id="intervention_types_list">
       <% @intervention_types.each do |intervention_type| %>
         <%= render intervention_type, special_class: 'type' %>
-        <%= render intervention_type.childrens.order(:priority),
-                   special_class: 'subtype' %>
       <% end %>
       <div id="new_intervention_type"></div>
     </div>

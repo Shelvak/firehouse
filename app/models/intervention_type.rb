@@ -3,7 +3,7 @@ class InterventionType < ActiveRecord::Base
 
   belongs_to :father, :class_name => 'InterventionType', :foreign_key => 'intervention_type_id'
 
-  has_many :childrens, :class_name => 'InterventionType'
+  has_many :childrens, :class_name => 'InterventionType', dependent: :destroy
   has_many :interventions
 
   attr_accessible :name, :priority, :father, :target, :callback, :color, :image, :remote_image_url
@@ -19,5 +19,9 @@ class InterventionType < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   def to_s
     self.name
+  end
+
+  def has_childrens?
+    childrens.any?
   end
 end
