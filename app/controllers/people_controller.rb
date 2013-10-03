@@ -32,7 +32,7 @@ class PeopleController < ApplicationController
   def edit
     @title = t('view.people.modal.involved_person')
     @person = Person.find(params[:id])
-    @type = ( @building ? 'building' : 'vehicle' )
+    @type = @building || @vehicle
 
     render partial: 'edit', content_type: 'text/html'
   end
@@ -45,9 +45,10 @@ class PeopleController < ApplicationController
     if @person.save
       js_notify message: t('view.people.correctly_created'),
                 type: 'alert-info js-notify-18px-text', time: 2500
-      render partial: 'mobile_interventions/person', locals: { person: @person,
-             building: ( @building ? true : false) }, content_type: 'text/html'
+      render partial: 'mobile_interventions/person', locals: { person: @person },
+             content_type: 'text/html'
     else
+      @type = @building || @vehicle
       render partial: 'new', status: :unprocessable_entity
     end
   end
@@ -59,9 +60,10 @@ class PeopleController < ApplicationController
       if @person.update_attributes(params[:person])
         js_notify message: t('view.people.correctly_updated'),
                   type: 'alert-info js-notify-18px-text', time: 2500
-        render partial: 'mobile_interventions/person', locals: { person: @person,
-               building: ( @building ? true : false) }, content_type: 'text/html'
+        render partial: 'mobile_interventions/person', locals: { person: @person },
+               content_type: 'text/html'
       else
+        @type = @building || @vehicle
         render partial: 'edit', status: :unprocessable_entity
       end
   rescue ActiveRecord::StaleObjectError
