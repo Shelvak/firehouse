@@ -28,8 +28,9 @@ class Configs::InterventionTypesController < ApplicationController
   end
 
   def edit
-    @title = t('view.intervention_types.edit_title')
     @intervention_type = InterventionType.find(params[:id])
+    @title = t('view.intervention_types.edit_title',
+               intervention_type: @intervention_type)
     render partial: 'edit', content_type: 'text/html'
   end
 

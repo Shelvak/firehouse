@@ -8,7 +8,7 @@
       multipart: true } do |f| %>
     <div class="modal-header">
       <h2>
-        Editando: '<%= @intervention_type.name %>'
+        <%= @title %>
         <%= image_tag(@intervention_type.image_url.to_s, class: 'image-thumb') if
                 @intervention_type.image.present?  %>
       </h2>

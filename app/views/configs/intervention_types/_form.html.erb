@@ -9,7 +9,8 @@
   <label class="control-label"><%= InterventionType.human_attribute_name :image %></label>
   <div class="controls">
     <%= f.file_field :image, placeholder: InterventionType.human_attribute_name(:image) %>
-    <%= f.text_field :remote_image_url, placeholder: 'inserte la dirección' %>
+    <%= f.text_field :remote_image_url, placeholder:
+        t('activerecord.attributes.intervention_type.image_address')%>
 
   </div>
 </div>
@@ -25,4 +26,5 @@
 </div>
 <script>
   setColorPicker();
+  bindFunctionToModalBackdrop();
 </script>

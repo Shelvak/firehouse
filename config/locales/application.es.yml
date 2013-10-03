@@ -92,6 +92,7 @@
         target: 'Destino'
         callback: 'Función de retorno'
         color: 'Color de texto'
+        image_address: "Inserte la dirección"
       mobile_intervention:
         date: 'Fecha'
         observations: 'Observaciones'
@@ -277,7 +278,7 @@
       index_title: 'Tipos de intervenciones'
       show_title: '%{intervention_type}'
       new_title: 'Nuevo tipo de intervención'
-      edit_title: 'Editando %{intervention_type}'
+      edit_title: 'Editando: %{intervention_type}'
       correctly_created: 'Tipo de intervención agregado correctamente.'
       correctly_updated: 'Tipo de intervención actualizado correctamente.'
       stale_object_error: 'El tipo de intervención no pudo ser actualizado, intente nuevamente.'

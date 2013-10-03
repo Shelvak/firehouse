@@ -43,6 +43,7 @@ var cleanModal = function() {
     $modal.removeAttr('class').removeAttr('aria-hidden').removeAttr('style');
 };
 
+//todo: no esta andando bien esto, probado en intervention_types
 var bindFunctionToModalBackdrop = function() {
     $('.modal-backdrop').bind('click', function(){
         cleanModal();
@@ -69,6 +70,7 @@ var highlightItem = function(id_new_element, container, element) {
         else
             $container.append('<div id=' + id_new_element + '></div>');
     }
+//todo: el highlight se ejecuta una sola vez por alguna razon
 //todo: el color deberia elegirse.
     $elementToHighlight.effect("highlight", {color: '#bce8f1'}, 2500);
 };
