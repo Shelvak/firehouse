@@ -63,9 +63,10 @@ new Rule
         dataType: 'json'
         data: { q: input.val() }
         success: (data)->
-          input.parents('[data-endowment-item]')
-            .find('input[name$="[out_mileage]"]')
-            .val(parseInt data[0].mileage)
+          if data[0]
+            input.parents('[data-endowment-item]')
+              .find('input[name$="[out_mileage]"]')
+              .val(parseInt data[0].mileage)
 
     @map.setCurrentTimeToTruckData ||= ->
       clicked = $(this)
