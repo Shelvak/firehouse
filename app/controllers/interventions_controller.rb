@@ -174,7 +174,9 @@ class InterventionsController < ApplicationController
     @title = t('view.interventions.map_index.title')
     @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
   end
+
   private
+
     def active_ceo?
       @no_active_ceo = Sco.where(current: true).empty?
     end
