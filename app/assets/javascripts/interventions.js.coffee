@@ -12,6 +12,15 @@ window.Intervention =
         hintText: false,
         noResultsText: without_result,
         searchingText: false
+        onAdd: ->
+          console.log('rock')
+          console.log $(this)
+          count = input.siblings('.token-input-list-facebook:first')
+            .find('li.token-input-token-facebook').size()
+          console.log(count)
+          if (count - input.data('token-limit')) == 0
+            input.parents('[data-endowment-lines]')
+              .find('[id^="token-input-intervention"]:visible:first').focus()
 
 new Rule
   condition: -> $('#c_interventions').length

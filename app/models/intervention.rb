@@ -32,7 +32,7 @@ class Intervention < ActiveRecord::Base
   def initialize(attributes = nil, options = {})
     super(attributes, options)
 
-    #self.endowments.build if self.endowments.empty? Mommentary disabled
+    self.endowments.build if self.endowments.empty?
   end
 
   def receptor
@@ -40,7 +40,13 @@ class Intervention < ActiveRecord::Base
   end
 
   def reject_endowment_item?(attrs)
-    attrs['truck_id'].blank? && attrs['truck_number'].blank?
+    endow_reject = false
+
+    attrs['endowment_lines_attributes'].each do |i, e| 
+      endow_reject ||= e['firefighters_names'].present?
+    end
+
+    attrs['truck_id'].blank? && attrs['truck_number'].blank? && !endow_reject
   end
  
   def sco_presence
@@ -65,6 +71,6 @@ class Intervention < ActiveRecord::Base
   end
 
   def type
-    self.intervention_type.name
+    self.intervention_type.try(:name)
   end
 end
