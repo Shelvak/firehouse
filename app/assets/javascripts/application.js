@@ -14,6 +14,7 @@
 //= require jquery.ui.all
 //= require jquery_ujs
 //= require jquery/tokeninput
+//= require jquery/emuletab
 //= require twitter/bootstrap
 //= require inspector
 //= require turboevents

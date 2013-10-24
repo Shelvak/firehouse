@@ -1,5 +1,9 @@
 class PeopleController < ApplicationController
   before_filter :get_intervention
+  before_filter :authenticate_user!
+
+  check_authorization
+  load_and_authorize_resource
 
   def index
     @title = t('view.people.index_title')
@@ -67,8 +71,10 @@ class PeopleController < ApplicationController
         render partial: 'edit', status: :unprocessable_entity
       end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit', @intervention, @endowment, 'mobile_intervention',
-     (@vehicle || @building), @person], alert: t('view.people.stale_object_error')
+    redirect_to [
+      'edit', @intervention, @endowment, 'mobile_intervention',
+      (@vehicle || @building), @person
+    ], alert: t('view.people.stale_object_error')
   end
 
   def destroy

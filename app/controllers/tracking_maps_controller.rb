@@ -6,7 +6,7 @@ class TrackingMapsController < ApplicationController
   load_and_authorize_resource
 
   def fullscreen
-    @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
+    @interventions = Intervention.opened
     render layout: false
   end
 
