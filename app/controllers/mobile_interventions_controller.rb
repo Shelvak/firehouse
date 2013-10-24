@@ -1,5 +1,9 @@
 class MobileInterventionsController < ApplicationController
   before_filter :get_intervention
+  before_filter :authenticate_user!
+
+  check_authorization
+  load_and_authorize_resource
 
   # GET /mobile_intervention/1
   # GET /mobile_intervention/1.json
@@ -10,9 +14,11 @@ class MobileInterventionsController < ApplicationController
                            else
                              @endowment.mobile_intervention
                            end
+
     @buildings = @mobile_intervention.buildings.order(:id)
     @vehicles = @mobile_intervention.vehicles.order(:id)
     @supports = @mobile_intervention.supports.order(:id)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @mobile_intervention }
@@ -37,13 +43,14 @@ class MobileInterventionsController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_intervention_endowment_mobile_intervention_path(@intervention, @endowment, @mobile_intervention), alert: t('view.mobile_interventions.stale_object_error')
+    redirect_to edit_intervention_endowment_mobile_intervention_path(
+      @intervention, @endowment, @mobile_intervention
+    ), alert: t('view.mobile_interventions.stale_object_error')
   end
 
   private
-
-  def get_intervention
-    @intervention = Intervention.find(params[:intervention_id])
-    @endowment = Endowment.find params[:endowment_id]
-  end
+    def get_intervention
+      @intervention = Intervention.find(params[:intervention_id])
+      @endowment = Endowment.find params[:endowment_id]
+    end
 end

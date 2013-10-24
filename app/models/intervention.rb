@@ -24,6 +24,8 @@ class Intervention < ActiveRecord::Base
   has_many :endowments
   has_many :statuses, as: :trackeable
 
+  scope :opened, -> { includes(:statuses).where(statuses: { name: 'open' }) }
+
   accepts_nested_attributes_for :informer, allow_destroy: true,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
   accepts_nested_attributes_for :endowments, allow_destroy: true,

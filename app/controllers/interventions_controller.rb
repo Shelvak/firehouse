@@ -1,10 +1,10 @@
 class InterventionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :active_ceo?, only: [:new, :edit]
-  
+
   check_authorization
   load_and_authorize_resource
-  
+
   # GET /interventions
   # GET /interventions.json
   def index
@@ -176,7 +176,6 @@ class InterventionsController < ApplicationController
   end
 
   private
-
     def active_ceo?
       @no_active_ceo = Sco.where(current: true).empty?
     end

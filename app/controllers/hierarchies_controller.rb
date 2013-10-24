@@ -1,9 +1,9 @@
 class HierarchiesController < ApplicationController
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_and_authorize_resource
-  
+
   # GET /hierarchies
   # GET /hierarchies.json
   def index

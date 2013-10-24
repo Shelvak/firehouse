@@ -1,5 +1,9 @@
 class PeopleController < ApplicationController
   before_filter :get_intervention
+  before_filter :authenticate_user!
+
+  check_authorization
+  load_and_authorize_resource
 
   def index
     @title = t('view.people.index_title')
@@ -31,6 +35,7 @@ class PeopleController < ApplicationController
   def edit
     @title = t('view.people.modal.involved_person')
     @person = Person.find(params[:id])
+
     render partial: 'edit', content_type: 'text/html'
   end
 
@@ -51,20 +56,23 @@ class PeopleController < ApplicationController
     @title = t('view.people.modal.involved_person')
     @person = Person.find(params[:id])
 
-      if @person.update_attributes(params[:person])
-        js_notify message: t('view.people.correctly_updated'), type: 'info', time: 2000
-        js_redirect reload: true
-      else
-        render partial: 'edit', status: :unprocessable_entity
-      end
+    if @person.update_attributes(params[:person])
+      js_notify message: t('view.people.correctly_updated'), type: 'info', time: 2000
+      js_redirect reload: true
+    else
+      render partial: 'edit', status: :unprocessable_entity
+    end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit', @intervention, @endowment, 'mobile_intervention',
-     (@vehicle || @building), @person], alert: t('view.people.stale_object_error')
+    redirect_to [
+      'edit', @intervention, @endowment, 'mobile_intervention',
+      (@vehicle || @building), @person
+    ], alert: t('view.people.stale_object_error')
   end
 
   def destroy
     @person = Person.find(params[:id])
     @person.destroy
+
     js_redirect reload: true
   end
 
