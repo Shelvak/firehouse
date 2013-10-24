@@ -6,12 +6,14 @@ class Status < ActiveRecord::Base
 
   ALLOWED_STATUSES = %w(open modified finished cancelled fake)
 
-  STATUSES = Hash[ ALLOWED_STATUSES.map { |status| [ status,
-     I18n.t("activerecord.attributes.statuses.allowed_statuses.#{status}") ] }
+  # Replantear....
+  STATUSES = Hash[
+    ALLOWED_STATUSES.map do |status| 
+      [status, I18n.t("view.statuses.allowed_statuses.#{status}") ]
+    end 
   ]
 
   def use_only_allowed_statuses
     self.name = ( STATUSES[self.name] ? self.name : ALLOWED_STATUSES[0] )
   end
-
 end

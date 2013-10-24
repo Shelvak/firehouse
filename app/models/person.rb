@@ -4,8 +4,9 @@ class Person < ActiveRecord::Base
   belongs_to :building
   belongs_to :vehicle
 
-  attr_accessible :name, :last_name, :address, :dni_type, :dni_number, :age, :phone_number, :relation, :moved_to, :injuries, :building_id, :vehicle_id
+  attr_accessible :name, :last_name, :address, :dni_type, :dni_number, :age,
+    :phone_number, :relation, :moved_to, :injuries, :building_id, :vehicle_id
 
-  validates_presence_of :name
+  validates :name, presence: true
 
 end
