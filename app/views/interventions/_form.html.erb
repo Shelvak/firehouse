@@ -14,7 +14,7 @@
         <%= link_to t('view.interventions.show_map.show_map'),
                     show_map_interventions_path, class: 'btn', remote: true,
                     data: { target: 'modal', modal: true,
-                    callback: 'bindFunctionToModalBackdrop'} %>
+                    callback: 'cleanModalOnModalHide'} %>
         <%= f.input :latitude, as: :hidden %>
         <%= f.input :longitude, as: :hidden  %>
         <%= f.input :near_corner %>

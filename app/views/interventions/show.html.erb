@@ -19,7 +19,7 @@
                   longitude: @intervention.longitude, address:
                   @intervention.address ), class: 'btn btn-small', remote: true,
                   data: { target: 'modal', modal: true,
-                  callback: 'bindFunctionToModalBackdrop'} %>
+                  callback: 'cleanModalOnModalHide'} %>
       </p>
       <p>
       <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:

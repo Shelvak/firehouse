@@ -43,11 +43,15 @@ var cleanModal = function() {
     $modal.removeAttr('class').removeAttr('aria-hidden').removeAttr('style');
 };
 
-//todo: no esta andando bien esto, probado en intervention_types
-var bindFunctionToModalBackdrop = function() {
-    $('.modal-backdrop').bind('click', function(){
-        cleanModal();
-    })
+var cleanModalOnModalHide = function() {
+    $('body').on('hidden', '#modal', cleanModal);
+};
+var removeColopickerOnModalHide = function() {
+    $('body').on('hidden', '#modal', cleanColorpicker);
+};
+
+var cleanColorpicker = function() {
+  $('.colorpicker.dropdown-menu').remove();
 };
 
 //SrBuj ajax gem Related stuff
