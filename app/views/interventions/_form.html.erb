@@ -11,6 +11,7 @@
     <div class='row-fluid'>
       <div class='span7'>
         <%= f.input :address, input_html: { class: 'addresspicker span10' } %>
+        <!--todo: renderizar el mapa en vivo al cambiar el cursor o dejar de escribir, usar el autocomplete del trabajo-->
         <%= link_to t('view.interventions.show_map.show_map'),
                     show_map_interventions_path, class: 'btn', remote: true,
                     data: { target: 'modal', modal: true,
