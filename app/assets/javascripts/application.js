@@ -32,4 +32,3 @@
 //= require bootstrap-colorpicker
 //= require google_maps
 //= require styled_markers
-//= require jquery_addresspicker

@@ -14,12 +14,6 @@
       <p>
       <strong><%= Intervention.human_attribute_name 'address' %></strong>:
       <span><%= @intervention.address %></span>
-      <%= link_to t('view.interventions.show_map.show_map'),
-                  show_map_interventions_path(latitude: @intervention.latitude,
-                  longitude: @intervention.longitude, address:
-                  @intervention.address ), class: 'btn btn-small', remote: true,
-                  data: { target: 'modal', modal: true,
-                  callback: 'cleanModalOnModalHide'} %>
       </p>
       <p>
       <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
@@ -29,15 +23,16 @@
       <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
       <%= @intervention.kind_notes %>
       </p>
-    </div>
-
-    <div class='span6'>
       <%= render 'informer_show' %>
     </div>
+    <div class='span6'>
+      <div id="map_canvas" class="google-map"></div>
+    </div>
   </div>
+  <br/>
   <p>
-  <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
-  <%= simple_format @intervention.observations %>
+    <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
+    <%= simple_format @intervention.observations %>
   </p>
   <%= render 'endowment_show' %>
 </div>
@@ -47,3 +42,6 @@
     edit_intervention_path(@intervention) if can? :update, @intervention %> |
   <%= link_to t('label.list'), interventions_path %>
 </div>
+<script>
+  findByCoordenates('<%= @intervention.latitude %>', '<%= @intervention.longitude %>', '<%= @intervention.address %>');
+</script>
