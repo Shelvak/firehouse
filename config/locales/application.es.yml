@@ -228,9 +228,6 @@
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
       new: 'Nueva Intervención'
       add_endowment_link: 'Agregar nueva dotación'
-      show_map:
-        title: 'Mapa de:'
-        show_map: 'Ver mapa'
       map_index:
         title: 'Intervenciones en curso'
         fullscreen: 'Pantalla completa'

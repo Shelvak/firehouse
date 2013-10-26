@@ -165,11 +165,6 @@ class InterventionsController < ApplicationController
     end
   end
 
-  def show_map
-    @title = t('view.interventions.show_map.title')
-    render partial: 'show_map', content_type: 'text/html'
-  end
-
   def map
     @title = t('view.interventions.map_index.title')
     @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
