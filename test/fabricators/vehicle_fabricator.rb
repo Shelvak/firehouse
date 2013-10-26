@@ -3,5 +3,6 @@ Fabricator(:vehicle) do
   model                  { Faker::Lorem.sentence }
   year                   { Faker::Lorem.sentence }
   domain                 { Faker::Lorem.sentence }
-  mobile_intervention_id { 100 * rand }
+  damage                 { Faker::Lorem.sentence }
+  mobile_intervention_id { Fabricate(:mobile_intervention).id }
 end

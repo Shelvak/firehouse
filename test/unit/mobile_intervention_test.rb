@@ -6,7 +6,7 @@ class MobileInterventionTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['MobileIntervention.count', 'Version.count'] do
+    assert_difference ['MobileIntervention.count'] do
       @mobile_intervention = MobileIntervention.create(Fabricate.attributes_for(:mobile_intervention))
     end 
   end

@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20130912182945) do
 
   create_table "informers", :force => true do |t|
     t.string   "full_name",       :null => false
-    t.integer  "nid",             :null => false
+    t.integer  "nid"
     t.string   "phone"
     t.string   "address"
     t.integer  "intervention_id", :null => false
@@ -109,23 +109,14 @@ ActiveRecord::Schema.define(:version => 20130912182945) do
   end
 
   create_table "interventions", :force => true do |t|
-    t.integer  "number",                            :null => false
-    t.string   "address",                           :null => false
+    t.integer  "number",               :null => false
+    t.string   "address",              :null => false
     t.string   "near_corner"
     t.string   "kind_notes"
-    t.integer  "receptor_id",                       :null => false
+    t.integer  "receptor_id",          :null => false
     t.text     "observations"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.integer  "truck_id"
-    t.string   "out_at",               :limit => 5
-    t.string   "arrive_at",            :limit => 5
-    t.string   "back_at",              :limit => 5
-    t.string   "in_at",                :limit => 5
-    t.integer  "out_mileage"
-    t.integer  "arrive_mileage"
-    t.integer  "back_mileage"
-    t.integer  "in_mileage"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.integer  "sco_id"
     t.integer  "intervention_type_id"
     t.string   "latitude"
@@ -134,7 +125,6 @@ ActiveRecord::Schema.define(:version => 20130912182945) do
 
   add_index "interventions", ["number"], :name => "index_interventions_on_number", :unique => true
   add_index "interventions", ["receptor_id"], :name => "index_interventions_on_receptor_id"
-  add_index "interventions", ["truck_id"], :name => "index_interventions_on_truck_id"
 
   create_table "mobile_interventions", :force => true do |t|
     t.datetime "date"

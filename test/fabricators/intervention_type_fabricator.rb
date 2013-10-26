@@ -5,4 +5,5 @@ Fabricator(:intervention_type) do
   target                    { Faker::Lorem.sentence }
   callback                  { Faker::Lorem.sentence }
   color                     { '#000000' }
+  intervention_type_id      { 100 * rand  }
 end

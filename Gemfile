@@ -38,4 +38,5 @@ group :test do
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'
+  gem 'minitest-reporters'
 end

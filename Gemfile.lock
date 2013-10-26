@@ -77,6 +77,7 @@ GEM
     fabrication (2.8.1)
     faker (1.2.0)
       i18n (~> 0.5)
+    hashie (2.0.5)
     hike (1.2.3)
     i18n (0.6.1)
     journey (1.0.4)
@@ -95,6 +96,12 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25)
     mini_portile (0.5.1)
+    minitest (4.7.5)
+    minitest-reporters (0.14.23)
+      ansi
+      builder
+      minitest (>= 2.12, < 5.0)
+      powerbar
     multi_json (1.8.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -107,6 +114,9 @@ GEM
       railties (~> 3.0)
     pg (0.17.0)
     polyglot (0.3.3)
+    powerbar (1.0.11)
+      ansi (~> 1.4.0)
+      hashie (>= 1.1.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -215,6 +225,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   magick_columns
+  minitest-reporters
   paper_trail
   pg
   rails (= 3.2.13)
