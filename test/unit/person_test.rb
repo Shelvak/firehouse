@@ -6,7 +6,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Person.count', 'Version.count'] do
+    assert_difference ['Person.count'] do
       @person = Person.create(Fabricate.attributes_for(:person))
     end 
   end
@@ -14,11 +14,11 @@ class PersonTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'Person.count' do
-        assert @person.update_attributes(attr: 'Updated')
+        assert @person.update_attributes(name: 'Updated')
       end
     end
 
-    assert_equal 'Updated', @person.reload.attr
+    assert_equal 'Updated', @person.reload.name
   end
     
   test 'destroy' do 
@@ -28,21 +28,11 @@ class PersonTest < ActiveSupport::TestCase
   end
     
   test 'validates blank attributes' do
-    @person.attr = ''
+    @person.name = ''
     
     assert @person.invalid?
     assert_equal 1, @person.errors.size
-    assert_equal [error_message_from_model(@person, :attr, :blank)],
-      @person.errors[:attr]
-  end
-    
-  test 'validates unique attributes' do
-    new_person = Fabricate(:person)
-    @person.attr = new_person.attr
-
-    assert @person.invalid?
-    assert_equal 1, @person.errors.size
-    assert_equal [error_message_from_model(@person, :attr, :taken)],
-      @person.errors[:attr]
+    assert_equal [error_message_from_model(@person, :name, :blank)],
+      @person.errors[:name]
   end
 end
