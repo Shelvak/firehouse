@@ -17,8 +17,8 @@ gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'capistrano'
 gem 'SrBuj'
-gem 'rmagick'
 gem 'carrierwave'
+gem 'mini_magick'
 
 group :assets do
   gem 'sass-rails'

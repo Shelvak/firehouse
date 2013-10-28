@@ -7,12 +7,14 @@ class InterventionTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference 'Intervention.count' do
-      # Versions = 5 firefighter, endow_line, endowment, intervention, truck
-      assert_difference 'Version.count', 5 do
-        @intervention = Intervention.create(
+      # Versions = 10 firefighter, 6*endow_line, endowment, intervention, truck
+      assert_difference 'Version.count', 10 do
+        Intervention.create!(
           Fabricate.attributes_for(
-            :intervention, receptor_id: @intervention.receptor_id,
-            sco_id: @intervention.sco_id 
+            :intervention,
+            receptor_id: @intervention.receptor_id,
+            intervention_type_id: @intervention.intervention_type_id,
+            sco_id: @intervention.sco_id
           )
         )
       end
@@ -40,11 +42,9 @@ class InterventionTest < ActiveSupport::TestCase
     @intervention.receptor_id = ''
     
     assert @intervention.invalid?
-    assert_equal 3, @intervention.errors.size
+    assert_equal 2, @intervention.errors.size
     assert_equal [error_message_from_model(@intervention, :address, :blank)],
       @intervention.errors[:address]
-    assert_equal [error_message_from_model(@intervention, :kind, :blank)],
-      @intervention.errors[:kind]
     assert_equal [error_message_from_model(@intervention, :receptor_id, :blank)],
       @intervention.errors[:receptor_id]
   end

@@ -6,6 +6,6 @@ Fabricator(:intervention) do
   kind_notes            { Faker::Lorem.sentence }
   receptor_id           { Fabricate(:user).id }
   observations          { Faker::Lorem.paragraph }
-  sco_id                { Fabricate(:sco).id }
-  intervention_type_id  { Fabricate(:intervention_type).id }
+  sco
+  intervention_type
 end

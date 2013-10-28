@@ -9,9 +9,9 @@ class EndowmentLineTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference ['EndowmentLine.count', 'Version.count'] do
       endowment_line = EndowmentLine.new(Fabricate.attributes_for(
-        :endowment_line
+        :endowment_line,
+        firefighters_names: @endowment_line.firefighters.map(&:id).join
       ))
-      endowment_line.firefighter_ids << @endowment_line.firefighters.map(&:id)
       endowment_line.endowment_id = @endowment_line.endowment_id
       endowment_line.save
     end 
