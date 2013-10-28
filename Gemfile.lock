@@ -74,7 +74,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
-    fabrication (2.8.1)
+    fabrication (2.9.0)
     faker (1.2.0)
       i18n (~> 0.5)
     hashie (2.0.5)
@@ -84,9 +84,9 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.0.5)
+    jquery-ui-rails (4.1.0)
       railties (>= 3.1.0)
-    json (1.8.0)
+    json (1.8.1)
     kgio (2.8.1)
     magick_columns (0.0.4)
       rails (>= 3.2)
@@ -95,7 +95,9 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25)
-    mini_portile (0.5.1)
+    mini_magick (3.6.0)
+      subexec (~> 0.2.1)
+    mini_portile (0.5.2)
     minitest (4.7.5)
     minitest-reporters (0.14.23)
       ansi
@@ -146,15 +148,14 @@ GEM
     redis (3.0.5)
     redis-namespace (1.3.1)
       redis (~> 3.0.0)
-    rmagick (2.13.2)
     role_model (0.8.1)
     sass (3.2.12)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    sidekiq (2.15.1)
-      celluloid (>= 0.15.1)
+    sidekiq (2.16.0)
+      celluloid (>= 0.15.2)
       connection_pool (>= 1.0.0)
       json
       redis (>= 3.0.4)
@@ -167,10 +168,11 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sshkit (1.0.0)
+    sshkit (1.1.0)
       net-scp
       net-ssh
       term-ansicolor
+    subexec (0.2.3)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
     thin (1.5.1)
@@ -192,9 +194,9 @@ GEM
     turn (0.9.6)
       ansi
     tzinfo (0.3.38)
-    uglifier (2.2.1)
+    uglifier (2.3.0)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
     unicorn (4.6.3)
       kgio (~> 2.6)
       rack
@@ -225,11 +227,11 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   magick_columns
+  mini_magick
   minitest-reporters
   paper_trail
   pg
   rails (= 3.2.13)
-  rmagick
   role_model
   sass-rails
   sidekiq

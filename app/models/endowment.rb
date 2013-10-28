@@ -5,7 +5,7 @@ class Endowment < ActiveRecord::Base
 
   attr_accessible :number, :endowment_lines_attributes, :out_at, 
     :arrive_at, :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage, 
-    :in_mileage, :truck_number, :truck_id
+    :in_mileage, :truck_number, :truck_id, :intervention_id
 
   belongs_to :intervention
   belongs_to :truck
@@ -14,7 +14,6 @@ class Endowment < ActiveRecord::Base
 
   validates :number, presence: true
   validate :truck_out_in_distance
-  validate :truck_presence
 
   before_validation :assign_truck
 
@@ -30,12 +29,6 @@ class Endowment < ActiveRecord::Base
 
   def assign_truck
     self.truck_id ||= Truck.where(number: self.truck_number).first.try(:id)
-  end
-
-  def truck_presence
-    if self.truck_id.blank? && self.truck_number.blank?
-      self.errors.add :truck_number, :blank 
-    end
   end
 
   def truck_out_in_distance

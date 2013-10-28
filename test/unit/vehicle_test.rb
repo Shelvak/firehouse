@@ -7,7 +7,7 @@ class VehicleTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference ['Vehicle.count'] do
-      @vehicle = Vehicle.create(Fabricate.attributes_for(:vehicle))
+      Vehicle.create!(Fabricate.attributes_for(:vehicle))
     end 
   end
     
