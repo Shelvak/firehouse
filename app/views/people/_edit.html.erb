@@ -1,6 +1,8 @@
 <div class="modal">
-  <%= simple_form_for @person, url: people_url_for_form, remote: true, html:
-      { data: { target: 'modal', error: 'modal', modal: true } } do |f| %>
+  <%= simple_form_for @person, url: people_url_for_form, remote: true, html: {
+      data: { target: dom_id(@person), error: 'modal', modal: true, callback:
+      "highlightItem('edit_person_#{@type}', 'people_table_body_#{@type}', #{dom_id(@person)});",
+      replace: true } } do |f| %>
     <div class="modal-header">
       <h2><%= @title %></h2>
     </div>

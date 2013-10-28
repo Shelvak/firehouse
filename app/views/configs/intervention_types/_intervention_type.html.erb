@@ -6,12 +6,17 @@
       special_class == 'type' )%>
   <%= intervention_type.name %>
   <span class="pull-right">
-    <%= link_to_edit edit_configs_intervention_type_path(intervention_type), remote:
-        true, data: { target: 'modal', modal: true } if can? :update,
+    <%= link_to_edit edit_configs_intervention_type_path(intervention_type),
+        remote: true, data: { target: 'modal', modal: true } if can? :update,
         intervention_type %>
-    <%= link_to_destroy configs_intervention_type_path(intervention_type), remote: true, data: { target:
-        dom_id(intervention_type) } if can? :destroy, intervention_type %>
+    <%= link_to_destroy configs_intervention_type_path(intervention_type),
+        remote: true, data: { target: dom_id(intervention_type) } if
+        can? :destroy, intervention_type %>
   </span>
   <div class="clearfix"></div>
+  <div id="<%= dom_id(intervention_type) %>_childrens">
+    <%= render intervention_type.childrens.order(:priority),
+               special_class: 'subtype' if intervention_type.childrens.any? %>
+    <div id="new_<%= dom_id(intervention_type) %>"></div>
+  </div>
 </div>
-<div id="<%= dom_id(intervention_type) %>_children"></div>

@@ -1,6 +1,8 @@
 <div class="modal">
   <%= simple_form_for([@intervention, @endowment, 'mobile_intervention', @support],
-      remote: true, html: { data: { target: 'modal', error: 'modal', modal: true
+      remote: true, html: { data: { target: dom_id(@support),
+      error: 'modal', modal: true, replace: true, callback:
+      "highlightItem('edit_support', 'supports_table_body', #{dom_id(@support)})"
       } } ) do |f| %>
     <div class="modal-header">
       <h2><%= @title %></h2>

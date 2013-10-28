@@ -9,4 +9,6 @@ Fabricator(:person) do
   relation { Faker::Lorem.sentence }
   moved_to { Faker::Lorem.sentence }
   injuries { Faker::Lorem.sentence }
+  building_id { Fabricate(:building).id }
+  vehicle_id  { Fabricate(:vehicle).id }
 end

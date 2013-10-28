@@ -1,10 +1,10 @@
 class InterventionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :active_ceo?, only: [:new, :edit]
-  
+
   check_authorization
   load_and_authorize_resource
-  
+
   # GET /interventions
   # GET /interventions.json
   def index
@@ -165,15 +165,11 @@ class InterventionsController < ApplicationController
     end
   end
 
-  def show_map
-    @title = t('view.interventions.show_map.title')
-    render partial: 'show_map', content_type: 'text/html'
-  end
-
   def map
     @title = t('view.interventions.map_index.title')
     @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
   end
+
   private
     def active_ceo?
       @no_active_ceo = Sco.where(current: true).empty?

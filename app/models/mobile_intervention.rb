@@ -6,6 +6,6 @@ class MobileIntervention < ActiveRecord::Base
   has_many :supports
   has_many :vehicles
 
-  attr_accessible :date, :emergency, :observations, :intervention_id
+  attr_accessible :date, :emergency, :observations, :endowment_id
 
 end

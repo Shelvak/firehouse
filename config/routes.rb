@@ -13,7 +13,6 @@ Firehouse::Application.routes.draw do
         get :"autocomplete_for_#{obj}_name"
       end
       get :autocomplete_for_truck_number
-      get :show_map
       get :map
     end
 

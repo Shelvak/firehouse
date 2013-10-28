@@ -1,46 +1,47 @@
-var findAddressInMap = function (address) {
-    var geoCoder = new google.maps.Geocoder(address);
-    var request = { address: address };
-    geoCoder.geocode(request, function(result, status){
-        var latlng = new google.maps.LatLng(
-            result[0].geometry.location.lat(),
-            result[0].geometry.location.lng()
-        );
-        var myOptions = {
+var findAddressInMap = function (e) {
+    var e = e || {},
+        map_canvas = document.getElementById('map_canvas'),
+        address = document.getElementById('intervention_address'),
+        autocomplete = this;
+    var lat = e['lat'],
+        lng = e['lng'],
+        place = autocomplete.getPlace();
+    if(place){
+        lat = place.geometry.location.lat();
+        lng = place.geometry.location.lng();
+    }
+    var position = new google.maps.LatLng(lat, lng);
+    setLatitudeAndLongitude(position);
+
+    var options = {
             zoom: 16,
-            center: latlng,
+            center: position,
             panControl: true,
             zoomControl: true,
             scaleControl: true,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            myOptions);
-        var marker = new google.maps.Marker({
-            position: latlng,
+    var map = new google.maps.Map(map_canvas, options);
+    var optionsMarker = {
             map: map,
-            draggable: true,
-            title: address
-        });
-        setMarkerInfo(map, marker, address, 0, new google.maps.InfoWindow());
-        setLatitudeAndLongitude(marker.getPosition());
+            position: position,
+            draggable: true
+//            title: address
+        };
+    var marker = new google.maps.Marker(optionsMarker);
 
-        // Register Custom "dragend" Event
-        google.maps.event.addListener(marker, 'dragend', function() {
-            // Get the Current position, where the pointer was dropped
-            var point = marker.getPosition();
-            // Center the map at given point
-            map.panTo(point);
-            // Update the textbox
-            setLatitudeAndLongitude(point);
-        });
+    setMarkerInfo(map, marker, address, 0, new google.maps.InfoWindow());
+
+    // Register Custom "dragend" Event
+    google.maps.event.addListener(marker, 'dragend', function() {
+        // Get the Current position, where the pointer was dropped
+        var point = marker.getPosition();
+        // Center the map at given point
+        map.panTo(point);
+        // Update the textbox
+        setLatitudeAndLongitude(point);
     });
-    if (document.getElementById('show_map_title').innerText) {
-        document.getElementById('show_map_title').innerText = address;
-    }
-    else {
-        document.getElementById('show_map_title').textContent = address;
-    }
+    $(map_canvas).show();
 };
 
 var findByCoordenates = function(latitude, longitude, address) {
@@ -135,6 +136,11 @@ var setMarkerInfo = function(map, marker, title, index, infowindow) {
     })(marker, index));
 };
 
-var apply_addresspicker = function(){
-    $('.addresspicker').addressPicker();
+var initialize_map_with = function(id){
+    var input = document.getElementById(id);
+    var options = {
+        componentRestrictions: {country: 'ar'}
+    };
+    address_autocompleted = new google.maps.places.Autocomplete(input, options);
+    google.maps.event.addListener(address_autocompleted, 'place_changed', findAddressInMap );
 };

@@ -92,6 +92,7 @@
         target: 'Destino'
         callback: 'Función de retorno'
         color: 'Color de texto'
+        image_address: "Inserte la dirección"
       mobile_intervention:
         date: 'Fecha'
         observations: 'Observaciones'
@@ -110,12 +111,6 @@
         full_name: 'Nombre y apellido'
         current: 'Actual'
       statuses:
-        allowed_statuses:
-          open: 'En curso'
-          modified: 'Modificado'
-          finished: 'Finalizado'
-          cancelled: 'Cancelado'
-          fake: 'Falsa alarma'
       support:
         support_type: 'Tipo de apoyo'
         number: 'Número'
@@ -233,9 +228,6 @@
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
       new: 'Nueva Intervención'
       add_endowment_link: 'Agregar nueva dotación'
-      show_map:
-        title: 'Mapa de:'
-        show_map: 'Ver mapa'
       map_index:
         title: 'Intervenciones en curso'
         fullscreen: 'Pantalla completa'
@@ -277,7 +269,7 @@
       index_title: 'Tipos de intervenciones'
       show_title: '%{intervention_type}'
       new_title: 'Nuevo tipo de intervención'
-      edit_title: 'Editando %{intervention_type}'
+      edit_title: 'Editando: %{intervention_type}'
       correctly_created: 'Tipo de intervención agregado correctamente.'
       correctly_updated: 'Tipo de intervención actualizado correctamente.'
       stale_object_error: 'El tipo de intervención no pudo ser actualizado, intente nuevamente.'
@@ -387,6 +379,7 @@
       edit_title: "Editando el Móvil de apoyo"
       correctly_created: "Móvil de apoyo agregado correctamente"
       correctly_updated: "Móvil de apoyo actualizado correctamente"
+      correctly_destroyed: "Móvil de apoyo eliminado correctamente"
       stale_object_error: "El Móvil de apoyo no pudo ser actualizado, intente nuevamente."
       new: "Agregar Móvil de Apoyo"
       edit: "Editar Móvil de Apoyo"
@@ -399,8 +392,16 @@
       edit_title: "Editando la persona"
       correctly_created: "Persona agregada correctamente"
       correctly_updated: "Persona actualizada correctamente"
+      correctly_destroyed: "Persona eliminada correctamente"
       stale_object_error: "La persona no pudo ser actualizada, intente nuevamente."
       new: "Agregar persona"
       edit: "Editar persona"
       modal:
         involved_person: 'Persona afectada'
+    statuses:
+      allowed_statuses:
+        open: 'En curso'
+        modified: 'Modificado'
+        finished: 'Finalizado'
+        cancelled: 'Cancelado'
+        fake: 'Falsa alarma'

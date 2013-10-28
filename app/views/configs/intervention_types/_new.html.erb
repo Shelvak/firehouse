@@ -1,14 +1,15 @@
 <div class="modal">
-  <!--saque el remote: true-->
   <%= form_for @intervention_type, url: configs_intervention_types_path(
-      father: params[:father] ), html: { data: { target: (
-      params[:father] ? "intervention_type_#{params[:father]}_children" :
-      'new_intervention_type'), error: 'modal', modal: true, callback:
-      "$('.colorpicker.dropdown-menu').remove();" }, class: 'form-horizontal',
-      multipart: true } do |f| %>
+      father: @father ), html: { remote: true, data: { target: (
+      @father ? "new_#{dom_id(@father)}" : 'new_intervention_type'), error:
+      'modal', modal: true, replace: true, callback:
+      "highlightItem('#{@father ? "new_#{dom_id(@father)}" : 'new_intervention_type'}',
+      '#{@father ? dom_id(@father) + '_childrens' : 'intervention_types_list'}',
+      false);" }, class:
+      'form-horizontal', multipart: true } do |f| %>
     <div class="modal-header">
       <h2>
-        Nuevo tipo de intervención
+        <%= @title %>
         <%= image_tag(@intervention_type.image_url.to_s, class: 'image-thumb') if
                 @intervention_type.image.present?  %>
       </h2>
@@ -17,7 +18,8 @@
       <%= render partial: 'form', locals: {f: f} %>
     </div>
     <div class="modal-footer">
-      <%= link_to_function t('label.close'), "$('#modal').modal('toggle'); $('.colorpicker.dropdown-menu').remove();", class: 'btn' %>
+      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');
+      cleanColorpicker;", class: 'btn' %>
       <%= f.button t('label.save'), class: 'btn btn-primary', disable_with: t('label.saving') %>
     </div>
   <% end %>

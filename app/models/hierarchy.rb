@@ -23,7 +23,6 @@ class Hierarchy < ActiveRecord::Base
     super(default_options.merge(options || {}))
   end
 
-  
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
   end

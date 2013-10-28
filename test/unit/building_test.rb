@@ -14,11 +14,11 @@ class BuildingTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'Building.count' do
-        assert @building.update_attributes(address: 'Updated')
+        assert @building.update_attributes(address: 'alwaysalive 123')
       end
     end
 
-    assert_equal 'Updated', @building.reload.address
+    assert_equal 'alwaysalive 123', @building.reload.address
   end
     
   test 'destroy' do 

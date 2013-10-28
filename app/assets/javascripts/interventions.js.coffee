@@ -12,6 +12,15 @@ window.Intervention =
         hintText: false,
         noResultsText: without_result,
         searchingText: false
+        onAdd: ->
+          console.log('rock')
+          console.log $(this)
+          count = input.siblings('.token-input-list-facebook:first')
+            .find('li.token-input-token-facebook').size()
+          console.log(count)
+          if (count - input.data('token-limit')) == 0
+            input.parents('[data-endowment-lines]')
+              .find('[id^="token-input-intervention"]:visible:first').focus()
 
 new Rule
   condition: -> $('#c_interventions').length
@@ -63,9 +72,10 @@ new Rule
         dataType: 'json'
         data: { q: input.val() }
         success: (data)->
-          input.parents('[data-endowment-item]')
-            .find('input[name$="[out_mileage]"]')
-            .val(parseInt data[0].mileage)
+          if data[0]
+            input.parents('[data-endowment-item]')
+              .find('input[name$="[out_mileage]"]')
+              .val(parseInt data[0].mileage)
 
     @map.setCurrentTimeToTruckData ||= ->
       clicked = $(this)

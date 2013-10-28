@@ -19,7 +19,7 @@
           <%= render partial: 'truck_output', locals: { f: f } %>
         </div>
       </div>
-      <div class='span7'>
+      <div class='span7' data-endowment-lines="true">
         <%= f.simple_fields_for :endowment_lines, 
           defaults: { input_html: { class: 'span11' } } do |el| %>
 

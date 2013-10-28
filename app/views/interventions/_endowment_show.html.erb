@@ -63,7 +63,11 @@
           <% e.endowment_lines.each do |el| %>
             <div class="row-fluid">
               <div class="span3"><span class="label"><%= show_charge_name(el.charge) %></span></div>
-              <div class="span9"><%= el.firefighters_names %></div>
+              <div class="span9">
+                <% el.firefighters.each do |f| %>
+                  <span class="badge badge-info"><%= f.to_s %></span>
+                <% end %>
+              </div>
             </div>
           <% end %>
 

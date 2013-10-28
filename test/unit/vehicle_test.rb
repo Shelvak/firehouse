@@ -6,7 +6,7 @@ class VehicleTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Vehicle.count', 'Version.count'] do
+    assert_difference ['Vehicle.count'] do
       @vehicle = Vehicle.create(Fabricate.attributes_for(:vehicle))
     end 
   end
@@ -14,11 +14,11 @@ class VehicleTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'Vehicle.count' do
-        assert @vehicle.update_attributes(attr: 'Updated')
+        assert @vehicle.update_attributes(mark: 'Updated')
       end
     end
 
-    assert_equal 'Updated', @vehicle.reload.attr
+    assert_equal 'Updated', @vehicle.reload.mark
   end
     
   test 'destroy' do 
@@ -28,21 +28,14 @@ class VehicleTest < ActiveSupport::TestCase
   end
     
   test 'validates blank attributes' do
-    @vehicle.attr = ''
-    
-    assert @vehicle.invalid?
-    assert_equal 1, @vehicle.errors.size
-    assert_equal [error_message_from_model(@vehicle, :attr, :blank)],
-      @vehicle.errors[:attr]
-  end
-    
-  test 'validates unique attributes' do
-    new_vehicle = Fabricate(:vehicle)
-    @vehicle.attr = new_vehicle.attr
+    @vehicle.damage = ''
+    @vehicle.domain = ''
 
     assert @vehicle.invalid?
-    assert_equal 1, @vehicle.errors.size
-    assert_equal [error_message_from_model(@vehicle, :attr, :taken)],
-      @vehicle.errors[:attr]
+    assert_equal 2, @vehicle.errors.size
+    assert_equal [error_message_from_model(@vehicle, :damage, :blank)],
+      @vehicle.errors[:damage]
+    assert_equal [error_message_from_model(@vehicle, :domain, :blank)],
+      @vehicle.errors[:domain]
   end
 end
