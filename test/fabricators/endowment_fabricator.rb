@@ -1,6 +1,7 @@
 Fabricator(:endowment) do
   # Truck info
   truck_id        { Fabricate(:truck).id }
+  truck_number    { |attrs| Truck.find(attrs[:truck_id]).number }
   out_at          { I18n.l(10.minutes.ago, format: :hour_min) }
   arrive_at       { I18n.l(10.minutes.ago + 1.minutes, format: :hour_min) }
   back_at         { I18n.l(8.minutes.ago, format: :hour_min) }
