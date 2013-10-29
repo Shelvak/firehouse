@@ -1,79 +1,77 @@
 require 'test_helper'
 
-class BuildingsControllerTest < ActionController::TestCase
-
+class SupportsControllerTest < ActionController::TestCase
   setup do
-    @building = Fabricate(:building)
-    @mobile_intervention = @building.mobile_intervention
+    @support = Fabricate(:support)
+    @mobile_intervention = @support.mobile_intervention
+    @endowment = @mobile_intervention.endowment
+    @intervention = @endowment.intervention
     @user = Fabricate(:user)
     sign_in @user
   end
 
   test 'should get new' do
     xhr :get, :new,
-        intervention_id: @mobile_intervention.endowment.intervention.to_param,
-        endowment_id: @mobile_intervention.endowment.to_param
+        intervention_id: @intervention.to_param,
+        endowment_id: @endowment.to_param
     assert_response :success
     assert_not_nil assigns(:intervention)
     assert_not_nil assigns(:endowment)
     assert_not_nil assigns(:mobile_intervention)
-    assert_not_nil assigns(:building)
+    assert_not_nil assigns(:support)
     assert_select '#unexpected_error', false
-    assert_template ['buildings/new', 'buildings/form']
+    assert_template ['supports/new', 'supports/form']
   end
 
-  test 'should create building' do
-    assert_difference('Building.count') do
+  test 'should create support' do
+    assert_difference('Support.count') do
       xhr :post, :create,
-          intervention_id: @mobile_intervention.endowment.intervention.to_param,
-          endowment_id: @mobile_intervention.endowment.to_param,
-          building: Fabricate.attributes_for(:building)
+          intervention_id: @intervention.to_param,
+          endowment_id: @endowment.to_param,
+          support: Fabricate.attributes_for(:support)
     end
     assert_not_nil assigns(:intervention)
     assert_not_nil assigns(:endowment)
     assert_not_nil assigns(:mobile_intervention)
-    assert_equal assigns(:building), assigns(:mobile_intervention).buildings.last
+    assert_equal assigns(:support), assigns(:mobile_intervention).supports.last
     assert_response :success
-    assert_template ['mobile_interventions/_building',
-                     'mobile_interventions/_people_table']
+    assert_template 'mobile_interventions/_support'
   end
 
   test 'should get edit' do
     xhr :get, :edit,
         intervention_id: @mobile_intervention.endowment.intervention.to_param,
         endowment_id: @mobile_intervention.endowment.to_param,
-        id: @building
+        id: @support
     assert_response :success
     assert_not_nil assigns(:intervention)
     assert_not_nil assigns(:endowment)
     assert_not_nil assigns(:mobile_intervention)
-    assert_not_nil assigns(:building)
+    assert_not_nil assigns(:support)
     assert_select '#unexpected_error', false
-    assert_template ['buildings/_edit', 'buildings/_form']
+    assert_template ['supports/_edit', 'supports/_form']
   end
 
   test 'should update building' do
       xhr :put, :update,
           intervention_id: @mobile_intervention.endowment.intervention.to_param,
           endowment_id: @mobile_intervention.endowment.to_param,
-          id: @building,
-          building: Fabricate.attributes_for(:building, floor: 'Wood')
+          id: @support,
+          support: Fabricate.attributes_for(:support, responsible: 'No, not me again')
     assert_not_nil assigns(:intervention)
     assert_not_nil assigns(:endowment)
     assert_not_nil assigns(:mobile_intervention)
-    assert_not_nil assigns(:building)
+    assert_not_nil assigns(:support)
     assert_response :success
-    assert_template ['mobile_interventions/_building',
-                     'mobile_interventions/_people_table']
+    assert_template 'mobile_interventions/_support'
   end
 
   test 'should destroy building' do
     xhr :delete, :destroy,
         intervention_id: @mobile_intervention.endowment.intervention.to_param,
         endowment_id: @mobile_intervention.endowment.to_param,
-        id: @building
+        id: @support
     assert_response :success
-    assert_template ['mobile_interventions/_building',
-                     'mobile_interventions/_people_table']
+    assert_template nil
   end
 end

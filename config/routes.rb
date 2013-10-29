@@ -19,11 +19,11 @@ Firehouse::Application.routes.draw do
     resources :endowments do
       resource :mobile_intervention, on: :member do
         resources :buildings, except: [:index, :show] do
-          resources :people
+          resources :people, except: [:index, :show]
         end
         resources :supports, except: [:index, :show]
         resources :vehicles, except: [:index, :show] do
-          resources :people
+          resources :people, except: [:index, :show]
         end
       end
     end
@@ -44,7 +44,7 @@ Firehouse::Application.routes.draw do
   root to: redirect('/users/sign_in')
 
   namespace :configs do
-    resources :intervention_types do
+    resources :intervention_types, except: :show do
       collection do
         get :priorities
         get :edit_priorities
