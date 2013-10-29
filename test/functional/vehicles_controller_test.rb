@@ -1,64 +1,78 @@
 require 'test_helper'
 
 class VehiclesControllerTest < ActionController::TestCase
-
   setup do
     @vehicle = Fabricate(:vehicle)
+    @mobile_intervention = @vehicle.mobile_intervention
     @user = Fabricate(:user)
     sign_in @user
   end
 
-  test "should get index" do
-    get :index
+  test 'should get new' do
+    xhr :get, :new,
+        intervention_id: @mobile_intervention.endowment.intervention.to_param,
+        endowment_id: @mobile_intervention.endowment.to_param
     assert_response :success
-    assert_not_nil assigns(:vehicles)
-    assert_select '#unexpected_error', false
-    assert_template "vehicles/index"
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
+    assert_not_nil assigns(:intervention)
+    assert_not_nil assigns(:endowment)
+    assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:vehicle)
     assert_select '#unexpected_error', false
-    assert_template "vehicles/new"
+    assert_template ['vehicles/new', 'vehicles/form']
   end
 
-  test "should create vehicle" do
+  test 'should create vehicle' do
     assert_difference('Vehicle.count') do
-      post :create, vehicle: Fabricate.attributes_for(:vehicle)
+      xhr :post, :create,
+          intervention_id: @mobile_intervention.endowment.intervention.to_param,
+          endowment_id: @mobile_intervention.endowment.to_param,
+          vehicle: Fabricate.attributes_for(:vehicle)
     end
-
-    assert_redirected_to vehicle_url(assigns(:vehicle))
+    assert_not_nil assigns(:intervention)
+    assert_not_nil assigns(:endowment)
+    assert_not_nil assigns(:mobile_intervention)
+    assert_equal assigns(:vehicle), assigns(:mobile_intervention).vehicles.last
+    assert_response :success
+    assert_template ['mobile_interventions/_vehicle',
+                     'mobile_interventions/_people_table']
   end
 
-  test "should show vehicle" do
-    get :show, id: @vehicle
+  test 'should get edit' do
+    xhr :get, :edit,
+        intervention_id: @mobile_intervention.endowment.intervention.to_param,
+        endowment_id: @mobile_intervention.endowment.to_param,
+        id: @vehicle
     assert_response :success
+    assert_not_nil assigns(:intervention)
+    assert_not_nil assigns(:endowment)
+    assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:vehicle)
     assert_select '#unexpected_error', false
-    assert_template "vehicles/show"
+    assert_template ['vehicles/_edit', 'vehicles/_form']
   end
 
-  test "should get edit" do
-    get :edit, id: @vehicle
-    assert_response :success
+  test 'should update vehicle' do
+    xhr :put, :update,
+        intervention_id: @mobile_intervention.endowment.intervention.to_param,
+        endowment_id: @mobile_intervention.endowment.to_param,
+        id: @vehicle,
+        vehicle: Fabricate.attributes_for(:vehicle, mark: 'Chevy')
+    assert_not_nil assigns(:intervention)
+    assert_not_nil assigns(:endowment)
+    assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:vehicle)
-    assert_select '#unexpected_error', false
-    assert_template "vehicles/edit"
+    assert_response :success
+    assert_template ['mobile_interventions/_vehicle',
+                     'mobile_interventions/_people_table']
   end
 
-  test "should update vehicle" do
-    put :update, id: @vehicle, 
-      vehicle: Fabricate.attributes_for(:vehicle, attr: 'value')
-    assert_redirected_to vehicle_url(assigns(:vehicle))
-  end
-
-  test "should destroy vehicle" do
-    assert_difference('Vehicle.count', -1) do
-      delete :destroy, id: @vehicle
-    end
-
-    assert_redirected_to vehicles_path
+  test 'should destroy building' do
+    xhr :delete, :destroy,
+        intervention_id: @mobile_intervention.endowment.intervention.to_param,
+        endowment_id: @mobile_intervention.endowment.to_param,
+        id: @vehicle
+    assert_response :success
+    assert_template ['mobile_interventions/_vehicle',
+                     'mobile_interventions/_people_table']
   end
 end
