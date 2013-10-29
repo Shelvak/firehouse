@@ -39,4 +39,6 @@ group :test do
   gem 'fabrication'
   gem 'faker'
   gem 'minitest-reporters'
+  gem 'shoulda-context'
+  gem 'shoulda'
 end

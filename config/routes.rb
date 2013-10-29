@@ -19,11 +19,11 @@ Firehouse::Application.routes.draw do
     resources :endowments do
       resource :mobile_intervention, on: :member do
         resources :buildings, except: [:index, :show] do
-          resources :people
+          resources :people, except: [:index, :show]
         end
         resources :supports, except: [:index, :show]
         resources :vehicles, except: [:index, :show] do
-          resources :people
+          resources :people, except: [:index, :show]
         end
       end
     end

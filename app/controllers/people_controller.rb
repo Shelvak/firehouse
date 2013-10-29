@@ -5,26 +5,6 @@ class PeopleController < ApplicationController
   check_authorization
   load_and_authorize_resource
 
-  def index
-    @title = t('view.people.index_title')
-    @people = Person.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @people }
-    end
-  end
-
-  def show
-    @title = t('view.people.show_title')
-    @person = Person.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @person }
-    end
-  end
-
   def new
     @title = t('view.people.modal.involved_person')
     @person = (@building || @vehicle).people.build
