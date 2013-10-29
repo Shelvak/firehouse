@@ -44,7 +44,7 @@ Firehouse::Application.routes.draw do
   root to: redirect('/users/sign_in')
 
   namespace :configs do
-    resources :intervention_types do
+    resources :intervention_types, except: :show do
       collection do
         get :priorities
         get :edit_priorities

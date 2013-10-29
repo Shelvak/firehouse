@@ -15,16 +15,6 @@ class Configs::InterventionTypesController < ApplicationController
     end
   end
 
-  def show
-    @title = t('view.intervention_types.show_title')
-    @intervention_type = InterventionType.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @intervention_type }
-    end
-  end
-
   def new
     @title = t('view.intervention_types.new_title')
     @intervention_type = InterventionType.new

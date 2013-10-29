@@ -8,7 +8,7 @@ class BuildingTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference ['Building.count'] do
       @building = Building.create(Fabricate.attributes_for(:building))
-    end 
+    end
   end
     
   test 'update' do
