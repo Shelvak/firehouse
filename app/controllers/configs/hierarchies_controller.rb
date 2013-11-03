@@ -1,4 +1,4 @@
-class HierarchiesController < ApplicationController
+class Configs::HierarchiesController < ApplicationController
   before_filter :authenticate_user!
 
   check_authorization
@@ -54,7 +54,7 @@ class HierarchiesController < ApplicationController
 
     respond_to do |format|
       if @hierarchy.save
-        format.html { redirect_to @hierarchy, notice: t('view.hierarchies.correctly_created') }
+        format.html { redirect_to [:configs, @hierarchy], notice: t('view.hierarchies.correctly_created') }
         format.json { render json: @hierarchy, status: :created, location: @hierarchy }
       else
         format.html { render action: 'new' }
@@ -71,7 +71,7 @@ class HierarchiesController < ApplicationController
 
     respond_to do |format|
       if @hierarchy.update_attributes(params[:hierarchy])
-        format.html { redirect_to @hierarchy, notice: t('view.hierarchies.correctly_updated') }
+        format.html { redirect_to [:configs, @hierarchy], notice: t('view.hierarchies.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -79,7 +79,7 @@ class HierarchiesController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_hierarchy_url(@hierarchy), alert: t('view.hierarchies.stale_object_error')
+    redirect_to edit_configs_hierarchy_url(@hierarchy), alert: t('view.hierarchies.stale_object_error')
   end
 
   # DELETE /hierarchies/1
@@ -89,7 +89,7 @@ class HierarchiesController < ApplicationController
     @hierarchy.destroy
 
     respond_to do |format|
-      format.html { redirect_to hierarchies_url }
+      format.html { redirect_to configs_hierarchies_url }
       format.json { head :ok }
     end
   end

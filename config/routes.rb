@@ -1,6 +1,6 @@
 Firehouse::Application.routes.draw do
 
-  resources :firefighters, :hierarchies, :trucks
+  resources :firefighters, :trucks
 
   resources :scos do
     put :activate, on: :member
@@ -51,5 +51,6 @@ Firehouse::Application.routes.draw do
         put :set_priority
       end
     end
+    resources :hierarchies
   end
 end

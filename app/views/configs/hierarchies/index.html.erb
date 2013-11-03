@@ -1,3 +1,4 @@
+<%= configs_subnav %>
 <% if @hierarchies.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
@@ -15,9 +16,9 @@
           <% @hierarchies.each do |hierarchy| %>
             <tr>
               <td><%= hierarchy.name %></td>
-              <td><%= link_to_show hierarchy %></td>
-              <td><%= link_to_edit edit_hierarchy_path(hierarchy) if can? :update, hierarchy %></td>
-              <td><%= link_to_destroy hierarchy if can? :destroy, hierarchy %></td>
+              <td><%= link_to_show [:configs, hierarchy] %></td>
+              <td><%= link_to_edit edit_configs_hierarchy_path(hierarchy) if can? :update, hierarchy %></td>
+              <td><%= link_to_destroy [:configs, hierarchy] if can? :destroy, hierarchy %></td>
             </tr>
           <% end %>
         </tbody>
@@ -31,6 +32,6 @@
 <div class="form-actions">
   <%= link_to(
     t('view.hierarchies.new', default: :'label.new'),
-    new_hierarchy_path, class: 'btn btn-primary'
+    new_configs_hierarchy_path, class: 'btn btn-primary'
   ) if can? :create, Hierarchy %>
 </div>

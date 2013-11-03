@@ -2,6 +2,7 @@ module ConfigsHelper
 
   def configs_subnav
     li = content_tag( :li, link_to(t('view.intervention_types.index_title'), configs_intervention_types_path), class: active_nav( intervention_types_urls ) )
+    li += content_tag( :li, link_to( t('menu.hierarchies'), configs_hierarchies_path ), class: active_nav(hierarchies_urls) ) if can?(:read, Hierarchy)
     li += content_tag( :li, link_to(t('activerecord.models.user.other'), users_path), class: active_nav( users_urls ) )
     content_tag(:ul, li.html_safe, class: 'nav nav-tabs')
   end
@@ -26,6 +27,14 @@ module ConfigsHelper
   def users_urls
     urls = [users_path]
     urls += [ user_path(@user) ] if @user
+    urls
+  end
+
+  def hierarchies_urls
+    urls = [configs_hierarchies_path]
+    urls += [configs_hierarchy_path(@hierarchy)] if @hierarchy && @hierarchy.persisted?
+    urls += [new_configs_hierarchy_path]
+    urls += [edit_configs_hierarchy_path(@hierarchy)] if @hierarchy && @hierarchy.persisted?
     urls
   end
 

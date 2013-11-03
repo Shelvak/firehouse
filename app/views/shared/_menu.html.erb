@@ -15,10 +15,6 @@
               path: interventions_path
             ) if can?(:read, Intervention) %>
             <%= show_menu_link(
-              name: 'hierarchies', controllers: 'hierarchies', 
-              path: hierarchies_path
-            ) if can?(:read, Hierarchy) %>
-            <%= show_menu_link(
               name: 'scos', controllers: 'scos', path: scos_path
             ) if can?(:read, Sco) %>
             <%= show_menu_link(
