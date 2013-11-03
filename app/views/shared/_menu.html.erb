@@ -15,9 +15,6 @@
               path: interventions_path
             ) if can?(:read, Intervention) %>
             <%= show_menu_link(
-              name: 'scos', controllers: 'scos', path: scos_path
-            ) if can?(:read, Sco) %>
-            <%= show_menu_link(
               name: 'trucks', controllers: 'trucks', path: trucks_path
             ) if can?(:read, Truck) %>
             <%= show_menu_link(

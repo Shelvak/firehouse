@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ScosControllerTest < ActionController::TestCase
+class Configs::ScosControllerTest < ActionController::TestCase
 
   setup do
     @sco = Fabricate(:sco)
@@ -8,57 +8,57 @@ class ScosControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:scos)
     assert_select '#unexpected_error', false
-    assert_template "scos/index"
+    assert_template 'configs/scos/index'
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
     assert_not_nil assigns(:sco)
     assert_select '#unexpected_error', false
-    assert_template "scos/new"
+    assert_template 'configs/scos/new'
   end
 
-  test "should create sco" do
+  test 'should create sco' do
     assert_difference('Sco.count') do
       post :create, sco: Fabricate.attributes_for(:sco)
     end
 
-    assert_redirected_to sco_url(assigns(:sco))
+    assert_redirected_to configs_sco_url(assigns(:sco))
   end
 
-  test "should show sco" do
+  test 'should show sco' do
     get :show, id: @sco
     assert_response :success
     assert_not_nil assigns(:sco)
     assert_select '#unexpected_error', false
-    assert_template "scos/show"
+    assert_template 'configs/scos/show'
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @sco
     assert_response :success
     assert_not_nil assigns(:sco)
     assert_select '#unexpected_error', false
-    assert_template "scos/edit"
+    assert_template 'configs/scos/edit'
   end
 
-  test "should update sco" do
+  test 'should update sco' do
     put :update, id: @sco, 
       sco: Fabricate.attributes_for(:sco)
-    assert_redirected_to scos_url
+    assert_redirected_to configs_scos_url
   end
 
-  test "should destroy sco" do
+  test 'should destroy sco' do
     assert_difference('Sco.count', -1) do
       delete :destroy, id: @sco
     end
 
-    assert_redirected_to scos_path
+    assert_redirected_to configs_scos_path
   end
 end

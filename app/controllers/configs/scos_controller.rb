@@ -1,4 +1,4 @@
-class ScosController < ApplicationController
+class Configs::ScosController < ApplicationController
   before_filter :authenticate_user!
 
   check_authorization
@@ -56,7 +56,7 @@ class ScosController < ApplicationController
 
     respond_to do |format|
       if @sco.save
-        format.html { redirect_to @sco, notice: t('view.scos.correctly_created') }
+        format.html { redirect_to [:configs, @sco], notice: t('view.scos.correctly_created') }
         format.json { render json: @sco, status: :created, location: @sco }
       else
         format.html { render action: 'new' }
@@ -73,7 +73,7 @@ class ScosController < ApplicationController
 
     respond_to do |format|
       if @sco.update_attributes(params[:sco])
-        format.html { redirect_to scos_url, notice: t('view.scos.correctly_updated') }
+        format.html { redirect_to configs_scos_url, notice: t('view.scos.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -81,7 +81,7 @@ class ScosController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_sco_url(@sco), alert: t('view.scos.stale_object_error')
+    redirect_to edit_configs_sco_url(@sco), alert: t('view.scos.stale_object_error')
   end
 
   # DELETE /scos/1
@@ -91,7 +91,7 @@ class ScosController < ApplicationController
     @sco.destroy
 
     respond_to do |format|
-      format.html { redirect_to scos_url }
+      format.html { redirect_to configs_scos_url }
       format.json { head :ok }
     end
   end
