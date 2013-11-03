@@ -29,7 +29,9 @@ module ConfigsHelper
 
   def users_urls
     urls = [users_path]
-    urls += [ user_path(@user) ] if @user
+    urls += [user_path(@user)] if @user && @user.persisted?
+    urls += [new_user_path]
+    urls += [edit_user_path(@user)] if @user && @user.persisted?
     urls
   end
 

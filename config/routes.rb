@@ -1,5 +1,14 @@
 Firehouse::Application.routes.draw do
 
+  # dejar solo el necesario para el autocompletado, sin utilizar el namespace
+  # configs asi despues se puede dar permisos por el namespace para el que sea
+  # necesario.
+  #resources :firefighters, :trucks, :hierarchies
+  #resources :scos do
+  #  get :mini_index, on: :collection
+  #end
+  ##
+
   resources :interventions do
     collection do
       ['firefighter', 'receptor', 'sco'].each do |obj|
@@ -44,7 +53,7 @@ Firehouse::Application.routes.draw do
         put :set_priority
       end
     end
-    resources :firefighters, :trucks, :hierarchies
+    resources :firefighters, :trucks, :hierarchies, :users
     resources :scos do
       put :activate, on: :member
       get :mini_index, on: :collection
