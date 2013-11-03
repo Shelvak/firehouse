@@ -1,3 +1,4 @@
+<%= configs_subnav %>
 <% if @trucks.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
@@ -17,9 +18,9 @@
             <tr>
               <td><%= truck.number %></td>
               <td><%= truck.mileage %></td>
-              <td><%= link_to_show truck %></td>
-              <td><%= link_to_edit edit_truck_path(truck) if can? :update, truck %></td>
-              <td><%= link_to_destroy truck if can? :destroy, truck %></td>
+              <td><%= link_to_show [:configs, truck] %></td>
+              <td><%= link_to_edit edit_configs_truck_path(truck) if can? :update, truck %></td>
+              <td><%= link_to_destroy [:configs, truck] if can? :destroy, truck %></td>
             </tr>
           <% end %>
         </tbody>
@@ -33,6 +34,6 @@
 <div class="form-actions">
   <%= link_to(
     t('view.trucks.new', default: :'label.new'),
-    new_truck_path, class: 'btn btn-primary'
+    new_configs_truck_path, class: 'btn btn-primary'
   ) if can? :create, Truck %>
 </div>

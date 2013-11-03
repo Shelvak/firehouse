@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionController::TestCase
+class Configs::UsersControllerTest < ActionController::TestCase
   setup do
     @user = Fabricate(:user)
   end

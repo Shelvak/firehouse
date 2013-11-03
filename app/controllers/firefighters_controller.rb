@@ -1,4 +1,4 @@
-class FirefightersController < ApplicationController
+class Configs::FirefightersController < ApplicationController
   before_filter :authenticate_user!
 
   check_authorization
@@ -54,7 +54,7 @@ class FirefightersController < ApplicationController
 
     respond_to do |format|
       if @firefighter.save
-        format.html { redirect_to @firefighter, notice: t('view.firefighters.correctly_created') }
+        format.html { redirect_to [:configs, @firefighter], notice: t('view.firefighters.correctly_created') }
         format.json { render json: @firefighter, status: :created, location: @firefighter }
       else
         format.html { render action: 'new' }
@@ -71,7 +71,7 @@ class FirefightersController < ApplicationController
 
     respond_to do |format|
       if @firefighter.update_attributes(params[:firefighter])
-        format.html { redirect_to @firefighter, notice: t('view.firefighters.correctly_updated') }
+        format.html { redirect_to [:configs, @firefighter], notice: t('view.firefighters.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -79,7 +79,7 @@ class FirefightersController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_firefighter_url(@firefighter), alert: t('view.firefighters.stale_object_error')
+    redirect_to edit_configs_firefighter_url(@firefighter), alert: t('view.firefighters.stale_object_error')
   end
 
   # DELETE /firefighters/1
@@ -89,7 +89,7 @@ class FirefightersController < ApplicationController
     @firefighter.destroy
 
     respond_to do |format|
-      format.html { redirect_to firefighters_url }
+      format.html { redirect_to configs_firefighters_url }
       format.json { head :ok }
     end
   end

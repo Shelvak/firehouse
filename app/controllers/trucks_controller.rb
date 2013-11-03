@@ -1,4 +1,4 @@
-class TrucksController < ApplicationController
+class Configs::TrucksController < ApplicationController
   before_filter :authenticate_user!
 
   check_authorization
@@ -54,7 +54,7 @@ class TrucksController < ApplicationController
 
     respond_to do |format|
       if @truck.save
-        format.html { redirect_to @truck, notice: t('view.trucks.correctly_created') }
+        format.html { redirect_to [:configs, @truck], notice: t('view.trucks.correctly_created') }
         format.json { render json: @truck, status: :created, location: @truck }
       else
         format.html { render action: 'new' }
@@ -71,7 +71,7 @@ class TrucksController < ApplicationController
 
     respond_to do |format|
       if @truck.update_attributes(params[:truck])
-        format.html { redirect_to @truck, notice: t('view.trucks.correctly_updated') }
+        format.html { redirect_to [:configs, @truck], notice: t('view.trucks.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -89,7 +89,7 @@ class TrucksController < ApplicationController
     @truck.destroy
 
     respond_to do |format|
-      format.html { redirect_to trucks_url }
+      format.html { redirect_to configs_trucks_url }
       format.json { head :ok }
     end
   end

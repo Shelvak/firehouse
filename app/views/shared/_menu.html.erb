@@ -15,13 +15,6 @@
               path: interventions_path
             ) if can?(:read, Intervention) %>
             <%= show_menu_link(
-              name: 'trucks', controllers: 'trucks', path: trucks_path
-            ) if can?(:read, Truck) %>
-            <%= show_menu_link(
-              name: 'firefighters', controllers: 'firefighters', 
-              path: firefighters_path
-            ) if can?(:read, Firefighter) %>
-            <%= show_menu_link(
               name: 'configs', controllers: 'intervention_types',
               path: configs_intervention_types_path
             ) if can?(:read, InterventionType) %>
