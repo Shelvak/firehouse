@@ -1,11 +1,11 @@
 module ConfigsHelper
 
   def configs_subnav
-    li = content_tag( :li, link_to(t('view.intervention_types.index_title'), configs_intervention_types_path), class: active_nav( intervention_types_urls ) )
-    li += content_tag( :li, link_to( t('menu.hierarchies'), configs_hierarchies_path ), class: active_nav(hierarchies_urls) ) if can?(:read, Hierarchy)
+    li = content_tag( :li, link_to( t('menu.firefighters'), configs_firefighters_path ), class: active_nav(firefighters_urls) ) if can?(:read, Sco)
     li += content_tag( :li, link_to( t('menu.scos'), configs_scos_path ), class: active_nav(scos_urls) ) if can?(:read, Sco)
+    li += content_tag( :li, link_to( t('menu.hierarchies'), configs_hierarchies_path ), class: active_nav(hierarchies_urls) ) if can?(:read, Hierarchy)
     li += content_tag( :li, link_to( t('menu.trucks'), configs_trucks_path ), class: active_nav(trucks_urls) ) if can?(:read, Sco)
-    li += content_tag( :li, link_to( t('menu.firefighters'), configs_firefighters_path ), class: active_nav(firefighters_urls) ) if can?(:read, Sco)
+    li += content_tag( :li, link_to(t('view.intervention_types.index_title'), configs_intervention_types_path), class: active_nav( intervention_types_urls ) )
     li += content_tag( :li, link_to(t('activerecord.models.user.other'), users_path), class: active_nav( users_urls ) )
     content_tag(:ul, li.html_safe, class: 'nav nav-tabs')
   end
