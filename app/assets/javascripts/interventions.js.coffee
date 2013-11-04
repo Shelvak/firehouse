@@ -68,7 +68,7 @@ new Rule
       input = $(this)
 
       $.ajax
-        url: '/trucks'
+        url: '/configs/trucks'
         dataType: 'json'
         data: { q: input.val() }
         success: (data)->

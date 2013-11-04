@@ -20,6 +20,6 @@
 <% else %>
   <strong><%= Intervention.human_attribute_name 'sco_id' %></strong>:
   <%= link_to(
-    @intervention.sco, sco_path(@intervention.sco)
+    @intervention.sco, configs_sco_path(@intervention.sco)
   ) if @intervention.sco %>
 <% end %>

@@ -19,6 +19,7 @@ gem 'capistrano'
 gem 'SrBuj'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'rollbar'
 
 group :assets do
   gem 'sass-rails'

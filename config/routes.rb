@@ -1,12 +1,5 @@
 Firehouse::Application.routes.draw do
 
-  resources :firefighters, :hierarchies, :trucks
-
-  resources :scos do
-    put :activate, on: :member
-    get :mini_index, on: :collection
-  end
-
   resources :interventions do
     collection do
       ['firefighter', 'receptor', 'sco'].each do |obj|
@@ -50,6 +43,11 @@ Firehouse::Application.routes.draw do
         get :edit_priorities
         put :set_priority
       end
+    end
+    resources :firefighters, :trucks, :hierarchies, :users
+    resources :scos do
+      put :activate, on: :member
+      get :mini_index, on: :collection
     end
   end
 end
