@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
         redirect_to root_url, alert: t('errors.access_denied')
       else
         @title = t('errors.title')
-        
+
         if response.redirect_url.blank?
           render template: 'shared/show_error', locals: { error: exception }
         end

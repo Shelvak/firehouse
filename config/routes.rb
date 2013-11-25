@@ -23,7 +23,7 @@ Firehouse::Application.routes.draw do
   end
 
   devise_for :users
-  
+
   resources :users do
     get :autocomplete_for_hierarchy_name, on: :collection
     member do

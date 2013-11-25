@@ -36,10 +36,8 @@ end
 group :test do
   gem 'turn', require: false
   gem 'capybara', require: false
+  gem 'selenium-webdriver', require: false
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'
-  gem 'minitest-reporters'
-  gem 'shoulda-context'
-  gem 'shoulda'
 end
