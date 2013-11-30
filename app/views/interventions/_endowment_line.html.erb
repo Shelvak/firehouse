@@ -1,0 +1,16 @@
+<div class='row-fluid'>
+  <div class='span3 label'>
+    <%= f.label :auto_firefighter_name, show_charge_name(f.object.charge) %>
+    <%= f.input :charge, as: :hidden %>
+  </div>
+  <div class='span9'>
+    <%= f.input :firefighters_names, label: false, input_html: {
+      class: 'span10 token-autocomplete',
+      autocomplete: 'off',
+      data: {
+        load: f.object.firefighters,
+        'token-limit' => ([3, 6].include?(f.object.charge) ? nil : 1)
+      } 
+    } %>
+  </div>
+</div>

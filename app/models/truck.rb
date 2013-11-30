@@ -7,7 +7,7 @@ class Truck < ActiveRecord::Base
   validates :number, presence: true
   validates :number, uniqueness: true
 
-  has_many :interventions
+  has_many :endowments
 
   def to_s
     self.number
@@ -18,7 +18,7 @@ class Truck < ActiveRecord::Base
   def as_json(options = nil)
     default_options = {
       only: [:id],
-      methods: [:label]
+      methods: [:label, :mileage]
     }
 
     super(default_options.merge(options || {}))

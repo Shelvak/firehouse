@@ -1,0 +1,7 @@
+<%= configs_subnav %>
+<%= content_for :form_actions do %>
+  <%= link_to t('label.show'), [:configs, @firefighter] %> |
+  <%= link_to t('label.list'), configs_firefighters_path %>
+<% end %>
+
+<%= render 'form' %>

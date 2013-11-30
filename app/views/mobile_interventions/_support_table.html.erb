@@ -1,29 +1,21 @@
-<table class='table table-bordered table-striped'>
-  <thead>
-  <tr>
-    <th>En el lugar</th>
-    <th>Móvil número:</th>
-    <th>A cargo</th>
-    <th>Conduce</th>
-    <th>Pertenece</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @mobile_intervention.supports.each do |support| %>
+<div class="well">
+  <table class='table table-bordered table-hover background-white'>
+    <thead>
     <tr>
-      <td><%= support.support_type %></td>
-      <td><%= support.number %></td>
-      <td><%= support.responsible %></td>
-      <td><%= support.driver %></td>
-      <td><%= support.owner %></td>
-      <td>
-        <%= link_to_edit edit_intervention_mobile_intervention_support_path(
-                             @intervention, @mobile_intervention, support)  %>
-        <%= link_to_destroy intervention_mobile_intervention_support_path(
-                                @intervention, @mobile_intervention, support)  %>
-      </td>
+      <th><%= t 'view.mobile_interventions.tables.in_the_place' %></th>
+      <th><%= t 'view.mobile_interventions.tables.mobil_number' %></th>
+      <th><%= t 'view.mobile_interventions.tables.responsible' %></th>
+      <th><%= t 'view.mobile_interventions.tables.driver' %></th>
+      <th><%= t 'view.mobile_interventions.tables.belongs' %></th>
+      <th></th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody id="supports_table_body">
+      <% @mobile_intervention.supports.each do |support| %>
+        <%= render partial: 'mobile_interventions/support', locals: {
+            support: support } %>
+      <% end %>
+      <tr id="new_support"></tr>
+    </tbody>
+  </table>
+</div>

@@ -1,15 +1,15 @@
 class InterventionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :active_ceo?, only: [:new, :edit]
-  
+
   check_authorization
   load_and_authorize_resource
-  
+
   # GET /interventions
   # GET /interventions.json
   def index
     @title = t('view.interventions.index_title')
-    @interventions = Intervention.page(params[:page])
+    @interventions = Intervention.includes(:intervention_type).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -56,8 +56,7 @@ class InterventionsController < ApplicationController
 
     respond_to do |format|
       if @intervention.save
-        @mobile_intervention = @intervention.build_mobile_intervention
-        @mobile_intervention.save
+        @intervention.statuses.build(user_id: current_user.id).save
         format.html { redirect_to @intervention, notice: t('view.interventions.correctly_created') }
         format.json { render json: @intervention, status: :created, location: @intervention }
       else
@@ -86,8 +85,7 @@ class InterventionsController < ApplicationController
     redirect_to edit_intervention_url(@intervention), alert: t('view.interventions.stale_object_error')
   end
 
-  # DELETE /interventions/1
-  # DELETE /interventions/1.json
+  # no deberiamos tener deletes.
   def destroy
     @intervention = Intervention.find(params[:id])
     @intervention.destroy
@@ -106,6 +104,30 @@ class InterventionsController < ApplicationController
     end
   end
 
+  def autocomplete_for_receptor_name
+    receptors = User.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: receptors }
+    end
+  end
+
+  def autocomplete_for_sco_name
+    scos = Sco.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: scos }
+    end
+  end
+
+  def autocomplete_for_firefighter_name
+    firefighters = Firefighter.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: firefighters }
+    end
+  end
+
   def update_arrive
     intervention = Intervention.find(params[:id])
 
@@ -120,6 +142,7 @@ class InterventionsController < ApplicationController
 
   def update_back
     intervention = Intervention.find(params[:id])
+    #aca deberia marcar la intervención como finalizada, es decir, cambiar el estado a 'finished'
 
     respond_to do |format|
       if intervention.update_back!
@@ -141,6 +164,12 @@ class InterventionsController < ApplicationController
       end
     end
   end
+
+  def map
+    @title = t('view.interventions.map_index.title')
+    @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
+  end
+
   private
     def active_ceo?
       @no_active_ceo = Sco.where(current: true).empty?

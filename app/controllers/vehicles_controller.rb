@@ -1,66 +1,71 @@
 class VehiclesController < ApplicationController
   before_filter :get_intervention
+  before_filter :authenticate_user!
+
+  check_authorization
+  load_and_authorize_resource
 
   def new
-    @title = t('view.vehicles.new_title')
+    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = @mobile_intervention.vehicles.build
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @vehicle }
-    end
+    render partial: 'new', content_type: 'text/html'
   end
 
   def edit
-    @title = t('view.vehicles.edit_title')
+    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = Vehicle.find(params[:id])
+
+    render partial: 'edit', content_type: 'text/html'
   end
 
   def create
-    @title = t('view.vehicles.new_title')
+    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = @mobile_intervention.vehicles.build(params[:vehicle])
 
-    respond_to do |format|
-      if @vehicle.save
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.vehicles.correctly_created') }
-        format.json { render json: [@intervention, @mobile_intervention], status: :created, location: @vehicle }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
-      end
+    if @vehicle.save
+      js_notify message: t('view.vehicles.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/vehicle', 
+        locals: { vehicle: @vehicle, number: params[:number] }, 
+        content_type: 'text/html'
+    else
+      render partial: 'new', status: :unprocessable_entity
     end
   end
 
   def update
-    @title = t('view.vehicles.edit_title')
+    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = Vehicle.find(params[:id])
 
-    respond_to do |format|
-      if @vehicle.update_attributes(params[:vehicle])
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.vehicles.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
-      end
+    if @vehicle.update_attributes(params[:vehicle])
+      js_notify message: t('view.vehicles.correctly_updated'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/vehicle',
+        locals: { vehicle: @vehicle, number: params[:number] },
+        content_type: 'text/html'
+    else
+      render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit', @intervention, @mobile_intervention, @vehicle], alert: t('view.vehicles.stale_object_error')
+    redirect_to [
+      'edit', @intervention, @endowment, 'mobile_intervention', @vehicle
+    ], alert: t('view.vehicles.stale_object_error')
   end
 
   def destroy
     @vehicle = Vehicle.find(params[:id])
     @vehicle.destroy
+    js_notify message: t('view.vehicles.correctly_destroyed'),
+              type: 'alert-danger js-notify-18px-text', time: 2500
 
-    respond_to do |format|
-      format.html { redirect_to vehicles_url }
-      format.json { head :ok }
-    end
+    render nothing: true, content_type: 'text/html'
   end
 
   private
     def get_intervention
-      @intervention = Intervention.includes(:mobile_intervention).find(params[:intervention_id])
-      @mobile_intervention = @intervention.mobile_intervention
+      @endowment = Endowment.find(params[:endowment_id])
+      @intervention = @endowment.intervention
+      @mobile_intervention = @endowment.mobile_intervention
     end
 end

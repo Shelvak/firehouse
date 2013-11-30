@@ -1,22 +1,16 @@
-<%= simple_form_for([@intervention, @mobile_intervention, @building]) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs clearfix">
-    <span class='span5'>
-      <%= f.input :address %>
-      <%= f.input :description %>
-    </span>
-    <span class='span5'>
-      <%= f.input :floor %>
-      <%= f.input :roof %>
-      <%= f.input :window %>
-      <%= f.input :electrics %>
-      <%= f.input :damage %>
-    </span>
+<div class="form-inputs clearfix">
+  <div class='row-fluid'>
+    <%= f.input :address, input_html: { class: 'span11' } %>
+    <%= f.input :description, input_html: { class: 'span11', rows: 5 } %>
   </div>
-
-  <div class="form-actions">
-    <div class="pull-right"><%= yield :form_actions %></div>
-    <%= f.button :submit, class: 'btn-primary' %>
+  <div class="row-fluid page-header">
+    <h3><%= t 'view.buildings.damages_title' %></h3>
   </div>
-<% end %>
+  <div class="row-fluid">
+    <%= f.input :floor, input_html: { class: 'span11' } %>
+    <%= f.input :roof, input_html: { class: 'span11' } %>
+    <%= f.input :window, input_html: { class: 'span11' } %>
+    <%= f.input :electrics, input_html: { class: 'span11' } %>
+    <%= f.input :damage, input_html: { class: 'span11', rows: 5 } %>
+  </div>
+</div>

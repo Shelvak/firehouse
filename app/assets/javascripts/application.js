@@ -11,10 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery-ui
+//= require jquery.ui.all
 //= require jquery_ujs
-//= require jquery/jquery.ui.datepicker-es
-//= require jquery/jquery-ui-timepicker-addon
+//= require jquery/tokeninput
+//= require jquery/emuletab
 //= require twitter/bootstrap
 //= require inspector
 //= require turboevents
@@ -23,5 +23,12 @@
 //= require common
 //= require date_pickers
 //= require endless_pagination
+//= require dynamic_form
 //= require mobile
 //= require users
+//= require interventions
+//= require utils
+//= require SrBuj
+//= require bootstrap-colorpicker
+//= require google_maps
+//= require styled_markers

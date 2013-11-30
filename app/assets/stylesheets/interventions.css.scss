@@ -1,3 +1,84 @@
 // Place all the styles related to the interventions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#add_new_endowment {
+  font-size: 1.8em;
+  padding: 0.3em;
+}
+
+.quick-button-div {
+  border-radius: 15px;
+  background-color: #363636;
+  min-height: 300px;
+  padding: 20px;
+  text-align: center;
+
+  .row{
+    [class^="quick-button-"],
+    [class*=" quick-button-"] {
+      transition: all 0.3s ease-in-out;
+      display: inline-table;
+      margin: 10px;
+      width: 170px;
+      height: 170px;
+      min-width: 170px;
+      min-height: 10px;
+      border: 2px solid #363636;
+      border-radius: 15px;
+      box-shadow: 0px 5px 5px #000000;
+      position: relative;
+      top: 20%;
+      background-size: cover;
+      .text {
+        color: white;
+        padding-top: 40%;
+        font-size: 20px;
+      }
+    }
+
+    [class^="quick-button-"]:hover,
+    [class*=" quick-button-"]:hover {
+      transition: all 0.4s ease-in-out;
+      box-shadow: 0px 15px 15px #000000;
+      -ms-transform: scale(1.2, 1.2);
+      -webkit-transform: scale(1.2, 1.2);
+      -moz-transform: scale(1.2, 1.2);
+      -o-transform: scale(1.2, 1.2);
+      transform: scale(1.2, 1.2);
+      z-index: 5;
+    }
+    .quick-button-active {
+      cursor: pointer;
+      .text {
+        text-shadow: black 0.1em 0.1em 0.2em;
+      }
+    }
+    .quick-button-empty {
+      border: 2px #ffffff dotted;
+    }
+  }
+}
+
+.red {
+  color: red;
+}
+
+.modal-form {
+  marign: 0px;
+}
+
+.google-map {
+  width: 100%;
+  height: 350px;
+}
+.google-map-large {
+  width: 100%;
+  //todo: este alto deberia ser variable dependiendo del tamaño de la pantalla
+  height: 600px;
+}
+
+.background-white {
+  background-color: white;
+}
+

@@ -1,20 +1,12 @@
-<%= simple_form_for([@intervention, @mobile_intervention, @vehicle]) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs clearfix">
-    <div class="span4">
-      <%= f.input :mark %>
-      <%= f.input :model %>
-      <%= f.input :year %>
-      <%= f.input :domain %>
-    </div>
-    <div class="span7">
-      <%= f.input :damage %>
-    </div>
+<div class="row-fluid">
+  <div class="span4">
+    <%= f.input :mark, input_html: { class: 'span12' } %>
+    <%= f.input :model, input_html: { class: 'span12' } %>
+    <%= f.input :year, input_html: { class: 'span12' } %>
+    <%= f.input :domain, input_html: { class: 'span12' } %>
   </div>
-
-  <div class="form-actions">
-    <div class="pull-right"><%= yield :form_actions %></div>
-    <%= f.button :submit, class: 'btn-primary' %>
+  <div class="span7">
+    <%= f.input :damage, input_html: { class: 'span12', rows: 12 } %>
   </div>
-<% end %>
+  <%= hidden_field_tag 'number', params[:number] %>
+</div>

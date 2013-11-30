@@ -1,0 +1,18 @@
+<div class="modal">
+  <%= simple_form_for @person, url: people_url_for_form, remote: true, html: {
+      data: { target: dom_id(@person), error: 'modal', modal: true, callback:
+      "highlightItem('edit_person_#{@type}', 'people_table_body_#{@type}', #{dom_id(@person)});",
+      replace: true } } do |f| %>
+    <div class="modal-header">
+      <h2><%= @title %></h2>
+    </div>
+    <div class="modal-body">
+      <%= render partial: 'form', locals: { f: f } %>
+    </div>
+    <div class="modal-footer">
+      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');",
+                           class: 'btn' %>
+      <%= f.button :submit, t('view.people.edit') ,  class: 'btn-primary' %>
+    </div>
+  <% end %>
+</div>

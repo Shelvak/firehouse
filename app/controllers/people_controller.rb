@@ -1,89 +1,76 @@
 class PeopleController < ApplicationController
   before_filter :get_intervention
+  before_filter :authenticate_user!
 
-  def index
-    @title = t('view.people.index_title')
-    @people = Person.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @people }
-    end
-  end
-
-  def show
-    @title = t('view.people.show_title')
-    @person = Person.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @person }
-    end
-  end
+  check_authorization
+  load_and_authorize_resource
 
   def new
-    @title = t('view.people.new_title')
-    @person = Person.new
+    @title = t('view.people.modal.involved_person')
+    @person = (@building || @vehicle).people.build
+    @type = @building || @vehicle
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @person }
-    end
+    render partial: 'new', content_type: 'text/html'
   end
 
   def edit
-    @title = t('view.people.edit_title')
+    @title = t('view.people.modal.involved_person')
     @person = Person.find(params[:id])
+    @type = @building || @vehicle
+
+    render partial: 'edit', content_type: 'text/html'
   end
 
   def create
-    @title = t('view.people.new_title')
-    @person = @building.persons.build(params[:person]) if @building
-    @person = @vehicle.persons.build(params[:person]) if @vehicle
+    @title = t('view.people.modal.involved_person')
+    @person = @building.people.build(params[:person]) if @building
+    @person = @vehicle.people.build(params[:person]) if @vehicle
 
-    respond_to do |format|
-      if @person.save
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.people.correctly_created') }
-        format.json { render json: [@intervention, @mobile_intervention], status: :created, location: @person }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
+    if @person.save
+      js_notify message: t('view.people.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/person', locals: { person: @person },
+             content_type: 'text/html'
+    else
+      @type = @building || @vehicle
+      render partial: 'new', status: :unprocessable_entity
     end
   end
 
   def update
-    @title = t('view.people.edit_title')
+    @title = t('view.people.modal.involved_person')
     @person = Person.find(params[:id])
 
-    respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.people.correctly_updated') }
-        format.json { head :ok }
+        js_notify message: t('view.people.correctly_updated'),
+                  type: 'alert-info js-notify-18px-text', time: 2500
+        render partial: 'mobile_interventions/person', locals: { person: @person },
+               content_type: 'text/html'
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
+        @type = @building || @vehicle
+        render partial: 'edit', status: :unprocessable_entity
       end
-    end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit',@intervention, @mobile_intervention, @building, @person], alert: t('view.people.stale_object_error')
+    redirect_to [
+      'edit', @intervention, @endowment, 'mobile_intervention',
+      (@vehicle || @building), @person
+    ], alert: t('view.people.stale_object_error')
   end
 
   def destroy
     @person = Person.find(params[:id])
     @person.destroy
-
-    respond_to do |format|
-      format.html { redirect_to [@intervention, @mobile_intervention] }
-      format.json { head :ok }
-    end
+    js_notify message: t('view.people.correctly_destroyed'),
+              type: 'alert-danger js-notify-18px-text', time: 2500
+    render nothing: true, content_type: 'text/html'
   end
 
   private
     def get_intervention
-      @intervention = Intervention.includes(:mobile_intervention).find(params[:intervention_id])
-      @mobile_intervention = @intervention.mobile_intervention
-      @building = Building.find(params[:building_id]) if params[:building_id]
-      @vehicle = Vehicle.find(params[:vehicle_id]) if params[:vehicle_id]
+      @endowment = Endowment.find(params[:endowment_id])
+      @mobile_intervention = @endowment.mobile_intervention
+      @intervention = @endowment.intervention
+      @building = @mobile_intervention.buildings.find(params[:building_id]) if params[:building_id]
+      @vehicle = @mobile_intervention.vehicles.find(params[:vehicle_id]) if params[:vehicle_id]
     end
 end

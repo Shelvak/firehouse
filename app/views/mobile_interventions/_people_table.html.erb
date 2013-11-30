@@ -1,26 +1,20 @@
-<table class='table table-bordered table-striped'>
+<table class='table table-bordered table-hover background-white'>
   <thead>
   <tr>
-    <th>Vínculo:</th>
-    <th>Nombre y Apellido:</th>
-    <th>DNI:</th>
-    <th>Edad:</th>
-    <th>Teléfono:</th>
-    <th>Trasladado a:</th>
-    <th>Lesiones:</th>
+    <th><%= t 'view.mobile_interventions.tables.link' %></th>
+    <th><%= t 'view.mobile_interventions.tables.names' %></th>
+    <th><%= t 'view.mobile_interventions.tables.dni' %></th>
+    <th><%= t 'view.mobile_interventions.tables.age' %></th>
+    <th><%= t 'view.mobile_interventions.tables.phone' %></th>
+    <th><%= t 'view.mobile_interventions.tables.moved_to' %></th>
+    <th><%= t 'view.mobile_interventions.tables.injuries' %></th>
+    <th></th>
   </tr>
   </thead>
-  <tbody>
-  <% people.each do |person| %>
-    <tr>
-      <td><%= person.relation %></td>
-      <td><%= person.name%> <%= person.last_name %></td>
-      <td><%= person.dni_type + person.dni_number %></td>
-      <td><%= person.age %></td>
-      <td><%= person.phone_number %></td>
-      <td><%= person.moved_to %></td>
-      <td><%= person.injuries %></td>
-    </tr>
-  <% end %>
+  <tbody id="people_table_body_<%= dom_id(type) %>">
+    <% people.order(:created_at).each do |person| %>
+      <%= render partial: 'mobile_interventions/person', locals: { person: person } %>
+    <% end %>
+    <tr id="new_person_<%= dom_id(type) %>"></tr>
   </tbody>
 </table>

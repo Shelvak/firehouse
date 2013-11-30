@@ -30,12 +30,18 @@ jQuery ($)->
         input.data('item', selected.item)
         $(input.data('autocompleteIdTarget')).val(selected.item.id)
 
+        if !input.data('autocompleteIdTarget') && input.data('autocompleteClassTarget')
+          input.parents('.row-fluid:first')
+            .find(input.data('autocompleteClassTarget'))
+              .val(selected.item.id)
+
+
         input.trigger 'autocomplete:update', input
 
         false
       open: -> $('.ui-menu').css('width', input.width())
 
-    input.data('autocomplete')._renderItem = (ul, item)->
+    input.data('ui-autocomplete')._renderItem = (ul, item)->
       $('<li></li>').data('item.autocomplete', item).append(
         $('<a></a>').html(item.label)
       ).appendTo(ul)

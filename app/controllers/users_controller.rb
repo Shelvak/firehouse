@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :load_current_user, only: [:edit_profile, :update_profile]
-  
+  before_filter :authenticate_user!
+
   check_authorization
   load_and_authorize_resource
-  
+
   # GET /users
   # GET /users.json
   def index

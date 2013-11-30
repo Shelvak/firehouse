@@ -1,0 +1,19 @@
+<div class="modal">
+  <%= simple_form_for([@intervention, @endowment, 'mobile_intervention', @support],
+      remote: true, html: { data: { target: dom_id(@support),
+      error: 'modal', modal: true, replace: true, callback:
+      "highlightItem('edit_support', 'supports_table_body', #{dom_id(@support)})"
+      } } ) do |f| %>
+    <div class="modal-header">
+      <h2><%= @title %></h2>
+    </div>
+    <div class="modal-body">
+      <%= render partial: 'form', locals: { f: f } %>
+    </div>
+    <div class="modal-footer">
+      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');",
+                           class: 'btn' %>
+      <%= f.button :submit, t('view.supports.edit'), class: 'btn-primary' %>
+    </div>
+<% end %>
+</div>

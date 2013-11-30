@@ -1,0 +1,13 @@
+<%= configs_subnav %>
+<div class="readonly-data">
+  <h2><%= @sco %></h2>
+
+  <p>
+    <strong><%= Sco.human_attribute_name 'current' if @sco.current %></strong>
+  </p>
+  
+</div>
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_configs_sco_path(@sco) if can? :update, @sco %> |
+  <%= link_to t('label.list'), configs_scos_path %>
+</div>

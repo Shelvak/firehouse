@@ -1,81 +1,61 @@
 class BuildingsController < ApplicationController
-  before_filter :get_intervention
-  # GET /buildings
-  # GET /buildings.json
-  def index
-    @title = t('view.buildings.index_title')
-    @buildings = Building.page(params[:page])
+  before_filter :get_mobile_intervention
+  before_filter :authenticate_user!
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @buildings }
-    end
-  end
-
-  # GET /buildings/1
-  # GET /buildings/1.json
-  def show
-    @title = t('view.buildings.show_title')
-    @building = Building.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @building }
-    end
-  end
+  check_authorization
+  load_and_authorize_resource
 
   # GET /buildings/new
   # GET /buildings/new.json
   def new
-    @title = t('view.buildings.new_title')
+    @title = t('view.buildings.modal.involved_building')
     @building = Building.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @building }
-    end
+    render partial: 'new', content_type: 'text/html'
   end
 
   # GET /buildings/1/edit
   def edit
-    @title = t('view.buildings.edit_title')
+    @title = t('view.buildings.modal.involved_building')
     @building = Building.find(params[:id])
+
+    render partial: 'edit', content_type: 'text/html'
   end
 
   # POST /buildings
   # POST /buildings.json
   def create
-    @title = t('view.buildings.new_title')
+    @title = t('view.buildings.modal.involved_building')
     @building = @mobile_intervention.buildings.build(params[:building])
 
-    respond_to do |format|
-      if @building.save
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.buildings.correctly_created') }
-        format.json { render json: [@intervention, @mobile_intervention], status: :created, location: @building }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @building.errors, status: :unprocessable_entity }
-      end
+    if @building.save
+      js_notify message: t('view.buildings.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/building',
+        locals: { building: @building }, content_type: 'text/html'
+    else
+      render partial: 'new', status: :unprocessable_entity
     end
   end
 
   # PUT /buildings/1
   # PUT /buildings/1.json
   def update
-    @title = t('view.buildings.edit_title')
+    @title = t('view.buildings.modal.involved_building')
     @building = Building.find(params[:id])
 
-    respond_to do |format|
-      if @building.update_attributes(params[:building])
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.buildings.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @building.errors, status: :unprocessable_entity }
-      end
+    if @building.update_attributes(params[:building])
+      js_notify message: t('view.buildings.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/building',
+        locals: { building: @building }, content_type: 'text/html'
+    else
+      render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit', @intervention, @mobile_intervention, @building], alert: t('view.buildings.stale_object_error')
+    redirect_to [
+      'edit', @intervention, @endowment, 'mobile_intervention', @building
+    ], alert: t('view.buildings.stale_object_error')
   end
 
   # DELETE /buildings/1
@@ -84,15 +64,15 @@ class BuildingsController < ApplicationController
     @building = Building.find(params[:id])
     @building.destroy
 
-    respond_to do |format|
-      format.html { redirect_to [@intervention, @mobile_intervention] }
-      format.json { head :ok }
-    end
+    js_notify message: t('view.buildings.correctly_destroyed'),
+              type: 'alert-danger js-notify-18px-text', time: 2500
+    render nothing: true, content_type: 'text/html'
   end
 
   private
-    def get_intervention
-      @intervention = Intervention.includes(:mobile_intervention).find(params[:intervention_id])
-      @mobile_intervention = @intervention.mobile_intervention
+    def get_mobile_intervention
+      @endowment = Endowment.find(params[:endowment_id])
+      @intervention = @endowment.intervention
+      @mobile_intervention = @endowment.mobile_intervention
     end
 end

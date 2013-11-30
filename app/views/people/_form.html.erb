@@ -1,25 +1,20 @@
-<%= simple_form_for([@intervention, @mobile_intervention, (@building || @vehicle), @person]) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs clearfix">
-    <span class='span5'>
-      <%= f.input :name %>
-      <%= f.input :last_name %>
-      <%= f.input :address %>
-      <%= f.input :dni_type, collection: ['DNI', 'Libreta Cívica', 'Otro'], default: 'DNI' %>
-      <%= f.input :dni_number %>
-    </span>
-    <span class='span5'>
-      <%= f.input :age %>
-      <%= f.input :phone_number %>
-      <%= f.input :relation, collection: (params[:vehicle_id] ? ['Propietario', 'Conductor'] : ['Propietario','Inquilino']), default: 'Propietario' %>
-      <%= f.input :moved_to %>
-      <%= f.input :injuries %>
-    </span>
+<div class="row-fluid">
+  <div class="span5">
+    <%= f.input :name %>
+    <%= f.input :dni_type, collection: ['DNI', 'Libreta Cívica', 'Otro'],
+                default: 'DNI' %>
+    <%= f.input :age %>
+    <%= f.input :relation, collection: (params[:vehicle_id] ?
+        ['Propietario', 'Conductor'] : ['Propietario','Inquilino']),
+                default: 'Propietario' %>
   </div>
-
-  <div class="form-actions">
-    <div class="pull-right"><%= yield :form_actions %></div>
-    <%= f.button :submit, class: 'btn-primary' %>
+  <div class="span5 offset1">
+    <%= f.input :last_name %>
+    <%= f.input :dni_number %>
+    <%= f.input :phone_number %>
+    <%= f.input :moved_to %>
   </div>
-<% end %>
+  <div class="clearfix"></div>
+  <%= f.input :address, input_html: { class: 'span11' }  %>
+  <%= f.input :injuries, input_html: { class: 'span11', rows: 5 } %>
+</div>

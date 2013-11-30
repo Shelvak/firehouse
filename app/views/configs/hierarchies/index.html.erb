@@ -1,0 +1,37 @@
+<%= configs_subnav %>
+<% if @hierarchies.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <thead>
+          <tr>
+            <th><%= Hierarchy.human_attribute_name 'name' %></th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @hierarchies.each do |hierarchy| %>
+            <tr>
+              <td><%= hierarchy.name %></td>
+              <td><%= link_to_show [:configs, hierarchy] %></td>
+              <td><%= link_to_edit edit_configs_hierarchy_path(hierarchy) if can? :update, hierarchy %></td>
+              <td><%= link_to_destroy [:configs, hierarchy] if can? :destroy, hierarchy %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@hierarchies) %>
+<% end %>
+
+<div class="form-actions">
+  <%= link_to(
+    t('view.hierarchies.new', default: :'label.new'),
+    new_configs_hierarchy_path, class: 'btn btn-primary'
+  ) if can? :create, Hierarchy %>
+</div>

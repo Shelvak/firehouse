@@ -1,3 +1,13 @@
+window.Helpers =
+  getHour: ->
+    now = new Date
+    minutes = now.getMinutes()
+    minutes = if minutes > 9 then minutes else "0#{minutes}"
+    hours = now.getHours()
+    hours = if hours > 9 then hours else "0#{hours}"
+
+    hours + ':' + minutes
+
 new Rule
   load: ->
     # For browsers with no autofocus support
@@ -23,5 +33,6 @@ jQuery ($) ->
     $(this).find('input[type="submit"], input[name="utf8"]').attr 'disabled', true
     $(this).find('a.submit').removeClass('submit').addClass('disabled')
     $(this).find('.dropdown-toggle').addClass('disabled')
+
 
   Inspector.instance().load()

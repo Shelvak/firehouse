@@ -1,61 +1,65 @@
 <div class="readonly-data">
-  <h2><%= show_kind_of_intervention @intervention.kind %> - Planilla Móvil</h2>
-  <div class='row-fluid'>
-    <span class='span3'>
-      <br/>
-      <p>
-        <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
-        <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
-      </p>
-    </span>
-    <span class='span7'>
-      <%= simple_form_for([@intervention, @mobile_intervention]) do |f| %>
-        <div class="pull-right">
-          <%= f.button :submit, class: 'btn-primary' %>
-        </div>
-        <%= f.error_notification %>
-        <div class="form-inputs">
-          <%= f.input :observations %>
-        </div>
+  <div class="page-header">
+    <h2><%= @intervention.type %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
+    <p>
+      <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
+      <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
+    </p>
+    <%= form_for @mobile_intervention,
+                 url: intervention_endowment_mobile_intervention_path(
+                     @intervention, @endowment
+                 ), method: :put do |f| %>
+      <span class="pull-right"><%= f.submit t('view.mobile_interventions.edit_button'),
+                                            class: 'btn btn-primary' %></span>
+      <div class="form-inputs">
+        <%= f.text_area :observations, class: 'span9', rows: 5, placeholder:
+            t('activerecord.attributes.intervention.observations') %>
+      </div>
+  <% end %>
+  </div>
+
+  <div class='row-fluid page-header'>
+    <h3><%= t 'view.mobile_interventions.buildings_info' %></h3>
+    <div id="buildings_list">
+      <% @buildings.each do |building| %>
+        <%= render 'mobile_interventions/building', building: building %>
       <% end %>
-    </span>
-  </div>
-  <hr/>
-  <div class='row-fluid'>
-    <h3>Datos de inmuebles</h3>
-    <% @mobile_intervention.buildings.each do |building| %>
-      <%= render 'mobile_interventions/building', building: building %>
-    <% end %>
-    <p><%= link_to 'Agregar Inmueble', new_intervention_mobile_intervention_building_path(
-        @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
+      <div id="new_building"></div>
+    </div>
+    <p><%= link_to(
+               t('view.buildings.new'),
+               new_intervention_endowment_mobile_intervention_building_path(
+                   @intervention, @endowment), class: 'btn btn-primary', remote: true,
+               data: {target: 'modal', modal: true}
+           ) %></p>
   </div>
 
-  <hr/>
-
-  <div class='row-fluid'>
-    <h3>Vehículos</h3>
-    <% number = 0 %>
-    <% @mobile_intervention.vehicles.each do |vehicle| %>
-      <% number += 1 %>
-      <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
-    <% end %>
-    <p><%= link_to 'Agregar Vehículo', new_intervention_mobile_intervention_vehicle_path(
-        @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
+  <div class='row-fluid page-header'>
+    <h3><%= t 'view.mobile_interventions.vehicles_info' %></h3>
+    <div id="vehicles_list">
+      <% number = 0 %>
+      <% @vehicles.each do |vehicle| %>
+        <% number += 1 %>
+        <%= render 'mobile_interventions/vehicle', vehicle: vehicle, number: number %>
+      <% end %>
+      <div id="new_vehicle"></div>
+    </div>
+    <!--todo: asignar numero al crear-->
+    <p><%= link_to t('view.vehicles.new'),
+      new_intervention_endowment_mobile_intervention_vehicle_path(
+        @intervention, @endowment, number: 'sin asignar' ), class: 'btn btn-primary', remote: true,
+      data: { target: 'modal', modal: true } %></p>
   </div>
 
-  <hr/>
-
   <div class='row-fluid'>
-    <h3>Movilidades de apoyo</h3>
-    <% if @mobile_intervention.supports.any? %>
-      <%= render 'mobile_interventions/support_table' %>
-    <% end %>
-    <p><%= link_to 'Agregar Móvil de Apoyo', new_intervention_mobile_intervention_support_path(
-        @intervention, @mobile_intervention), class: 'btn btn-primary' %></p>
+    <h3><%= t 'view.mobile_interventions.supports_info' %></h3>
+    <%= render 'mobile_interventions/support_table' %>
+    <p><%= link_to t('view.supports.new'), ['new', @intervention, @endowment,
+           'mobile_intervention', 'support'], remote: true, data: {
+           target: 'modal', modal: true }, class: 'btn btn-primary' %></p>
   </div>
 </div>
 
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_intervention_mobile_intervention_path(@intervention, @mobile_intervention) if can? :update, @mobile_intervention %> |
   <%= link_to t('activerecord.models.intervention.one'), @intervention %>
 </div>

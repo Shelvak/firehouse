@@ -1,0 +1,11 @@
+<div id="<%= dom_id(intervention_type) %>" class="priority-item">
+  <span class="color-indicator" style="background-color: <%= intervention_type.color || 'white' %>">
+    <span class="text"><%= intervention_type.priority %></span>
+  </span>
+  <span class="text"><%= intervention_type.name %></span>
+  <span class="pull-right">
+    <%= link_to_edit edit_configs_intervention_type_path(intervention_type,
+                   priority: true), remote: true, data: { target: 'modal',
+                   modal: true } if can? :update, intervention_type %>
+  </span>
+</div>

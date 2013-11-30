@@ -1,66 +1,69 @@
 class SupportsController < ApplicationController
   before_filter :get_intervention
+  before_filter :authenticate_user!
+
+  check_authorization
+  load_and_authorize_resource
 
   def new
-    @title = t('view.support.new_title')
+    @title = t('view.supports.modal.involved_support')
     @support = Support.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @person }
-    end
+    render partial: 'new', content_type: 'text/html'
   end
 
   def edit
-    @title = t('view.support.edit_title')
+    @title = t('view.supports.modal.involved_support')
     @support = Support.find(params[:id])
+
+    render partial: 'edit', content_type: 'text/html'
   end
 
   def create
-    @title = t('view.support.new_title')
+    @title = t('view.supports.modal.involved_support')
     @support = @mobile_intervention.supports.build(params[:support])
-
-    respond_to do |format|
-      if @support.save
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.support.correctly_created') }
-        format.json { render json: [@intervention, @mobile_intervention], status: :created, location: @person }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
+    if @support.save
+      js_notify message: t('view.supports.correctly_created'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/support', locals: { support: @support},
+             content_type: 'text/html'
+    else
+      render partial: 'new', status: :unprocessable_entity
     end
   end
 
   def update
-    @title = t('view.support.edit_title')
+    @title = t('view.supports.modal.involved_support')
     @support = Support.find(params[:id])
 
-    respond_to do |format|
-      if @support.update_attributes(params[:person])
-        format.html { redirect_to [@intervention, @mobile_intervention], notice: t('view.support.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
+    if @support.update_attributes(params[:support])
+
+      js_notify message: t('view.supports.correctly_updated'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/support', locals: { support: @support},
+             content_type: 'text/html'
+    else
+      render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to ['edit',@intervention, @mobile_intervention, @support], alert: t('view.support.stale_object_error')
+    redirect_to [
+      'edit', @intervention, @endowment, 'mobile_intervention', @support
+    ], alert: t('view.support.stale_object_error')
   end
 
   def destroy
     @support = Support.find(params[:id])
     @support.destroy
 
-    respond_to do |format|
-      format.html { redirect_to [@intervention, @mobile_intervention] }
-      format.json { head :ok }
-    end
+    js_notify message: t('view.supports.correctly_destroyed'),
+              type: 'alert-danger js-notify-18px-text', time: 2500
+    render nothing: true, content_type: 'text/html'
   end
 
   private
-  def get_intervention
-    @intervention = Intervention.includes(:mobile_intervention).find(params[:intervention_id])
-    @mobile_intervention = @intervention.mobile_intervention
-  end
+    def get_intervention
+      @endowment = Endowment.find(params[:endowment_id])
+      @intervention = @endowment.intervention
+      @mobile_intervention = @endowment.mobile_intervention
+    end
 end

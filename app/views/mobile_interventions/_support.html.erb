@@ -1,0 +1,14 @@
+<tr id="<%= dom_id(support) %>">
+  <td><%= support.support_type %></td>
+  <td><%= support.number %></td>
+  <td><%= support.responsible %></td>
+  <td><%= support.driver %></td>
+  <td><%= support.owner %></td>
+  <td>
+    <%= link_to_edit ['edit', @intervention, @endowment,
+                      'mobile_intervention', support], remote: true, data: {
+        target: 'modal', modal: true } %>
+    <%= link_to_destroy [@intervention, @endowment, 'mobile_intervention',
+                         support], remote: true, data: { target: dom_id(support)} %>
+  </td>
+</tr>

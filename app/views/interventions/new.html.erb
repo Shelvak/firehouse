@@ -2,4 +2,27 @@
   <%= link_to t('label.list'), interventions_path %>
 <% end %>
 
+<h2><%= t('view.interventions.new_title', number: intervention_next_number_for_form) %></h2>
+
+<div id="show-quick-buttons" class="btn btn-mini btn-inverse pull-right">Mostrar botones rapidos</div>
+<% unless @intervention.errors.present? %>
+  <div class="quick-button-div" id="quick-button-div">
+    <div class="row">
+      <% (1..5).each do |i| %>
+        <%= render partial: 'interventions/quick_button_row', locals: { i: i } %>
+      <% end %>
+    </div>
+    <div class="row">
+      <% (6..10).each do |i| %>
+        <%= render partial: 'interventions/quick_button_row', locals: { i: i } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <%= render 'form' %>
+
+<script type="text/javascript">
+  toggle_quick_buttons_button();
+  apply_quick_button_functions();
+</script>
