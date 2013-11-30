@@ -22,13 +22,13 @@ class VehiclesController < ApplicationController
   def create
     @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = @mobile_intervention.vehicles.build(params[:vehicle])
+    @vehicle.number = @mobile_intervention.vehicles.size
 
     if @vehicle.save
       js_notify message: t('view.vehicles.correctly_created'),
                 type: 'alert-info js-notify-18px-text', time: 2500
       render partial: 'mobile_interventions/vehicle', 
-        locals: { vehicle: @vehicle, number: params[:number] }, 
-        content_type: 'text/html'
+        locals: { vehicle: @vehicle }, content_type: 'text/html'
     else
       render partial: 'new', status: :unprocessable_entity
     end
@@ -42,8 +42,7 @@ class VehiclesController < ApplicationController
       js_notify message: t('view.vehicles.correctly_updated'),
                 type: 'alert-info js-notify-18px-text', time: 2500
       render partial: 'mobile_interventions/vehicle',
-        locals: { vehicle: @vehicle, number: params[:number] },
-        content_type: 'text/html'
+        locals: { vehicle: @vehicle }, content_type: 'text/html'
     else
       render partial: 'edit', status: :unprocessable_entity
     end

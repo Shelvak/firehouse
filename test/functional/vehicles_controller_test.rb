@@ -22,6 +22,7 @@ class VehiclesControllerTest < ActionController::TestCase
   end
 
   test 'should create vehicle' do
+    @old_vehicles_count = @mobile_intervention.vehicles.size
     assert_difference('Vehicle.count') do
       xhr :post, :create,
           intervention_id: @mobile_intervention.endowment.intervention.to_param,
@@ -35,6 +36,7 @@ class VehiclesControllerTest < ActionController::TestCase
     assert_response :success
     assert_template ['mobile_interventions/_vehicle',
                      'mobile_interventions/_people_table']
+    assert_equal @old_vehicles_count + 1, assigns(:vehicle).number
   end
 
   test 'should get edit' do
