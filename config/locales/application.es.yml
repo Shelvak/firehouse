@@ -371,7 +371,7 @@
       new: "Agregar vehículo"
       edit: "Editar vehículo"
       modal:
-        involved_vehicle: 'Vehículo involucrado'
+        involved_vehicle: 'Vehículo involucrado nº %{number}'
     supports:
       index_title: "Moviles de apoyo"
       show_title: "Móvil de apoyo"

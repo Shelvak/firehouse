@@ -6,15 +6,15 @@ class VehiclesController < ApplicationController
   load_and_authorize_resource
 
   def new
-    @title = t('view.vehicles.modal.involved_vehicle')
+    @title = t('view.vehicles.modal.involved_vehicle', number: @mobile_intervention.vehicles.size + 1)
     @vehicle = @mobile_intervention.vehicles.build
 
     render partial: 'new', content_type: 'text/html'
   end
 
   def edit
-    @title = t('view.vehicles.modal.involved_vehicle')
     @vehicle = Vehicle.find(params[:id])
+    @title = t('view.vehicles.modal.involved_vehicle', number: @vehicle.number)
 
     render partial: 'edit', content_type: 'text/html'
   end
