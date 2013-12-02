@@ -14,17 +14,8 @@
           </tr>
         </thead>
 
-        <tbody>
-          <% @firefighters.each do |firefighter| %>
-            <tr>
-              <td><%= firefighter.firstname %></td>
-              <td><%= firefighter.lastname %></td>
-              <td><%= firefighter.identification %></td>
-              <td><%= link_to_show [:configs, firefighter] %></td>
-              <td><%= link_to_edit edit_configs_firefighter_path(firefighter) if can? :update, firefighter %></td>
-              <td><%= link_to_destroy [:configs, firefighter] if can? :destroy, firefighter %></td>
-            </tr>
-          <% end %>
+        <tbody id="firefighters_table_body">
+          <%= render @firefighters %>
         </tbody>
       </table>
     </div>
@@ -36,6 +27,6 @@
 <div class="form-actions">
   <%= link_to(
     t('view.firefighters.new', default: :'label.new'),
-    new_configs_firefighter_path, class: 'btn btn-primary'
-  ) if can? :create, Firefighter %>
+    new_configs_firefighter_path, class: 'btn btn-primary', remote: true, data: {
+    target: 'modal', modal: true } ) if can? :create, Firefighter %>
 </div>

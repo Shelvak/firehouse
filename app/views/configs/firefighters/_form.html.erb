@@ -1,14 +1,12 @@
-<%= simple_form_for([:configs, @firefighter]) do |f| %>
-  <%= f.error_notification %>
+<%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :firstname %>
-    <%= f.input :lastname %>
-    <%= f.input :identification %>
-  </div>
-
-  <div class="form-actions">
-    <div class="pull-right"><%= yield :form_actions %></div>
-    <%= f.button :submit, class: 'btn-primary' %>
-  </div>
+<div class="form-inputs">
+  <%= f.input :firstname %>
+  <%= f.input :lastname %>
+  <%= f.input :identification %>
+</div>
+<%= content_for :form_actions do %>
+  <%= link_to_function t('label.close'), "$('#modal').modal('toggle');",
+                       class: 'btn' %>
 <% end %>
+

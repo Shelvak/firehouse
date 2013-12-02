@@ -1,0 +1,23 @@
+<div class="modal">
+    <div class="modal-header readonly-data">
+      <h3><%= @firefighter %></h3>
+    </div>
+    <div class="modal-body readonly-data">
+      <p>
+        <strong><%= Firefighter.human_attribute_name 'firstname' %></strong>:
+        <%= @firefighter.firstname %>
+      </p>
+      <p>
+        <strong><%= Firefighter.human_attribute_name 'lastname' %></strong>:
+        <%= @firefighter.lastname %>
+      </p>
+      <p>
+        <strong><%= Firefighter.human_attribute_name 'identification' %></strong>:
+        <%= @firefighter.identification %>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');",
+                           class: 'btn' %>
+    </div>
+</div>

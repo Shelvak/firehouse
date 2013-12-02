@@ -17,47 +17,73 @@ class Configs::FirefightersControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new
+    xhr :get, :new
     assert_response :success
     assert_not_nil assigns(:firefighter)
     assert_select '#unexpected_error', false
-    assert_template 'configs/firefighters/new'
+    assert_template 'configs/firefighters/_new'
   end
 
   test 'should create firefighter' do
     assert_difference('Firefighter.count') do
-      post :create, firefighter: Fabricate.attributes_for(:firefighter)
+      xhr :post, :create, firefighter: Fabricate.attributes_for(:firefighter)
     end
+    assert_response :success
+    assert_not_nil assigns(:firefighter)
+    assert_template 'configs/firefighters/_firefighter'
+    assert_select '#unexpected_error', false
+  end
 
-    assert_redirected_to configs_firefighter_url(assigns(:firefighter))
+  test 'should not create firefighter' do
+    assert_no_difference('Firefighter.count') do
+      xhr :post, :create, firefighter: {}
+    end
+    assert_response :unprocessable_entity
+    assert_not_nil assigns(:firefighter)
+    assert_template 'configs/firefighters/_new'
+    assert_select '#unexpected_error', false
+    assert_select '.alert-error', true
   end
 
   test 'should show firefighter' do
-    get :show, id: @firefighter
+    xhr :get, :show, id: @firefighter
     assert_response :success
     assert_not_nil assigns(:firefighter)
     assert_select '#unexpected_error', false
-    assert_template 'configs/firefighters/show'
+    assert_template 'configs/firefighters/_show'
   end
 
   test 'should get edit' do
-    get :edit, id: @firefighter
+    xhr :get, :edit, id: @firefighter
     assert_response :success
     assert_not_nil assigns(:firefighter)
     assert_select '#unexpected_error', false
-    assert_template 'configs/firefighters/edit'
+    assert_template 'configs/firefighters/_edit'
   end
 
   test 'should update firefighter' do
-    put :update, id: @firefighter, firefighter: { firstname: 'bomber' }
-    assert_redirected_to configs_firefighter_url(assigns(:firefighter))
+    xhr :put, :update, id: @firefighter, firefighter: { firstname: 'bomber' }
+
+    assert_response :success
+    assert_not_nil assigns(:firefighter)
+    assert_template 'configs/firefighters/_firefighter'
+    assert_select '#unexpected_error', false
+  end
+
+  test 'should not update firefighter' do
+    xhr :put, :update, id: @firefighter, firefighter: { firstname: '' }
+
+    assert_response :unprocessable_entity
+    assert_not_nil assigns(:firefighter)
+    assert_template 'configs/firefighters/_edit'
+    assert_select '#unexpected_error', false
+    assert_select '.alert-error', true
   end
 
   test 'should destroy firefighter' do
     assert_difference('Firefighter.count', -1) do
-      delete :destroy, id: @firefighter
+      xhr :delete, :destroy, id: @firefighter
     end
-
-    assert_redirected_to configs_firefighters_url
+    assert_response :success
   end
 end
