@@ -1,0 +1,16 @@
+<div class="modal">
+  <%= simple_form_for([:configs, @firefighter], remote: true, html: { data: {
+      target: 'firefighters_table_body', error: 'modal', modal: true } }) do |f| %>
+    <div class="modal-header">
+      <h3><%= t('view.firefighters.new_title') %></h3>
+    </div>
+    <div class="modal-body">
+      <%= render partial: 'form', locals: { f: f } %>
+    </div>
+    <div class="modal-footer">
+      <%= yield :form_actions %>
+      <%= f.submit t('label.save'), class: 'btn btn-primary',
+                   disable_with: t('label.saving') %>
+    </div>
+  <% end %>
+</div>

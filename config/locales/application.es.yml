@@ -317,7 +317,7 @@
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
-      edit_profile: 'Editar rfil'
+      edit_profile: 'Editar perfil'
       roles:
         admin: 'Administrador'
         regular: 'Normal'
@@ -371,7 +371,7 @@
       new: "Agregar vehículo"
       edit: "Editar vehículo"
       modal:
-        involved_vehicle: 'Vehículo involucrado'
+        involved_vehicle: 'Vehículo involucrado nº %{number}'
     supports:
       index_title: "Moviles de apoyo"
       show_title: "Móvil de apoyo"

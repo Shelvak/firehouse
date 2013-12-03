@@ -22,10 +22,7 @@ class Configs::FirefightersController < ApplicationController
     @title = t('view.firefighters.show_title')
     @firefighter = Firefighter.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @firefighter }
-    end
+    render partial: 'show', content_type: 'text/html'
   end
 
   # GET /firefighters/new
@@ -33,17 +30,14 @@ class Configs::FirefightersController < ApplicationController
   def new
     @title = t('view.firefighters.new_title')
     @firefighter = Firefighter.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @firefighter }
-    end
+    render partial: 'new', content_type: 'text/html'
   end
 
   # GET /firefighters/1/edit
   def edit
     @title = t('view.firefighters.edit_title')
     @firefighter = Firefighter.find(params[:id])
+    render partial: 'edit', content_type: 'text/html'
   end
 
   # POST /firefighters
@@ -52,14 +46,10 @@ class Configs::FirefightersController < ApplicationController
     @title = t('view.firefighters.new_title')
     @firefighter = Firefighter.new(params[:firefighter])
 
-    respond_to do |format|
-      if @firefighter.save
-        format.html { redirect_to [:configs, @firefighter], notice: t('view.firefighters.correctly_created') }
-        format.json { render json: @firefighter, status: :created, location: @firefighter }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @firefighter.errors, status: :unprocessable_entity }
-      end
+    if @firefighter.save
+      render partial: 'firefighter', locals: { firefighter: @firefighter }, content_type: 'text/html'
+    else
+      render partial: 'new', status: :unprocessable_entity
     end
   end
 
@@ -69,14 +59,10 @@ class Configs::FirefightersController < ApplicationController
     @title = t('view.firefighters.edit_title')
     @firefighter = Firefighter.find(params[:id])
 
-    respond_to do |format|
-      if @firefighter.update_attributes(params[:firefighter])
-        format.html { redirect_to [:configs, @firefighter], notice: t('view.firefighters.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @firefighter.errors, status: :unprocessable_entity }
-      end
+    if @firefighter.update_attributes(params[:firefighter])
+      render partial: 'firefighter', locals: { firefighter: @firefighter }, content_type: 'text/html'
+    else
+      render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_configs_firefighter_url(@firefighter), alert: t('view.firefighters.stale_object_error')
@@ -88,9 +74,6 @@ class Configs::FirefightersController < ApplicationController
     @firefighter = Firefighter.find(params[:id])
     @firefighter.destroy
 
-    respond_to do |format|
-      format.html { redirect_to configs_firefighters_url }
-      format.json { head :ok }
-    end
+    render nothing: true, content_type: 'text/html'
   end
 end

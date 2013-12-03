@@ -1,0 +1,13 @@
+<tr id="<%= dom_id(firefighter) %>">
+  <td><%= firefighter.firstname %></td>
+  <td><%= firefighter.lastname %></td>
+  <td><%= firefighter.identification %></td>
+  <td><%= link_to_show [:configs, firefighter], remote: true, data: { target:
+                       'modal', modal: true } %></td>
+  <td><%= link_to_edit edit_configs_firefighter_path(firefighter), remote: true,
+                       data: { target: 'modal', modal: true } if can? :update,
+                       firefighter %></td>
+  <td><%= link_to_destroy [:configs, firefighter], remote: true, data: {
+                          target: dom_id(firefighter) } if can? :destroy,
+                          firefighter %></td>
+</tr>
