@@ -15,10 +15,14 @@ gem 'paper_trail'
 gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'sidekiq'
-gem 'capistrano'
 gem 'SrBuj'
 gem 'carrierwave'
 gem 'mini_magick'
+
+# Deploy
+gem 'capistrano'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
 
 group :assets do
   gem 'sass-rails'
