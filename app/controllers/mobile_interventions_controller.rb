@@ -31,16 +31,12 @@ class MobileInterventionsController < ApplicationController
     @title = t('view.mobile_interventions.edit_title')
     mobile_intervention = @endowment.mobile_intervention
 
-    respond_to do |format|
-      if mobile_intervention.update_attributes(params[:mobile_intervention])
-        format.html { redirect_to intervention_endowment_mobile_intervention_path(
-          @intervention, @endowment
-        ), notice: t('view.mobile_interventions.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @mobile_intervention.errors, status: :unprocessable_entity }
-      end
+    if mobile_intervention.update_attributes(params[:mobile_intervention])
+      redirect_to intervention_endowment_mobile_intervention_path(
+        @intervention, @endowment
+      ), notice: t('view.mobile_interventions.correctly_updated')
+    else
+      render action: 'edit'
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_intervention_endowment_mobile_intervention_path(
@@ -49,6 +45,7 @@ class MobileInterventionsController < ApplicationController
   end
 
   private
+
     def get_intervention
       @intervention = Intervention.find(params[:intervention_id])
       @endowment = Endowment.find params[:endowment_id]

@@ -8,9 +8,9 @@ class Status < ActiveRecord::Base
 
   # Replantear....
   STATUSES = Hash[
-    ALLOWED_STATUSES.map do |status| 
+    ALLOWED_STATUSES.map do |status|
       [status, I18n.t("view.statuses.allowed_statuses.#{status}") ]
-    end 
+    end
   ]
 
   def use_only_allowed_statuses

@@ -3,7 +3,7 @@
 module DeviseHelper
   def devise_links_es
     links = []
-    
+
     if controller_name != 'sessions'
       links << link_to(
         'Volver a inicio de sesión', new_session_path(resource_name)
@@ -42,7 +42,7 @@ module DeviseHelper
         )
       end
     end
-    
+
     links
   end
 end

@@ -4,7 +4,7 @@
 <% intervention_form = nil %>
 <%= simple_form_for @intervention, defaults: { input_html: { class: 'span10' } } do |f| %>
   <%= f.error_notification %>
-  <%= content_tag :div, f.object.errors.full_messages.join(', '), 
+  <%= content_tag :div, f.object.errors.full_messages.join(', '),
     class: 'alert alert-danger' if f.object.errors.size > 0 %>
 
   <div class="form-inputs">
@@ -53,7 +53,7 @@
         <div class='span5'>
           <%= f.label :receptor_id %>
           <%= f.input :auto_receptor_name, label: false, input_html: {
-            value: @intervention.receptor || current_user, 
+            value: @intervention.receptor || current_user,
             class: 'span10 autocomplete-field',
             data: {
               'autocomplete-id-target' => '#intervention_receptor_id',
@@ -78,7 +78,7 @@
         <ul class="nav nav-tabs">
           <li class="active">
             <%= link_to(
-              1, '#endowments_1', 
+              1, '#endowments_1',
               data: { toggle: 'tab', 'endowment-link' => true, number: 1 }
             ) %>
           </li>
@@ -87,13 +87,13 @@
               <% (count - 1).times do %>
                 <% i += 1 %>
                 <li>
-                  <%= link_to i, "#endowments_#{i}", 
+                  <%= link_to i, "#endowments_#{i}",
                     data: { toggle: 'tab', number: i } %>
                 </li>
               <% end %>
             <% end %>
           <%= link_to(
-            '&#xe008;'.html_safe, '#', 
+            '&#xe008;'.html_safe, '#',
             id: 'add_new_endowment', class: 'iconic'
           ) %>
         </ul>

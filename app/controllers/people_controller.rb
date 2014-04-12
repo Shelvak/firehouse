@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_filter :get_intervention
+  before_filter :assign_intervention
   before_filter :authenticate_user!
 
   check_authorization
@@ -41,15 +41,15 @@ class PeopleController < ApplicationController
     @title = t('view.people.modal.involved_person')
     @person = Person.find(params[:id])
 
-      if @person.update_attributes(params[:person])
-        js_notify message: t('view.people.correctly_updated'),
-                  type: 'alert-info js-notify-18px-text', time: 2500
-        render partial: 'mobile_interventions/person', locals: { person: @person },
-               content_type: 'text/html'
-      else
-        @type = @building || @vehicle
-        render partial: 'edit', status: :unprocessable_entity
-      end
+    if @person.update_attributes(params[:person])
+      js_notify message: t('view.people.correctly_updated'),
+                type: 'alert-info js-notify-18px-text', time: 2500
+      render partial: 'mobile_interventions/person', locals: { person: @person },
+             content_type: 'text/html'
+    else
+      @type = @building || @vehicle
+      render partial: 'edit', status: :unprocessable_entity
+    end
   rescue ActiveRecord::StaleObjectError
     redirect_to [
       'edit', @intervention, @endowment, 'mobile_intervention',
@@ -66,11 +66,18 @@ class PeopleController < ApplicationController
   end
 
   private
-    def get_intervention
+
+    def assign_intervention
       @endowment = Endowment.find(params[:endowment_id])
       @mobile_intervention = @endowment.mobile_intervention
       @intervention = @endowment.intervention
-      @building = @mobile_intervention.buildings.find(params[:building_id]) if params[:building_id]
-      @vehicle = @mobile_intervention.vehicles.find(params[:vehicle_id]) if params[:vehicle_id]
+
+      if b_id = params[:building_id]
+        @building = @mobile_intervention.buildings.find(b_id)
+      end
+
+      if v_id = params[:vehicle_id]
+        @vehicle = @mobile_intervention.vehicles.find(v_id)
+      end
     end
 end

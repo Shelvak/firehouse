@@ -16,7 +16,7 @@ class EndowmentLine < ActiveRecord::Base
 
   belongs_to :endowments
   has_many :endowment_line_firefighter_relations
-  has_many :firefighters, through: :endowment_line_firefighter_relations, 
+  has_many :firefighters, through: :endowment_line_firefighter_relations,
     autosave: true
 
   validates :charge, presence: true

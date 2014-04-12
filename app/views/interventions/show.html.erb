@@ -38,7 +38,7 @@
 </div>
 
 <div class="form-actions">
-  <%= link_to t('label.edit'), 
+  <%= link_to t('label.edit'),
     edit_intervention_path(@intervention) if can? :update, @intervention %> |
   <%= link_to t('label.list'), interventions_path %>
 </div>

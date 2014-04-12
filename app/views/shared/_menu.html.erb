@@ -4,14 +4,14 @@
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="iconic">&#xe055;</span>
       </a>
-      
+
       <%= link_to t('app_name'), root_path, class: 'brand' %>
-      
+
       <% if user_signed_in? %>
         <div class="nav-collapse">
           <ul class="nav">
             <%= show_menu_link(
-              name: 'interventions', controllers: 'interventions', 
+              name: 'interventions', controllers: 'interventions',
               path: interventions_path
             ) if can?(:read, Intervention) %>
             <%= show_menu_link(

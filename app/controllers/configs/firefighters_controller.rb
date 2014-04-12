@@ -47,7 +47,8 @@ class Configs::FirefightersController < ApplicationController
     @firefighter = Firefighter.new(params[:firefighter])
 
     if @firefighter.save
-      render partial: 'firefighter', locals: { firefighter: @firefighter }, content_type: 'text/html'
+      render partial: 'firefighter', locals: { firefighter: @firefighter },
+        content_type: 'text/html'
     else
       render partial: 'new', status: :unprocessable_entity
     end
@@ -60,12 +61,14 @@ class Configs::FirefightersController < ApplicationController
     @firefighter = Firefighter.find(params[:id])
 
     if @firefighter.update_attributes(params[:firefighter])
-      render partial: 'firefighter', locals: { firefighter: @firefighter }, content_type: 'text/html'
+      render partial: 'firefighter', locals: { firefighter: @firefighter },
+        content_type: 'text/html'
     else
       render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_configs_firefighter_url(@firefighter), alert: t('view.firefighters.stale_object_error')
+    redirect_to edit_configs_firefighter_url(@firefighter),
+      alert: t('view.firefighters.stale_object_error')
   end
 
   # DELETE /firefighters/1

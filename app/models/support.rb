@@ -1,7 +1,7 @@
 class Support < ActiveRecord::Base
   # English pleace
   SUPPORT_TYPES = [
-    'Policia', 'Bomberos', 'Bomberos Voluntarios', 
+    'Policia', 'Bomberos', 'Bomberos Voluntarios',
     'Ambulancia', 'Regadora', 'Cooperativa Electrica', 'Otros'
   ]
 

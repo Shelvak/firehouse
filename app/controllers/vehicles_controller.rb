@@ -6,7 +6,8 @@ class VehiclesController < ApplicationController
   load_and_authorize_resource
 
   def new
-    @title = t('view.vehicles.modal.involved_vehicle', number: @mobile_intervention.vehicles.size + 1)
+    @title = t('view.vehicles.modal.involved_vehicle',
+               number: @mobile_intervention.vehicles.size + 1)
     @vehicle = @mobile_intervention.vehicles.build
 
     render partial: 'new', content_type: 'text/html'
@@ -27,7 +28,7 @@ class VehiclesController < ApplicationController
     if @vehicle.save
       js_notify message: t('view.vehicles.correctly_created'),
                 type: 'alert-info js-notify-18px-text', time: 2500
-      render partial: 'mobile_interventions/vehicle', 
+      render partial: 'mobile_interventions/vehicle',
         locals: { vehicle: @vehicle }, content_type: 'text/html'
     else
       render partial: 'new', status: :unprocessable_entity

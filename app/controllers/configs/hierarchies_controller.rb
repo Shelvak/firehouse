@@ -9,11 +9,6 @@ class Configs::HierarchiesController < ApplicationController
   def index
     @title = t('view.hierarchies.index_title')
     @hierarchies = Hierarchy.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @hierarchies }
-    end
   end
 
   # GET /hierarchies/1
@@ -21,11 +16,6 @@ class Configs::HierarchiesController < ApplicationController
   def show
     @title = t('view.hierarchies.show_title')
     @hierarchy = Hierarchy.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @hierarchy }
-    end
   end
 
   # GET /hierarchies/new
@@ -33,11 +23,6 @@ class Configs::HierarchiesController < ApplicationController
   def new
     @title = t('view.hierarchies.new_title')
     @hierarchy = Hierarchy.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @hierarchy }
-    end
   end
 
   # GET /hierarchies/1/edit
@@ -52,14 +37,11 @@ class Configs::HierarchiesController < ApplicationController
     @title = t('view.hierarchies.new_title')
     @hierarchy = Hierarchy.new(params[:hierarchy])
 
-    respond_to do |format|
-      if @hierarchy.save
-        format.html { redirect_to [:configs, @hierarchy], notice: t('view.hierarchies.correctly_created') }
-        format.json { render json: @hierarchy, status: :created, location: @hierarchy }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @hierarchy.errors, status: :unprocessable_entity }
-      end
+    if @hierarchy.save
+      redirect_to [:configs, @hierarchy],
+        notice: t('view.hierarchies.correctly_created')
+    else
+      render action: 'new'
     end
   end
 
@@ -69,17 +51,15 @@ class Configs::HierarchiesController < ApplicationController
     @title = t('view.hierarchies.edit_title')
     @hierarchy = Hierarchy.find(params[:id])
 
-    respond_to do |format|
-      if @hierarchy.update_attributes(params[:hierarchy])
-        format.html { redirect_to [:configs, @hierarchy], notice: t('view.hierarchies.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @hierarchy.errors, status: :unprocessable_entity }
-      end
+    if @hierarchy.update_attributes(params[:hierarchy])
+      redirect_to [:configs, @hierarchy],
+        notice: t('view.hierarchies.correctly_updated')
+    else
+      render action: 'edit'
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_configs_hierarchy_url(@hierarchy), alert: t('view.hierarchies.stale_object_error')
+    redirect_to edit_configs_hierarchy_url(@hierarchy),
+      alert: t('view.hierarchies.stale_object_error')
   end
 
   # DELETE /hierarchies/1
@@ -88,9 +68,6 @@ class Configs::HierarchiesController < ApplicationController
     @hierarchy = Hierarchy.find(params[:id])
     @hierarchy.destroy
 
-    respond_to do |format|
-      format.html { redirect_to configs_hierarchies_url }
-      format.json { head :ok }
-    end
+    redirect_to configs_hierarchies_url
   end
 end

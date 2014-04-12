@@ -5,7 +5,7 @@
   <p>
     <strong><%= Sco.human_attribute_name 'current' if @sco.current %></strong>
   </p>
-  
+
 </div>
 <div class="form-actions">
   <%= link_to t('label.edit'), edit_configs_sco_path(@sco) if can? :update, @sco %> |

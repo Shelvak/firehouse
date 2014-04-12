@@ -3,8 +3,8 @@ class Endowment < ActiveRecord::Base
 
   attr_accessor :truck_number
 
-  attr_accessible :number, :endowment_lines_attributes, :out_at, 
-    :arrive_at, :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage, 
+  attr_accessible :number, :endowment_lines_attributes, :out_at,
+    :arrive_at, :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage,
     :in_mileage, :truck_number, :truck_id, :intervention_id
 
   belongs_to :intervention
@@ -21,7 +21,7 @@ class Endowment < ActiveRecord::Base
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
-  
+
     EndowmentLine::CHARGES.each do |k, v|
       self.endowment_lines.build(charge: k)
     end if self.endowment_lines.empty?
@@ -57,7 +57,7 @@ class Endowment < ActiveRecord::Base
       self.errors.add second_sym, I18n.t(
         'validations.distance.must_be_greater_than', distance: first
       )
-   
+
     end
   end
 

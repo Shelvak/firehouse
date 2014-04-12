@@ -8,5 +8,4 @@ class Person < ActiveRecord::Base
     :phone_number, :relation, :moved_to, :injuries, :building_id, :vehicle_id
 
   validates :name, presence: true
-
 end

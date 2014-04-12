@@ -8,7 +8,7 @@
     <strong><%= Truck.human_attribute_name 'mileage' %></strong>:
     <%= @truck.mileage %>
   </p>
-  
+
 </div>
 <div class="form-actions">
   <%= link_to t('label.edit'), edit_configs_truck_path(@truck) if can? :update, @truck %> |

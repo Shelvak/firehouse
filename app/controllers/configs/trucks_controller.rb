@@ -21,11 +21,6 @@ class Configs::TrucksController < ApplicationController
   def show
     @title = t('view.trucks.show_title')
     @truck = Truck.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @truck }
-    end
   end
 
   # GET /trucks/new
@@ -33,11 +28,6 @@ class Configs::TrucksController < ApplicationController
   def new
     @title = t('view.trucks.new_title')
     @truck = Truck.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @truck }
-    end
   end
 
   # GET /trucks/1/edit
@@ -52,14 +42,10 @@ class Configs::TrucksController < ApplicationController
     @title = t('view.trucks.new_title')
     @truck = Truck.new(params[:truck])
 
-    respond_to do |format|
-      if @truck.save
-        format.html { redirect_to [:configs, @truck], notice: t('view.trucks.correctly_created') }
-        format.json { render json: @truck, status: :created, location: @truck }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @truck.errors, status: :unprocessable_entity }
-      end
+    if @truck.save
+      redirect_to [:configs, @truck], notice: t('view.trucks.correctly_created')
+    else
+      render action: 'new'
     end
   end
 
@@ -69,14 +55,10 @@ class Configs::TrucksController < ApplicationController
     @title = t('view.trucks.edit_title')
     @truck = Truck.find(params[:id])
 
-    respond_to do |format|
-      if @truck.update_attributes(params[:truck])
-        format.html { redirect_to [:configs, @truck], notice: t('view.trucks.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @truck.errors, status: :unprocessable_entity }
-      end
+    if @truck.update_attributes(params[:truck])
+      redirect_to [:configs, @truck], notice: t('view.trucks.correctly_updated')
+    else
+      render action: 'edit'
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_truck_url(@truck), alert: t('view.trucks.stale_object_error')
@@ -88,9 +70,6 @@ class Configs::TrucksController < ApplicationController
     @truck = Truck.find(params[:id])
     @truck.destroy
 
-    respond_to do |format|
-      format.html { redirect_to configs_trucks_url }
-      format.json { head :ok }
-    end
+    redirect_to configs_trucks_url
   end
 end

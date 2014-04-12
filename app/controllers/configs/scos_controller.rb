@@ -23,11 +23,6 @@ class Configs::ScosController < ApplicationController
   def show
     @title = t('view.scos.show_title')
     @sco = Sco.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @sco }
-    end
   end
 
   # GET /scos/new
@@ -35,11 +30,6 @@ class Configs::ScosController < ApplicationController
   def new
     @title = t('view.scos.new_title')
     @sco = Sco.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @sco }
-    end
   end
 
   # GET /scos/1/edit
@@ -54,14 +44,10 @@ class Configs::ScosController < ApplicationController
     @title = t('view.scos.new_title')
     @sco = Sco.new(params[:sco])
 
-    respond_to do |format|
-      if @sco.save
-        format.html { redirect_to [:configs, @sco], notice: t('view.scos.correctly_created') }
-        format.json { render json: @sco, status: :created, location: @sco }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @sco.errors, status: :unprocessable_entity }
-      end
+    if @sco.save
+      redirect_to [:configs, @sco], notice: t('view.scos.correctly_created')
+    else
+      render action: 'new'
     end
   end
 
@@ -71,14 +57,10 @@ class Configs::ScosController < ApplicationController
     @title = t('view.scos.edit_title')
     @sco = Sco.find(params[:id])
 
-    respond_to do |format|
-      if @sco.update_attributes(params[:sco])
-        format.html { redirect_to configs_scos_url, notice: t('view.scos.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @sco.errors, status: :unprocessable_entity }
-      end
+    if @sco.update_attributes(params[:sco])
+      redirect_to configs_scos_url, notice: t('view.scos.correctly_updated')
+    else
+      render action: 'edit'
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_configs_sco_url(@sco), alert: t('view.scos.stale_object_error')
@@ -89,30 +71,21 @@ class Configs::ScosController < ApplicationController
   def destroy
     @sco = Sco.find(params[:id])
     @sco.destroy
-
-    respond_to do |format|
-      format.html { redirect_to configs_scos_url }
-      format.json { head :ok }
-    end
   end
 
   def activate
     sco = Sco.find(params[:id])
-    notice = sco.activate! ? 
-      t('view.scos.activated') : 
-      t('view.scos.stale_object_error')
+    notice = if sco.activate!
+               t('view.scos.activated')
+             else
+               t('view.scos.stale_object_error')
+             end
 
-    respond_to do |format|
-      format.html { redirect_to :back, notice: notice }
-    end
+    redirect_to :back, notice: notice
   end
 
   def mini_index
     @title = t('view.scos.index_title')
     @scos = Sco.order('current DESC')
-
-    respond_to do |format|
-      format.html 
-    end
   end
 end

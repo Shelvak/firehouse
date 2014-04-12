@@ -1,10 +1,10 @@
 'es':
   app_name: 'Firehouse'
-  
+
   attributes:
     created_at: 'Creación'
     updated_at: 'Actualización'
-    
+
   activerecord:
     models:
       endowment:
@@ -37,7 +37,7 @@
       vehicle:
         one: 'Vehículo'
         other: 'Vehículos'
-      
+
     attributes:
       building:
         address: 'Dirección'
@@ -138,11 +138,11 @@
         year: 'Año'
         domain: 'Dominio'
         damage: 'Daños'
-        
+
   errors:
     title: 'Error'
     access_denied: 'No tiene permisos para acceder al contenido'
-        
+
   label:
     'yes': 'Si'
     'no': 'No'
@@ -158,7 +158,7 @@
     sending: 'Enviado datos...'
     save: 'Guardar'
     saving: 'Guardando...'
-    
+
   menu:
     actions:
       logout: 'Salir de la aplicación'
@@ -170,7 +170,7 @@
     trucks: 'Moviles'
     users: 'Usuarios'
     configs: 'Configuración'
-    
+
   messages:
     confirmation: '¿Está seguro?'
 

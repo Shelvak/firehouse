@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     :role, :remember_me, :lock_version, :auto_hierarchy_name, :hierarchy_id
 
   # Defaul order
-  default_scope order('lastname ASC')
+  default_scope -> () { order('lastname ASC') }
 
   # Validations
   validates :name, presence: true
@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
-    
+
     self.role ||= :regular
   end
 
@@ -52,11 +52,11 @@ class User < ActiveRecord::Base
   def role
     self.roles.first.try(:to_sym)
   end
-  
+
   def role=(role)
     self.roles = [role]
   end
-  
+
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
   end

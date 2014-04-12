@@ -1,6 +1,6 @@
 class Firefighter < ActiveRecord::Base
   has_paper_trail
-  has_magick_columns identification: :integer, firstname: :string, 
+  has_magick_columns identification: :integer, firstname: :string,
     lastname: :string
 
   attr_accessible :firstname, :lastname, :identification

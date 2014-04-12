@@ -19,7 +19,6 @@ gem 'capistrano'
 gem 'SrBuj'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'rollbar'
 
 group :assets do
   gem 'sass-rails'
@@ -31,6 +30,7 @@ end
 group :development do
   gem 'unicorn'
   gem 'thin'
+  gem 'rubocop', github: 'bbatsov/rubocop'
 end
 
 group :test do

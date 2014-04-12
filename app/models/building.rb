@@ -8,5 +8,4 @@ class Building < ActiveRecord::Base
     :damage, :mobile_intervention_id
 
   validates :address, presence: true
-
 end

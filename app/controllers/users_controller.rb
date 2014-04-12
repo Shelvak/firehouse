@@ -51,14 +51,10 @@ class UsersController < ApplicationController
   def create
     @title = t 'view.users.new_title'
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: t('view.users.correctly_created') }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      redirect_to @user, notice: t('view.users.correctly_created')
+    else
+      render action: 'new'
     end
   end
 
@@ -68,39 +64,32 @@ class UsersController < ApplicationController
     authorize! :assign_roles, @user if params[:user] && params[:user][:roles]
     @title = t 'view.users.edit_title'
 
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: t('view.users.correctly_updated') }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.update_attributes(params[:user])
+      redirect_to @user, notice: t('view.users.correctly_updated')
+    else
+      render action: 'edit'
     end
-    
+
   rescue ActiveRecord::StaleObjectError
     flash.alert = t 'view.users.stale_object_error'
     redirect_to edit_user_url(@user)
   end
-  
+
   # GET /users/1/edit_profile
   def edit_profile
     @title = t('view.users.edit_profile')
   end
-  
+
   # PUT /users/1/update_profile
   # PUT /users/1/update_profile.xml
   def update_profile
     @title = t('view.users.edit_profile')
-    
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to(edit_profile_user_url(@user), notice: t('view.users.profile_correctly_updated')) }
-        format.xml  { head :ok }
-      else
-        format.html { render action: 'edit_profile' }
-        format.xml  { render xml: @user.errors, status: :unprocessable_entity }
-      end
+
+    if @user.update_attributes(params[:user])
+      redirect_to edit_profile_user_url(@user),
+        notice: t('view.users.profile_correctly_updated')
+    else
+      render action: 'edit_profile'
     end
 
   rescue ActiveRecord::StaleObjectError
@@ -113,10 +102,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
 
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
+    redirect_to users_url
   end
 
   def autocomplete_for_hierarchy_name
@@ -126,10 +112,10 @@ class UsersController < ApplicationController
       format.json { render json: hierarchies }
     end
   end
-  
+
   private
-  
-  def load_current_user
-    @user = current_user
-  end
+
+    def load_current_user
+      @user = current_user
+    end
 end
