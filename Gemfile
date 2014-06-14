@@ -23,6 +23,7 @@ gem 'mini_magick'
 gem 'capistrano'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
+gem 'unicorn'
 
 group :assets do
   gem 'sass-rails'
