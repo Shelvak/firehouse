@@ -8,10 +8,16 @@ class ImageUploader < CarrierWave::Uploader::Base
     'public/uploads'
   end
 
-  process convert: :png
   process resize_to_fill: [170, 170]
+  process convert: :png
 
   def extension_white_list
      %w(jpg jpeg gif png)
+  end
+
+  def filename
+    if original_filename.present? && super.present?
+      "#{super.chomp(File.extname(super))}.png"
+    end
   end
 end
