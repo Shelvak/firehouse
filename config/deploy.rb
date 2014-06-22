@@ -13,3 +13,9 @@ set :linked_files, %w{config/app_config.yml}
 set :linked_dirs, %w{log private public/uploads}
 
 set :keep_releases, 5
+
+namespace :deploy do
+  desc 'Restart application'
+  task :restart do
+  end
+end
