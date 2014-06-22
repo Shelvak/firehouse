@@ -5,7 +5,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    'public/uploads'
+    'uploads'
+  end
+
+  def cache_dir
+    'tmp/uploads'
   end
 
   process resize_to_fill: [170, 170]
@@ -13,11 +17,5 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def extension_white_list
      %w(jpg jpeg gif png)
-  end
-
-  def filename
-    if original_filename.present? && super.present?
-      "#{super.chomp(File.extname(super))}.png"
-    end
   end
 end

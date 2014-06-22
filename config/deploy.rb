@@ -10,12 +10,17 @@ set :format, :pretty
 set :log_level, :debug
 
 set :linked_files, %w{config/app_config.yml}
-set :linked_dirs, %w{log private public/uploads}
+set :linked_dirs, %w{log uploads}
 
 set :keep_releases, 5
 
 namespace :deploy do
   desc 'Restart application'
   task :restart do
+    on roles(:app) do
+      execute :ln, '-nfs',
+        "#{shared_path}/uploads",
+        "#{current_path}/public/uploads"
+    end
   end
 end
