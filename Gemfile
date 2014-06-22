@@ -25,6 +25,8 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'unicorn'
 
+gem 'interactive_editor'
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
@@ -33,7 +35,6 @@ group :assets do
 end
 
 group :development do
-  gem 'unicorn'
   gem 'thin'
   gem 'rubocop', github: 'bbatsov/rubocop'
 end
