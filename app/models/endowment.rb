@@ -3,9 +3,9 @@ class Endowment < ActiveRecord::Base
 
   attr_accessor :truck_number
 
-  attr_accessible :number, :endowment_lines_attributes, :out_at,
-    :arrive_at, :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage,
-    :in_mileage, :truck_number, :truck_id, :intervention_id
+  #attr_accessible :number, :endowment_lines_attributes, :out_at,
+  #  :arrive_at, :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage,
+  #  :in_mileage, :truck_number, :truck_id, :intervention_id
 
   belongs_to :intervention
   belongs_to :truck

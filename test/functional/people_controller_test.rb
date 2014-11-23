@@ -25,7 +25,8 @@ class PeopleControllerTest < ActionController::TestCase
     assert_not_nil assigns(:person)
     assert_equal assigns(:building), assigns(:type)
     assert_select '#unexpected_error', false
-    assert_template ['people/_new', 'people/_form']
+    assert_template 'people/_new'
+    assert_template 'people/_form'
   end
 
   test 'should create person for building' do
@@ -56,7 +57,8 @@ class PeopleControllerTest < ActionController::TestCase
     assert_not_nil assigns(:person)
     assert_equal assigns(:building), assigns(:type)
     assert_select '#unexpected_error', false
-    assert_template ['people/_edit', 'people/_form']
+    assert_template 'people/_edit'
+    assert_template 'people/_form'
   end
 
   test 'should update person for building' do
@@ -83,8 +85,8 @@ class PeopleControllerTest < ActionController::TestCase
           id: @person
     end
     assert_response :success
-    assert_template ['mobile_interventions/_building',
-                     'mobile_interventions/_people_table']
+    assert_template 'mobile_interventions/_building'
+    assert_template 'mobile_interventions/_people_table'
   end
 
   test 'should get new for vehicle' do
@@ -98,7 +100,8 @@ class PeopleControllerTest < ActionController::TestCase
     assert_not_nil assigns(:person)
     assert_equal assigns(:vehicle), assigns(:type)
     assert_select '#unexpected_error', false
-    assert_template ['people/_new', 'people/_form']
+    assert_template 'people/_new'
+    assert_template 'people/_form'
   end
 
   test 'should create person for vehicle' do
@@ -131,7 +134,8 @@ class PeopleControllerTest < ActionController::TestCase
     assert_not_nil assigns(:person)
     assert_equal assigns(:vehicle), assigns(:type)
     assert_select '#unexpected_error', false
-    assert_template ['people/_edit', 'people/_form']
+    assert_template 'people/_edit'
+    assert_template 'people/_form'
   end
 
   test 'should update person for vehicle' do
@@ -158,7 +162,7 @@ class PeopleControllerTest < ActionController::TestCase
           id: @person
     end
     assert_response :success
-    assert_template ['mobile_interventions/_vehicle',
-                     'mobile_interventions/_people_table']
+    assert_template 'mobile_interventions/_vehicle'
+    assert_template 'mobile_interventions/_people_table'
   end
 end

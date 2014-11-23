@@ -21,7 +21,8 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:intervention_type)
     assert_select '#unexpected_error', false
-    assert_template ['intervention_types/_new', 'intervention_types/_form']
+    assert_template 'intervention_types/_new'
+    assert_template 'intervention_types/_form'
   end
 
   test 'should get new children' do
@@ -30,7 +31,8 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:intervention_type)
     assert_not_nil assigns(:father)
     assert_select '#unexpected_error', false
-    assert_template ['intervention_types/_new', 'intervention_types/_form']
+    assert_template 'intervention_types/_new'
+    assert_template 'intervention_types/_form'
   end
 
   test 'should create intervention_type' do
@@ -39,7 +41,7 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
     end
     assert_response :success
     assert_not_nil assigns(:intervention_type)
-    assert_template ['intervention_types/_intervention_type']
+    assert_template 'intervention_types/_intervention_type'
   end
 
   test 'should create a children for an existent intervention_type' do
@@ -50,7 +52,7 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
     end
     assert_response :success
     assert_equal assigns(:intervention_type), @father.reload.childrens.first
-    assert_template ['intervention_types/_intervention_type']
+    assert_template 'intervention_types/_intervention_type'
   end
 
   test 'should get edit' do
@@ -58,7 +60,8 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:intervention_type)
     assert_select '#unexpected_error', false
-    assert_template ['intervention_types/_edit', 'intervention_types/_form']
+    assert_template 'intervention_types/_edit'
+    assert_template 'intervention_types/_form'
   end
 
   test 'should update intervention_type' do
@@ -66,7 +69,7 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
       intervention_type: Fabricate.attributes_for(:intervention_type, name: 'value')
     assert_response :success
     assert_not_nil assigns(:intervention_type)
-    assert_template ['intervention_types/_intervention_type']
+    assert_template 'intervention_types/_intervention_type'
   end
 
   test 'should destroy intervention_type' do

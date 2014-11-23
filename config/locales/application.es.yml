@@ -110,7 +110,6 @@
       sco:
         full_name: 'Nombre y apellido'
         current: 'Actual'
-      statuses:
       support:
         support_type: 'Tipo de apoyo'
         number: 'Número'

@@ -12,7 +12,7 @@ class PersonTest < ActiveSupport::TestCase
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Person.count' do
         assert @person.update_attributes(name: 'Updated')
       end
@@ -22,7 +22,7 @@ class PersonTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Person.count', -1) { @person.destroy }
     end
   end

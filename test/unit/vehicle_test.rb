@@ -12,7 +12,7 @@ class VehicleTest < ActiveSupport::TestCase
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Vehicle.count' do
         assert @vehicle.update_attributes(mark: 'Updated')
       end
@@ -22,7 +22,7 @@ class VehicleTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Vehicle.count', -1) { @vehicle.destroy }
     end
   end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.1.8'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -12,7 +12,7 @@ gem 'devise'
 gem 'cancan'
 gem 'role_model'
 gem 'paper_trail'
-gem 'magick_columns'
+gem 'magick_columns', github: 'kainlite/magick_columns'
 gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'SrBuj'
@@ -25,25 +25,21 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-chruby'
 gem 'unicorn'
-
+gem 'awesome_print'
 gem 'interactive_editor'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  gem 'bootstrap-colorpicker-rails'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'bootstrap-colorpicker-rails'
 
 group :development do
   gem 'thin'
-  gem 'rubocop', github: 'bbatsov/rubocop'
 end
 
 group :test do
-  gem 'turn', require: false
   gem 'capybara', require: false
-  gem 'selenium-webdriver', require: false
+  gem 'selenium-webdriver'
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'

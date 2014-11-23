@@ -6,13 +6,13 @@ class FirefighterTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Firefighter.count', 'Version.count'] do
+    assert_difference ['Firefighter.count', 'PaperTrail::Version.count'] do
       Firefighter.create(Fabricate.attributes_for(:firefighter))
     end
   end
 
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Firefighter.count' do
         assert @firefighter.update_attributes(firstname: 'Updated')
       end
@@ -22,7 +22,7 @@ class FirefighterTest < ActiveSupport::TestCase
   end
 
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Firefighter.count', -1) { @firefighter.destroy }
     end
   end

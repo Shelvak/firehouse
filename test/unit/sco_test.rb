@@ -6,13 +6,13 @@ class ScoTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Sco.count', 'Version.count'] do
+    assert_difference ['Sco.count', 'PaperTrail::Version.count'] do
       @sco = Sco.create(Fabricate.attributes_for(:sco))
     end 
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Sco.count' do
         assert @sco.update_attributes(full_name: 'Updated')
       end
@@ -22,7 +22,7 @@ class ScoTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Sco.count', -1) { @sco.destroy }
     end
   end

@@ -6,13 +6,13 @@ class TruckTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Truck.count', 'Version.count'] do
+    assert_difference ['Truck.count', 'PaperTrail::Version.count'] do
       @truck = Truck.create(Fabricate.attributes_for(:truck))
     end 
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Truck.count' do
         assert @truck.update_attributes(mileage: 99)
       end
@@ -22,7 +22,7 @@ class TruckTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Truck.count', -1) { @truck.destroy }
     end
   end

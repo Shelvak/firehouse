@@ -105,7 +105,7 @@ class InterventionsController < ApplicationController
 
   def map
     @title = t('view.interventions.map_index.title')
-    @interventions = Intervention.includes(:statuses).where('statuses.name = ?', 'open')
+    @interventions = Intervention.includes(:statuses).where(statuses: { name: 'open' })
   end
 
   private

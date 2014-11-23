@@ -12,7 +12,7 @@ class SupportTest < ActiveSupport::TestCase
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Support.count' do
         assert @support.update_attributes(responsible: 'Updated')
       end
@@ -22,7 +22,7 @@ class SupportTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Support.count', -1) { @support.destroy }
     end
   end

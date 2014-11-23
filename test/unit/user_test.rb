@@ -6,13 +6,13 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test 'create' do
-    assert_difference ['User.count', 'Version.count'] do
+    assert_difference ['User.count', 'PaperTrail::Version.count'] do
       @user = User.create(Fabricate.attributes_for(:user))
     end
   end
   
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'User.count' do
         assert @user.update_attributes(name: 'Updated')
       end
@@ -22,7 +22,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('User.count', -1) { @user.destroy }
     end
   end

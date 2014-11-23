@@ -13,8 +13,8 @@ class User < ActiveRecord::Base
   attr_accessor :auto_hierarchy_name
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :lastname, :email, :password, :password_confirmation,
-    :role, :remember_me, :lock_version, :auto_hierarchy_name, :hierarchy_id
+  #attr_accessible :name, :lastname, :email, :password, :password_confirmation,
+  #  :role, :remember_me, :lock_version, :auto_hierarchy_name, :hierarchy_id
 
   # Defaul order
   default_scope -> () { order('lastname ASC') }
@@ -58,6 +58,6 @@ class User < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : scoped
+    query.present? ? magick_search(query) : all
   end
 end

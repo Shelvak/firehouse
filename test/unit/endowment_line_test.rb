@@ -7,7 +7,7 @@ class EndowmentLineTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['EndowmentLine.count', 'Version.count'] do
+    assert_difference ['EndowmentLine.count', 'PaperTrail::Version.count'] do
       endowment_line = EndowmentLine.new(Fabricate.attributes_for(
         :endowment_line,
         firefighters_names: @endowment_line.firefighters.map(&:id).join
@@ -18,7 +18,7 @@ class EndowmentLineTest < ActiveSupport::TestCase
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'EndowmentLine.count' do
         assert @endowment_line.update_attributes(charge: 99)
       end
@@ -28,7 +28,7 @@ class EndowmentLineTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('EndowmentLine.count', -1) { @endowment_line.destroy }
     end
   end

@@ -1,7 +1,8 @@
-ENV["RAILS_ENV"] = "test"
+ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'database_cleaner'
 require 'sidekiq/testing/inline'
 
 class ActiveSupport::TestCase
@@ -26,19 +27,22 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   # Stop ActiveRecord from wrapping tests in transactions
+  DatabaseCleaner.strategy = :truncation
+  Capybara.default_driver = :selenium
   self.use_transactional_fixtures = false
 
   setup do
-    Capybara.default_driver = :selenium
+    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
+    Capybara.server_port = '54163'
+    Capybara.app_host = "http://localhost:54163"
+    Capybara.reset!    # Forget the (simulated) browser state
+    Capybara.default_wait_time = 4
   end
 
+
   teardown do
-    # Truncate the database
     DatabaseCleaner.clean
-    # Forget the (simulated) browser state
-    Capybara.reset_sessions!
-    # Revert Capybara.current_driver to Capybara.default_driver
-    Capybara.use_default_driver
+    Capybara.reset!
   end
 
   def login

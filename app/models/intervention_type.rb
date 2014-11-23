@@ -7,8 +7,8 @@ class InterventionType < ActiveRecord::Base
   has_many :childrens, class_name: 'InterventionType'
   has_many :interventions
 
-  attr_accessible :name, :priority, :father, :target, :callback, :color,
-    :image, :remote_image_url, :intervention_type_id
+  #attr_accessible :name, :priority, :father, :target, :callback, :color,
+   # :image, :remote_image_url, :intervention_type_id
 
   validates :name, :color, presence: true
 

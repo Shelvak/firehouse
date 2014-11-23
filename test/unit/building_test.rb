@@ -12,7 +12,7 @@ class BuildingTest < ActiveSupport::TestCase
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Building.count' do
         assert @building.update_attributes(address: 'alwaysalive 123')
       end
@@ -22,7 +22,7 @@ class BuildingTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Building.count', -1) { @building.destroy }
     end
   end

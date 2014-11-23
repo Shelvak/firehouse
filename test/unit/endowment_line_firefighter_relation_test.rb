@@ -9,7 +9,7 @@ class EndowmentLineFirefighterRelationTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference 'EndowmentLineFirefighterRelation.count' do
-      assert_difference 'Version.count', 2 do
+      assert_difference 'PaperTrail::Version.count', 2 do
         assert EndowmentLineFirefighterRelation.create(
           endowment_line_id: @endowment_line.id,
           firefighter_id: Fabricate(:firefighter).id
@@ -25,7 +25,7 @@ class EndowmentLineFirefighterRelationTest < ActiveSupport::TestCase
       firefighter_id: Fabricate(:firefighter).id
     )
 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference 'EndowmentLineFirefighterRelation.count', -1 do
         assert @relation.destroy
       end
