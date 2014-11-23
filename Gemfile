@@ -26,6 +26,7 @@ gem 'capistrano-rails'
 gem 'unicorn'
 
 gem 'interactive_editor'
+gem 'capistrano-chruby'
 
 group :assets do
   gem 'sass-rails'
