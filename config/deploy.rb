@@ -14,7 +14,7 @@ set :linked_dirs, %w{log uploads}
 
 set :keep_releases, 5
 
-set :chruby_ruby, 'ruby-2.0.0-p576'
+set :chruby_ruby, '2.0.0-p576'
 
 namespace :deploy do
   desc 'Restart application'

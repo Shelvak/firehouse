@@ -23,10 +23,10 @@ gem 'mini_magick'
 gem 'capistrano'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
+gem 'capistrano-chruby'
 gem 'unicorn'
 
 gem 'interactive_editor'
-gem 'capistrano-chruby'
 
 group :assets do
   gem 'sass-rails'
