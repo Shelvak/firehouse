@@ -5,7 +5,3 @@
   <%= f.input :lastname %>
   <%= f.input :identification %>
 </div>
-<%= content_for :form_actions do %>
-  <%= link_to_function t('label.close'), "$('#modal').modal('toggle');",
-                       class: 'btn' %>
-<% end %>

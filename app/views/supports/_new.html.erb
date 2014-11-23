@@ -4,14 +4,13 @@
       modal: true, callback: "highlightItem('new_support', 'supports_table_body',
       false);", replace: true } } ) do |f| %>
     <div class="modal-header">
+      <button class="close" data-dismiss="modal">&times;</button>
       <h2><%= @title %></h2>
     </div>
     <div class="modal-body">
       <%= render partial: 'form', locals: { f: f } %>
     </div>
     <div class="modal-footer">
-      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');",
-                           class: 'btn' %>
       <%= f.button :submit, t('view.supports.new'), class: 'btn-primary' %>
     </div>
   <% end %>
