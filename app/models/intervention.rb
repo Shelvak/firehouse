@@ -9,9 +9,9 @@ class Intervention < ActiveRecord::Base
  #   :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id,
  #   :latitude, :longitude, :endowments
 
-  validates :address, :intervention_type_id, :number, :receptor_id, presence: true
-  validates :number, uniqueness: true
-  validate :sco_presence
+  #validates :address, :intervention_type_id, :number, :receptor_id, presence: true
+  #validates :number, uniqueness: true
+  #validate :sco_presence
 
   before_validation :assign_intervention_number, :assign_endowment_number,
     :validate_truck_presence
