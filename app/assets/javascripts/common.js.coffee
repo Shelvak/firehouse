@@ -24,13 +24,13 @@ new Rule
 jQuery ($) ->
   $(document).on 'click', 'a.submit', -> $('form').submit(); false
 
-  $(document).on 'ready', ->
-    interventionAlert = document.getElementById('intervention_alert')
-    source = new EventSource('/console')
-    source.addEventListener 'console', (e) ->
-      data = JSON.parse e.data
-      link = '<a href="' + data.link + '">' + data.title + '</a>'
-      interventionAlert.innerHtml = link
+#  $(document).on 'ready', ->
+#    interventionAlert = document.getElementById('intervention_alert')
+#    source = new EventSource('/console')
+#    source.addEventListener 'console', (e) ->
+#      data = JSON.parse e.data
+#      link = '<a href="' + data.link + '">' + data.title + '</a>'
+#      interventionAlert.innerHtml = link
 
 
   $(document).ajaxStart ->

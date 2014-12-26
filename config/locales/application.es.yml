@@ -1,406 +1,404 @@
-'es':
-  app_name: 'Firehouse'
-
-  attributes:
-    created_at: 'Creación'
-    updated_at: 'Actualización'
-
+---
+es:
   activerecord:
-    models:
-      endowment:
-        one: 'Dotación'
-        other: 'Dotaciones'
-      endowment_line:
-        one: 'Item dotación'
-        other: 'Items dotación'
-      firefighter:
-        one: 'Bombero'
-        other: 'Bomberos'
-      hierarchy:
-        one: 'Jerarquía'
-        other: 'Jerarquías'
-      intervention:
-        one: 'Intervención'
-        other: 'Intervenciones'
-      intervention_type:
-        one: 'Tipo de intervención'
-        other: 'Tipos de intervenciones'
-      mobile_intervention:
-        one: 'Planilla móvil'
-        other: 'Planillas móviles'
-      truck:
-        one: 'Móvil'
-        other: 'Moviles'
-      user:
-        one: 'Usuario'
-        other: 'Usuarios'
-      vehicle:
-        one: 'Vehículo'
-        other: 'Vehículos'
-
     attributes:
       building:
-        address: 'Dirección'
-        description: 'Descripción'
-        floor: 'Piso'
-        roof: 'Techo'
-        window: 'Aberturas'
-        electrics: 'Instalación eléctrica'
-        damage: 'Daños'
-        damage: 'Daños'
-      endowment_line:
-        firefighter_id: 'Bombero'
-        charge: 'Cargo'
+        address: "Dirección"
+        damage: "Daños"
+        description: "Descripción"
+        electrics: "Instalación eléctrica"
+        floor: "Piso"
+        roof: "Techo"
+        window: "Aberturas"
       endowment:
-        number: 'Número de dotación'
-        truck_id: 'Móvil'
-        out_at: 'Salida'
-        arrive_at: 'Llegada al lugar'
-        back_at: 'Vuelta del lugar'
-        in_at: 'Llegada al cuartel'
+        arrive_at: "Llegada al lugar"
+        back_at: "Vuelta del lugar"
+        in_at: "Llegada al cuartel"
+        number: "Número de dotación"
+        out_at: "Salida"
+        truck_id: "Móvil"
+      endowment_line:
+        charge: "Cargo"
+        firefighter_id: "Bombero"
       firefighter:
-        firstname: 'Nombres'
-        lastname: 'Apellidos'
-        identification: 'Identificación DNI/Legajo'
+        firstname: "Nombres"
+        identification: "Identificación DNI/Legajo"
+        lastname: "Apellidos"
       hierarchy:
-        name: 'Nombre'
+        name: "Nombre"
       informer:
-        full_name: 'Nombre y apellido'
-        nid: 'DNI/DI/Libreta/Pasaporte'
-        phone: 'Teléfono'
-        address: 'Dirección'
+        address: "Dirección"
+        full_name: "Nombre y apellido"
+        nid: "DNI/DI/Libreta/Pasaporte"
+        phone: "Teléfono"
       intervention:
-        number: 'Número'
-        address: 'Dirección'
-        near_corner: 'Esquina cercana'
-        kind: 'Tipo'
-        kind_notes: 'Anotaciones'
-        hierarchy_id: 'Jerarquía'
-        receptor_id: 'Receptor'
-        observations: 'Observaciones'
-        hierarchy_name: 'Jerarquía'
-        sco_id: 'CEO'
-        endowments_attributes: 'Dotaciones'
-        intervention_type_id: 'Tipo intervención'
-        latitude: 'Latitud'
-        longitude: 'Longitud'
+        address: "Dirección"
+        endowments_attributes: "Dotaciones"
+        hierarchy_id: "Jerarquía"
+        hierarchy_name: "Jerarquía"
+        intervention_type_id: "Tipo intervención"
+        kind: "Tipo"
+        kind_notes: "Anotaciones"
+        latitude: "Latitud"
+        longitude: "Longitud"
+        near_corner: "Esquina cercana"
+        number: "Número"
+        observations: "Observaciones"
+        receptor_id: "Receptor"
+        sco_id: "CEO"
       intervention_type:
-        name: 'Nombre'
-        priority: 'Prioridad'
-        father: 'Tipo general'
-        image: 'Imagen'
-        target: 'Destino'
-        callback: 'Función de retorno'
-        color: 'Color de texto'
+        callback: "Función de retorno"
+        color: "Color de texto"
+        father: "Tipo general"
+        image: "Imagen"
         image_address: "Inserte la dirección"
+        name: "Nombre"
+        priority: "Prioridad"
+        target: "Destino"
       mobile_intervention:
-        date: 'Fecha'
-        observations: 'Observaciones'
+        date: "Fecha"
+        observations: "Observaciones"
       person:
-        name: 'Nombre'
-        last_name: 'Apellido'
-        address: 'Dirección'
-        dni_type: 'DNI tipo'
-        dni_number: 'DNI numero'
-        age: 'Edad'
-        phone_number: 'Teléfono'
-        relation: 'Vínculo'
-        moved_to: 'Trasladado a'
-        injuries: 'Lesiones'
+        address: "Dirección"
+        age: "Edad"
+        dni_number: "DNI numero"
+        dni_type: "DNI tipo"
+        injuries: "Lesiones"
+        last_name: "Apellido"
+        moved_to: "Trasladado a"
+        name: "Nombre"
+        phone_number: "Teléfono"
+        relation: "Vínculo"
       sco:
-        full_name: 'Nombre y apellido'
-        current: 'Actual'
+        current: "Actual"
+        full_name: "Nombre y apellido"
       support:
-        support_type: 'Tipo de apoyo'
-        number: 'Número'
-        responsible: 'A cargo'
-        driver: 'Conductor'
-        owner: 'Pertence'
+        driver: "Conductor"
+        number: "Número"
+        owner: "Pertence"
+        responsible: "A cargo"
+        support_type: "Tipo de apoyo"
       truck:
-        number: 'Número'
-        mileage: 'Kilómetros'
+        mileage: "Kilómetros"
+        number: "Número"
       user:
-        name: 'Nombre'
-        lastname: 'Apellido'
-        email: 'Correo'
-        password: 'Contraseña'
-        password_confirmation: 'Confirmación'
+        email: "Correo"
+        hierarchy_id: "Jerarquía"
+        lastname: "Apellido"
+        name: "Nombre"
+        password: "Contraseña"
+        password_confirmation: "Confirmación"
+        remember_me: "Recordarme"
         roles:
-          one: 'Perfil'
-          other: 'Perfiles'
-        remember_me: 'Recordarme'
-        hierarchy_id: 'Jerarquía'
+          one: "Perfil"
+          other: "Perfiles"
       vehicle:
-        number: 'Número'
-        mark: 'Marca'
-        model: 'Modelo'
-        year: 'Año'
-        domain: 'Dominio'
-        damage: 'Daños'
-
+        damage: "Daños"
+        domain: "Dominio"
+        mark: "Marca"
+        model: "Modelo"
+        number: "Número"
+        year: "Año"
+    models:
+      endowment:
+        one: "Dotación"
+        other: "Dotaciones"
+      endowment_line:
+        one: "Item dotación"
+        other: "Items dotación"
+      firefighter:
+        one: "Bombero"
+        other: "Bomberos"
+      hierarchy:
+        one: "Jerarquía"
+        other: "Jerarquías"
+      intervention:
+        one: "Intervención"
+        other: "Intervenciones"
+      intervention_type:
+        one: "Tipo de intervención"
+        other: "Tipos de intervenciones"
+      mobile_intervention:
+        one: "Planilla móvil"
+        other: "Planillas móviles"
+      truck:
+        one: "Móvil"
+        other: "Moviles"
+      user:
+        one: "Usuario"
+        other: "Usuarios"
+      vehicle:
+        one: "Vehículo"
+        other: "Vehículos"
+  app_name: "Firehouse"
+  attributes:
+    created_at: "Creación"
+    updated_at: "Actualización"
   errors:
-    title: 'Error'
-    access_denied: 'No tiene permisos para acceder al contenido'
-
+    access_denied: "No tiene permisos para acceder al contenido"
+    title: "Error"
   label:
-    'yes': 'Si'
-    'no': 'No'
-    close: 'Cerrar'
-    delete: 'Eliminar'
-    edit: 'Editar'
-    list: 'Listado'
-    loading: 'Cargando...'
-    new: 'Nuevo'
-    search: 'Buscar'
-    without_results: 'Sin resultados'
-    show: 'Ver'
-    sending: 'Enviado datos...'
-    save: 'Guardar'
-    saving: 'Guardando...'
-
+    close: "Cerrar"
+    delete: "Eliminar"
+    edit: "Editar"
+    list: "Listado"
+    loading: "Cargando..."
+    new: "Nuevo"
+    "no": "No"
+    save: "Guardar"
+    saving: "Guardando..."
+    search: "Buscar"
+    sending: "Enviado datos..."
+    show: "Ver"
+    without_results: "Sin resultados"
+    "yes": "Si"
   menu:
     actions:
-      logout: 'Salir de la aplicación'
-    firefighters: 'Bomberos'
-    hierarchies: 'Jerarquías'
-    interventions: 'Intervenciones'
-    intervention_types: 'Tipos de intervenciones'
-    scos: 'CEOs'
-    trucks: 'Moviles'
-    users: 'Usuarios'
-    configs: 'Configuración'
-
+      logout: "Salir de la aplicación"
+    configs: "Configuración"
+    firefighters: "Bomberos"
+    hierarchies: "Jerarquías"
+    intervention_types: "Tipos de intervenciones"
+    interventions: "Intervenciones"
+    scos: "CEOs"
+    trucks: "Moviles"
+    users: "Usuarios"
   messages:
-    confirmation: '¿Está seguro?'
-
+    confirmation: "¿Está seguro?"
   validations:
     date:
-      must_be_after: 'Debe ser posterior a %{date}'
+      must_be_after: "Debe ser posterior a %{date}"
     distance:
-      must_be_greater_than: 'Debe ser mayor a %{distance} Km'
-
+      must_be_greater_than: "Debe ser mayor a %{distance} Km"
   view:
-    login:
-      title: 'Inicio de sesión'
-      help: 'Ayuda'
-      forgot_pass: '¿Olvidaste tu contraseña?'
-    misc:
-      news:
-        title: 'Novedades'
-    generic:
-      empty_index:
-        html: 'No hay ningún elemento por el momento'
-      empty_search:
-        title:
-          html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    buildings:
+      correctly_created: "Inmueble agregado correctamente"
+      correctly_destroyed: "Inmueble eliminado correctamente"
+      correctly_updated: "Inmueble actualizado correctamente"
+      damages_title: "Daños"
+      edit: "Editar inmueble"
+      edit_title: "Editando el inmueble"
+      index_title: "Inmuebles"
+      modal:
+        involved_building: "Inmueble involucrado"
+      new: "Agregar inmueble"
+      new_title: "Nuevo inmueble"
+      show_title: "Inmueble"
+      stale_object_error: "El inmueble no pudo ser actualizado, intente nuevamente."
     firefighters:
-      index_title: 'Listado de bomberos'
-      show_title: 'Detalle de bombero'
-      new_title: 'Nuevo bombero'
-      edit_title: 'Modificar bombero'
-      correctly_created: 'Bombero agregado correctamente.'
-      correctly_updated: 'Bombero actualizado correctamente.'
-      stale_object_error: 'El bombero no pudo ser actualizado, intente nuevamente.'
+      correctly_created: "Bombero agregado correctamente."
+      correctly_updated: "Bombero actualizado correctamente."
+      edit_title: "Modificar bombero"
       empty_index:
         html: 'No se ha creado ningún bombero hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo Bombero</span>'
-      new: 'Nuevo Bombero'
+      index_title: "Listado de bomberos"
+      new: "Nuevo Bombero"
+      new_title: "Nuevo bombero"
+      show_title: "Detalle de bombero"
+      stale_object_error: "El bombero no pudo ser actualizado, intente nuevamente."
+    generic:
+      empty_index:
+        html: "No hay ningún elemento por el momento"
+      empty_search:
+        title:
+          html: "La búsqueda de <span class=\"label label-inverse\">%{search}</span> no obtuvo ningún resultado."
     hierarchies:
-      index_title: 'Listado de jerarquías'
-      show_title: 'Detalle de jerarquía'
-      new_title: 'Nueva jerarquía'
-      edit_title: 'Modificar jerarquía'
-      correctly_created: 'Jerarquía agregada correctamente.'
-      correctly_updated: 'Jerarquía actualizada correctamente.'
-      stale_object_error: 'La jerarquía no pudo ser actualizada, intente nuevamente.'
+      correctly_created: "Jerarquía agregada correctamente."
+      correctly_updated: "Jerarquía actualizada correctamente."
+      edit_title: "Modificar jerarquía"
       empty_index:
         html: 'No se ha creado ninguna jerarquía hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Jerarquía</span>'
-      new: 'Nueva Jerarquía'
-    interventions:
-      index_title: 'Listado de intervenciones'
-      show_title: 'Detalle de intervención'
-      new_title: 'Nueva intervención'
-      edit_title: 'Modificar intervención'
-      correctly_created: 'Intervención agregada correctamente.'
-      correctly_updated: 'Intervención actualizada correctamente.'
-      stale_object_error: 'La intervención no pudo ser actualizada, intente nuevamente.'
-      empty_index:
-        html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
-      new: 'Nueva Intervención'
-      add_endowment_link: 'Agregar nueva dotación'
-      map_index:
-        title: 'Intervenciones en curso'
-        fullscreen: 'Pantalla completa'
-      kinds:
-        car_accident: 'Accidente de auto'
-        motorbike_accident: 'Accidente de moto'
-        truck_accident: 'Accidente de camion'
-        bus_accident: 'Accidente de bondi'
-        house_fire: 'Incendio en casa'
-        car_fire: 'Incendio en auto'
-        industry_fire: 'Incendio en industria'
-        field_fire: 'Incendio en campo'
-        animal_rescue: 'Rescate de animal'
-        person_rescue: 'Rescate a persona'
-        other: 'Otros'
-      mileages: 'Kilometraje'
-      current_sco: 'CEO actual'
-      informer_title: 'Denunciante'
-      output_title: 'Detalles de salida'
-      truck:
-        arrive_updated: 'Llegada al hecho actualizada'
-        arrive_not_updated: 'Ha habido un problema con la actualización de la llegada al hecho'
-        back_updated: 'Vuelta al cuartel actualizada'
-        back_not_updated: 'Ha habido un problema con la actualización de la vuelta al cuartel'
-        in_updated: 'Llegada al cuartel actualizada'
-        in_not_updated: 'Ha habido un problema con la actualización de la llegada al cuartel'
-      no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
-      endowments_charges:
-        head: 'A cargo'
-        pitonero: 'Pitonero'
-        firefighters: 'Bomberos #'
-        radio: 'Radioperador'
-        driver: 'Chofer'
-        backup: 'Reserva #'
-      set_time: 'Ingresar hora'
-      intervention_type: 'Tipo de intervención'
+      index_title: "Listado de jerarquías"
+      new: "Nueva Jerarquía"
+      new_title: "Nueva jerarquía"
+      show_title: "Detalle de jerarquía"
+      stale_object_error: "La jerarquía no pudo ser actualizada, intente nuevamente."
     intervention_types:
-      list_title: 'Listado'
-      index_title: 'Tipos de intervenciones'
-      show_title: '%{intervention_type}'
-      new_title: 'Nuevo tipo de intervención'
-      edit_title: 'Editando: %{intervention_type}'
-      correctly_created: 'Tipo de intervención agregado correctamente.'
-      correctly_updated: 'Tipo de intervención actualizado correctamente.'
-      stale_object_error: 'El tipo de intervención no pudo ser actualizado, intente nuevamente.'
+      change_priorities: "Cambiar prioridades"
+      correctly_created: "Tipo de intervención agregado correctamente."
+      correctly_deleted: "Tipo de intervención eliminado correctamente"
+      correctly_updated: "Tipo de intervención actualizado correctamente."
+      edit_title: "Editando: %{intervention_type}"
       empty_index:
         html: 'No se ha cargado ningún tipo de intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo tipo</span>'
-      new: 'Nuevo tipo'
-      priorities: 'Prioridades'
-      change_priorities: "Cambiar prioridades"
-      correctly_deleted: "Tipo de intervención eliminado correctamente"
-    scos:
-      index_title: 'Listado de CEOs'
-      show_title: 'Detalle de CEO'
-      new_title: 'Nuevo CEO'
-      edit_title: 'Modificar CEO'
-      correctly_created: 'CEO agregado correctamente.'
-      correctly_updated: 'CEO actualizado correctamente.'
-      stale_object_error: 'El CEO no pudo ser actualizado, intente nuevamente.'
+      index_title: "Tipos de intervenciones"
+      list_title: "Listado"
+      new: "Nuevo tipo"
+      new_title: "Nuevo tipo de intervención"
+      priorities: "Prioridades"
+      show_title: "\"%{intervention_type}\""
+      stale_object_error: "El tipo de intervención no pudo ser actualizado, intente nuevamente."
+    interventions:
+      add_endowment_link: "Agregar nueva dotación"
+      correctly_created: "Intervención agregada correctamente."
+      correctly_updated: "Intervención actualizada correctamente."
+      current_sco: "CEO actual"
+      edit_title: "Modificar intervención"
       empty_index:
-        html: 'No se ha creado ningún CEO hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo CEO</span>'
-      new: 'Nuevo CEO'
-      activate: 'Activar'
-      activated: 'CEO activado'
-    trucks:
-      index_title: 'Listado de moviles'
-      show_title: 'Detalle de móvil'
-      new_title: 'Nuevo móvil'
-      edit_title: 'Modificar móvil'
-      correctly_created: 'Móvil agregado correctamente.'
-      correctly_updated: 'Móvil actualizado correctamente.'
-      stale_object_error: 'El móvil no pudo ser actualizado, intente nuevamente.'
-      empty_index:
-        html: 'No se ha creado ningún móvil hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo Móvil</span>'
-      new: 'Nuevo Móvil'
-    users:
-      index_title: 'Listado de usuarios'
-      show_title: 'Detalle de usuario'
-      new_title: 'Nuevo usuario'
-      edit_title: 'Modificar usuario'
-      correctly_created: 'Usuario agregado correctamente.'
-      correctly_updated: 'Usuario actualizado correctamente.'
-      stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
-      empty_index:
-        html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
-      new: 'Nuevo usuario'
-      update_profile: 'Actualizar datos'
-      update_password: 'Actualizar contraseña'
-      profile_correctly_updated: 'Actualizaste tus datos correctamente.'
-      edit_profile: 'Editar perfil'
-      roles:
-        admin: 'Administrador'
-        regular: 'Normal'
+        html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
+      endowments_charges:
+        backup: "Reserva #"
+        driver: "Chofer"
+        firefighters: "Bomberos #"
+        head: "A cargo"
+        pitonero: "Pitonero"
+        radio: "Radioperador"
+      index_title: "Listado de intervenciones"
+      informer_title: "Denunciante"
+      intervention_type: "Tipo de intervención"
+      kinds:
+        animal_rescue: "Rescate de animal"
+        bus_accident: "Accidente de bondi"
+        car_accident: "Accidente de auto"
+        car_fire: "Incendio en auto"
+        field_fire: "Incendio en campo"
+        house_fire: "Incendio en casa"
+        industry_fire: "Incendio en industria"
+        motorbike_accident: "Accidente de moto"
+        other: "Otros"
+        person_rescue: "Rescate a persona"
+        truck_accident: "Accidente de camion"
+      map_index:
+        fullscreen: "Pantalla completa"
+        title: "Intervenciones en curso"
+      mileages: "Kilometraje"
+      new: "Nueva Intervención"
+      new_title: "Nueva intervención"
+      no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
+      output_title: "Detalles de salida"
+      set_time: "Ingresar hora"
+      show_title: "Detalle de intervención"
+      stale_object_error: "La intervención no pudo ser actualizada, intente nuevamente."
+      truck:
+        arrive_not_updated: "Ha habido un problema con la actualización de la llegada al hecho"
+        arrive_updated: "Llegada al hecho actualizada"
+        back_not_updated: "Ha habido un problema con la actualización de la vuelta al cuartel"
+        back_updated: "Vuelta al cuartel actualizada"
+        in_not_updated: "Ha habido un problema con la actualización de la llegada al cuartel"
+        in_updated: "Llegada al cuartel actualizada"
+    lights:
+      blue: "Azul"
+      green: "Verde"
+      red: "Rojo"
+      trap: "Titilante"
+      white: "Blanco"
+      yellow: "Amarillo"
+    login:
+      forgot_pass: "¿Olvidaste tu contraseña?"
+      help: "Ayuda"
+      title: "Inicio de sesión"
+    misc:
+      news:
+        title: "Novedades"
     mobile_interventions:
-      index_title: "Planillas moviles"
-      show_title: "Planilla móvil"
-      new_title: "Nueva planilla movil"
-      edit_title: "Editando la planilla móvil"
+      buildings_info: "Datos de inmuebles"
       correctly_created: "Planilla móvil creada correctamente"
       correctly_updated: "Planilla móvil actualizada"
+      edit_title: "Editando la planilla móvil"
+      index_title: "Planillas moviles"
+      new_title: "Nueva planilla movil"
+      show_title: "Planilla móvil"
       stale_object_error: "La Planilla móvil no pudo ser actualizada, intente nuevamente"
-      buildings_info: "Datos de inmuebles"
-      vehicles_info: "Vehículos"
       supports_info: "Movilidades de apoyo"
       tables:
-        link: "Vínculo"
-        names: "Nombre y Apellido"
-        dni: "DNI"
         age: "Edad"
-        phone: "Teléfono"
-        moved_to: "Trasladado a"
-        injuries: "Lesiones"
-        in_the_place: "En el lugar"
-        mobil_number: "Móvil número"
-        responsible: "A cargo"
-        driver: "Conduce"
         belongs: "Pertenece"
-    buildings:
-      index_title: "Inmuebles"
-      show_title: "Inmueble"
-      new_title: "Nuevo inmueble"
-      edit_title: "Editando el inmueble"
-      correctly_created: "Inmueble agregado correctamente"
-      correctly_updated: "Inmueble actualizado correctamente"
-      correctly_destroyed: "Inmueble eliminado correctamente"
-      stale_object_error: "El inmueble no pudo ser actualizado, intente nuevamente."
-      new: "Agregar inmueble"
-      edit: "Editar inmueble"
-      damages_title: "Daños"
-      modal:
-        involved_building: 'Inmueble involucrado'
-    vehicles:
-      index_title: "Vehículos"
-      show_title: "Vehículo"
-      new_title: "Nuevo vehículo"
-      edit_title: "Editando el vehículo"
-      correctly_created: "Vehículo agregado correctamente"
-      correctly_updated: "Vehículo actualizado correctamente"
-      correctly_destroyed: "Vehículo eliminado correctamente"
-      stale_object_error: "El vehículo no pudo ser actualizado, intente nuevamente."
-      new: "Agregar vehículo"
-      edit: "Editar vehículo"
-      modal:
-        involved_vehicle: 'Vehículo involucrado nº %{number}'
-    supports:
-      index_title: "Moviles de apoyo"
-      show_title: "Móvil de apoyo"
-      new_title: "Nuevo Móvil de apoyo"
-      edit_title: "Editando el Móvil de apoyo"
-      correctly_created: "Móvil de apoyo agregado correctamente"
-      correctly_updated: "Móvil de apoyo actualizado correctamente"
-      correctly_destroyed: "Móvil de apoyo eliminado correctamente"
-      stale_object_error: "El Móvil de apoyo no pudo ser actualizado, intente nuevamente."
-      new: "Agregar Móvil de Apoyo"
-      edit: "Editar Móvil de Apoyo"
-      modal:
-        involved_support: 'Móvil de apoyo'
+        dni: "DNI"
+        driver: "Conduce"
+        in_the_place: "En el lugar"
+        injuries: "Lesiones"
+        link: "Vínculo"
+        mobil_number: "Móvil número"
+        moved_to: "Trasladado a"
+        names: "Nombre y Apellido"
+        phone: "Teléfono"
+        responsible: "A cargo"
+      vehicles_info: "Vehículos"
     people:
-      index_title: "Personas"
-      show_title: "Persona"
-      new_title: "Nueva persona"
-      edit_title: "Editando la persona"
       correctly_created: "Persona agregada correctamente"
-      correctly_updated: "Persona actualizada correctamente"
       correctly_destroyed: "Persona eliminada correctamente"
-      stale_object_error: "La persona no pudo ser actualizada, intente nuevamente."
-      new: "Agregar persona"
+      correctly_updated: "Persona actualizada correctamente"
       edit: "Editar persona"
+      edit_title: "Editando la persona"
+      index_title: "Personas"
       modal:
-        involved_person: 'Persona afectada'
+        involved_person: "Persona afectada"
+      new: "Agregar persona"
+      new_title: "Nueva persona"
+      show_title: "Persona"
+      stale_object_error: "La persona no pudo ser actualizada, intente nuevamente."
+    scos:
+      activate: "Activar"
+      activated: "CEO activado"
+      correctly_created: "CEO agregado correctamente."
+      correctly_updated: "CEO actualizado correctamente."
+      edit_title: "Modificar CEO"
+      empty_index:
+        html: 'No se ha creado ningún CEO hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo CEO</span>'
+      index_title: "Listado de CEOs"
+      new: "Nuevo CEO"
+      new_title: "Nuevo CEO"
+      show_title: "Detalle de CEO"
+      stale_object_error: "El CEO no pudo ser actualizado, intente nuevamente."
     statuses:
       allowed_statuses:
-        open: 'En curso'
-        modified: 'Modificado'
-        finished: 'Finalizado'
-        cancelled: 'Cancelado'
-        fake: 'Falsa alarma'
+        cancelled: "Cancelado"
+        fake: "Falsa alarma"
+        finished: "Finalizado"
+        modified: "Modificado"
+        open: "En curso"
+    supports:
+      correctly_created: "Móvil de apoyo agregado correctamente"
+      correctly_destroyed: "Móvil de apoyo eliminado correctamente"
+      correctly_updated: "Móvil de apoyo actualizado correctamente"
+      edit: "Editar Móvil de Apoyo"
+      edit_title: "Editando el Móvil de apoyo"
+      index_title: "Moviles de apoyo"
+      modal:
+        involved_support: "Móvil de apoyo"
+      new: "Agregar Móvil de Apoyo"
+      new_title: "Nuevo Móvil de apoyo"
+      show_title: "Móvil de apoyo"
+      stale_object_error: "El Móvil de apoyo no pudo ser actualizado, intente nuevamente."
+    trucks:
+      correctly_created: "Móvil agregado correctamente."
+      correctly_updated: "Móvil actualizado correctamente."
+      edit_title: "Modificar móvil"
+      empty_index:
+        html: 'No se ha creado ningún móvil hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo Móvil</span>'
+      index_title: "Listado de moviles"
+      new: "Nuevo Móvil"
+      new_title: "Nuevo móvil"
+      show_title: "Detalle de móvil"
+      stale_object_error: "El móvil no pudo ser actualizado, intente nuevamente."
+    users:
+      correctly_created: "Usuario agregado correctamente."
+      correctly_updated: "Usuario actualizado correctamente."
+      edit_profile: "Editar perfil"
+      edit_title: "Modificar usuario"
+      empty_index:
+        html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
+      index_title: "Listado de usuarios"
+      new: "Nuevo usuario"
+      new_title: "Nuevo usuario"
+      profile_correctly_updated: "Actualizaste tus datos correctamente."
+      roles:
+        admin: "Administrador"
+        regular: "Normal"
+      show_title: "Detalle de usuario"
+      stale_object_error: "El usuario no pudo ser actualizado, intente nuevamente."
+      update_password: "Actualizar contraseña"
+      update_profile: "Actualizar datos"
+    vehicles:
+      correctly_created: "Vehículo agregado correctamente"
+      correctly_destroyed: "Vehículo eliminado correctamente"
+      correctly_updated: "Vehículo actualizado correctamente"
+      edit: "Editar vehículo"
+      edit_title: "Editando el vehículo"
+      index_title: "Vehículos"
+      modal:
+        involved_vehicle: "Vehículo involucrado nº %{number}"
+      new: "Agregar vehículo"
+      new_title: "Nuevo vehículo"
+      show_title: "Vehículo"
+      stale_object_error: "El vehículo no pudo ser actualizado, intente nuevamente."

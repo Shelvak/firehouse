@@ -102,4 +102,10 @@ module ApplicationHelper
       content_tag(:span, object.errors[field].to_sentence, class: 'control-group error')
     end
   end
+
+  def lights_collection_with_translation
+    [:red, :blue, :green, :yellow, :white, :trap].map do |light|
+      [light, t("view.lights.#{light}")]
+    end
+  end
 end

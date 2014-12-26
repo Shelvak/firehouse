@@ -47,6 +47,7 @@ class Configs::InterventionTypesController < ApplicationController
   def update
     @title = t('view.intervention_types.edit_title')
     @intervention_type = InterventionType.find(params[:id])
+    binding.pry
 
     if @intervention_type.update_attributes(params[:intervention_type])
       redirect_to configs_intervention_types_path,
@@ -94,4 +95,14 @@ class Configs::InterventionTypesController < ApplicationController
 
     redirect_to priorities_configs_intervention_types_path
   end
+
+  private
+
+    def intervention_type_params
+     params.require(:intervention_type).permit(
+        :name, :priority, :father, :target, :callback, :color,
+        :image, :remote_image_url, :intervention_type_id,
+        lights: [:red, :blue, :green, :white, :yellow, :trap]
+      )
+    end
 end
