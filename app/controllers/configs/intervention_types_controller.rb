@@ -37,8 +37,7 @@ class Configs::InterventionTypesController < ApplicationController
                           end
 
     if @intervention_type.save
-      redirect_to configs_intervention_types_path,
-        notice: t('view.intervention_types.correctly_created')
+      render_intervention_type
     else
       render partial: 'new', status: :unprocessable_entity
     end
@@ -49,8 +48,7 @@ class Configs::InterventionTypesController < ApplicationController
     @intervention_type = InterventionType.find(params[:id])
 
     if @intervention_type.update_attributes(params[:intervention_type])
-      redirect_to configs_intervention_types_path,
-        notice: t('view.intervention_types.correctly_updated')
+      render_intervention_type
     else
       render partial: 'edit', status: :unprocessable_entity
     end
@@ -103,5 +101,12 @@ class Configs::InterventionTypesController < ApplicationController
         :image, :remote_image_url, :intervention_type_id,
         lights: [:red, :blue, :green, :white, :yellow, :trap]
       )
+    end
+
+    def render_intervention_type
+      render partial: 'intervention_type', locals: {
+        intervention_type: @intervention_type,
+        special_class: @intervention_type.is_root? ? 'type' : 'subtype'
+      }
     end
 end

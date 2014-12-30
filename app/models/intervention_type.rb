@@ -36,6 +36,10 @@ class InterventionType < ActiveRecord::Base
     childrens.any?
   end
 
+  def is_root?
+    self.intervention_type_id.nil?
+  end
+
   private
 
     def booleanize_lights
