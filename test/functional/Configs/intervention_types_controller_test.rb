@@ -51,7 +51,7 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
       post :create, father: @father.id, intervention_type: @intervention_type
     end
     assert_response :success
-    assert_equal assigns(:intervention_type), @father.reload.childrens.first
+    assert_equal assigns(:intervention_type), @father.reload.children.first
     assert_template 'intervention_types/_intervention_type'
   end
 

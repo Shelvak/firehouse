@@ -4,9 +4,11 @@
       @father ? "new_#{dom_id(@father)}" : 'new_intervention_type'), error:
       'modal', modal: true, replace: true, callback:
       "highlightItem('#{@father ? "new_#{dom_id(@father)}" : 'new_intervention_type'}',
-      '#{@father ? dom_id(@father) + '_childrens' : 'intervention_types_list'}',
+      '#{@father ? dom_id(@father) + '_children' : 'intervention_types_list'}',
       false);" }, class:
       'form-horizontal', multipart: true } do |f| %>
+    <% # Fucking hack for "SrBuj" / html/js post %>
+    <%= hidden_field_tag('authenticity_token', form_authenticity_token.to_s)%>
     <div class="modal-header">
       <a class="close" data-dismiss="modal">&times;</a>
       <h2>

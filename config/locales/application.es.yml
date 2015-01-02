@@ -47,6 +47,7 @@ es:
         receptor_id: "Receptor"
         sco_id: "CEO"
       intervention_type:
+        audio: "Sonido de alerta"
         callback: "Función de retorno"
         color: "Color de texto"
         father: "Tipo general"
@@ -197,6 +198,7 @@ es:
       show_title: "Detalle de bombero"
       stale_object_error: "El bombero no pudo ser actualizado, intente nuevamente."
     generic:
+      all_right: "Todo bien!"
       empty_index:
         html: "No hay ningún elemento por el momento"
       empty_search:
@@ -214,6 +216,7 @@ es:
       show_title: "Detalle de jerarquía"
       stale_object_error: "La jerarquía no pudo ser actualizada, intente nuevamente."
     intervention_types:
+      audio_file: "Archivo: %{name}"
       change_priorities: "Cambiar prioridades"
       correctly_created: "Tipo de intervención agregado correctamente."
       correctly_deleted: "Tipo de intervención eliminado correctamente"
@@ -226,7 +229,7 @@ es:
       new: "Nuevo tipo"
       new_title: "Nuevo tipo de intervención"
       priorities: "Prioridades"
-      show_title: "\"%{intervention_type}\""
+      show_title: "\"\"\"\"\"%{intervention_type}\"\"\"\"\""
       stale_object_error: "El tipo de intervención no pudo ser actualizado, intente nuevamente."
     interventions:
       add_endowment_link: "Agregar nueva dotación"

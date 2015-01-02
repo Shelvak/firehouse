@@ -14,9 +14,9 @@
         can? :destroy, intervention_type %>
   </span>
   <div class="clearfix"></div>
-  <div id="<%= dom_id(intervention_type) %>_childrens">
-    <%= render intervention_type.childrens.order(:priority),
-               special_class: 'subtype' if intervention_type.childrens.any? %>
+  <div id="<%= dom_id(intervention_type) %>_children">
+    <%= render intervention_type.children.order(:priority),
+               special_class: 'subtype' if intervention_type.children.any? %>
     <div id="new_<%= dom_id(intervention_type) %>"></div>
   </div>
 </div>

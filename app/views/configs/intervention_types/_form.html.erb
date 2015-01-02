@@ -38,6 +38,18 @@
   <% end %>
 </div>
 
+<div class="control-group">
+  <label class="control-label"><%= InterventionType.human_attribute_name :audio %></label>
+  <div class="controls">
+    <%= f.file_field :audio %>
+  </div>
+  <% if @intervention_type.audio? %>
+    <div class="alert alert-info">
+      <%= t('view.intervention_types.audio_file', name: @intervention_type.audio.file.filename) %>
+    </div>
+  <% end %>
+</div>
+
 
 <script>
   setColorPicker();
