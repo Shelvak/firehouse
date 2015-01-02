@@ -1,3 +1,7 @@
+<!--This javascript should be served from the outside because it has a lot of dependences =(-->
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<!--end-->
+
 <!--todo: lista de intervenciones con prioridades o tipos-->
 <% if @interventions.empty? %>
   <%= render 'shared/empty_index' %>
@@ -19,6 +23,9 @@
                 interventions_path, class: 'btn' %>
   </div>
   <%= render partial: 'tracking_maps/general_map_objects' %>
+
+  <div id="ourMap" style="height:550px; width: 100%"></div>
+
   <script type="text/javascript" charset="utf-8">
     loadGeneralMap();
   </script>

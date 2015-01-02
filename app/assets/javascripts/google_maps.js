@@ -66,8 +66,8 @@ var findByCoordenates = function(latitude, longitude, address) {
 
 var loadGeneralMap = function () {
     var firehouseStation = {
-        latitude: '-32.926887',
-        longitude: '-68.846255'
+          latitude  : '-32.926887'
+        , longitude : '-68.846255'
     };
     var map = new google.maps.Map(document.getElementById('map_canvas'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -102,7 +102,72 @@ var loadGeneralMap = function () {
     var listener = google.maps.event.addListener(map, "idle", function () {
         google.maps.event.removeListener(listener);
     });
+
+//  start of OpenStreetMaps
+    var
+        map            = new OpenLayers.Map("ourMap")
+      , mapnik         = new OpenLayers.Layer.OSM()
+      , fromProjection = new OpenLayers.Projection("EPSG:4326")   // Transform from WGS 1984 << WHAT?
+      , toProjection   = new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection << DOUBLE WHAT?
+      , position       = new OpenLayers.LonLat(firehouseStation.longitude,firehouseStation.latitude).transform( fromProjection, toProjection)
+      , markers        = new OpenLayers.Layer.Markers( "Markers" )
+      , zoom           = 12
+
+
+    for (i = 0; i < interventions.length; i++) {
+      var
+          position = new OpenLayers.LonLat(
+              interventions[i].longitude
+            , interventions[i].latitude
+          ).transform( fromProjection, toProjection)
+//        , infobox  = new khtml.maplib.overlay.InfoWindow({content: interventions[i].address})
+//        , marker   = new khtml.maplib.overlay.Marker({
+//                             position : new khtml.maplib.LatLng(interventions[i].latitude, interventions[i].longitude)
+//                           , map      : map
+//                           , title:"static marker"
+//                         });
+//
+//      marker.attachEvent( 'click', function() { infobox.open(map, this) } )
+
+//      markers.addMarker(new OpenLayers.Marker(position))
+      setMarker(map, markers, position, 1)
+    }
+
+
+    map.addLayer(mapnik);
+    map.addLayer(markers);
+    map.setCenter(position, zoom);
 };
+
+function setMarker(map, markers, position, count){
+
+  var lonLatMarker              = position
+  var feature                   = new OpenLayers.Feature(markers, lonLatMarker);
+  feature.closeBox              = true;
+  feature.popupClass            = OpenLayers.Class(OpenLayers.Popup.AnchoredBubble, {minSize: new OpenLayers.Size(300, 180) } );
+  feature.data.popupContentHTML = 'Hello World';
+  feature.data.overflow         = "hidden";
+
+//  var icon = new OpenLayers.Icon("/src/includes/lib/map/export_badge.php?number="+count);
+//  var marker = new OpenLayers.Marker(lonLatMarker, icon);
+  var marker = new OpenLayers.Marker(lonLatMarker);
+  marker.feature = feature;
+
+  var markerClick = function(evt) {
+    if (this.popup == null) {
+      this.popup = this.createPopup(this.closeBox);
+      map.addPopup(this.popup);
+      this.popup.show();
+    } else {
+      this.popup.toggle();
+    }
+    OpenLayers.Event.stop(evt);
+  };
+  marker.events.register("mousedown", feature, markerClick);
+
+  markers.addMarker(marker);
+}
+
 
 var setLatitudeAndLongitude = function(point){
     document.getElementById('intervention_latitude').value = point.lat();
