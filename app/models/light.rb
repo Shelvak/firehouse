@@ -9,7 +9,15 @@ class Light < ActiveRecord::Base
   end
 
   def update_semaphore_brightness
-    puts "Send redis"
+    $redis.publish('configs:lights', self.to_json)
+  end
+
+  def as_json(options = nil)
+    default_options = {
+      only: [:kind, :color, :intensity]
+    }
+
+    super(default_options.merge(options || {}))
   end
 
   class << self
