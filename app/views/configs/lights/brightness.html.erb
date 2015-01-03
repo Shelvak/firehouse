@@ -8,7 +8,7 @@
         <% Light::KINDS.each do |kind| %>
           <div class="span4">
 
-            <h2><%= kind %></h2>
+            <h2><%= t("view.lights.#{kind}") %></h2>
 
             <%= render partial: 'light_kind',
               locals: { kind: kind, lights: @lights } %>
