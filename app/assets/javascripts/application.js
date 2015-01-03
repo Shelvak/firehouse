@@ -33,3 +33,4 @@
 //= require google_maps
 //= require styled_markers
 //= require quick_buttons
+//= require configs/lights

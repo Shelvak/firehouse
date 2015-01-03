@@ -1,0 +1,21 @@
+<%= configs_subnav %>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+      <% if @lights.empty? %>
+        <%= render 'shared/empty_index' %>
+      <% else %>
+        <% Light::KINDS.each do |kind| %>
+          <div class="span4">
+
+            <h2><%= kind %></h2>
+
+            <%= render partial: 'light_kind',
+              locals: { kind: kind, lights: @lights } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+</div>
+<div class="form-actions">
+</div>

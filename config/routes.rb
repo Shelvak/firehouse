@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       put :activate, on: :member
       get :mini_index, on: :collection
     end
-  end
 
+    match 'lights/brightness', to: 'lights#brightness', via: [:patch, :get]
+  end
 end

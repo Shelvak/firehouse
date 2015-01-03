@@ -1,0 +1,18 @@
+<div id="<%= lights_kind = "#{kind}_lights" %>">
+  <%= form_for lights_kind,
+    url: configs_lights_brightness_path(kind: kind),
+    method: :patch, remote: true,
+    data: { target: lights_kind, replace: true, responds_as: :patch,
+            callback: "highlightItem('', '', '##{lights_kind}');"
+  }  do |f|  %>
+
+    <% lights[kind].each do |light| %>
+      <%= light_range_input(f, light, kind) %>
+    <% end %>
+
+    <br />
+    <br />
+    <br />
+    <%= f.submit class: 'btn btn-primary'  %>
+  <% end %>
+</div>
