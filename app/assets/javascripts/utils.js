@@ -1,14 +1,38 @@
-var toggle_quick_buttons_button = function(){
-    $('#show-quick-buttons').toggle();
+var toggle_quick_buttons_button = function(state){
+  var
+      trigger  = document.getElementById('show-quick-buttons')
+    , showText = trigger.dataset.showText
+    , hideText = trigger.dataset.hideText
+  if (state == 'open')
+    trigger.innerText = hideText;
+  else
+    trigger.innerText = showText;
 };
+
+var toggleQuickButtons = function(){
+  var
+      quickButtons        = document.getElementById("quick-button-div")
+    , quickButtonsClasses = quickButtons.className
+    , state               = 'open'
+    , classes             = {
+                              open   : "quick-button-div open-buttons",
+                              closed : "quick-button-div closed-buttons"
+                            }
+
+  if (quickButtonsClasses == classes.open) {
+    quickButtons.className = classes.closed;
+    state = 'closed'
+  }
+  else
+    quickButtons.className = classes.open;
+
+  toggle_quick_buttons_button(state);
+}
 
 var apply_quick_button_functions = function(){
     $('.alarm-button').click(function(){
         $('#intervention_intervention_type_id').val( $(this).attr('target') );
-        $('#quick-button-div').slideUp(function(){
-            window.scrollTo(0);
-        });
-        toggle_quick_buttons_button();
+        toggleQuickButtons();
         $('#intervention_address').focus();
 
         var $self = $(this);
@@ -17,8 +41,7 @@ var apply_quick_button_functions = function(){
     });
 
     $('#show-quick-buttons').click(function(){
-        toggle_quick_buttons_button();
-        $('#quick-button-div').slideDown();
+      toggleQuickButtons();
     });
 };
 
