@@ -18,8 +18,8 @@ class VehiclesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:vehicle)
     assert_select '#unexpected_error', false
-    assert_template 'vehicles/new'
-    assert_template 'vehicles/form'
+    assert_template 'vehicles/_new'
+    assert_template 'vehicles/_form'
   end
 
   test 'should create vehicle' do
@@ -76,7 +76,5 @@ class VehiclesControllerTest < ActionController::TestCase
         endowment_id: @mobile_intervention.endowment.to_param,
         id: @vehicle
     assert_response :success
-    assert_template 'mobile_interventions/_vehicle'
-    assert_template 'mobile_interventions/_people_table'
   end
 end

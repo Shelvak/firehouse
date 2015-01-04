@@ -19,8 +19,8 @@ class BuildingsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:building)
     assert_select '#unexpected_error', false
-    assert_template :new
-    assert_template :form
+    assert_template 'buildings/_form'
+    assert_template 'buildings/_new'
   end
 
   test 'should create building' do
@@ -75,7 +75,5 @@ class BuildingsControllerTest < ActionController::TestCase
         endowment_id: @mobile_intervention.endowment.to_param,
         id: @building
     assert_response :success
-    assert_template 'mobile_interventions/_building'
-    assert_template 'mobile_interventions/_people_table'
   end
 end

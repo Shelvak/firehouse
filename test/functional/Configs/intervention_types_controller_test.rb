@@ -39,9 +39,8 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
     assert_difference('InterventionType.count') do
       post :create, intervention_type: Fabricate.attributes_for(:intervention_type)
     end
-    assert_response :success
+    assert_redirected_to configs_intervention_types_path
     assert_not_nil assigns(:intervention_type)
-    assert_template 'intervention_types/_intervention_type'
   end
 
   test 'should create a children for an existent intervention_type' do
@@ -50,9 +49,8 @@ class Configs::InterventionTypesControllerTest < ActionController::TestCase
     assert_difference('InterventionType.count') do
       post :create, father: @father.id, intervention_type: @intervention_type
     end
-    assert_response :success
+    assert_redirected_to configs_intervention_types_path
     assert_equal assigns(:intervention_type), @father.reload.children.first
-    assert_template 'intervention_types/_intervention_type'
   end
 
   test 'should get edit' do

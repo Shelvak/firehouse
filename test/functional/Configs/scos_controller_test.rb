@@ -59,6 +59,6 @@ class Configs::ScosControllerTest < ActionController::TestCase
       delete :destroy, id: @sco
     end
 
-    assert_redirected_to configs_scos_path
+    assert_response :success
   end
 end

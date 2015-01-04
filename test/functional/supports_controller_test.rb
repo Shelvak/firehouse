@@ -20,8 +20,8 @@ class SupportsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:support)
     assert_select '#unexpected_error', false
-    assert_template 'supports/new'
-    assert_template 'supports/form'
+    assert_template 'supports/_new'
+    assert_template 'supports/_form'
   end
 
   test 'should create support' do
