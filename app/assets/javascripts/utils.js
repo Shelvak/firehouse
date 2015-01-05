@@ -9,7 +9,7 @@ var toggle_quick_buttons_button = function(state){
     trigger.innerText = showText;
 };
 
-var toggleQuickButtons = function(){
+var toggleQuickButtons = function(action){
   var
       quickButtons        = document.getElementById("quick-button-div")
     , quickButtonsClasses = quickButtons.className
@@ -19,7 +19,7 @@ var toggleQuickButtons = function(){
                               closed : "quick-button-div closed-buttons"
                             }
 
-  if (quickButtonsClasses == classes.open) {
+  if (quickButtonsClasses == classes.open || (action && action == 'close')) {
     quickButtons.className = classes.closed;
     state = 'closed'
   }
@@ -30,19 +30,23 @@ var toggleQuickButtons = function(){
 }
 
 var apply_quick_button_functions = function(){
-    $('.alarm-button').click(function(){
-        $('#intervention_intervention_type_id').val( $(this).attr('target') );
-        toggleQuickButtons();
-        $('#intervention_address').focus();
-
-        var $self = $(this);
-        if( !$self.hasClass('clicked') )
-            $self.addClass("clicked").siblings().removeClass('clicked');
-    });
-
-    $('#show-quick-buttons').click(function(){
+  $('.alarm-button').click(function(){
+      $('#intervention_intervention_type_id').val( $(this).attr('target') );
       toggleQuickButtons();
-    });
+      $('#intervention_address').focus();
+
+      var $self = $(this);
+      if( !$self.hasClass('clicked') )
+          $self.addClass("clicked").siblings().removeClass('clicked');
+  });
+
+  $('#show-quick-buttons').click(function(){
+    toggleQuickButtons();
+  });
+
+  $('#intervention_intervention_type_id').change(function(){
+    toggleQuickButtons('close');
+  });
 };
 
 var setTooltips = function(){
