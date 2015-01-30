@@ -24,6 +24,33 @@
     <span class="red"><%= errors_for @intervention_type, :color %></span>
   </div>
 </div>
+
+<div class="form-horizontal">
+  <% lights_collection_with_translation.each do |light, traduction| %>
+    <div class="control-group">
+      <%= f.label light, class: 'control-label', for: "intervention_type_lights_#{light}" %>
+      <div class="controls">
+        <%= f.check_box :lights, checked: @intervention_type.lights[light],
+          name: "intervention_type[lights][#{light}]",
+          id: "intervention_type_lights_#{light}" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="control-group">
+  <label class="control-label"><%= InterventionType.human_attribute_name :audio %></label>
+  <div class="controls">
+    <%= f.file_field :audio %>
+  </div>
+  <% if @intervention_type.audio? %>
+    <div class="alert alert-info">
+      <%= t('view.intervention_types.audio_file', name: @intervention_type.audio.file.filename) %>
+    </div>
+  <% end %>
+</div>
+
+
 <script>
   setColorPicker();
   removeColopickerOnModalHide();

@@ -2,7 +2,7 @@ class Truck < ActiveRecord::Base
   has_paper_trail
   has_magick_columns number: :integer
 
-  attr_accessible :number, :mileage
+  #attr_accessible :number, :mileage
 
   validates :number, presence: true
   validates :number, uniqueness: true
@@ -25,6 +25,6 @@ class Truck < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : scoped
+    query.present? ? magick_search(query) : all
   end
 end

@@ -12,7 +12,7 @@ class MobileInterventionTest < ActiveSupport::TestCase
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'MobileIntervention.count' do
         assert @mobile_intervention.update_attributes(observations: 'Nothing new')
       end
@@ -22,7 +22,7 @@ class MobileInterventionTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('MobileIntervention.count', -1) { @mobile_intervention.destroy }
     end
   end

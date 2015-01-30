@@ -3,19 +3,19 @@
       class: 'form-horizontal' }, method: :put do %>
 
     <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
       <h2><%= t 'view.intervention_types.priorities' %></h2>
     </div>
     <div class="modal-body text-center">
       <% (1..10).each do |i| %>
-        <p><%= select_tag i.to_s, options_from_collection_for_select(@childrens,
-               'id', 'name', selected: @childrens.map { |x| x.id if
+        <p><%= select_tag i.to_s, options_from_collection_for_select(@children,
+               'id', 'name', selected: @children.map { |x| x.id if
                 x.priority == i}), prompt: "Tipo con prioridad #{i}" %>
         </p>
         <%# todo: hacer exclusiva la lista de las prioridades mediante javscript %>
       <% end %>
     </div>
     <div class="modal-footer">
-      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');", class: 'btn' %>
       <%= submit_tag t('label.save'), class: 'btn btn-primary', disable_with: t('label.saving') %>
     </div>
   <% end %>

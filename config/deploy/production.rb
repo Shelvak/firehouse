@@ -1,8 +1,10 @@
 set :stage, :production
 set :rails_env, 'production'
+set :ssh_options, { port: 5611 }
 
-role :web, %w{bomberos-godoycruz.no-ip.org}
-role :app, %w{bomberos-godoycruz.no-ip.org}
-role :db,  %w{bomberos-godoycruz.no-ip.org}
+set :chruby_ruby, '2.0.0-p576'
+role :web, %w{bvgc.no-ip.org}
+role :app, %w{bvgc.no-ip.org}
+role :db,  %w{bvgc.no-ip.org}
 
-server 'bomberos-godoycruz.no-ip.org', user: 'deployer', roles: %w{web app db}
+server 'bvgc.no-ip.org', user: 'webmaster', roles: %w{web app db}

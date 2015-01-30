@@ -1,4 +1,5 @@
-Firehouse::Application.routes.draw do
+Rails.application.routes.draw do
+  get :console, to: 'websockets#console'
 
   resources :interventions do
     collection do
@@ -50,4 +51,5 @@ Firehouse::Application.routes.draw do
       get :mini_index, on: :collection
     end
   end
+
 end

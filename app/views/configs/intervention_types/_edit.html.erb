@@ -5,7 +5,10 @@
       responds_as: :put, callback: "highlightItem('#{dom_id(@intervention_type)}',
       'intervention_types_list', #{dom_id(@intervention_type)});" },
       class: 'form-horizontal', multipart: true } do |f| %>
+    <% # Fucking hack for "SrBuj" / html/js post %>
+    <%= hidden_field_tag('authenticity_token', form_authenticity_token.to_s)%>
     <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
       <h2>
         <%= @title %>
         <%= image_tag(@intervention_type.image_url.to_s, class: 'image-thumb') if
@@ -17,7 +20,6 @@
       <%= render partial: 'form', locals: {f: f} %>
     </div>
     <div class="modal-footer">
-      <%= link_to_function t('label.close'), "$('#modal').modal('toggle'); cleanColorpicker;", class: 'btn' %>
       <%= f.button t('label.save'), class: 'btn btn-primary', disable_with: t('label.saving') %>
     </div>
   <% end %>

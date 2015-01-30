@@ -2,7 +2,7 @@ class Hierarchy < ActiveRecord::Base
   has_paper_trail
   has_magick_columns name: :string
 
-  attr_accessible :name
+  #attr_accessible :name
 
   validates :name, presence: true
 
@@ -24,6 +24,6 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : scoped
+    query.present? ? magick_search(query) : all
   end
 end

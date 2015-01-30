@@ -26,6 +26,12 @@ class ApplicationController < ActionController::Base
     current_user.try(:id)
   end
 
+  before_filter :permit_all!
+
+  def permit_all!
+    params.permit!
+  end
+
   private
 
   # Overwriting the sign_out redirect path method

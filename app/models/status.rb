@@ -1,6 +1,6 @@
 class Status < ActiveRecord::Base
   belongs_to :trackeable, polymorphic: true
-  attr_accessible :name, :trackeable_id, :trackeable_type, :user_id
+  #attr_accessible :name, :trackeable_id, :trackeable_type, :user_id
 
   before_save :use_only_allowed_statuses
 

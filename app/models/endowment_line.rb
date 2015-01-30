@@ -10,7 +10,7 @@ class EndowmentLine < ActiveRecord::Base
     6 => 'backup'
   }.with_indifferent_access.freeze
 
-  attr_accessible :charge, :firefighters_names
+  #attr_accessible :charge, :firefighters_names
 
   attr_accessor :firefighters_names
 

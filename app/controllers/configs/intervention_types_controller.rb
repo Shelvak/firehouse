@@ -7,7 +7,7 @@ class Configs::InterventionTypesController < ApplicationController
   def index
     @title = t('view.intervention_types.index_title')
     @intervention_types = InterventionType.only_fathers.
-        order(:id).includes(:childrens).page(params[:page])
+        order(:id).includes(:children).page(params[:page])
   end
 
   def new
@@ -31,14 +31,13 @@ class Configs::InterventionTypesController < ApplicationController
 
     @intervention_type =  if @father = params[:father]
                             InterventionType.find(@father).
-                                childrens.build(params[:intervention_type])
+                                children.build(params[:intervention_type])
                           else
                             InterventionType.new(params[:intervention_type])
                           end
 
     if @intervention_type.save
-      redirect_to configs_intervention_types_path,
-        notice: t('view.intervention_types.correctly_created')
+      render_intervention_type
     else
       render partial: 'new', status: :unprocessable_entity
     end
@@ -48,9 +47,8 @@ class Configs::InterventionTypesController < ApplicationController
     @title = t('view.intervention_types.edit_title')
     @intervention_type = InterventionType.find(params[:id])
 
-    if @intervention_type.update_attributes(params[:intervention_type])
-      redirect_to configs_intervention_types_path,
-        notice: t('view.intervention_types.correctly_updated')
+    if @intervention_type.update_attributes(intervention_type_params)
+      render_intervention_type
     else
       render partial: 'edit', status: :unprocessable_entity
     end
@@ -73,12 +71,12 @@ class Configs::InterventionTypesController < ApplicationController
 
   def priorities
     @title = t 'view.intervention_types.priorities'
-    @top_10_intervention_types = InterventionType.only_childrens.
+    @top_10_intervention_types = InterventionType.only_children.
       where('priority IS NOT NULL').order(:priority).limit(10)
   end
 
   def edit_priorities
-    @childrens = InterventionType.only_childrens.order(:intervention_type_id, :id)
+    @children = InterventionType.only_children.order(:intervention_type_id, :id)
     render partial: 'edit_priorities', content_type: 'text/html'
   end
 
@@ -94,4 +92,26 @@ class Configs::InterventionTypesController < ApplicationController
 
     redirect_to priorities_configs_intervention_types_path
   end
+
+  private
+
+    def intervention_type_params
+     params.require(:intervention_type).permit(
+        :name, :priority, :father, :target, :callback, :color,
+        :image, :remote_image_url, :intervention_type_id, :audio,
+        lights: [:red, :blue, :green, :white, :yellow, :trap]
+      )
+    end
+
+    def render_intervention_type
+      case
+        when request.format.js?
+          render partial: 'intervention_type', locals: {
+            intervention_type: @intervention_type,
+            special_class: @intervention_type.is_root? ? 'type' : 'subtype'
+          }
+        else
+          redirect_to configs_intervention_types_path, notice: t('view.generic.all_right')
+        end
+    end
 end

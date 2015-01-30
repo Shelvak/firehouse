@@ -19,7 +19,8 @@ class BuildingsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:building)
     assert_select '#unexpected_error', false
-    assert_template ['buildings/new', 'buildings/form']
+    assert_template 'buildings/_form'
+    assert_template 'buildings/_new'
   end
 
   test 'should create building' do
@@ -34,8 +35,8 @@ class BuildingsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:mobile_intervention)
     assert_equal assigns(:building), assigns(:mobile_intervention).buildings.last
     assert_response :success
-    assert_template ['mobile_interventions/_building',
-                     'mobile_interventions/_people_table']
+    assert_template 'mobile_interventions/_building'
+    assert_template 'mobile_interventions/_people_table'
   end
 
   test 'should get edit' do
@@ -49,7 +50,8 @@ class BuildingsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:building)
     assert_select '#unexpected_error', false
-    assert_template ['buildings/_edit', 'buildings/_form']
+    assert_template 'buildings/_edit'
+    assert_template 'buildings/_form'
   end
 
   test 'should update building' do
@@ -63,8 +65,8 @@ class BuildingsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:building)
     assert_response :success
-    assert_template ['mobile_interventions/_building',
-                     'mobile_interventions/_people_table']
+    assert_template 'mobile_interventions/_building'
+    assert_template 'mobile_interventions/_people_table'
   end
 
   test 'should destroy building' do
@@ -73,7 +75,5 @@ class BuildingsControllerTest < ActionController::TestCase
         endowment_id: @mobile_intervention.endowment.to_param,
         id: @building
     assert_response :success
-    assert_template ['mobile_interventions/_building',
-                     'mobile_interventions/_people_table']
   end
 end

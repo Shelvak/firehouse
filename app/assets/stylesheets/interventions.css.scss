@@ -10,9 +10,10 @@
 .quick-button-div {
   border-radius: 15px;
   background-color: #363636;
-  min-height: 300px;
+  overflow: hidden;
   padding: 20px;
   text-align: center;
+  transition: all 0.3s ease-in-out;
 
   .row{
     [class^="quick-button-"],
@@ -58,6 +59,14 @@
       border: 2px #ffffff dotted;
     }
   }
+}
+.open-buttons {
+  height: 388px;
+  padding: 20px 20px;
+}
+.closed-buttons {
+  height: 0px;
+  padding: 5px 20px;
 }
 
 .red {

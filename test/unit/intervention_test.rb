@@ -7,8 +7,8 @@ class InterventionTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference 'Intervention.count' do
-      # Versions = 10 firefighter, 6*endow_line, endowment, intervention, truck
-      assert_difference 'Version.count', 10 do
+      # PaperTrail::Versions = 10 firefighter, 6*endow_line, endowment, intervention, truck
+      assert_difference 'PaperTrail::Version.count', 10 do
         Intervention.create!(
           Fabricate.attributes_for(
             :intervention,
@@ -22,7 +22,7 @@ class InterventionTest < ActiveSupport::TestCase
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Intervention.count' do
         assert @intervention.update_attributes(address: 'Updated')
       end
@@ -32,7 +32,7 @@ class InterventionTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Intervention.count', -1) { @intervention.destroy }
     end
   end

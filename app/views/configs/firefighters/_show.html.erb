@@ -1,5 +1,6 @@
 <div class="modal">
     <div class="modal-header readonly-data">
+      <a class="close" data-dismiss="modal">&times;</a>
       <h3><%= @firefighter %></h3>
     </div>
     <div class="modal-body readonly-data">
@@ -15,9 +16,5 @@
         <strong><%= Firefighter.human_attribute_name 'identification' %></strong>:
         <%= @firefighter.identification %>
       </p>
-    </div>
-    <div class="modal-footer">
-      <%= link_to_function t('label.close'), "$('#modal').modal('toggle');",
-                           class: 'btn' %>
     </div>
 </div>

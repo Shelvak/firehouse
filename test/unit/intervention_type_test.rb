@@ -6,13 +6,13 @@ class InterventionTypeTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['InterventionType.count', 'Version.count'] do
+    assert_difference ['InterventionType.count', 'PaperTrail::Version.count'] do
       @intervention_type = InterventionType.create(Fabricate.attributes_for(:intervention_type))
     end 
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'InterventionType.count' do
         assert @intervention_type.update_attributes(name: 'Explosion')
       end
@@ -22,7 +22,7 @@ class InterventionTypeTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('InterventionType.count', -1) { @intervention_type.destroy }
     end
   end

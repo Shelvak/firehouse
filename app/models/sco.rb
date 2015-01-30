@@ -2,7 +2,7 @@ class Sco < ActiveRecord::Base
   has_paper_trail
   has_magick_columns full_name: :string
 
-  attr_accessible :full_name, :current
+  #attr_accessible :full_name, :current
 
   validates :full_name, presence: true
 
@@ -24,7 +24,7 @@ class Sco < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : scoped
+    query.present? ? magick_search(query) : all
   end
 
   def activate!

@@ -9,8 +9,8 @@ class Support < ActiveRecord::Base
 
   belongs_to :mobile_intervention
 
-  attr_accessible :support_type, :number, :responsible, :driver, :owner,
-    :mobile_intervention_id
+  #attr_accessible :support_type, :number, :responsible, :driver, :owner,
+  #  :mobile_intervention_id
 
   validates :support_type, :responsible, :owner, presence: true
 

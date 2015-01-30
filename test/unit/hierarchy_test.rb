@@ -6,13 +6,13 @@ class HierarchyTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Hierarchy.count', 'Version.count'] do
+    assert_difference ['Hierarchy.count', 'PaperTrail::Version.count'] do
       @hierarchy = Hierarchy.create(Fabricate.attributes_for(:hierarchy))
     end 
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Hierarchy.count' do
         assert @hierarchy.update_attributes(name: 'Updated')
       end
@@ -22,7 +22,7 @@ class HierarchyTest < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Hierarchy.count', -1) { @hierarchy.destroy }
     end
   end

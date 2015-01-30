@@ -7,13 +7,13 @@ class <%= class_name %>Test < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['<%= class_name %>.count', 'Version.count'] do
+    assert_difference ['<%= class_name %>.count', 'PaperTrail::Version.count'] do
       @<%= singular_table_name %> = <%= class_name %>.create(Fabricate.attributes_for(:<%= singular_table_name %>))
     end 
   end
     
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference '<%= class_name %>.count' do
         assert @<%= singular_table_name %>.update_attributes(attr: 'Updated')
       end
@@ -23,7 +23,7 @@ class <%= class_name %>Test < ActiveSupport::TestCase
   end
     
   test 'destroy' do 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('<%= class_name %>.count', -1) { @<%= singular_table_name %>.destroy }
     end
   end
