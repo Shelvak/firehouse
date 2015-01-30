@@ -8,10 +8,9 @@
     <title><%= title %></title>
     <script type="text/javascript"
             src="https://maps.google.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript"
-            src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js"></script>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <%= javascript_include_tag 'application', data: { 'turbolinks-track' => true } %>
+    <%= javascript_include_tag 'application' %>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -27,7 +26,7 @@
     <%= render partial: 'general_map_objects' %>
     <script type="text/javascript" charset="utf-8">
       setFullscreenMapSize();
-      loadGeneralMap();
+      loadLargeMap();
     </script>
   </body>
 </html>

@@ -25,10 +25,10 @@
 //= require endless_pagination
 //= require dynamic_form
 //= require mobile
-//= require users
 //= require interventions
 //= require utils
 //= require SrBuj
 //= require bootstrap-colorpicker
 //= require google_maps
 //= require styled_markers
+//= require map_utils

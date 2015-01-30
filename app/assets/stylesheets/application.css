@@ -18,10 +18,10 @@
  *= require common
  *= require common-responsive
  *= require devise
- *= require users
  *= require interventions
  *= require intervention-types
  *= require bootstrap-colorpicker
  *= require colorpicker-extra
  *= require SrBuj
+ *= require popover
 */
