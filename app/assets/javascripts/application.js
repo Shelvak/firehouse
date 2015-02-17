@@ -30,5 +30,4 @@
 //= require SrBuj
 //= require bootstrap-colorpicker
 //= require google_maps
-//= require styled_markers
 //= require map_utils

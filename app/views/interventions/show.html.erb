@@ -1,3 +1,4 @@
+<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <div class="readonly-data">
   <h2><%= @intervention.type %></h2>
 
@@ -43,5 +44,5 @@
   <%= link_to t('label.list'), interventions_path %>
 </div>
 <script>
-  findByCoordenates('<%= @intervention.latitude %>', '<%= @intervention.longitude %>', '<%= @intervention.address %>');
+  loadMap('<%= @intervention.latitude %>', '<%= @intervention.longitude %>');
 </script>
