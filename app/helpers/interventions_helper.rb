@@ -3,10 +3,6 @@ module InterventionsHelper
     Sco.current
   end
 
-  def intervention_next_number_for_form
-    (Intervention.order(:number).last.try(:number) || 0) + 1
-  end
-
   def show_kind_of_intervention(kind)
     #key = Intervention::KINDS.invert[kind]
     #t("view.interventions.kinds.#{key}")

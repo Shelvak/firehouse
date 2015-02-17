@@ -42,7 +42,7 @@ es:
         latitude: "Latitud"
         longitude: "Longitud"
         near_corner: "Esquina cercana"
-        number: "Número"
+        id: "Número"
         observations: "Observaciones"
         receptor_id: "Receptor"
         sco_id: "CEO"

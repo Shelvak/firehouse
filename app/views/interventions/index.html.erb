@@ -6,7 +6,7 @@
       <table class="table resource-list table-hover">
         <thead>
           <tr>
-            <th><%= Intervention.human_attribute_name 'number' %></th>
+            <th><%= Intervention.human_attribute_name 'id' %></th>
             <th><%= Intervention.human_attribute_name 'kind' %></th>
             <th><%= Intervention.human_attribute_name 'receptor_id' %></th>
             <th colspan="3"></th>
@@ -16,7 +16,7 @@
         <tbody>
           <% @interventions.each do |intervention| %>
             <tr>
-              <td><%= intervention.number %></td>
+              <td><%= intervention.id %></td>
               <td><%= intervention.type %></td>
               <td><%= intervention.user %></td>
               <td><%= link_to_show intervention %></td>

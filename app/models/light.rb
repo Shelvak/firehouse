@@ -4,6 +4,8 @@ class Light < ActiveRecord::Base
 
   has_paper_trail
 
+  validates :kind, :color, :intensity, presence: true
+
   KINDS.each.each do |kind|
     scope :"on_#{kind}", ->() { where(kind: kind) }
   end

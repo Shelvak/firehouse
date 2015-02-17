@@ -1,6 +1,6 @@
 class Intervention < ActiveRecord::Base
   has_paper_trail
-  has_magick_columns address: :string, number: :integer
+  has_magick_columns address: :string, id: :integer
 
   attr_accessor :auto_receptor_name, :auto_sco_name
 
@@ -9,12 +9,11 @@ class Intervention < ActiveRecord::Base
  #   :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id,
  #   :latitude, :longitude, :endowments
 
-  #validates :address, :intervention_type_id, :number, :receptor_id, presence: true
+  validates :intervention_type_id, presence: true
   #validates :number, uniqueness: true
   #validate :sco_presence
 
-  before_validation :assign_intervention_number, :assign_endowment_number,
-    :validate_truck_presence
+  before_validation :assign_endowment_number, :validate_truck_presence
   after_create :assign_mileage_to_trucks
 
   belongs_to :intervention_type
@@ -56,11 +55,6 @@ class Intervention < ActiveRecord::Base
     if self.sco_id.blank? && self.informer.blank?
       self.errors.add :auto_sco_name, :blank
     end
-  end
-
-  def assign_intervention_number
-    # with this sure that present and unique always work =)
-    self.number = (Intervention.order(:number).last.try(:number) || 0) + 1
   end
 
   def assign_endowment_number

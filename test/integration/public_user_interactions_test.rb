@@ -20,6 +20,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     find('#reset-password').click
 
+    sleep 0.5
     assert_equal new_user_password_path, current_path
     assert_page_has_no_errors!
 
