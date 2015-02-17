@@ -85,8 +85,6 @@ class PeopleControllerTest < ActionController::TestCase
           id: @person
     end
     assert_response :success
-    assert_template 'mobile_interventions/_building'
-    assert_template 'mobile_interventions/_people_table'
   end
 
   test 'should get new for vehicle' do
@@ -162,7 +160,5 @@ class PeopleControllerTest < ActionController::TestCase
           id: @person
     end
     assert_response :success
-    assert_template 'mobile_interventions/_vehicle'
-    assert_template 'mobile_interventions/_people_table'
   end
 end

@@ -2,19 +2,25 @@
   <%= link_to t('label.list'), interventions_path %>
 <% end %>
 
-<h2><%= t('view.interventions.new_title', number: intervention_next_number_for_form) %></h2>
+<h2>
+  <%= t('view.interventions.new_title', number: intervention_next_number_for_form) %>
+  <div id="buttons-trigger" class="btn btn-mini"
+       data-show-text="<%= t('view.interventions.buttons.show') %>"
+       data-hide-text="<%= t('view.interventions.buttons.hide') %>">
+    <%= t('view.interventions.buttons.hide') %>
+  </div>
+</h2>
 
-<div id="show-quick-buttons" class="btn btn-mini btn-inverse pull-right">Mostrar botones rapidos</div>
 <% unless @intervention.errors.present? %>
-  <div class="quick-button-div" id="quick-button-div">
+  <div class="buttons open-buttons" id="buttons">
     <div class="row">
       <% (1..5).each do |i| %>
-        <%= render partial: 'interventions/quick_button_row', locals: { i: i } %>
+        <%= render partial: 'interventions/button', locals: { i: i } %>
       <% end %>
     </div>
     <div class="row">
       <% (6..10).each do |i| %>
-        <%= render partial: 'interventions/quick_button_row', locals: { i: i } %>
+        <%= render partial: 'interventions/button', locals: { i: i } %>
       <% end %>
     </div>
   </div>
@@ -23,6 +29,7 @@
 <%= render 'form' %>
 
 <script type="text/javascript">
-  toggle_quick_buttons_button();
-  apply_quick_button_functions();
+  $(document).ready(function(){
+    QuickButtons.init();
+  })
 </script>
