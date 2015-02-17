@@ -269,7 +269,7 @@ es:
       new_title: "Nueva intervención"
       no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
       output_title: "Detalles de salida"
-      quick_buttons:
+      buttons:
         show: "Mostrar botones"
         hide: "Ocultar botones"
       set_time: "Ingresar hora"
