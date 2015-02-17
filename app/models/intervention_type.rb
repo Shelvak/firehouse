@@ -24,7 +24,7 @@ class InterventionType < ActiveRecord::Base
   def initialize(attributes = nil)
     super(attributes)
 
-    ['red', 'green', 'blue', 'yellow', 'white', 'trap'].each do |light|
+    ['red', 'green', 'blue', 'yellow', 'white'].each do |light|
       self.lights[light] ||= false
     end
   end
