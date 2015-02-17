@@ -3,4 +3,11 @@
   <%= link_to t('label.list'), interventions_path %>
 <% end %>
 
+<h2>
+  <%= t(
+    'view.interventions.edit_title',
+    number: @intervention.id,
+    type: @intervention.type) %>
+</h2>
+
 <%= render 'form' %>

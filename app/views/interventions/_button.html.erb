@@ -1,6 +1,6 @@
 <% intervention_type = intervention_types.select{|x| x.priority == i}.first %>
 <% if intervention_type %>
-  <div class="button-active alarm-button" style="background-image: url('<%= intervention_type.image.present? ? intervention_type.image_url.to_s : '' %>') " target="<%= intervention_type.id %>">
+  <div class="button-active alarm-button" style="background-image: url('<%= intervention_type.image.present? ? intervention_type.image_url.to_s : '' %>') " target="<%= intervention_type.id %>" data-intervention-saver="important-button">
     <div class="text" style="color:<%= intervention_type.color ? intervention_type.color : ''%>"><%=	intervention_type.name %></div>
   </div>
 <% else %>

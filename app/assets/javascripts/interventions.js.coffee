@@ -1,4 +1,10 @@
 window.Intervention =
+  lastFocusedInput: null
+
+  focusLastFocusedInput: ->
+    if Intervention.lastFocusedInput
+      $('#' + Intervention.lastFocusedInput.attr('id')).focus()
+
   tokenizeAutocompleteInputs: ->
     $('.token-autocomplete:not(.tokenized)').each ->
       input = $(this)
@@ -35,7 +41,7 @@ new Rule
       navTabs.find('.active').removeClass('active')
       tabContent= $('.tab-content')
       tabContent.find('.active').removeClass('active')
-                                                                                    
+
       itemCount = $('[data-endowment-link]:last').data('number') + 1
 
       dynamicNumber = dynamicForm.match(
@@ -61,7 +67,7 @@ new Rule
         .insertBefore('#add_new_endowment')
 
       $('input[name$="[number]"]:visible:first').val(itemCount)
-      
+
       Intervention.tokenizeAutocompleteInputs()
 
     @map.assignTruckMileage ||= ->
@@ -81,7 +87,7 @@ new Rule
       clicked = $(this)
       inputTarget = clicked.parents('.row-fluid:first')
         .find("input[name$='[#{clicked.data('set-time-to')}]']")
-      
+
       now = new Date
       inputTarget.val Helpers.getHour()
 
@@ -96,18 +102,34 @@ new Rule
     @map.changeEndowmentNumber ||= ->
       input = $(this)
       value = input.val()
-  
+
       input.parents('.tab-pane.active:first').attr('id', "endowments_#{value}")
       input.parents('[data-endowments-items]').find('li.active').html(
-        "<a href='#endowments_#{value}' data-toggle='tab' data-number='#{value}' 
+        "<a href='#endowments_#{value}' data-toggle='tab' data-number='#{value}'
         data-endowment-link=true> #{value} </a>"
       )
+
+    @map.saveIntervention ||= ->
+      interventionForm = $('form[data-intervention-form]')
+      url              = interventionForm[0].getAttribute('action')
+      _method          = interventionForm[0].getAttribute('method')
+
+      if $('#intervention_intervention_type_id').val() != ''
+        $.ajax
+          url: url
+          type: _method
+          data: interventionForm.serialize()
+          success: (data)->
+            $('.content').html(data)
+
 
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
     $(document).on 'click', '#add_current_time', @map.setCurrentTimeToObservations
     $(document).on 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
+    $(document).on 'click', '[data-intervention-saver="important-button"]', @map.saveIntervention
+    $(document).on 'change', '[data-intervention-saver]', @map.saveIntervention
 
   unload: ->
     $(document).off 'click', '#add_new_endowment', @map.addNewTab
@@ -115,13 +137,15 @@ new Rule
     $(document).off 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
     $(document).off 'click', '#add_current_time', @map.setCurrentTimeToObservations
     $(document).off 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
+    $(document).off 'click', '[data-intervention-saver="important-button"]', @map.saveIntervention
+    $(document).off 'change', '[data-intervention-saver]', @map.saveIntervention
 
 jQuery ($) ->
   # Doble iniciador por turbolinks
   Intervention.tokenizeAutocompleteInputs()
 
+  $(document).on 'focusin', 'input', ->
+    Intervention.lastFocusedInput = $(this)
+
   $(document).on 'page:change', ->
     Intervention.tokenizeAutocompleteInputs()
-
-
-

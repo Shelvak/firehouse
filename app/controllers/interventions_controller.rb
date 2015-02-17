@@ -32,6 +32,7 @@ class InterventionsController < ApplicationController
   def edit
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
+    @intervention.build_informer unless @intervention.informer
   end
 
   # POST /interventions
@@ -42,7 +43,12 @@ class InterventionsController < ApplicationController
 
     if @intervention.save
       @intervention.statuses.build(user_id: current_user.id).save
-      redirect_to @intervention, notice: t('view.interventions.correctly_created')
+      if request.format.html?
+        redirect_to @intervention, notice: t('view.interventions.correctly_created')
+      else
+        @intervention.build_informer unless @intervention.informer
+        render 'edit', layout: false
+      end
     else
       render action: 'new'
     end
@@ -54,10 +60,11 @@ class InterventionsController < ApplicationController
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
 
-    if @intervention.update_attributes(params[:intervention])
+    if @intervention.update(params[:intervention]) && request.format.html?
       redirect_to @intervention, notice: t('view.interventions.correctly_updated')
     else
-      render action: 'edit'
+      @intervention.build_informer unless @intervention.informer
+      render 'edit', layout: false
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_intervention_url(@intervention),
