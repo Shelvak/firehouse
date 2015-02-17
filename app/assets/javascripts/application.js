@@ -32,5 +32,6 @@
 //= require bootstrap-colorpicker
 //= require google_maps
 //= require styled_markers
+//= require configs/lights
 //= require quick_buttons
 //= require configs/lights

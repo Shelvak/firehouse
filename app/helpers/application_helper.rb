@@ -104,7 +104,7 @@ module ApplicationHelper
   end
 
   def lights_collection_with_translation
-    [:red, :blue, :green, :yellow, :white, :trap].map do |light|
+    [:red, :blue, :green, :yellow, :white].map do |light|
       [light, t("view.lights.#{light}")]
     end
   end
