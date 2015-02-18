@@ -114,7 +114,7 @@ new Rule
       url              = interventionForm[0].getAttribute('action')
       _method          = interventionForm[0].getAttribute('method')
 
-      if $('#intervention_intervention_type_id').val() != ''
+      if $('#intervention_intervention_type_id').val().toString() != ''
         $.ajax
           url: url
           type: _method
@@ -135,6 +135,16 @@ new Rule
           type: 'PUT'
           data: { sign: type }
 
+    @map.handleEnterOnInputs ||= (e) ->
+      key = e.which
+
+      if key == 13 && !e.ctrlKey
+        e.preventDefault()
+
+      if (key == 10 || key == 13) && e.ctrlKey
+        $('form').submit()
+
+
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
@@ -145,6 +155,7 @@ new Rule
 
     # Fucking fix for double trigger....
     $(document).off('click', '[data-intervention-special-button]').on('click', '[data-intervention-special-button]', @map.sendSpecialSign)
+    $(document).on 'keypress', @map.handleEnterOnInputs
 
   unload: ->
     $(document).off 'click', '#add_new_endowment', @map.addNewTab
@@ -155,6 +166,7 @@ new Rule
     $(document).off 'click', '[data-intervention-saver="important-button"]', @map.saveIntervention
     $(document).off 'change', '[data-intervention-saver]', @map.saveIntervention
     $(document).off 'click', '[data-intervention-special-button]', @map.sendSpecialSign
+    $(document).off 'keyup', 'input', @map.handleEnterOnInputs
 
 jQuery ($) ->
   # Doble iniciador por turbolinks

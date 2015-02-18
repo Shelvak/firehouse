@@ -25,14 +25,12 @@ class InterventionsController < ApplicationController
   def new
     @title = t('view.interventions.new_title')
     @intervention = Intervention.new
-    @intervention.build_informer unless @intervention.informer
   end
 
   # GET /interventions/1/edit
   def edit
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
-    @intervention.build_informer unless @intervention.informer
   end
 
   # POST /interventions
@@ -46,7 +44,6 @@ class InterventionsController < ApplicationController
       if request.format.html?
         redirect_to @intervention, notice: t('view.interventions.correctly_created')
       else
-        @intervention.build_informer unless @intervention.informer
         render 'edit', layout: false
       end
     else

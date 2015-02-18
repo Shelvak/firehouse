@@ -47,6 +47,7 @@
         </div>
       </div>
 
+      <% @intervention.build_informer unless @intervention.informer %>
       <%= f.simple_fields_for :informer do |inf| %>
         <%= render partial: 'informer', locals: { inf: inf }  %>
       <% end %>
