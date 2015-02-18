@@ -24,4 +24,11 @@ module InterventionsHelper
     form.input :intervention_type_id, collection: collection,
       input_html: { selected: form.object.try(:intervention_type_id) }
   end
+
+  def special_intervention_buttons
+    {
+      alert: 'alert_button.png',
+      trap:  'trap_button.png'
+    }
+  end
 end

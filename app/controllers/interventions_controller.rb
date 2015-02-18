@@ -116,6 +116,12 @@ class InterventionsController < ApplicationController
     @interventions = Intervention.includes(:statuses).where(statuses: { name: 'open' })
   end
 
+  def special_sign
+    @intervention = Intervention.find(params[:id])
+    @intervention.special_sign(params[:sign])
+
+    render nothing: true
+  end
   private
 
     def active_sco?

@@ -78,4 +78,20 @@ class Intervention < ActiveRecord::Base
       end
     end
   end
+
+  def special_sign(sign)
+    case sign
+      when 'alert' then reactivate!
+      when 'trap'  then its_a_trap!
+    end
+  end
+
+  def reactivate!
+    # Save the 'activation time'
+    # Send to redis
+  end
+
+  def its_a_trap!
+    # Send to redis
+  end
 end

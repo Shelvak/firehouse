@@ -122,6 +122,18 @@ new Rule
           success: (data)->
             $('.content').html(data)
 
+    @map.sendSpecialSign ||= (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+
+      id = this.getAttribute('data-intervention-id')
+      type = this.getAttribute('data-intervention-special-button')
+
+      if id.match(/\d+/)
+        $.ajax
+          url: '/interventions/' + id + '/special_sign'
+          type: 'PUT'
+          data: { sign: type }
 
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
@@ -131,6 +143,9 @@ new Rule
     $(document).on 'click', '[data-intervention-saver="important-button"]', @map.saveIntervention
     $(document).on 'change', '[data-intervention-saver]', @map.saveIntervention
 
+    # Fucking fix for double trigger....
+    $(document).off('click', '[data-intervention-special-button]').on('click', '[data-intervention-special-button]', @map.sendSpecialSign)
+
   unload: ->
     $(document).off 'click', '#add_new_endowment', @map.addNewTab
     $(document).off 'change', '[data-truck-number]', @map.assignTruckMileage
@@ -139,6 +154,7 @@ new Rule
     $(document).off 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
     $(document).off 'click', '[data-intervention-saver="important-button"]', @map.saveIntervention
     $(document).off 'change', '[data-intervention-saver]', @map.saveIntervention
+    $(document).off 'click', '[data-intervention-special-button]', @map.sendSpecialSign
 
 jQuery ($) ->
   # Doble iniciador por turbolinks

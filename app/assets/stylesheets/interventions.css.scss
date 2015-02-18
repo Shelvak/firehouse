@@ -91,3 +91,14 @@
   background-color: white;
 }
 
+[data-intervention-special-button="alert"] {
+  position: absolute;
+  top: 8%;
+  right: 5%;
+}
+
+[data-intervention-special-button="trap"] {
+  position: absolute;
+  top: 8%;
+  left: 5%;
+}

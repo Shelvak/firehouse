@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       get :map
     end
 
+    put :special_sign, on: :member
+
+
     resources :endowments do
       resource :mobile_intervention, on: :member do
         resources :buildings, except: [:index, :show] do
