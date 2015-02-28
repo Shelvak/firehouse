@@ -12,8 +12,9 @@ var loadLargeMap = function () {
     , zoom           = 13
     , station        = new OpenLayers.Geometry.Point( firehouseStation.longitude, firehouseStation.latitude ).transform(fromProjection, toProjection)
     , stationDesc    = "Estación de bomberos"
-    , stationMarker  = "/assets/map/marker-basic2.png" //todo: cambiar por el azul
+    , stationMarker  = "/assets/map/marker-blue2.png"
     , basicMarker    = "/assets/map/marker-basic2.png"
+    , interventions  = getMarkersInfo()
 
   setMarker(station,stationDesc, stationMarker, vectorLayer, 1)
 
@@ -59,51 +60,68 @@ var loadLargeMap = function () {
 
 };
 
-function setMarker(point, description, graphic, vectorLayer, count){
-  var feature = new OpenLayers.Feature.Vector(
-    point,
-    { description     : description },
-    { externalGraphic : graphic
-      , graphicHeight   : 25
-      , graphicWidth    : 25
-      , graphicXOffset  : -15
-      , graphicYOffset  : -20  }
-  );
-  vectorLayer.addFeatures(feature);
-}
+var getMarkersInfo = function () {
+      var markersData = []
+        , markersDiv  = document.getElementById('markers-data')
+        , markers     = markersDiv.children
+      for (var i = 0, markerData, marker; marker = markers[i]; i++) {
+        markerData = {
+          address   : marker.dataset.markerAddress,
+          latitude  : marker.dataset.markerLatitude,
+          longitude : marker.dataset.markerLongitude,
+          index     : marker.dataset.markerIndex
+        }
+        markersData.push(markerData)
+      }
+      markersDiv.remove()
+      return markersData
+    }
 
-var setFullscreenMapSize = function(){
-  var map_canvas              = document.getElementById('map_canvas');
-  document.body.height        = map_canvas.style.height = window.screen.height + 'px';
-  document.body.width         = map_canvas.style.width = window.screen.width + 'px';
-  document.body.style.padding = '0px';
-};
+  , setMarker = function (point, description, graphic, vectorLayer, count){
+      var feature = new OpenLayers.Feature.Vector(
+        point,
+        { description     : description },
+        { externalGraphic : graphic
+          , graphicHeight   : 25
+          , graphicWidth    : 25
+          , graphicXOffset  : -15
+          , graphicYOffset  : -20  }
+      );
+      vectorLayer.addFeatures(feature);
+    }
 
-var loadMap = function (latitude, longitude) {
-  document.getElementById('map_canvas').innerHTML = '' // Deleting the old map to avoid double rendering
-  var map            = new OpenLayers.Map("map_canvas")
-    , mapnik         = new OpenLayers.Layer.OSM()
-    , fromProjection = new OpenLayers.Projection("EPSG:4326")   // Transform from WGS 1984
-    , toProjection   = new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-    , zoom           = 16
-    , markers        = new OpenLayers.Layer.Markers( "Markers" )
-    , autocomplete   = this
-    , latitude       = latitude
-    , longitude      = longitude
-    , position
+  , setFullscreenMapSize = function(){
+      var map_canvas              = document.getElementById('map_canvas');
+      document.body.height        = map_canvas.style.height = window.screen.height + 'px';
+      document.body.width         = map_canvas.style.width = window.screen.width + 'px';
+      document.body.style.padding = '0px';
+    }
 
-  //todo: buscar una mejor forma de saber si viene o no por autocompletado
-  if (autocomplete.componentRestrictions) {
-    var place = autocomplete.getPlace()
-    latitude  = place.geometry.location.lat();
-    longitude = place.geometry.location.lng();
-    setLatitudeAndLongitude(latitude, longitude);
-  }
+  , loadMap = function (latitude, longitude) {
+      document.getElementById('map_canvas').innerHTML = '' // Deleting the old map to avoid double rendering
+      var map            = new OpenLayers.Map("map_canvas")
+        , mapnik         = new OpenLayers.Layer.OSM()
+        , fromProjection = new OpenLayers.Projection("EPSG:4326")   // Transform from WGS 1984
+        , toProjection   = new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+        , zoom           = 16
+        , markers        = new OpenLayers.Layer.Markers( "Markers" )
+        , autocomplete   = this
+        , latitude       = latitude
+        , longitude      = longitude
+        , position
 
-  position = new OpenLayers.LonLat(longitude, latitude).transform( fromProjection, toProjection)
-  markers.addMarker(new OpenLayers.Marker(position));
+      //todo: buscar una mejor forma de saber si viene o no por autocompletado
+      if (autocomplete.componentRestrictions) {
+        var place = autocomplete.getPlace()
+        latitude  = place.geometry.location.lat();
+        longitude = place.geometry.location.lng();
+        setLatitudeAndLongitude(latitude, longitude);
+      }
 
-  map.addLayer(mapnik);
-  map.addLayer(markers);
-  map.setCenter(position, zoom);
-}
+      position = new OpenLayers.LonLat(longitude, latitude).transform( fromProjection, toProjection)
+      markers.addMarker(new OpenLayers.Marker(position));
+
+      map.addLayer(mapnik);
+      map.addLayer(markers);
+      map.setCenter(position, zoom);
+    }

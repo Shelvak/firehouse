@@ -109,16 +109,7 @@ var setLatitudeAndLongitude = function(latitude, longitude){
     document.getElementById('intervention_longitude').value = longitude;
 };
 
-var interventions = [];
-var addInterventions = function(address, latitude, longitude, index){
-    var object = {
-        address: address,
-        latitude: latitude,
-        longitude: longitude,
-        index: index
-    };
-    interventions.push(object);
-};
+//var interventions = getMarkersInfo();
 
 var setMarkerInfo = function(map, marker, title, index, infowindow) {
     google.maps.event.addListener(marker, 'click', (function (marker, index) {
