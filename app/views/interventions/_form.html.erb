@@ -103,6 +103,7 @@
           </ul>
           <div class="tab-content">
             <% i = 0 %>
+            <% @intervention.endowments.build if @intervention.endowments.empty? %>
             <%= f.simple_fields_for :endowments do |e| %>
               <%= render partial: 'endowment', locals: { f: e, i: (i += 1) } %>
             <% end %>
