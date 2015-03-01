@@ -25,13 +25,15 @@ InterventionType.all.update_all(priority: nil)
   materiales_peligrosos
   rescate_de_persona
 ).each_with_index do |file, i|
-  InterventionType.create!(
-    name:     file.gsub('_', ' ').camelize,
-    priority: i+1,
-    image:    File.open(Rails.root.join('lib', 'assets', "#{file}.png")),
-    color:    '#ffffff'
-  )
-  puts "Creado #{file}"
-rescue
-  puts "#{file} error..."
+  begin
+    InterventionType.create!(
+      name:     file.gsub('_', ' ').camelize,
+      priority: i+1,
+      image:    File.open(Rails.root.join('lib', 'assets', "#{file}.png")),
+      color:    '#ffffff'
+    )
+    puts "Creado #{file}"
+  rescue
+    puts "#{file} error..."
+  end
 end
