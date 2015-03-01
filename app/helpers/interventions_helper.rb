@@ -19,7 +19,14 @@ module InterventionsHelper
   end
 
   def intervention_type_select(form)
-    collection = intervention_types.map { |i| [i.name, i.id] }
+    collection = []
+
+    InterventionType.order_by_children.each do |it|
+      name = it.name
+      name = "-> #{name}" if it.is_a_son?
+
+      collection << [name, it.id]
+    end
 
     form.input :intervention_type_id, collection: collection,
       input_html: { selected: form.object.try(:intervention_type_id) }
