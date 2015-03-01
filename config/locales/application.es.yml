@@ -11,9 +11,9 @@ es:
         roof: "Techo"
         window: "Aberturas"
       endowment:
-        arrive_at: "Llegada al lugar"
-        back_at: "Vuelta del lugar"
-        in_at: "Llegada al cuartel"
+        arrive_at: "Llegada"
+        back_at: "Vuelta"
+        in_at: "Cuartel"
         number: "Número de dotación"
         out_at: "Salida"
         truck_id: "Móvil"

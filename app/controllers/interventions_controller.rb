@@ -61,7 +61,11 @@ class InterventionsController < ApplicationController
       redirect_to @intervention, notice: t('view.interventions.correctly_updated')
     else
       @intervention.build_informer unless @intervention.informer
-      render 'edit', layout: false
+      if request.format.html?
+        render 'edit'
+      else
+        render 'edit', layout: false
+      end
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_intervention_url(@intervention),
