@@ -29,7 +29,7 @@ es:
       informer:
         address: "Dirección"
         full_name: "Nombre y apellido"
-        nid: "DNI/DI/Libreta/Pasaporte"
+        nid: "DNI (solo nº)"
         phone: "Teléfono"
       intervention:
         address: "Dirección"

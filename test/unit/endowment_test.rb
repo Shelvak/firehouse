@@ -14,10 +14,10 @@ class EndowmentTest < ActiveSupport::TestCase
           :endowment, truck_id: @endowment.truck_id,
           intervention_id: @endowment.intervention_id
         )
-      end 
-    end 
+      end
+    end
   end
-    
+
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Endowment.count' do
@@ -27,19 +27,19 @@ class EndowmentTest < ActiveSupport::TestCase
 
     assert_equal 101, @endowment.reload.number
   end
-    
-  test 'destroy' do 
+
+  test 'destroy' do
     assert_difference 'PaperTrail::Version.count' do
       assert_difference('Endowment.count', -1) { @endowment.destroy }
     end
   end
-    
+
   test 'validates blank attributes' do
     @endowment.number = ''
-    
+
     assert @endowment.invalid?
     assert_equal 1, @endowment.errors.size
-    assert_equal [error_message_from_model(@endowment, :number, :blank)],
+    assert_equal [error_message_from_model(@endowment, :number, :not_a_number)],
       @endowment.errors[:number]
   end
 

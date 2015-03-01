@@ -12,7 +12,7 @@ class Endowment < ActiveRecord::Base
   has_many :endowment_lines
   has_one :mobile_intervention
 
-  validates :number, presence: true
+  validates :number, numericality: { only_integer: true, greater_than: 0 }
   validate :truck_out_in_distance
 
   before_validation :assign_truck

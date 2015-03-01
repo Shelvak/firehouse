@@ -4,4 +4,8 @@ class Informer < ActiveRecord::Base
   #attr_accessible :full_name, :nid, :phone, :address, :intervention_id
 
   belongs_to :intervention
+
+  validates :phone, numericality: {
+    only_integer: true, allow_nil: true, allow_blank: true
+  }
 end

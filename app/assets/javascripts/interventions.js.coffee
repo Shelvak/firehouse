@@ -115,6 +115,10 @@ new Rule
       input = $(this)
       value = input.val()
 
+      if value < 0
+        value = Math.abs(value)
+        input.val(value)
+
       input.parents('.tab-pane.active:first').attr('id', "endowments_#{value}")
       input.parents('[data-endowments-items]').find('li.active').html(
         "<a href='#endowments_#{value}' data-toggle='tab' data-number='#{value}'
