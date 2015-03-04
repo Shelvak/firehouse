@@ -1,10 +1,14 @@
-<div id="markers-data">
+<ol id="markers-data" class="markers-list">
   <% @interventions.each_with_index do |intervention, index| %>
-    <div
+    <li
       data-marker-address="<%= intervention.intervention_type %>: <%= intervention.address %>"
       data-marker-latitude="<%= intervention.latitude %>"
       data-marker-longitude="<%= intervention.longitude %>"
       data-marker-index="<%= index %>"
-    ></div>
+    >
+      <% if interventions_list %>
+        <%= "#{intervention.intervention_type}: #{intervention.address}" %>
+      <% end %>
+    </li>
   <% end %>
-</div>
+</ol>

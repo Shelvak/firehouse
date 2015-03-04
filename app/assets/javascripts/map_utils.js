@@ -12,19 +12,31 @@ var loadLargeMap = function () {
     , zoom           = 13
     , station        = new OpenLayers.Geometry.Point( firehouseStation.longitude, firehouseStation.latitude ).transform(fromProjection, toProjection)
     , stationDesc    = "Estación de bomberos"
+//    estos colores deberian ser por tipo de intervencion
     , stationMarker  = "/assets/map/marker-blue2.png"
     , basicMarker    = "/assets/map/marker-basic2.png"
     , interventions  = getMarkersInfo()
 
-  setMarker(station,stationDesc, stationMarker, vectorLayer, 1)
+  setMarker(station, stationDesc, stationMarker, vectorLayer, 1)
 
-  for (i = 0; i < interventions.length; i++) {
-    var point       = new OpenLayers.Geometry.Point( interventions[i].longitude, interventions[i].latitude ).transform(fromProjection, toProjection)
-      , index       = parseInt(interventions[i].index) + 1
-      , description = '<h4>' + index + '</h4>' + interventions[i].address
+  for (var i = 0, intervention; intervention = interventions[i]; i++) {
+    var point       = new OpenLayers.Geometry.Point( intervention.longitude, intervention.latitude ).transform(fromProjection, toProjection)
+      , index       = parseInt(intervention.index) + 1
+      , description = '<h4>' + index + '</h4>' + intervention.address
       , graphic     = basicMarker
 
     setMarker(point, description, graphic, vectorLayer, 1)
+    intervention.element.addEventListener('click', function(){
+      var longitude = this.dataset.markerLongitude
+        , latitude  = this.dataset.markerLatitude
+
+      if (latitude && longitude) {
+        var point = new OpenLayers.Geometry.Point( longitude, latitude ).transform(fromProjection, toProjection)
+        drawLine(map, station, point)
+      }
+
+
+    })
   }
 
   map.addLayer(mapnik);
@@ -57,7 +69,6 @@ var loadLargeMap = function () {
 
   map.addControl(controls['selector']);
   controls['selector'].activate();
-
 };
 
 var getMarkersInfo = function () {
@@ -66,6 +77,7 @@ var getMarkersInfo = function () {
         , markers     = markersDiv.children
       for (var i = 0, markerData, marker; marker = markers[i]; i++) {
         markerData = {
+          element   : marker,
           address   : marker.dataset.markerAddress,
           latitude  : marker.dataset.markerLatitude,
           longitude : marker.dataset.markerLongitude,
@@ -73,7 +85,6 @@ var getMarkersInfo = function () {
         }
         markersData.push(markerData)
       }
-      markersDiv.remove()
       return markersData
     }
 
@@ -104,7 +115,8 @@ var getMarkersInfo = function () {
         , fromProjection = new OpenLayers.Projection("EPSG:4326")   // Transform from WGS 1984
         , toProjection   = new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
         , zoom           = 16
-        , markers        = new OpenLayers.Layer.Markers( "Markers" )
+//        , markers        = new OpenLayers.Layer.Markers( "Markers" )
+        , markersLayer   = new OpenLayers.Layer.Vector("Overlay")
         , autocomplete   = this
         , latitude       = latitude
         , longitude      = longitude
@@ -117,11 +129,41 @@ var getMarkersInfo = function () {
         longitude = place.geometry.location.lng();
         setLatitudeAndLongitude(latitude, longitude);
       }
+      var point       = new OpenLayers.Geometry.Point( longitude, latitude ).transform(fromProjection, toProjection)
+        , description = ''
+        , graphic     = "/assets/map/marker-basic2.png"
+        , position    = new OpenLayers.LonLat(longitude, latitude).transform( fromProjection, toProjection)
 
-      position = new OpenLayers.LonLat(longitude, latitude).transform( fromProjection, toProjection)
-      markers.addMarker(new OpenLayers.Marker(position));
+      setMarker(point, description, graphic, markersLayer, 1)
 
+      map.addControl(new OpenLayers.Control.DragFeature(markersLayer, {
+        autoActivate: true,
+        onComplete: function (feature) {
+          var newPosition = new OpenLayers.LonLat(feature.geometry.x, feature.geometry.y).transform( toProjection, fromProjection )
+          setLatitudeAndLongitude(newPosition.lat, newPosition.lon)
+        }
+      }));
       map.addLayer(mapnik);
-      map.addLayer(markers);
+      map.addLayer(markersLayer);
       map.setCenter(position, zoom);
     }
+
+  , drawLine = function (map, from, to) {
+      var points    = [from, to]
+        , line      = new OpenLayers.Geometry.LineString(points)
+        , style     = {
+            strokeColor   : '#0000ff',
+            strokeOpacity : 0.5,
+            strokeWidth   : 5
+          }
+        , lineFeature = new OpenLayers.Feature.Vector(line, null, style);
+
+      if (lineLayer) map.removeLayer(lineLayer);
+
+      lineLayer = new OpenLayers.Layer.Vector("Line Layer")
+      lineLayer.addFeatures([lineFeature]);
+      map.addLayer(lineLayer);
+      map.addControl(new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path));
+    }
+  // cuando use un solo objeto, con inits y toda la cuestion, esto va a tener mejor pinta, será cuando deje estable el funcionamiento.
+  , lineLayer

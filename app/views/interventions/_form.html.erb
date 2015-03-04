@@ -1,6 +1,3 @@
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
-<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-
 <%= content_tag :div, t('view.interventions.no_active_ceo'),
   class: 'alert alert-danger' if @no_active_ceo %>
 
@@ -126,18 +123,21 @@
     <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
-
 <script type="text/javascript" charset="utf-8">
   var dynamicTab =
-    '<%= content_tag(:li, link_to(
+      '<%= content_tag(:li, link_to(
         "dynamicContent", "#endowments_dynamicContent",
         data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
       )
     ) %>'
   var dynamicForm =
-    '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
+      '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
 
   var without_result = '<%= t("label.without_results") %>'
+</script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
     autocompleteAddress('intervention_address');
   });

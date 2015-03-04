@@ -107,6 +107,7 @@ var loadGeneralMap = function () {
 var setLatitudeAndLongitude = function(latitude, longitude){
     document.getElementById('intervention_latitude').value  = latitude;
     document.getElementById('intervention_longitude').value = longitude;
+  //  despues de setear esto tambien deberia guardar
 };
 
 //var interventions = getMarkersInfo();
@@ -121,10 +122,11 @@ var setMarkerInfo = function(map, marker, title, index, infowindow) {
 };
 
 var autocompleteAddress = function(id){
-    var input = document.getElementById(id);
-    var options = {
-        componentRestrictions: {country: 'ar'}
-    };
+    var input = document.getElementById(id)
+      , options = {
+        componentRestrictions: { country: 'ar' }
+      };
     address_autocompleted = new google.maps.places.Autocomplete(input, options);
+    //  aca en vez de redibujar todo el mapa puedo solamente eliminar la capa de marcadores y crearla de nuevo
     google.maps.event.addListener(address_autocompleted, 'place_changed', loadMap );
 };

@@ -1,5 +1,3 @@
-<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-<!--todo: lista de intervenciones con prioridades o tipos-->
 <% if @interventions.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
@@ -9,7 +7,12 @@
       <%= link_to t('view.interventions.map_index.fullscreen'),
                   fullscreen_path, class: 'btn', target: :blank %>
     </h1>
-    <div id="map_canvas" class="map-large"></div>
+    <div class="span2">
+      <%= render partial: 'tracking_maps/general_map_objects', locals: { interventions_list: true } %>
+    </div>
+    <div class="span9">
+      <div id="map_canvas" class="map-large"></div>
+    </div>
   </div>
   <div class="form-actions">
     <%= link_to(
@@ -19,9 +22,10 @@
     <%= link_to t('view.interventions.index_title'),
                 interventions_path, class: 'btn' %>
   </div>
-  <%= render partial: 'tracking_maps/general_map_objects' %>
-
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
   <script type="text/javascript" charset="utf-8">
-    loadLargeMap();
+    $(document).ready(function() {
+      loadLargeMap();
+    });
   </script>
 <% end %>

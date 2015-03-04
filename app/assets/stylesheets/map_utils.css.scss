@@ -5,3 +5,26 @@
 [id^="OpenLayers_Control_Attribution_"] {
   display: none !important;
 }
+
+.markers-list {
+  margin-left: -15px;
+  li {
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+  li:hover {
+    background-color: #f5f5f5;
+  }
+  li:last-child {
+    border-bottom: none;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+@media (max-width: 979px) {
+  .markers-list {
+    margin-left: 25px;
+  }
+}
