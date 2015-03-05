@@ -44,5 +44,6 @@
   <%= link_to t('label.list'), interventions_path %>
 </div>
 <script>
-  loadMap('<%= @intervention.latitude %>', '<%= @intervention.longitude %>');
+  //mejorar esto weon
+  Leaflet.initMap({latitude: '<%= @intervention.latitude %>', longitude: '<%= @intervention.longitude %>', description: '<%= @intervention.formatted_description %>'});
 </script>

@@ -24,8 +24,7 @@
     <%= render partial: 'general_map_objects', locals: { interventions_list: false }  %>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-        setFullscreenMapSize();
-        loadLargeMap();
+        Leaflet.initLargeMap(true);
       });
     </script>
   </body>

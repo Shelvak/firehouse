@@ -84,4 +84,8 @@ class Intervention < ActiveRecord::Base
       end
     end
   end
+
+  def formatted_description
+    "#{type} : #{address}"
+  end
 end

@@ -71,6 +71,7 @@ var loadLargeMap = function () {
   controls['selector'].activate();
 };
 
+//getMarkersInfo es lo unico que se esta usando ahora que esta leaflet colocado.
 var getMarkersInfo = function () {
       var markersData = []
         , markersDiv  = document.getElementById('markers-data')
@@ -81,7 +82,6 @@ var getMarkersInfo = function () {
           address   : marker.dataset.markerAddress,
           latitude  : marker.dataset.markerLatitude,
           longitude : marker.dataset.markerLongitude,
-          index     : marker.dataset.markerIndex
         }
         markersData.push(markerData)
       }
@@ -101,8 +101,8 @@ var getMarkersInfo = function () {
       vectorLayer.addFeatures(feature);
     }
 
-  , setFullscreenMapSize = function(){
-      var map_canvas              = document.getElementById('map_canvas');
+  , setFullscreenMapSize = function (){
+      var map_canvas              = document.getElementById(MapUtils.map.div);
       document.body.height        = map_canvas.style.height = window.screen.height + 'px';
       document.body.width         = map_canvas.style.width = window.screen.width + 'px';
       document.body.style.padding = '0px';
@@ -122,7 +122,6 @@ var getMarkersInfo = function () {
         , longitude      = longitude
         , position
 
-      //todo: buscar una mejor forma de saber si viene o no por autocompletado
       if (autocomplete.componentRestrictions) {
         var place = autocomplete.getPlace()
         latitude  = place.geometry.location.lat();
@@ -165,5 +164,31 @@ var getMarkersInfo = function () {
       map.addLayer(lineLayer);
       map.addControl(new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path));
     }
-  // cuando use un solo objeto, con inits y toda la cuestion, esto va a tener mejor pinta, será cuando deje estable el funcionamiento.
-  , lineLayer
+  , lineLayer;
+
+var MapUtils = ( function () {
+  var station = {
+          latitude    : '-32.926887'
+        , longitude   : '-68.846255'
+        , description : "Estación de bomberos"
+      }
+    , map = {
+          div  : "map_canvas"
+        , maxZoom : 18
+        , minZoom : 10
+    }
+    , markerGraphics = {
+          station : "/assets/map/marker-blue2.png"
+        , basic   : "/assets/map/marker-basic2.png"
+    }
+    , interventions
+    , loadInterventions = function () {
+        interventions = getMarkersInfo()
+      }
+  return {
+      loadInterventions : loadInterventions
+    , map               : map
+    , markerGraphics    : markerGraphics
+    , station           : station
+  }
+}() )

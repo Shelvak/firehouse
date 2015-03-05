@@ -31,3 +31,5 @@
 //= require bootstrap-colorpicker
 //= require google_maps
 //= require map_utils
+//= require leaflet/leaflet
+//= require leaflet_utils
