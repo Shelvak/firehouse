@@ -21,7 +21,7 @@ var Leaflet = ( function () {
         Leaflet.map.map = new L.Map(MapUtils.map.div)
 
         var map       = Leaflet.map.map
-          , osmUrl    = tile
+          , osmUrl    = tile.osm
           , osmAttrib = ''
           , osm       = new L.TileLayer(osmUrl, {
                                           minZoom     : MapUtils.map.minZoom,
@@ -76,7 +76,7 @@ var Leaflet = ( function () {
         Leaflet.map.map = new L.Map(MapUtils.map.div)
 
         var map       = Leaflet.map.map
-          , osmUrl    = tile
+          , osmUrl    = tile.osm
           , osmAttrib = ''
           , osm       = new L.TileLayer(osmUrl, {
                                           minZoom     : MapUtils.map.minZoom,
@@ -101,13 +101,17 @@ var Leaflet = ( function () {
 
             arrayOfLatLngs[i]               = [intervention.latitude, intervention.longitude]
             Leaflet.map.markers[i]          = marker
+            //Guardo en el html el indice que corresponde al array de marcadores para poderlo leer despues en el evento click
             htmlElement.dataset.markerIndex = Leaflet.map.markers.length - 1
 
             marker.addTo(map).bindPopup(description)
             htmlElement.addEventListener('click', function () {
-              var index = this.dataset.markerIndex
-              Leaflet.map.markers[index].openPopup()
-              drawRoute(Leaflet.map.map, this.dataset.markerLatitude, this.dataset.markerLongitude)
+              var index     = this.dataset.markerIndex
+                , marker    = Leaflet.map.markers[index]
+                , latitude  = marker._latlng.lat
+                , longitude = marker._latlng.lng
+              marker.openPopup()
+              drawRoute(Leaflet.map.map, latitude, longitude)
             })
           }
         }
