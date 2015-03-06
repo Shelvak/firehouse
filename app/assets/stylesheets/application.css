@@ -25,4 +25,5 @@
  *= require SrBuj
  *= require map_utils
  *= require leaflet/leaflet
+ *= require leaflet/leaflet-routing-machine
 */

@@ -126,7 +126,6 @@ var autocompleteAddress = function(id){
       , options = {
         componentRestrictions: { country: 'ar' }
       };
-  console.log(input)
     address_autocompleted = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(address_autocompleted, 'place_changed', function () {
       Leaflet.changeMarker(this, input.value)

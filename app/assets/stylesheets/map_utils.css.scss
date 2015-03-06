@@ -28,3 +28,13 @@
     margin-left: 25px;
   }
 }
+
+.leaflet-routing-container.leaflet-bar.leaflet-control {
+  display: none;
+}
+.leaflet-marker-icon {
+  z-index: 0 !important;
+}
+.leaflet-map-pane svg {
+  z-index: 0 !important;
+}

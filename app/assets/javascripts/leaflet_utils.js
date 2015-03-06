@@ -1,9 +1,22 @@
 var Leaflet = ( function () {
-  var tile    = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    , map = {
-          map     : ''
-        , markers : []
-      }
+  var tile = { osm           : 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+             , openstreetmap : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+             }
+    , map = { map     : ''
+            , markers : []
+            , route   : ''
+            }
+    //icons not working yet
+    , icons = { redIcon : L.icon({
+                            iconUrl      : 'map/marker-basic2.png',
+                            shadowUrl    : 'leaf-shadow.png',
+                            iconSize     : [38, 95], // size of the icon
+                            shadowSize   : [50, 64], // size of the shadow
+                            iconAnchor   : [22, 94], // point of the icon which will correspond to marker's location
+                            shadowAnchor : [4, 62],  // the same for the shadow
+                            popupAnchor  : [-3, -76] // point from which the popup should open relative to the iconAnchor
+                          })
+              }
     , initMap = function (markerInfo) {
         Leaflet.map.map = new L.Map(MapUtils.map.div)
 
@@ -24,6 +37,8 @@ var Leaflet = ( function () {
           marker = L.marker([markerInfo.latitude, markerInfo.longitude])
           marker.addTo(map);
           marker.bindPopup(markerInfo.description).openPopup();
+
+          drawRoute(map, markerInfo.latitude, markerInfo.longitude)
         }
       }
 
@@ -47,7 +62,7 @@ var Leaflet = ( function () {
           marker.setLatLng(point);
         }
         else {
-         marker = L.marker(point, { draggable: true }).addTo(map)
+          marker = L.marker(point, { draggable: true }).addTo(map)
         }
         // Bindeo de popup y movimiento del marcador
         marker.bindPopup(description)
@@ -79,19 +94,20 @@ var Leaflet = ( function () {
 
         for (var i = 0, intervention; intervention = interventions[i]; i++) {
           if (intervention.latitude && intervention.longitude) {
-            var point = new L.LatLng(intervention.latitude, intervention.longitude)
+            var point       = new L.LatLng(intervention.latitude, intervention.longitude)
               , description = '<h4>' + (i+1) + '</h4>' + intervention.address
-              , marker = L.marker(point)
+              , marker      = L.marker(point)
               , htmlElement = intervention.element
-  //            , graphic = basicMarker
 
-            arrayOfLatLngs[i] = [intervention.latitude, intervention.longitude]
-            marker.addTo(map).bindPopup(description)
-            Leaflet.map.markers[i] = marker
+            arrayOfLatLngs[i]               = [intervention.latitude, intervention.longitude]
+            Leaflet.map.markers[i]          = marker
             htmlElement.dataset.markerIndex = Leaflet.map.markers.length - 1
+
+            marker.addTo(map).bindPopup(description)
             htmlElement.addEventListener('click', function () {
               var index = this.dataset.markerIndex
               Leaflet.map.markers[index].openPopup()
+              drawRoute(Leaflet.map.map, this.dataset.markerLatitude, this.dataset.markerLongitude)
             })
           }
         }
@@ -100,6 +116,18 @@ var Leaflet = ( function () {
         map.fitBounds(bounds);
         map.addLayer(osm);
     }
+    , drawRoute = function (map, latitude, longitude) {
+        var station  = L.latLng(MapUtils.station.latitude, MapUtils.station.longitude)
+          , newPoint = L.latLng(parseFloat(latitude), parseFloat(longitude))
+        if (Leaflet.map.route) {
+          Leaflet.map.route.setWaypoints([station, newPoint])
+        }
+        else {
+          Leaflet.map.route = L.Routing.control({
+            waypoints: [station, newPoint]
+          }).addTo(map);
+        }
+      };
 
   return {
       changeMarker : changeMarker
