@@ -14,7 +14,7 @@ class Intervention < ActiveRecord::Base
   #validate :sco_presence
 
   before_validation :assign_endowment_number, :validate_truck_presence
-  after_create :assign_mileage_to_trucks
+  after_create :assign_mileage_to_trucks, :send_alert_to_redis
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
@@ -91,7 +91,35 @@ class Intervention < ActiveRecord::Base
     # Send to redis
   end
 
+  def is_trap?
+    $redis.lrange('interventions:traps', 0, -1).include? self.id
+  end
+
   def its_a_trap!
-    # Send to redis
+    $redis.lpush('interventions:traps', self.id) unless is_trap?
+
+    _lights = lights_for_redis
+    _lights['trap'] = true
+
+    $redis.publish('semaphore-lights-alert', _lights.to_json)
+  end
+
+  def lights_for_redis
+    _lights = intervention_type.lights
+    _lights['day'] = (8..19).include?(Time.now.hour)
+    _lights
+  end
+
+  def send_lights
+    $redis.publish('semaphore-lights-alert', lights_for_redis.to_json)
+  end
+
+  def send_alert_to_redis
+    $redis.lpush('interventions:actives', self.id)
+    send_lights
+  end
+
+  def is_active?
+    $redis.lrange('interventions:actives', 0, -1).include? self.id
   end
 end

@@ -7,7 +7,7 @@ class Light < ActiveRecord::Base
   validates :kind, :color, :intensity, presence: true
 
   KINDS.each.each do |kind|
-    scope :"on_#{kind}", ->() { where(kind: kind) }
+    scope :"on_#{kind}", ->() { where(kind: kind).order(order_by_color) }
   end
 
   def update_semaphore_brightness
@@ -47,9 +47,22 @@ class Light < ActiveRecord::Base
 
       opts.each do |color, value|
         light = find_by(color: color, kind: kind)
-        light.update_column(:intensity, value.to_i)
-        light.update_semaphore_brightness
+
+        if light.intensity.to_i != value.to_i
+          light.update_column(:intensity, value.to_i)
+          light.update_semaphore_brightness
+        end
       end
     end
+  end
+
+  def self.order_by_color
+    ret = 'CASE'
+
+    COLORS.each_with_index do |color, i|
+      ret << " WHEN lights.color = '#{color}' THEN #{i}"
+    end
+
+    ret << 'END'
   end
 end

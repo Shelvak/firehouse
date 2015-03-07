@@ -100,8 +100,8 @@ new Rule
       inputTarget = clicked.parents('.row-fluid:first')
         .find("input[name$='[#{clicked.data('set-time-to')}]']")
 
-      now = new Date
       inputTarget.val Helpers.getHour()
+      Intervention.saveIntervention()
 
     @map.setCurrentTimeToObservations ||= ->
       input = $('#intervention_observations')
@@ -124,7 +124,6 @@ new Rule
         "<a href='#endowments_#{value}' data-toggle='tab' data-number='#{value}'
         data-endowment-link=true> #{value} </a>"
       )
-
 
     @map.sendSpecialSign ||= (e) ->
       e.preventDefault()

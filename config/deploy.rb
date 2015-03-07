@@ -20,6 +20,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app) do
+      execute :mkdir, '-p', "#{current_path}/tmp/pids"
       execute :ln, '-nfs',
         "#{shared_path}/uploads",
         "#{current_path}/public/uploads"
