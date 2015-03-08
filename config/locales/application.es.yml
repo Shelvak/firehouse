@@ -46,6 +46,7 @@ es:
         observations: "Observaciones"
         receptor_id: "Receptor"
         sco_id: "CEO"
+        alerts: 'Alertas'
       intervention_type:
         audio: "Sonido de alerta"
         callback: "Función de retorno"

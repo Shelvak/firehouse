@@ -10,7 +10,8 @@ class InterventionsController < ApplicationController
   # GET /interventions.json
   def index
     @title = t('view.interventions.index_title')
-    @interventions = Intervention.includes(:intervention_type).page(params[:page])
+    @interventions = Intervention.includes(:intervention_type)
+                       .order(created_at: :desc).page(params[:page])
   end
 
   # GET /interventions/1
@@ -18,6 +19,7 @@ class InterventionsController < ApplicationController
   def show
     @title = t('view.interventions.show_title')
     @intervention = Intervention.find(params[:id])
+    @alerts = @intervention.alerts.order(:created_at)
   end
 
   # GET /interventions/new

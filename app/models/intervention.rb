@@ -21,6 +21,7 @@ class Intervention < ActiveRecord::Base
   belongs_to :sco
   has_one :informer
   has_one :mobile_intervention
+  has_many :alerts
   has_many :endowments
   has_many :statuses, as: :trackeable
 
@@ -87,8 +88,9 @@ class Intervention < ActiveRecord::Base
   end
 
   def reactivate!
-    # Save the 'activation time'
-    # Send to redis
+    alerts.create!
+
+    send_lights
   end
 
   def is_trap?
@@ -101,13 +103,28 @@ class Intervention < ActiveRecord::Base
     _lights = lights_for_redis
     _lights['trap'] = true
 
-    $redis.publish('semaphore-lights-alert', _lights.to_json)
+    save_lights_on_redis(_lights)
+    send_lights
   end
 
-  def lights_for_redis
+  def save_lights_on_redis(_lights)
+    $redis.set('interventions:' + self.id.to_s, _lights.to_json)
+  end
+
+  def default_lights
     _lights = intervention_type.lights
     _lights['day'] = (8..19).include?(Time.now.hour)
     _lights
+  end
+
+  def lights_for_redis
+    if (_lights = $redis.get('interventions:' + self.id.to_s))
+      JSON.parse _lights
+    else
+      _lights = default_lights
+      save_lights_on_redis(_lights)
+      _lights
+    end
   end
 
   def send_lights
@@ -116,6 +133,7 @@ class Intervention < ActiveRecord::Base
 
   def send_alert_to_redis
     $redis.lpush('interventions:actives', self.id)
+
     send_lights
   end
 

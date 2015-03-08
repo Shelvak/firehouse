@@ -24,6 +24,19 @@
       <%= @intervention.kind_notes %>
       </p>
       <%= render 'informer_show' %>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2"><%= Intervention.human_attribute_name 'alerts' %>:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @alerts.each_with_index do |a, i| %>
+            <tr><td><%= i + 1 %> </td><td><%= l(a.created_at) %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
     <div class='span6'>
       <div id="map_canvas" class="google-map"></div>
