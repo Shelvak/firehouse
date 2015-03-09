@@ -1,0 +1,8 @@
+Errores conocidos:
+Formulario de nueva intervención:
+  Algunas veces google no carga al inicio y no permite utilizar el autocompletado.
+  Esto sucede generalmente despues de iniciar session o abrir una pestaña nueva
+  del navegador. Con recargar se soluciona
+Lista de intervenciones en curso (donde esta el mapa):
+  Ha pasado que al hacer click en la mini lista de intervenciones de la iquierda,
+  no genera el camino sobre el mapa. Con recargar se soluciona
