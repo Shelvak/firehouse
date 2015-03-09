@@ -1,6 +1,6 @@
 class Intervention < ActiveRecord::Base
   has_paper_trail
-  has_magick_columns address: :string, number: :integer
+  has_magick_columns address: :string, id: :integer
 
   attr_accessor :auto_receptor_name, :auto_sco_name
 
@@ -9,19 +9,19 @@ class Intervention < ActiveRecord::Base
  #   :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id,
  #   :latitude, :longitude, :endowments
 
-  #validates :address, :intervention_type_id, :number, :receptor_id, presence: true
+  validates :intervention_type_id, presence: true
   #validates :number, uniqueness: true
   #validate :sco_presence
 
-  before_validation :assign_intervention_number, :assign_endowment_number,
-    :validate_truck_presence
-  after_create :assign_mileage_to_trucks
+  before_validation :assign_endowment_number, :validate_truck_presence
+  after_create :assign_mileage_to_trucks, :send_alert_to_redis
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
   belongs_to :sco
   has_one :informer
   has_one :mobile_intervention
+  has_many :alerts
   has_many :endowments
   has_many :statuses, as: :trackeable
 
@@ -58,11 +58,6 @@ class Intervention < ActiveRecord::Base
     end
   end
 
-  def assign_intervention_number
-    # with this sure that present and unique always work =)
-    self.number = (Intervention.order(:number).last.try(:number) || 0) + 1
-  end
-
   def assign_endowment_number
     self.endowments.each_with_index { |e, i| e.number ||= i + 1}
   end
@@ -87,5 +82,66 @@ class Intervention < ActiveRecord::Base
 
   def formatted_description
     "#{type} : #{address}"
+  end
+
+  def special_sign(sign)
+    case sign
+      when 'alert' then reactivate!
+      when 'trap'  then its_a_trap!
+    end
+  end
+
+  def reactivate!
+    alerts.create!
+
+    send_lights
+  end
+
+  def is_trap?
+    $redis.lrange('interventions:traps', 0, -1).include? self.id
+  end
+
+  def its_a_trap!
+    $redis.lpush('interventions:traps', self.id) unless is_trap?
+
+    _lights = lights_for_redis
+    _lights['trap'] = true
+
+    save_lights_on_redis(_lights)
+    send_lights
+  end
+
+  def save_lights_on_redis(_lights)
+    $redis.set('interventions:' + self.id.to_s, _lights.to_json)
+  end
+
+  def default_lights
+    _lights = intervention_type.lights
+    _lights['day'] = (8..19).include?(Time.now.hour)
+    _lights
+  end
+
+  def lights_for_redis
+    if (_lights = $redis.get('interventions:' + self.id.to_s))
+      JSON.parse _lights
+    else
+      _lights = default_lights
+      save_lights_on_redis(_lights)
+      _lights
+    end
+  end
+
+  def send_lights
+    $redis.publish('semaphore-lights-alert', lights_for_redis.to_json)
+  end
+
+  def send_alert_to_redis
+    $redis.lpush('interventions:actives', self.id)
+
+    send_lights
+  end
+
+  def is_active?
+    $redis.lrange('interventions:actives', 0, -1).include? self.id
   end
 end

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       get :map
     end
 
+    put :special_sign, on: :member
+
+
     resources :endowments do
       resource :mobile_intervention, on: :member do
         resources :buildings, except: [:index, :show] do
@@ -50,6 +53,7 @@ Rails.application.routes.draw do
       put :activate, on: :member
       get :mini_index, on: :collection
     end
-  end
 
+    match 'lights/brightness', to: 'lights#brightness', via: [:patch, :get]
+  end
 end

@@ -1,0 +1,6 @@
+<% special_intervention_buttons.each do |button, url| %>
+  <%= link_to image_tag(url), '#', data: {
+    intervention_special_button: button,
+    intervention_id:  @intervention.try(:id)
+  } %>
+<% end %>

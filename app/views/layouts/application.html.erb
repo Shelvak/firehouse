@@ -10,6 +10,7 @@
   <%= javascript_include_tag 'application', data: { 'turbolinks-track' => true } %>
   <%= stylesheet_link_tag 'application', data: { 'turbolinks-track' => true } %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag %>
 </head>
 <body id="c_<%= controller_name %>" data-action="<%= action_name %>"
       <%= raw 'class="logged_in"' if user_signed_in? %>>
@@ -25,6 +26,7 @@
 
   <%= render 'shared/notice' if flash.notice %>
   <%= render 'shared/alert' if flash.alert %>
+
   <div id="modal"></div>
 </body>
 </html>

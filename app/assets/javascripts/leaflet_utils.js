@@ -34,11 +34,15 @@ var Leaflet = ( function () {
         map.setView(point, 17);
         map.addLayer(osm);
         if (markerInfo) {
-          marker = L.marker([markerInfo.latitude, markerInfo.longitude])
+          marker = L.marker([markerInfo.latitude, markerInfo.longitude], { draggable: markerInfo.draggable })
           marker.addTo(map);
           marker.bindPopup(markerInfo.description).openPopup();
+          marker.on('dragend', function (event) {
+            var position = marker.getLatLng();
+            setLatitudeAndLongitude(position.lat, position.lng)
+          })
 
-          drawRoute(map, markerInfo.latitude, markerInfo.longitude)
+          if (!markerInfo.draggable) drawRoute(map, markerInfo.latitude, markerInfo.longitude)
         }
       }
 
@@ -127,8 +131,10 @@ var Leaflet = ( function () {
           Leaflet.map.route.setWaypoints([station, newPoint])
         }
         else {
+          console.log(Leaflet.map.route)
           Leaflet.map.route = L.Routing.control({
-            waypoints: [station, newPoint]
+              waypoints          : [station, newPoint]
+            , draggableWaypoints : false
           }).addTo(map);
         }
       };

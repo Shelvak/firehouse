@@ -19,12 +19,13 @@ class InterventionType < ActiveRecord::Base
 
   scope :only_fathers, -> { where(intervention_type_id: nil) }
   scope :only_children, -> { !only_fathers }
-
+  scope :without_priority, -> { where(priority: nil) }
+  scope :with_priority, -> { where.not(priority: nil) }
 
   def initialize(attributes = nil)
     super(attributes)
 
-    ['red', 'green', 'blue', 'yellow', 'white', 'trap'].each do |light|
+    ['red', 'green', 'blue', 'yellow', 'white'].each do |light|
       self.lights[light] ||= false
     end
   end
@@ -39,6 +40,24 @@ class InterventionType < ActiveRecord::Base
 
   def is_root?
     self.intervention_type_id.nil?
+  end
+
+  def is_a_son?
+    !is_root?
+  end
+
+  def self.order_by_children
+    collection = []
+
+    only_fathers.each do |it|
+      collection << it
+
+      it.children.each do |c|
+        collection << c
+      end
+    end
+
+    collection
   end
 
   private

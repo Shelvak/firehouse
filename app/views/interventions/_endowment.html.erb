@@ -1,5 +1,5 @@
 <% i ||= nil %>
-<% id = i ? i : 'dynamicContent' %>
+<% id = i || 'dynamicContent' %>
 
 <div class="tab-pane <%= 'active' if i == 1 %>"
   id="endowments_<%= id %>" data-endowment-item="true">

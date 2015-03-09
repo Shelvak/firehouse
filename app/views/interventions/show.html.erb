@@ -4,8 +4,8 @@
   <div class='row-fluid'>
     <div class='span6'>
       <p>
-      <strong><%= Intervention.human_attribute_name 'number' %></strong>:
-      <%= @intervention.number %>
+      <strong><%= Intervention.human_attribute_name 'id' %></strong>:
+      <%= @intervention.id %>
       </p>
       <p>
       <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
@@ -24,6 +24,19 @@
       <%= @intervention.kind_notes %>
       </p>
       <%= render 'informer_show' %>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2"><%= Intervention.human_attribute_name 'alerts' %>:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @alerts.each_with_index do |a, i| %>
+            <tr><td><%= i + 1 %> </td><td><%= l(a.created_at) %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
     <div class='span6'>
       <div id="map_canvas" class="google-map"></div>
@@ -43,6 +56,11 @@
   <%= link_to t('label.list'), interventions_path %>
 </div>
 <script>
-  //mejorar esto weon
-  Leaflet.initMap({latitude: '<%= @intervention.latitude %>', longitude: '<%= @intervention.longitude %>', description: '<%= @intervention.formatted_description %>'});
+  markerInfo = {
+      latitude    : '<%= @intervention.latitude %>'
+    , longitude   : '<%= @intervention.longitude %>'
+    , description : '<%= @intervention.formatted_description %>'
+    , draggable   : false
+  }
+  Leaflet.initMap(markerInfo);
 </script>

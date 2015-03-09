@@ -11,9 +11,9 @@ es:
         roof: "Techo"
         window: "Aberturas"
       endowment:
-        arrive_at: "Llegada al lugar"
-        back_at: "Vuelta del lugar"
-        in_at: "Llegada al cuartel"
+        arrive_at: "Llegada"
+        back_at: "Vuelta"
+        in_at: "Cuartel"
         number: "Número de dotación"
         out_at: "Salida"
         truck_id: "Móvil"
@@ -29,23 +29,24 @@ es:
       informer:
         address: "Dirección"
         full_name: "Nombre y apellido"
-        nid: "DNI/DI/Libreta/Pasaporte"
+        nid: "DNI (solo nº)"
         phone: "Teléfono"
       intervention:
         address: "Dirección"
         endowments_attributes: "Dotaciones"
         hierarchy_id: "Jerarquía"
         hierarchy_name: "Jerarquía"
+        id: "Número"
         intervention_type_id: "Tipo intervención"
         kind: "Tipo"
         kind_notes: "Anotaciones"
         latitude: "Latitud"
         longitude: "Longitud"
         near_corner: "Esquina cercana"
-        number: "Número"
         observations: "Observaciones"
         receptor_id: "Receptor"
         sco_id: "CEO"
+        alerts: 'Alertas'
       intervention_type:
         audio: "Sonido de alerta"
         callback: "Función de retorno"
@@ -161,6 +162,7 @@ es:
     hierarchies: "Jerarquías"
     intervention_types: "Tipos de intervenciones"
     interventions: "Intervenciones"
+    lights: "Luces"
     scos: "CEOs"
     trucks: "Moviles"
     users: "Usuarios"
@@ -229,14 +231,17 @@ es:
       new: "Nuevo tipo"
       new_title: "Nuevo tipo de intervención"
       priorities: "Prioridades"
-      show_title: "\"\"\"\"\"%{intervention_type}\"\"\"\"\""
+      show_title: "Intervención: %{intervention_type}"
       stale_object_error: "El tipo de intervención no pudo ser actualizado, intente nuevamente."
     interventions:
       add_endowment_link: "Agregar nueva dotación"
+      buttons:
+        hide: "Ocultar botones"
+        show: "Mostrar botones"
       correctly_created: "Intervención agregada correctamente."
       correctly_updated: "Intervención actualizada correctamente."
       current_sco: "CEO actual"
-      edit_title: "Modificar intervención"
+      edit_title: "Intervención %{number} - %{type}"
       empty_index:
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
       endowments_charges:
@@ -269,9 +274,6 @@ es:
       new_title: "Nueva intervención"
       no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
       output_title: "Detalles de salida"
-      quick_buttons:
-        show: "Mostrar botones"
-        hide: "Ocultar botones"
       set_time: "Ingresar hora"
       show_title: "Detalle de intervención"
       stale_object_error: "La intervención no pudo ser actualizada, intente nuevamente."
@@ -284,8 +286,14 @@ es:
         in_updated: "Llegada al cuartel actualizada"
     lights:
       blue: "Azul"
+      day: "Día"
       green: "Verde"
+      night: "Noche"
       red: "Rojo"
+      save_day_light: "Guardar Día"
+      save_night_light: "Guardar Noche"
+      save_stay_light: "Guardar Reposo"
+      stay: "Reposo"
       trap: "Titilante"
       white: "Blanco"
       yellow: "Amarillo"

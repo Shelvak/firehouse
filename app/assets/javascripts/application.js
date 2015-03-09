@@ -29,6 +29,8 @@
 //= require utils
 //= require SrBuj
 //= require bootstrap-colorpicker
+//= require configs/lights
+//= require quick_buttons
 //= require google_maps
 //= require map_utils
 //= require leaflet/leaflet

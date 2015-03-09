@@ -7,7 +7,7 @@
   padding: 0.3em;
 }
 
-.quick-button-div {
+.buttons {
   border-radius: 15px;
   background-color: #363636;
   overflow: hidden;
@@ -16,8 +16,8 @@
   transition: all 0.3s ease-in-out;
 
   .row{
-    [class^="quick-button-"],
-    [class*=" quick-button-"] {
+    [class^="button-"],
+    [class*=" button-"] {
       transition: all 0.3s ease-in-out;
       display: inline-table;
       margin: 10px;
@@ -38,8 +38,8 @@
       }
     }
 
-    [class^="quick-button-"]:hover,
-    [class*=" quick-button-"]:hover {
+    [class^="button-"]:hover,
+    [class*=" button-"]:hover {
       transition: all 0.4s ease-in-out;
       box-shadow: 0px 15px 15px #000000;
       -ms-transform: scale(1.2, 1.2);
@@ -49,13 +49,13 @@
       transform: scale(1.2, 1.2);
       z-index: 5;
     }
-    .quick-button-active {
+    .button-active {
       cursor: pointer;
       .text {
         text-shadow: black 0.1em 0.1em 0.2em;
       }
     }
-    .quick-button-empty {
+    .button-empty {
       border: 2px #ffffff dotted;
     }
   }
@@ -91,3 +91,14 @@
   background-color: white;
 }
 
+[data-intervention-special-button="alert"] {
+  position: absolute;
+  top: 8%;
+  right: 5%;
+}
+
+[data-intervention-special-button="trap"] {
+  position: absolute;
+  top: 8%;
+  left: 5%;
+}

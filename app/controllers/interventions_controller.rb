@@ -10,7 +10,8 @@ class InterventionsController < ApplicationController
   # GET /interventions.json
   def index
     @title = t('view.interventions.index_title')
-    @interventions = Intervention.includes(:intervention_type).page(params[:page])
+    @interventions = Intervention.includes(:intervention_type)
+                       .order(created_at: :desc).page(params[:page])
   end
 
   # GET /interventions/1
@@ -18,6 +19,7 @@ class InterventionsController < ApplicationController
   def show
     @title = t('view.interventions.show_title')
     @intervention = Intervention.find(params[:id])
+    @alerts = @intervention.alerts.order(:created_at)
   end
 
   # GET /interventions/new
@@ -25,7 +27,6 @@ class InterventionsController < ApplicationController
   def new
     @title = t('view.interventions.new_title')
     @intervention = Intervention.new
-    @intervention.build_informer unless @intervention.informer
   end
 
   # GET /interventions/1/edit
@@ -42,7 +43,11 @@ class InterventionsController < ApplicationController
 
     if @intervention.save
       @intervention.statuses.build(user_id: current_user.id).save
-      redirect_to @intervention, notice: t('view.interventions.correctly_created')
+      if request.format.html?
+        redirect_to @intervention, notice: t('view.interventions.correctly_created')
+      else
+        render 'edit', layout: false
+      end
     else
       render action: 'new'
     end
@@ -54,10 +59,15 @@ class InterventionsController < ApplicationController
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
 
-    if @intervention.update_attributes(params[:intervention])
+    if @intervention.update(params[:intervention]) && request.format.html?
       redirect_to @intervention, notice: t('view.interventions.correctly_updated')
     else
-      render action: 'edit'
+      @intervention.build_informer unless @intervention.informer
+      if request.format.html?
+        render 'edit'
+      else
+        render 'edit', layout: false
+      end
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_intervention_url(@intervention),
@@ -109,6 +119,12 @@ class InterventionsController < ApplicationController
     @interventions = Intervention.includes(:statuses).where(statuses: { name: 'open' })
   end
 
+  def special_sign
+    @intervention = Intervention.find(params[:id])
+    @intervention.special_sign(params[:sign])
+
+    render nothing: true
+  end
   private
 
     def active_sco?

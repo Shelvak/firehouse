@@ -3,10 +3,6 @@ module InterventionsHelper
     Sco.current
   end
 
-  def intervention_next_number_for_form
-    (Intervention.order(:number).last.try(:number) || 0) + 1
-  end
-
   def show_kind_of_intervention(kind)
     #key = Intervention::KINDS.invert[kind]
     #t("view.interventions.kinds.#{key}")
@@ -23,9 +19,23 @@ module InterventionsHelper
   end
 
   def intervention_type_select(form)
-    collection = intervention_types.map { |i| [i.name, i.id] }
+    collection = []
+
+    InterventionType.order_by_children.each do |it|
+      name = it.name
+      name = "-> #{name}" if it.is_a_son?
+
+      collection << [name, it.id]
+    end
 
     form.input :intervention_type_id, collection: collection,
       input_html: { selected: form.object.try(:intervention_type_id) }
+  end
+
+  def special_intervention_buttons
+    {
+      alert: 'alert_button.png',
+      trap:  'trap_button.png'
+    }
   end
 end

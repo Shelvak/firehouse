@@ -7,6 +7,7 @@ module ConfigsHelper
     li += content_tag( :li, link_to( t('menu.trucks'), configs_trucks_path ), class: active_nav(trucks_urls) ) if can?(:read, Sco)
     li += content_tag( :li, link_to(t('view.intervention_types.index_title'), configs_intervention_types_path), class: active_nav( intervention_types_urls ) )
     li += content_tag( :li, link_to(t('activerecord.models.user.other'), users_path), class: active_nav( users_urls ) )
+    li += content_tag( :li, link_to(t('menu.lights'), configs_lights_brightness_path), class: active_nav( [configs_lights_brightness_path] ) )
     content_tag(:ul, li.html_safe, class: 'nav nav-tabs')
   end
 
