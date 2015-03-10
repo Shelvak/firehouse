@@ -1,12 +1,12 @@
 <ol id="markers-data" class="markers-list">
-  <% @interventions.each_with_index do |intervention, index| %>
+  <% @interventions.each do |intervention| %>
     <li
-      data-marker-address="<%= intervention.intervention_type %>: <%= intervention.address %>"
+      data-marker-address="<%= intervention.formatted_description %>"
       data-marker-latitude="<%= intervention.latitude %>"
       data-marker-longitude="<%= intervention.longitude %>"
     >
       <% if interventions_list %>
-        <%= "#{intervention.intervention_type}: #{intervention.address}" %>
+        <%= intervention.formatted_description %>
       <% end %>
     </li>
   <% end %>

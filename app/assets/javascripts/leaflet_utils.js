@@ -131,7 +131,6 @@ var Leaflet = ( function () {
           Leaflet.map.route.setWaypoints([station, newPoint])
         }
         else {
-          console.log(Leaflet.map.route)
           Leaflet.map.route = L.Routing.control({
               waypoints          : [station, newPoint]
             , draggableWaypoints : false

@@ -1,3 +1,6 @@
+<%= content_for :js_headers do %>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true" data-turbolinks-track="false"></script>
+<% end %>
 <%= content_tag :div, t('view.interventions.no_active_ceo'),
   class: 'alert alert-danger' if @no_active_ceo %>
 
@@ -142,7 +145,6 @@
 
   var without_result = '<%= t("label.without_results") %>'
 </script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
