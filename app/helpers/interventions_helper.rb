@@ -34,8 +34,8 @@ module InterventionsHelper
 
   def special_intervention_buttons
     {
-      alert: 'alert_button.png',
-      trap:  'trap_button.png'
+      trap:  { url: 'trap_button.png',  position: 'left'  },
+      alert: { url: 'alert_button.png', position: 'right' }
     }
   end
 end

@@ -1,6 +1,8 @@
-<% special_intervention_buttons.each do |button, url| %>
-  <%= link_to image_tag(url), '#', data: {
-    intervention_special_button: button,
-    intervention_id:  @intervention.try(:id)
-  } %>
-<% end %>
+<div class="intervention-special-buttons" id="buttons">
+  <% special_intervention_buttons.each do |button, data| %>
+    <%= link_to image_tag(data[:url]), '#', data: {
+        intervention_special_button: button,
+        intervention_id:  @intervention.try(:id)
+    }, class: "intervention-special-button #{data[:position]}" %>
+  <% end %>
+</div>
