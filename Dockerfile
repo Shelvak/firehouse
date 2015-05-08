@@ -6,9 +6,9 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN git clone https://github.com/FRM-UTN/firehouse
 
-WORKDIR firehouse
+WORKDIR $HOME/firehouse
 
-ADD /shared/firehouse.app_config.yml config/app_config.yml
+ADD config/app_config.example.yml config/app_config.yml
 
 ENV RAILS_ENV production
 
