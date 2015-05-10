@@ -6,6 +6,11 @@ var Leaflet = ( function () {
             , markers : []
             , route   : ''
             }
+    , defaultMarkerInfo = { latitude    : MapUtils.station.latitude
+                          , longitude   : MapUtils.station.longitude
+                          , description : MapUtils.station.description
+                          , draggable   : true
+                          }
     //icons not working yet
     , icons = { redIcon : L.icon({
                             iconUrl      : 'map/marker-basic2.png',
@@ -33,17 +38,15 @@ var Leaflet = ( function () {
           , marker
         map.setView(point, 17);
         map.addLayer(osm);
-        if (markerInfo) {
-          marker = L.marker([markerInfo.latitude, markerInfo.longitude], { draggable: markerInfo.draggable })
-          marker.addTo(map);
-          marker.bindPopup(markerInfo.description).openPopup();
-          marker.on('dragend', function (event) {
-            var position = marker.getLatLng();
-            setLatitudeAndLongitude(position.lat, position.lng)
-          })
+        var draggableMarker = markerInfo || defaultMarkerInfo
 
-          if (!markerInfo.draggable) drawRoute(map, markerInfo.latitude, markerInfo.longitude)
-        }
+        marker = L.marker([draggableMarker.latitude, draggableMarker.longitude], { draggable: draggableMarker.draggable })
+        marker.addTo(map);
+        marker.bindPopup(draggableMarker.description).openPopup();
+        bindDrag(marker)
+        Leaflet.map.markers.push(marker)
+
+        if (!draggableMarker.draggable) drawRoute(map, draggableMarker.latitude, draggableMarker.longitude)
       }
 
     , changeMarker = function (event, description) {
@@ -67,13 +70,11 @@ var Leaflet = ( function () {
         }
         else {
           marker = L.marker(point, { draggable: true }).addTo(map)
+          // Siempre debería existir un marcador al menos, pero lo agregamos por si las dudas
+          markers.push(marker)
         }
         // Bindeo de popup y movimiento del marcador
-        marker.bindPopup(description)
-        marker.on('dragend', function (event) {
-          var position = marker.getLatLng();
-          setLatitudeAndLongitude(position.lat, position.lng)
-        })
+        bindDrag(marker, description)
     }
     , initLargeMap = function (fullscreen) {
         if (fullscreen) setFullscreenMapSize();
@@ -89,7 +90,6 @@ var Leaflet = ( function () {
                                         })
           , interventions = getMarkersInfo()
           , arrayOfLatLngs = []
-          , bounds
           , stationPoint = new L.LatLng(MapUtils.station.latitude,
                                      MapUtils.station.longitude)
           , stationMarker = L.marker(stationPoint).addTo(map)
@@ -120,13 +120,29 @@ var Leaflet = ( function () {
           }
         }
 
-        bounds = new L.LatLngBounds(arrayOfLatLngs);
-        map.fitBounds(bounds);
+        fitBounds(map, arrayOfLatLngs)
         map.addLayer(osm);
     }
+    , bindDrag = function (marker, description) {
+        marker.on('dragend', function (event) {
+          var position  = marker.getLatLng()
+            , address   = document.getElementById('intervention_address').value
+            , popupText = description || address
+          setLatitudeAndLongitude(position.lat, position.lng)
+          this.bindPopup(popupText)
+        })
+      }
+    , fitBounds = function (map, arrayOfLatLngs) {
+        var bounds = new L.LatLngBounds(arrayOfLatLngs);
+        map.fitBounds(bounds);
+      }
     , drawRoute = function (map, latitude, longitude) {
         var station  = L.latLng(MapUtils.station.latitude, MapUtils.station.longitude)
           , newPoint = L.latLng(parseFloat(latitude), parseFloat(longitude))
+          , bounds   = [
+                [station.lat,  station.lng ]
+              , [newPoint.lat, newPoint.lng]
+            ]
         if (Leaflet.map.route) {
           Leaflet.map.route.setWaypoints([station, newPoint])
         }
@@ -136,6 +152,7 @@ var Leaflet = ( function () {
             , draggableWaypoints : false
           }).addTo(map);
         }
+        fitBounds(map, bounds)
       };
 
   return {

@@ -157,12 +157,7 @@
         , draggable   : true
       }
     <% end %>
-    if (markerInfo) {
-      Leaflet.initMap(markerInfo);
-    }
-    else {
-      Leaflet.initMap();
-    }
+    Leaflet.initMap(markerInfo);
     autocompleteAddress('intervention_address');
   });
 
