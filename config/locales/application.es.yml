@@ -273,7 +273,7 @@ es:
       new: "Nueva Intervención"
       new_title: "Nueva intervención"
       no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
-      output_title: "Detalles de salida"
+      output_title: "Detalles de dotaciones"
       set_time: "Ingresar hora"
       show_title: "Detalle de intervención"
       stale_object_error: "La intervención no pudo ser actualizada, intente nuevamente."
