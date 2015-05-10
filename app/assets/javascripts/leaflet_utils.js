@@ -1,3 +1,4 @@
+//Leaflet version: 0.7.2
 var Leaflet = ( function () {
   var tile = { osm           : 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
              , openstreetmap : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -13,13 +14,13 @@ var Leaflet = ( function () {
                           }
     //icons not working yet
     , icons = { redIcon : L.icon({
-                            iconUrl      : 'map/marker-basic2.png',
-                            shadowUrl    : 'leaf-shadow.png',
-                            iconSize     : [38, 95], // size of the icon
-                            shadowSize   : [50, 64], // size of the shadow
-                            iconAnchor   : [22, 94], // point of the icon which will correspond to marker's location
-                            shadowAnchor : [4, 62],  // the same for the shadow
-                            popupAnchor  : [-3, -76] // point from which the popup should open relative to the iconAnchor
+                            iconUrl      : '/assets/map/marker-basic.png'
+                          , shadowUrl    : '/assets/leaflet/images/marker-shadow.png'
+                          , iconSize     : [38, 38] // size of the icon
+                        ,   shadowSize   : [55, 38] // size of the shadow
+                          , iconAnchor   : [18, 38] // point of the icon which will correspond to marker's location
+                        ,   shadowAnchor : [16, 40] // the same for the shadow
+                          , popupAnchor  : [1, -32] // point from which the popup should open relative to the iconAnchor
                           })
               }
     , initMap = function (markerInfo) {
@@ -29,9 +30,9 @@ var Leaflet = ( function () {
           , osmUrl    = tile.osm
           , osmAttrib = ''
           , osm       = new L.TileLayer(osmUrl, {
-                                          minZoom     : MapUtils.map.minZoom,
-                                          maxZoom     : MapUtils.map.maxZoom,
-                                          attribution : osmAttrib
+                                            minZoom     : MapUtils.map.minZoom
+                                          , maxZoom     : MapUtils.map.maxZoom
+                                          , attribution : osmAttrib
                                         })
           , point     = new L.LatLng(MapUtils.station.latitude,
                                      MapUtils.station.longitude)
@@ -84,9 +85,9 @@ var Leaflet = ( function () {
           , osmUrl    = tile.osm
           , osmAttrib = ''
           , osm       = new L.TileLayer(osmUrl, {
-                                          minZoom     : MapUtils.map.minZoom,
-                                          maxZoom     : MapUtils.map.maxZoom,
-                                          attribution : osmAttrib
+                                            minZoom     : MapUtils.map.minZoom
+                                          , maxZoom     : MapUtils.map.maxZoom
+                                          , attribution : osmAttrib
                                         })
           , interventions = getMarkersInfo()
           , arrayOfLatLngs = []
@@ -95,6 +96,7 @@ var Leaflet = ( function () {
           , stationMarker = L.marker(stationPoint).addTo(map)
 
         stationMarker.bindPopup(MapUtils.station.description)
+        stationMarker.setIcon(icons.redIcon)
 
         for (var i = 0, intervention; intervention = interventions[i]; i++) {
           if (intervention.latitude && intervention.longitude) {
@@ -123,6 +125,7 @@ var Leaflet = ( function () {
         fitBounds(map, arrayOfLatLngs)
         map.addLayer(osm);
     }
+    // Bindea las acciones para completar satisfactoriamente el drag del marcador
     , bindDrag = function (marker, description) {
         marker.on('dragend', function (event) {
           var position  = marker.getLatLng()
@@ -132,10 +135,11 @@ var Leaflet = ( function () {
           this.bindPopup(popupText)
         })
       }
+    // Coloca el zoom necesario para mostrar todos los marcadores
     , fitBounds = function (map, arrayOfLatLngs) {
         var bounds = new L.LatLngBounds(arrayOfLatLngs);
         map.fitBounds(bounds);
-      }
+    }
     , drawRoute = function (map, latitude, longitude) {
         var station  = L.latLng(MapUtils.station.latitude, MapUtils.station.longitude)
           , newPoint = L.latLng(parseFloat(latitude), parseFloat(longitude))
@@ -150,9 +154,18 @@ var Leaflet = ( function () {
           Leaflet.map.route = L.Routing.control({
               waypoints          : [station, newPoint]
             , draggableWaypoints : false
+            , createMarker       : function(i, wp) {
+                // El primer marcador solamente tiene que ser de color rojo porque es la estación
+                if (i == 0) {
+                  return L.marker(wp.latLng, {
+                    icon: icons.redIcon
+                  })
+                }
+              }
           }).addTo(map);
         }
-        fitBounds(map, bounds)
+        // fitBounds desactivado del ruteo porque falla al hacer zoomout y deja el mapa en gris
+        // fitBounds(map, bounds)
       };
 
   return {
