@@ -14,7 +14,8 @@ class Intervention < ActiveRecord::Base
   #validate :sco_presence
 
   before_validation :assign_endowment_number, :validate_truck_presence
-  after_create :assign_mileage_to_trucks, :send_alert_to_redis
+  after_create :assign_mileage_to_trucks, :send_first_alert_to_redis
+  after_save :endowment_alert_changer, :put_in_redis_list
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
@@ -97,13 +98,7 @@ class Intervention < ActiveRecord::Base
     send_lights
   end
 
-  def is_trap?
-    $redis.lrange('interventions:traps', 0, -1).include? self.id
-  end
-
   def its_a_trap!
-    $redis.lpush('interventions:traps', self.id) unless is_trap?
-
     _lights = lights_for_redis
     _lights['trap'] = true
 
@@ -132,16 +127,88 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_lights
+    stop_running_alerts!
+
     $redis.publish('semaphore-lights-alert', lights_for_redis.to_json)
   end
 
-  def send_alert_to_redis
-    $redis.lpush('interventions:actives', self.id)
+  def send_first_alert_to_redis
+    put_in_redis_list
 
     send_lights
   end
 
   def is_active?
     $redis.lrange('interventions:actives', 0, -1).include? self.id
+  end
+
+  def endowment_alert_changer
+    case
+      when endowments.any? { |e| e.in_at.present? }  then turn_off_alert
+      when endowments.any? { |e| e.out_at.present? } then send_alert_on_repose
+    end
+  end
+
+  def send_alert_on_repose
+    _lights = lights_for_redis
+    _lights['sleep'] = true
+
+    save_lights_on_redis(_lights)
+    start_looping_active_alerts!
+  end
+
+  def turn_off_alert
+    remove_item_from_actives_list
+    $redis.del('interventions:' + self.id.to_s)
+  end
+
+  def start_looping_active_alerts
+    $redis.publish('interventions:lights:start_loop', 'start')
+  end
+
+  def stop_running_alerts!
+    $redis.publish('interventions:lights:stop_loop', 'stop')
+  end
+
+  def lights_off
+    InterventionType::COLORS.inject({}) { |h, c| h.merge!(c => false) }
+  end
+
+  def endowment_out?
+    endowments.any? { |e| e.out_at.present? }
+  end
+
+  def list_key_for_redis
+    priority = endowment_out? ? 'low' : 'high'
+    kind     = intervention_type.emergency_or_urgency
+
+    "interventions:#{priority}:#{kind}"
+  end
+
+  def put_in_redis_list
+    list = list_key_for_redis
+
+    unless is_on_list?(list)
+      remove_item_from_actives_list
+
+      $redis.lpush(list, self.id)
+    end
+  end
+
+  def is_on_list?(list)
+    $redis.lrange(list, 0, -1).include?(self.id)
+  end
+
+  def remove_item_from_list(list)
+    $redis.lrem(list, 1, self.id)
+  end
+
+  def remove_item_from_actives_list
+    ['low', 'high'].each do |priority|
+      kind = intervention_type.emergency_or_urgency
+      list = "interventions:#{priority}:#{kind}"
+
+      remove_item_from_list(list)
+    end
   end
 end

@@ -3,6 +3,8 @@ class InterventionType < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :audio, AudioUploader
 
+  COLORS = ['red', 'green', 'blue', 'yellow', 'white']
+
   serialize :lights, Hash
 
   belongs_to :father, class_name: 'InterventionType', foreign_key:
@@ -25,7 +27,7 @@ class InterventionType < ActiveRecord::Base
   def initialize(attributes = nil)
     super(attributes)
 
-    ['red', 'green', 'blue', 'yellow', 'white'].each do |light|
+    COLORS.each do |light|
       self.lights[light] ||= false
     end
   end
@@ -58,6 +60,10 @@ class InterventionType < ActiveRecord::Base
     end
 
     collection
+  end
+
+  def emergency_or_urgency
+    priority? ? 'emergency' : 'urgency'
   end
 
   private
