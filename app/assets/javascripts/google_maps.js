@@ -66,8 +66,8 @@ var findByCoordenates = function(latitude, longitude, address) {
 
 var loadGeneralMap = function () {
     var firehouseStation = {
-        latitude: '-32.926887',
-        longitude: '-68.846255'
+          latitude  : '-32.926887'
+        , longitude : '-68.846255'
     };
     var map = new google.maps.Map(document.getElementById('map_canvas'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -102,30 +102,15 @@ var loadGeneralMap = function () {
     var listener = google.maps.event.addListener(map, "idle", function () {
         google.maps.event.removeListener(listener);
     });
+  }
+
+var setLatitudeAndLongitude = function(latitude, longitude){
+    document.getElementById('intervention_latitude').value  = latitude;
+    document.getElementById('intervention_longitude').value = longitude;
+  //  despues de setear esto tambien deberia guardar
 };
 
-var setLatitudeAndLongitude = function(point){
-    document.getElementById('intervention_latitude').value = point.lat();
-    document.getElementById('intervention_longitude').value = point.lng();
-};
-
-var interventions = [];
-var addInterventions = function(address, latitude, longitude, index){
-    var object = {
-        address: address,
-        latitude: latitude,
-        longitude: longitude,
-        index: index
-    };
-    interventions.push(object);
-};
-
-var setFullscreenMapSize = function(){
-    var map_canvas = document.getElementById('map_canvas');
-    document.body.height = map_canvas.style.height = window.screen.height + 'px';
-    document.body.width = map_canvas.style.width = window.screen.width + 'px';
-    document.body.style.padding = '0px';
-};
+//var interventions = getMarkersInfo();
 
 var setMarkerInfo = function(map, marker, title, index, infowindow) {
     google.maps.event.addListener(marker, 'click', (function (marker, index) {
@@ -136,11 +121,13 @@ var setMarkerInfo = function(map, marker, title, index, infowindow) {
     })(marker, index));
 };
 
-var initialize_map_with = function(id){
-    var input = document.getElementById(id);
-    var options = {
-        componentRestrictions: {country: 'ar'}
-    };
+var autocompleteAddress = function(id){
+    var input = document.getElementById(id)
+      , options = {
+        componentRestrictions: { country: 'ar' }
+      };
     address_autocompleted = new google.maps.places.Autocomplete(input, options);
-    google.maps.event.addListener(address_autocompleted, 'place_changed', findAddressInMap );
+    google.maps.event.addListener(address_autocompleted, 'place_changed', function () {
+      Leaflet.changeMarker(this, input.value)
+    } );
 };

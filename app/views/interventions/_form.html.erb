@@ -1,3 +1,6 @@
+<%= content_for :js_headers do %>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true" data-turbolinks-track="false"></script>
+<% end %>
 <%= content_tag :div, t('view.interventions.no_active_ceo'),
   class: 'alert alert-danger' if @no_active_ceo %>
 
@@ -132,26 +135,32 @@
 <% end %>
 <script type="text/javascript" charset="utf-8">
   var dynamicTab =
-    '<%= content_tag(:li, link_to(
+      '<%= content_tag(:li, link_to(
         "dynamicContent", "#endowments_dynamicContent",
         data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
       )
     ) %>'
   var dynamicForm =
-    '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
+      '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
 
   var without_result = '<%= t("label.without_results") %>'
+</script>
 
+<script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
-    initialize_map_with('intervention_address');
+    var markerInfo
+    <% if @intervention.latitude.present? && @intervention.longitude.present? %>
+      markerInfo = {
+          latitude    : '<%= @intervention.latitude %>'
+        , longitude   : '<%= @intervention.longitude %>'
+        , description : '<%= @intervention.formatted_description %>'
+        , draggable   : true
+      }
+    <% end %>
+    Leaflet.initMap(markerInfo);
+    autocompleteAddress('intervention_address');
   });
 
   Intervention.focusLastFocusedInput();
   Intervention.tokenizeAutocompleteInputs();
 </script>
-
-<% if @intervention.latitude.present? && @intervention.longitude.present? %>
-  <script type="text/javascript" charset="utf-8">
-    findByCoordenates('<%= @intervention.latitude %>', '<%= @intervention.longitude %>', '<%= @intervention.address %>');
-  </script>
-<% end %>

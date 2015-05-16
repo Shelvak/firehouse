@@ -39,7 +39,7 @@ class Configs::InterventionTypesController < ApplicationController
     if @intervention_type.save
       render_intervention_type
     else
-      render partial: 'new', status: :unprocessable_entity
+      render partial: 'new', status: :unprocessable_entity, content_type: 'text/html'
     end
   end
 
@@ -50,7 +50,7 @@ class Configs::InterventionTypesController < ApplicationController
     if @intervention_type.update_attributes(intervention_type_params)
       render_intervention_type
     else
-      render partial: 'edit', status: :unprocessable_entity
+      render partial: 'edit', status: :unprocessable_entity, content_type: 'text/html'
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_intervention_type_url(@intervention_type),

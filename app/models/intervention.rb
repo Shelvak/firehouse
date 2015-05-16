@@ -81,6 +81,10 @@ class Intervention < ActiveRecord::Base
     end
   end
 
+  def formatted_description
+    "#{type} : #{address}"
+  end
+
   def special_sign(sign)
     case sign
       when 'alert' then reactivate!

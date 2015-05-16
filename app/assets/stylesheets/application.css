@@ -18,10 +18,12 @@
  *= require common
  *= require common-responsive
  *= require devise
- *= require users
  *= require interventions
  *= require intervention-types
  *= require bootstrap-colorpicker
  *= require colorpicker-extra
  *= require SrBuj
+ *= require map_utils
+ *= require leaflet/leaflet
+ *= require leaflet/leaflet-routing-machine
 */

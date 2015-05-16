@@ -56,5 +56,11 @@
   <%= link_to t('label.list'), interventions_path %>
 </div>
 <script>
-  findByCoordenates('<%= @intervention.latitude %>', '<%= @intervention.longitude %>', '<%= @intervention.address %>');
+  markerInfo = {
+      latitude    : '<%= @intervention.latitude %>'
+    , longitude   : '<%= @intervention.longitude %>'
+    , description : '<%= @intervention.formatted_description %>'
+    , draggable   : false
+  }
+  Leaflet.initMap(markerInfo);
 </script>
