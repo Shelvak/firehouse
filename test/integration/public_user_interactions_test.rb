@@ -43,6 +43,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
   test 'should be able to login and logout' do
     login
 
+    sleep 0.5
     find('#logout').click
 
     assert_equal new_user_session_path, current_path
