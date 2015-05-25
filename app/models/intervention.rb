@@ -163,7 +163,7 @@ class Intervention < ActiveRecord::Base
     $redis.del('interventions:' + self.id.to_s)
   end
 
-  def self.start_looping_active_alerts
+  def start_looping_active_alerts!
     $redis.publish('interventions:lights:start_loop', 'start')
   end
 
