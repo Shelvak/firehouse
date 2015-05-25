@@ -1,7 +1,7 @@
 root = "/firehouse"
 working_directory root
 
-pid "/tmp/pids.print_hub.unicorn.pid"
+pid "#{root}/tmp/pids.print_hub.unicorn.#{Time.new}.pid"
 stderr_path "/logs/unicorn.log"
 stdout_path "/logs/unicorn.log"
 

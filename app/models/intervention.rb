@@ -86,7 +86,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def special_sign(sign)
-    case sign
+    case sign.to_s
       when 'alert' then reactivate!
       when 'trap'  then its_a_trap!
     end
@@ -133,6 +133,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_first_alert_to_redis
+    p $redis
     put_in_redis_list
 
     send_lights
@@ -162,7 +163,7 @@ class Intervention < ActiveRecord::Base
     $redis.del('interventions:' + self.id.to_s)
   end
 
-  def start_looping_active_alerts
+  def start_looping_active_alerts!
     $redis.publish('interventions:lights:start_loop', 'start')
   end
 

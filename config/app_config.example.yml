@@ -8,3 +8,6 @@ smtp:
   enable_starttls_auto: true
 
 public_host: 'public.domain.com'
+
+redis:
+  host: <%= ENV['REDIS_PORT_6379_TCP_ADDR']  || 'localhost' %>

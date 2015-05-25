@@ -29,19 +29,22 @@ class ActionDispatch::IntegrationTest
   # Stop ActiveRecord from wrapping tests in transactions
   DatabaseCleaner.strategy = :truncation
   Capybara.default_driver = :selenium
+  Capybara.current_driver = Capybara.javascript_driver # :selenium by default
+  Capybara.server_port = '54163'
+  Capybara.app_host = "http://localhost:54163"
+  Capybara.default_wait_time = 4
+
   self.use_transactional_fixtures = false
 
   setup do
-    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
-    Capybara.server_port = '54163'
-    Capybara.app_host = "http://localhost:54163"
+    Capybara.reset_sessions!
     Capybara.reset!    # Forget the (simulated) browser state
-    Capybara.default_wait_time = 4
   end
 
 
   teardown do
     DatabaseCleaner.clean
+    Capybara.reset_sessions!
     Capybara.reset!
   end
 
