@@ -132,8 +132,12 @@ class Intervention < ActiveRecord::Base
     $redis.publish('semaphore-lights-alert', lights_for_redis.to_json)
   end
 
+  def turn_off_the_lights!
+    off = InterventionType::COLORS.inject({}) {|h, light| h.merge!(light => false)}
+    $redis.publish('semaphore-lights-alert', off.to_json)
+  end
+
   def send_first_alert_to_redis
-    p $redis
     put_in_redis_list
 
     send_lights
@@ -161,6 +165,7 @@ class Intervention < ActiveRecord::Base
   def turn_off_alert
     remove_item_from_actives_list
     $redis.del('interventions:' + self.id.to_s)
+    turn_off_the_lights!
   end
 
   def start_looping_active_alerts!

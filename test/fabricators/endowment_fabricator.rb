@@ -11,7 +11,7 @@ Fabricator(:endowment) do
   in_mileage      { |attr| attr[:back_mileage] + 10 }
 
   intervention_id   { Fabricate(:intervention).id }
-  number            { rand(999) * rand(999) }
+  number            { (rand(999) * rand(999)) + 1 }
 
   endowment_lines_attributes { { 1 => Fabricate.attributes_for(:endowment_line) } }
 end
