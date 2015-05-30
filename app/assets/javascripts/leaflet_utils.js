@@ -25,7 +25,9 @@ var Leaflet = ( function () {
               }
     , initMap = function (markerInfo) {
         L.Icon.Default.imagePath = leafletImagesRoute
-        Leaflet.map.map = new L.Map(MapUtils.map.div)
+        Leaflet.map.map          = new L.Map(MapUtils.map.div)
+        //Fix para mostrar el marcador cuando apreto uno de los botones rapidos. Deberia cambiar el marcador si esta, no crear uno nuevo
+        Leaflet.map.markers      = []
 
         var map       = Leaflet.map.map
           , osmUrl    = tile.osm
@@ -44,14 +46,21 @@ var Leaflet = ( function () {
 
         marker = L.marker([draggableMarker.latitude, draggableMarker.longitude], { draggable: draggableMarker.draggable })
         marker.addTo(map);
-        marker.bindPopup(draggableMarker.description).openPopup();
+
+        // ##inicio codigo duplicado en changeMarker, unificar a un solo metodo que cree el marcador y lo agregue o use uno existente
+        // Cambio popup
+        changePopup(marker, draggableMarker.description)
+
+        // Bindeo movimiento del marcador
         bindDrag(marker)
+        // ##fin codigo duplicado en changeMarker, unificar a un solo metodo que cree el marcador y lo agregue o use uno existente
+
         Leaflet.map.markers.push(marker)
 
         if (!draggableMarker.draggable) drawRoute(map, draggableMarker.latitude, draggableMarker.longitude)
       }
 
-    , changeMarker = function (event, description) {
+    , changeMarker = function (description, event) {
         var map          = Leaflet.map.map
           , markers      = Leaflet.map.markers
           , autocomplete = event
@@ -75,8 +84,19 @@ var Leaflet = ( function () {
           // Siempre debería existir un marcador al menos, pero lo agregamos por si las dudas
           markers.push(marker)
         }
-        // Bindeo de popup y movimiento del marcador
-        bindDrag(marker, description)
+      // Cambio popup
+      changePopup(marker, description)
+
+      // Bindeo movimiento del marcador
+      bindDrag(marker)
+    }
+    , changePopup = function (marker, description) {
+        var address   = document.querySelector('[data-intervention="address"]').value
+          , popupText = description || address
+
+        marker.closePopup()
+        marker.bindPopup(popupText)
+        marker.openPopup()
     }
     , initLargeMap = function (fullscreen) {
         L.Icon.Default.imagePath = leafletImagesRoute
@@ -128,13 +148,11 @@ var Leaflet = ( function () {
         map.addLayer(osm);
     }
     // Bindea las acciones para completar satisfactoriamente el drag del marcador
-    , bindDrag = function (marker, description) {
+    , bindDrag = function (marker) {
+        var position = marker.getLatLng()
+
         marker.on('dragend', function (event) {
-          var position  = marker.getLatLng()
-            , address   = document.getElementById('intervention_address').value
-            , popupText = description || address
           setLatitudeAndLongitude(position.lat, position.lng)
-          this.bindPopup(popupText)
         })
       }
     // Coloca el zoom necesario para mostrar todos los marcadores
@@ -145,10 +163,10 @@ var Leaflet = ( function () {
     , drawRoute = function (map, latitude, longitude) {
         var station  = L.latLng(MapUtils.station.latitude, MapUtils.station.longitude)
           , newPoint = L.latLng(parseFloat(latitude), parseFloat(longitude))
-          , bounds   = [
-                [station.lat,  station.lng ]
-              , [newPoint.lat, newPoint.lng]
-            ]
+//          , bounds   = [
+//                [station.lat,  station.lng ]
+//              , [newPoint.lat, newPoint.lng]
+//            ]
         if (Leaflet.map.route) {
           Leaflet.map.route.setWaypoints([station, newPoint])
         }

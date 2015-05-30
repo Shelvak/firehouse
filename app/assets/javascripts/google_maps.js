@@ -128,6 +128,6 @@ var autocompleteAddress = function(id){
       };
     address_autocompleted = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(address_autocompleted, 'place_changed', function () {
-      Leaflet.changeMarker(this, input.value)
+      Leaflet.changeMarker(input.value, this)
     } );
 };
