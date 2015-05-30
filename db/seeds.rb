@@ -11,8 +11,6 @@ rescue
   puts "Admin ya existe"
 end
 
-InterventionType.all.update_all(priority: nil)
-
 %w(
   accidente_con_heridos_de_auto
   accidente_con_heridos_de_micro
@@ -25,14 +23,23 @@ InterventionType.all.update_all(priority: nil)
   materiales_peligrosos
   rescate_de_persona
 ).each_with_index do |file, i|
+
   begin
-    InterventionType.create!(
-      name:     file.gsub('_', ' ').camelize,
-      priority: i+1,
-      image:    File.open(Rails.root.join('lib', 'assets', "#{file}.png")),
-      color:    '#ffffff'
-    )
-    puts "Creado #{file}"
+    intervention_name = file.gsub('_', ' ').camelize
+
+    if InterventionType.find_by(name: name)
+      puts "#{name} existe"
+    else
+      InterventionType.where(priority: i+1).update_all(priority: nil)
+
+      InterventionType.create!(
+        name:     intervention_name,
+        priority: i+1,
+        image:    File.open(Rails.root.join('lib', 'assets', "#{file}.png")),
+        color:    '#ffffff'
+      )
+      puts "Creado #{file}"
+    end
   rescue
     puts "#{file} error..."
   end

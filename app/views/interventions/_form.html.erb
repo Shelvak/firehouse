@@ -5,7 +5,10 @@
   class: 'alert alert-danger' if @no_active_ceo %>
 
 <% intervention_form = nil %>
-<%= simple_form_for @intervention, defaults: { input_html: { class: 'span10' } }, html: { data: { intervention_form: true } } do |f| %>
+<%= simple_form_for @intervention,
+  defaults: { input_html: { class: 'span10' } },
+  html: { autocomplete: 'off', data: { intervention_form: true } } do |f| %>
+
   <%= f.error_notification %>
   <%= content_tag :div, f.object.errors.full_messages.join(', '),
     class: 'alert alert-danger' if f.object.errors.size > 0 %>
@@ -14,7 +17,10 @@
     <div class='row-fluid'>
       <div class='span7'>
         <%= intervention_type_select(f) %>
-        <%= f.input :address, input_html: { class: 'address-autocomplete span10', data: { intervention: 'address' } } %>
+        <%= f.input :address, input_html: {
+          autocomplete: 'off', class: 'address-autocomplete span10',
+          data: { ignore_enter: true, intervention: 'address' }
+        } %>
         <%= f.input :latitude, as: :hidden %>
         <%= f.input :longitude, as: :hidden  %>
         <%= f.input :near_corner, input_html: { data: { intervention_saver: true } } %>
