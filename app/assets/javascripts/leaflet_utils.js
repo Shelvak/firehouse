@@ -12,10 +12,10 @@ var Leaflet = ( function () {
                           , description : MapUtils.station.description
                           , draggable   : true
                           }
-    //icons not working yet
+    , leafletImagesRoute = '/leaflet/images'
     , icons = { redIcon : L.icon({
-                            iconUrl      : '/assets/map/marker-basic.png'
-                          , shadowUrl    : '/assets/leaflet/images/marker-shadow.png'
+                            iconUrl      : leafletImagesRoute + '/custom/marker-basic.png'
+                          , shadowUrl    : leafletImagesRoute + '/marker-shadow.png'
                           , iconSize     : [38, 38] // size of the icon
                         ,   shadowSize   : [55, 38] // size of the shadow
                           , iconAnchor   : [18, 38] // point of the icon which will correspond to marker's location
@@ -24,6 +24,7 @@ var Leaflet = ( function () {
                           })
               }
     , initMap = function (markerInfo) {
+        L.Icon.Default.imagePath = leafletImagesRoute
         Leaflet.map.map = new L.Map(MapUtils.map.div)
 
         var map       = Leaflet.map.map
@@ -78,6 +79,7 @@ var Leaflet = ( function () {
         bindDrag(marker, description)
     }
     , initLargeMap = function (fullscreen) {
+        L.Icon.Default.imagePath = leafletImagesRoute
         if (fullscreen) setFullscreenMapSize();
         Leaflet.map.map = new L.Map(MapUtils.map.div)
 
