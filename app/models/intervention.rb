@@ -117,7 +117,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def lights_for_redis
-    if (_lights = $redis.get('interventions:' + self.id.to_s))
+    if (_lights = $redis.get('interventions:' + self.id.to_s)).present?
       JSON.parse _lights
     else
       _lights = default_lights
@@ -149,8 +149,8 @@ class Intervention < ActiveRecord::Base
 
   def endowment_alert_changer
     case
-      when endowments.any? { |e| e.in_at.present? }  then turn_off_alert
       when endowments.any? { |e| e.out_at.present? } then send_alert_on_repose
+      when endowments.any? { |e| e.in_at.present? }  then turn_off_alert
     end
   end
 

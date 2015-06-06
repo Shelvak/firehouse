@@ -46,7 +46,7 @@ class Light < ActiveRecord::Base
       kind = opts.delete(:kind)
 
       opts.each do |color, value|
-        light = find_by(color: color, kind: kind)
+        light = find_or_create_by(color: color, kind: kind)
 
         if light.intensity.to_i != value.to_i
           light.update_column(:intensity, value.to_i)
