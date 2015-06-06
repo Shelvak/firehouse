@@ -15,20 +15,20 @@ end
   accidente_con_heridos_de_auto
   accidente_con_heridos_de_micro
   accidente_con_heridos_de_moto
+  rescate_de_persona
   derrumbe
   explosion
   incendio_en_auto
   incendio_en_casa
   incendio_en_industria
   materiales_peligrosos
-  rescate_de_persona
 ).each_with_index do |file, i|
 
   begin
     intervention_name = file.gsub('_', ' ').camelize
 
-    if InterventionType.find_by(name: name)
-      puts "#{name} existe"
+    if InterventionType.find_by(name: intervention_name)
+      puts "#{intervention_name} existe"
     else
       InterventionType.where(priority: i+1).update_all(priority: nil)
 
