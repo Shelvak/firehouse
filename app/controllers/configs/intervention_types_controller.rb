@@ -7,7 +7,7 @@ class Configs::InterventionTypesController < ApplicationController
   def index
     @title = t('view.intervention_types.index_title')
     @intervention_types = InterventionType.only_fathers.
-        order(:id).includes(:children).page(params[:page])
+        order(:id).includes(:children)
   end
 
   def new

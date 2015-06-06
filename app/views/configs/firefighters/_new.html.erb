@@ -2,6 +2,7 @@
   <%= simple_form_for([:configs, @firefighter], remote: true, html: { data: {
       target: 'firefighters_table_body', error: 'modal', modal: true } }) do |f| %>
     <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
       <h3><%= t('view.firefighters.new_title') %></h3>
     </div>
     <div class="modal-body">

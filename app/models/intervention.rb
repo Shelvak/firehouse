@@ -217,4 +217,8 @@ class Intervention < ActiveRecord::Base
       remove_item_from_list(list)
     end
   end
+
+  def finished?
+    self.endowments.all? { |e| e.in_at.present? }
+  end
 end
