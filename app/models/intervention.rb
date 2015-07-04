@@ -14,7 +14,8 @@ class Intervention < ActiveRecord::Base
   #validate :sco_presence
 
   before_validation :assign_endowment_number, :validate_truck_presence
-  after_create :assign_mileage_to_trucks, :send_first_alert_to_redis
+  after_create :assign_mileage_to_trucks, :send_first_alert_to_redis,
+    :play_intervention_audio!
   after_save :endowment_alert_changer, :put_in_redis_list
 
   belongs_to :intervention_type
@@ -32,6 +33,8 @@ class Intervention < ActiveRecord::Base
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
   accepts_nested_attributes_for :endowments, allow_destroy: true,
     reject_if: :reject_endowment_item?
+
+  delegate :audio, to: :intervention_type
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
@@ -220,5 +223,11 @@ class Intervention < ActiveRecord::Base
 
   def finished?
     self.endowments.all? { |e| e.in_at.present? }
+  end
+
+  def play_intervention_audio!
+    if self.audio.try(:file)
+      $redis.publish('interventions:play_audio_file', self.audio.url)
+    end
   end
 end
