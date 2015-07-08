@@ -148,16 +148,16 @@
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
-    var markerInfo
     <% if @intervention.latitude.present? && @intervention.longitude.present? %>
-      markerInfo = {
+      Leaflet.elements.defaultMarkerInfo = {
           latitude    : '<%= @intervention.latitude %>'
         , longitude   : '<%= @intervention.longitude %>'
         , description : '<%= @intervention.formatted_description %>'
         , draggable   : true
+        , isStation   : false
       }
     <% end %>
-    Leaflet.initMap(markerInfo);
+    Leaflet.newMap();
     autocompleteAddress('intervention_address');
   });
 

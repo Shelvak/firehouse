@@ -55,12 +55,26 @@
     edit_intervention_path(@intervention) if can? :update, @intervention %> |
   <%= link_to t('label.list'), interventions_path %>
 </div>
+<ol id="markers-data" class="markers-list hide">
+  <li
+  data-marker-address="<%= @intervention.formatted_description %>"
+  data-marker-latitude="<%= @intervention.latitude %>"
+  data-marker-longitude="<%= @intervention.longitude %>"
+  >
+  </li>
+</ol>
 <script>
-  markerInfo = {
-      latitude    : '<%= @intervention.latitude %>'
-    , longitude   : '<%= @intervention.longitude %>'
-    , description : '<%= @intervention.formatted_description %>'
-    , draggable   : false
-  }
-  Leaflet.initMap(markerInfo);
+  $(document).ready(function() {
+    <% if @intervention.latitude.present? && @intervention.longitude.present? %>
+      Leaflet.elements.defaultMarkerInfo = {
+          latitude    : '<%= @intervention.latitude %>'
+        , longitude   : '<%= @intervention.longitude %>'
+        , description : '<%= @intervention.formatted_description %>'
+        , draggable   : false
+        , isStation   : false
+      }
+      Leaflet.options = { shouldDrawRoute : true }
+    <% end %>
+    Leaflet.newMap();
+  })
 </script>

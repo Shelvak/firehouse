@@ -173,7 +173,7 @@ var MapUtils = ( function () {
         , description : "Estación de bomberos"
       }
     , map = {
-          div  : "map_canvas"
+          div     : "map_canvas"
         , maxZoom : 18
         , minZoom : 10
     }
