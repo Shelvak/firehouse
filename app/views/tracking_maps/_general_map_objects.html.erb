@@ -1,7 +1,7 @@
 <ol id="markers-data" class="markers-list <%= 'hide' unless interventions_list %>">
-  <% @interventions.each do |intervention| %>
+  <% @interventions.each_with_index do |intervention, index| %>
     <li
-      data-marker-address="<%= intervention.formatted_description %>"
+      data-marker-address="<%= intervention.popup_description(index) %>"
       data-marker-latitude="<%= intervention.latitude %>"
       data-marker-longitude="<%= intervention.longitude %>"
     >

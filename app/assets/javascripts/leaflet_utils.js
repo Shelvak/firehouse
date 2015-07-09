@@ -175,7 +175,7 @@ var Leaflet = ( function () {
         for (var i = 0, intervention; intervention = interventions[i]; i++) {
           if (intervention.latitude && intervention.longitude) {
             var point                 = new L.LatLng(intervention.latitude, intervention.longitude)
-              , description           = '<h4>' + (i+1) + '</h4>' + intervention.address
+              , description           = intervention.address
               , marker                = L.marker(point)
               , htmlElement           = intervention.element
               , shouldBindRoutDrawing = Leaflet.options.shouldShowGeneralMap && !Leaflet.options.shouldMakeFullScreen

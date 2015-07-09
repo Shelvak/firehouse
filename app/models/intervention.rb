@@ -82,8 +82,20 @@ class Intervention < ActiveRecord::Base
   end
 
   def formatted_description
-    # "#{type} : #{address}"
-    address
+    "#{type}: #{address}"
+  end
+
+  def popup_description(index)
+    if index
+      index = index + 1
+      if trucks_numbers.any?
+        I18n.t('view.interventions.popup_description_with_truck', type: type, address: address, trucks: trucks_numbers, index: index)
+      else
+        I18n.t('view.interventions.popup_description_with_index', type: type, address: address, index: index)
+      end
+    else
+      I18n.t('view.interventions.popup_description', type: type, address: address)
+    end
   end
 
   def special_sign(sign)
@@ -213,4 +225,9 @@ class Intervention < ActiveRecord::Base
       remove_item_from_list(list)
     end
   end
+
+  protected
+    def trucks_numbers
+      endowments.map{ |endowment| endowment.truck.number if endowment.truck }.uniq
+    end
 end

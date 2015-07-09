@@ -151,7 +151,7 @@
     <% if @intervention.latitude.present? && @intervention.longitude.present? %>
       Leaflet.elements.defaultMarkerInfo.latitude    = '<%= @intervention.latitude %>'
       Leaflet.elements.defaultMarkerInfo.longitude   = '<%= @intervention.longitude %>'
-      Leaflet.elements.defaultMarkerInfo.description = '<%= @intervention.formatted_description %>'
+      Leaflet.elements.defaultMarkerInfo.description = '<%= @intervention.address %>'
     <% end %>
     Leaflet.elements.defaultMarkerInfo.draggable = true
     Leaflet.elements.defaultMarkerInfo.isStation = false
