@@ -22,9 +22,9 @@
     <div id="map_canvas"></div>
     <%= render partial: 'general_map_objects', locals: { interventions_list: false }  %>
     <script type="text/javascript" charset="utf-8">
-      $(document).ready(function() {
-        Leaflet.initLargeMap(true);
-      });
+      Leaflet.options = { shouldMakeFullScreen : true,
+                          shouldShowGeneralMap : true }
+      Leaflet.newMap();
     </script>
   </body>
 </html>

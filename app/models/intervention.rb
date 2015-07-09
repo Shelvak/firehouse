@@ -82,7 +82,8 @@ class Intervention < ActiveRecord::Base
   end
 
   def formatted_description
-    "#{type} : #{address}"
+    # "#{type} : #{address}"
+    address
   end
 
   def special_sign(sign)

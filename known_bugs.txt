@@ -1,5 +1,3 @@
 Errores conocidos:
 Lista de intervenciones en curso (donde esta el mapa):
-  Ha pasado que al hacer click en la mini lista de intervenciones de la iquierda,
-  no genera el camino sobre el mapa. Con recargar se soluciona
   Luego de crear la ruta pierdo el popup de la estación de bomberos.
