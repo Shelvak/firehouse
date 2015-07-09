@@ -51,7 +51,7 @@ var Leaflet = ( function () {
 
         // Actualizo el marcador en vez de crear uno nuevo
         if (markers.length > 0) {
-          marker = markers[0]
+          marker = markers[1]
           marker.setLatLng(point);
         }
         else {
