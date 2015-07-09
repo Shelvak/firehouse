@@ -99,33 +99,6 @@
   text-align: center;
   transition: all 0.3s ease-in-out;
 }
-.intervention-special-button.right {
-  position: relative;
-  margin-right: 5%;
-  right: -25%;
-}
-
-.intervention-special-button.left {
-  position: relative;
-  margin-left: 5%;
-  left: -25%;
-}
-
-@media (max-width: 979px) {
-  .intervention-special-button.left {
-    left: -8%;
-  }
-  .intervention-special-button.right {
-    right: -8%;
-  }
-}
-@media (max-width: 485px) {
-  .intervention-special-button.left {
-    margin-left: 0%;
-    left: 0%;
-  }
-  .intervention-special-button.right {
-    margin-right: 0%;
-    right: 0%;
-  }
+.intervention-special-buttons a {
+  margin: 0 5%;
 }

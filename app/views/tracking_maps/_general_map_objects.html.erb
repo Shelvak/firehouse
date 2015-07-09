@@ -1,4 +1,4 @@
-<ol id="markers-data" class="markers-list">
+<ol id="markers-data" class="markers-list <%= 'hide' unless interventions_list %>">
   <% @interventions.each do |intervention| %>
     <li
       data-marker-address="<%= intervention.formatted_description %>"

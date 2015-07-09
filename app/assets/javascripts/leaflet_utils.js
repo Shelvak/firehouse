@@ -44,14 +44,15 @@ var Leaflet = ( function () {
           , longitude    = place.geometry.location.lng()
           , point        = new L.LatLng(latitude, longitude)
           , marker
+          , markersCount = markers.length
 
         setLatitudeAndLongitude(latitude, longitude);
 
         map.setView(point, 17);
 
         // Actualizo el marcador en vez de crear uno nuevo
-        if (markers.length > 0) {
-          marker = markers[1]
+        if (markersCount > 0) {
+          marker = markers[markersCount - 1]
           marker.setLatLng(point);
         }
         else {

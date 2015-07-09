@@ -149,15 +149,13 @@
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
     <% if @intervention.latitude.present? && @intervention.longitude.present? %>
-      Leaflet.elements.defaultMarkerInfo = {
-          latitude    : '<%= @intervention.latitude %>'
-        , longitude   : '<%= @intervention.longitude %>'
-        , description : '<%= @intervention.formatted_description %>'
-        , draggable   : true
-        , isStation   : false
-      }
+      Leaflet.elements.defaultMarkerInfo.latitude    = '<%= @intervention.latitude %>'
+      Leaflet.elements.defaultMarkerInfo.longitude   = '<%= @intervention.longitude %>'
+      Leaflet.elements.defaultMarkerInfo.description = '<%= @intervention.formatted_description %>'
     <% end %>
-    Leaflet.options = { shouldShowSimple : true }
+    Leaflet.elements.defaultMarkerInfo.draggable = true
+    Leaflet.elements.defaultMarkerInfo.isStation = false
+    Leaflet.options.shouldShowSimple = true
     Leaflet.newMap();
     autocompleteAddress('intervention_address');
   });
