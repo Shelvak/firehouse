@@ -24,7 +24,9 @@
   </div>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-      Leaflet.initLargeMap(false);
+      Leaflet.options = { shouldDrawRoute      : true,
+                          shouldShowGeneralMap : true }
+      Leaflet.newMap();
     });
   </script>
 <% end %>

@@ -14,12 +14,12 @@ var Leaflet = ( function () {
                      , isStation   : true
                    }
                  }
-    , options = { shouldDrawRoute : false
-                , makeFullScreen  : false
-                , showAlertInfo   : false
-                , showGeneralMap  : false
-                , showStation     : false
-                , showTruckInfo   : false
+    , options = { shouldDrawRoute       : false
+                , shouldMakeFullScreen  : false
+                , shouldShowAlertInfo   : false
+                , shouldShowGeneralMap  : false
+                , shouldShowStation     : false
+                , shouldShowTruckInfo   : false
                 }
 
     , leafletImagesRoute = '/leaflet/images'
@@ -101,8 +101,16 @@ var Leaflet = ( function () {
       bindDrag(marker)
     }
     , setPopup = function (marker, description) {
-        var address   = document.querySelector('[data-intervention="address"]').value
-          , popupText = description || address
+        var popupText
+
+        if (!description) {
+          var address   = document.querySelector('[data-intervention="address"]').value
+          popupText = address
+        }
+        else {
+          popupText = description
+        }
+
         if (popupText) {
           marker.closePopup()
           marker.bindPopup(popupText)
@@ -167,17 +175,17 @@ var Leaflet = ( function () {
         })
       }
     // Coloca el zoom necesario para mostrar todos los marcadores
-    , fitBounds = function (map, arrayOfLatLngs) {
-        var bounds = new L.LatLngBounds(arrayOfLatLngs);
-        map.fitBounds(bounds);
+    , fitBounds = function (arrayOfLatLngs) {
+        var bounds = new L.LatLngBounds(arrayOfLatLngs)
+        Leaflet.elements.map.fitWorld(bounds)
     }
     , drawRoute = function (latitude, longitude) {
         var station  = L.latLng(MapUtils.station.latitude, MapUtils.station.longitude)
           , newPoint = L.latLng(parseFloat(latitude), parseFloat(longitude))
-//          , bounds   = [
-//                [station.lat,  station.lng ]
-//              , [newPoint.lat, newPoint.lng]
-//            ]
+          , bounds   = [
+                [station.lat,  station.lng ]
+              , [newPoint.lat, newPoint.lng]
+            ]
         if (Leaflet.elements.route) {
           Leaflet.elements.route.setWaypoints([station, newPoint])
         }
@@ -195,12 +203,12 @@ var Leaflet = ( function () {
             }
           }).addTo(Leaflet.elements.map);
         }
-      // fitBounds desactivado del ruteo porque falla al hacer zoomout y deja el mapa en gris
-        // fitBounds(map, bounds)
+       //fitBounds desactivado del ruteo porque falla al hacer zoomout y deja el mapa en gris
+         fitBounds(bounds)
       }
     , newMap = function () {
-        var shouldSetInterventions = Leaflet.options.showGeneralMap
-          , shouldMakeFullScreen   = Leaflet.options.makeFullScreen
+        var shouldSetInterventions = Leaflet.options.shouldShowGeneralMap
+          , shouldMakeFullScreen   = Leaflet.options.shouldMakeFullScreen
 
         if (shouldMakeFullScreen) setFullscreenMapSize()
 
@@ -248,10 +256,11 @@ var Leaflet = ( function () {
 
         for (var i = 0, intervention; intervention = interventions[i]; i++) {
           if (intervention.latitude && intervention.longitude) {
-            var point       = new L.LatLng(intervention.latitude, intervention.longitude)
-              , description = '<h4>' + (i+1) + '</h4>' + intervention.address
-              , marker      = L.marker(point)
-              , htmlElement = intervention.element
+            var point                 = new L.LatLng(intervention.latitude, intervention.longitude)
+              , description           = '<h4>' + (i+1) + '</h4>' + intervention.address
+              , marker                = L.marker(point)
+              , htmlElement           = intervention.element
+              , shouldBindRoutDrawing = Leaflet.options.shouldShowGeneralMap && !Leaflet.options.shouldMakeFullScreen
 
             arrayOfLatLngs[i]               = [intervention.latitude, intervention.longitude]
             Leaflet.elements.markers[i]     = marker
@@ -260,7 +269,7 @@ var Leaflet = ( function () {
 
             marker.addTo(Leaflet.elements.map).bindPopup(description)
 
-            if (!Leaflet.options.makeFullScreen || !Leaflet.options.showSingleMap) {
+            if (shouldBindRoutDrawing) {
               htmlElement.addEventListener('click', function () {
                 var index     = this.dataset.markerIndex
                   , marker    = Leaflet.elements.markers[index]
