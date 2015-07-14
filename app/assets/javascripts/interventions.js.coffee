@@ -5,7 +5,7 @@ window.Intervention =
     if Intervention.lastFocusedInput
       $('#' + Intervention.lastFocusedInput.attr('id')).focus()
 
-  saveIntervention: ->
+  saveIntervention: (a, updatedPoint) ->
     interventionForm = $('form[data-intervention-form]')
     url              = interventionForm[0].getAttribute('action')
     _method          = interventionForm[0].getAttribute('method')
@@ -17,7 +17,8 @@ window.Intervention =
         data: interventionForm.serialize()
         success: (data)->
           $('.content').html(data)
-          InterventionUpdater.emitEvent('new intervention')
+          if updatedPoint
+            InterventionUpdater.emitEvent('new intervention')
 
   tokenizeAutocompleteInputs: ->
     $('.token-autocomplete:not(.tokenized)').each ->

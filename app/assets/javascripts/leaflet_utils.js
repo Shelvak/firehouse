@@ -65,7 +65,7 @@ var Leaflet = ( function () {
 
       // Bindeo movimiento del marcador
       bindDrag(marker)
-      Intervention.saveIntervention()
+      Intervention.saveIntervention(false, true)
     }
     , setPopup = function (marker, description) {
         var popupText
@@ -90,7 +90,7 @@ var Leaflet = ( function () {
           var position = marker.getLatLng()
           setLatitudeAndLongitude(position.lat, position.lng)
           setPopup(marker)
-          Intervention.saveIntervention()
+          Intervention.saveIntervention(false, true)
         })
       }
     // Coloca el zoom necesario para mostrar todos los marcadores
