@@ -36,3 +36,5 @@
 //= require leaflet/leaflet
 //= require leaflet/leaflet-routing-machine.min
 //= require leaflet_utils
+//= require socketio/core
+//= require interventions_updater
