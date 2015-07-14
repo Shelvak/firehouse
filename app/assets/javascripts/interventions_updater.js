@@ -1,4 +1,4 @@
-var interventionUpdater = ( function () {
+var InterventionUpdater = ( function () {
   var socket  = io('http://localhost:8085')
     , timeout = 1500
 

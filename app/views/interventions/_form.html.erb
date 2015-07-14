@@ -158,7 +158,7 @@
     Leaflet.options.shouldShowSimple = true
     Leaflet.newMap();
     autocompleteAddress('intervention_address');
-    interventionUpdater.emitEvent('new intervention');
+    InterventionUpdater.emitEvent('new intervention');
   });
 
   Intervention.focusLastFocusedInput();
