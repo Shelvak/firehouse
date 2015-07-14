@@ -17,6 +17,7 @@ window.Intervention =
         data: interventionForm.serialize()
         success: (data)->
           $('.content').html(data)
+          InterventionUpdater.emitEvent('new intervention')
 
   tokenizeAutocompleteInputs: ->
     $('.token-autocomplete:not(.tokenized)').each ->

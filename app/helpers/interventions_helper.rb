@@ -29,7 +29,7 @@ module InterventionsHelper
     end
 
     form.input :intervention_type_id, collection: collection,
-      input_html: { selected: form.object.try(:intervention_type_id) }
+      input_html: { selected: form.object.try(:intervention_type_id), data: { intervention_saver: true } }
   end
 
   def special_intervention_buttons

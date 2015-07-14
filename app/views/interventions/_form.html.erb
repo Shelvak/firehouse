@@ -14,7 +14,7 @@
     <div class='row-fluid'>
       <div class='span7'>
         <%= intervention_type_select(f) %>
-        <%= f.input :address, input_html: { class: 'address-autocomplete span10', data: { intervention: 'address' } } %>
+        <%= f.input :address, input_html: { class: 'address-autocomplete span10', data: { intervention: 'address', intervention_saver: true } } %>
         <%= f.input :latitude, as: :hidden %>
         <%= f.input :longitude, as: :hidden  %>
         <%= f.input :near_corner, input_html: { data: { intervention_saver: true } } %>
@@ -158,7 +158,6 @@
     Leaflet.options.shouldShowSimple = true
     Leaflet.newMap();
     autocompleteAddress('intervention_address');
-    InterventionUpdater.emitEvent('new intervention');
   });
 
   Intervention.focusLastFocusedInput();

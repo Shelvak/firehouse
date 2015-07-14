@@ -107,7 +107,6 @@ var loadGeneralMap = function () {
 var setLatitudeAndLongitude = function(latitude, longitude){
     document.getElementById('intervention_latitude').value  = latitude;
     document.getElementById('intervention_longitude').value = longitude;
-  //  despues de setear esto tambien deberia guardar
 };
 
 //var interventions = getMarkersInfo();

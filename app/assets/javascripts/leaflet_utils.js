@@ -65,6 +65,7 @@ var Leaflet = ( function () {
 
       // Bindeo movimiento del marcador
       bindDrag(marker)
+      Intervention.saveIntervention()
     }
     , setPopup = function (marker, description) {
         var popupText
@@ -89,6 +90,7 @@ var Leaflet = ( function () {
           var position = marker.getLatLng()
           setLatitudeAndLongitude(position.lat, position.lng)
           setPopup(marker)
+          Intervention.saveIntervention()
         })
       }
     // Coloca el zoom necesario para mostrar todos los marcadores
@@ -145,8 +147,8 @@ var Leaflet = ( function () {
             , maxZoom     : MapUtils.map.maxZoom
             , attribution : osmAttrib
           })
-          , point     = new L.LatLng(  MapUtils.station.latitude
-                                     , MapUtils.station.longitude
+          , point     = new L.LatLng(  Leaflet.elements.defaultMarkerInfo.latitude
+                                     , Leaflet.elements.defaultMarkerInfo.longitude
                                     )
           , zoom = Leaflet.options.shouldShowGeneralMap ? 13 : 17
 
