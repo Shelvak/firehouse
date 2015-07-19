@@ -1,6 +1,7 @@
 QuickButtons = (function () {
   var
       quickButtons
+    , alertButtons
     , quickButtonsClasses  = {
           open   : "buttons open-buttons"
         , closed : "buttons closed-buttons"
@@ -11,7 +12,8 @@ QuickButtons = (function () {
     , quickButtonsTrigger
 
     , setVariables = function () {
-      quickButtons         = document.getElementById("buttons")
+      quickButtons         = document.getElementById("quick-buttons")
+      alertButtons         = document.getElementById("alert-buttons")
       quickButtonsTrigger  = document.getElementById('buttons-trigger')
       quickButtonsShowText = quickButtonsTrigger.dataset.showText
       quickButtonsHideText = quickButtonsTrigger.dataset.hideText
@@ -34,10 +36,12 @@ QuickButtons = (function () {
     , openButtons = function () {
         quickButtonsState      = 'open'
         quickButtons.className = quickButtonsClasses.open
+        alertButtons.className = 'alert-buttons closed'
     }
 
     , closeButtons = function () {
         quickButtonsState      = 'closed'
+        alertButtons.className = 'alert-buttons open'
         quickButtons.className = quickButtonsClasses.closed
     }
 

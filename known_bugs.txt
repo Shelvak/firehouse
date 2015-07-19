@@ -1,3 +1,0 @@
-Errores conocidos:
-Lista de intervenciones en curso (donde esta el mapa):
-  Luego de crear la ruta pierdo el popup de la estación de bomberos.

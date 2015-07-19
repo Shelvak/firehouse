@@ -42,6 +42,9 @@ window.Intervention =
             input.parents('[data-endowment-lines]')
               .find('[id^="token-input-intervention"]:visible:first').focus()
 
+  clickTrigger: ->
+    $('#buttons-trigger').click()
+
 new Rule
   condition: -> $('#c_interventions').length
   load: ->
@@ -158,6 +161,7 @@ new Rule
     $(document).on 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
     $(document).on 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
     $(document).on 'change', '[data-intervention-saver]', Intervention.saveIntervention
+    $(document).on 'change', '[data-intervention-trigger="quick-buttons"]', Intervention.clickTrigger
 
     # Fucking fix for double trigger....
     $(document).off('click', '[data-intervention-special-button]').on('click', '[data-intervention-special-button]', @map.sendSpecialSign)

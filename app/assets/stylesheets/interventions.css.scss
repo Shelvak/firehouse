@@ -66,7 +66,8 @@
 }
 .closed-buttons {
   height: 0px;
-  padding: 5px 20px;
+  padding: 0px;
+  overflow: hidden;
 }
 
 .red {
@@ -101,4 +102,15 @@
 }
 .intervention-special-buttons a {
   margin: 0 5%;
+}
+
+.alert-buttons {
+  transition: all 0.1s linear;
+  overflow: hidden;
+}
+.alert-buttons.open {
+  height: 220px;
+}
+.alert-buttons.closed {
+  height: 0px;
 }

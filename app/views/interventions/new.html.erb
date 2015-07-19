@@ -9,10 +9,13 @@
        data-hide-text="<%= t('view.interventions.buttons.hide') %>">
     <%= t('view.interventions.buttons.hide') %>
   </div>
+  <div class="alert-buttons closed" id="alert-buttons">
+    <%= render 'interventions/alert_and_trap_buttons' %>
+  </div>
 </h2>
 
 <% unless @intervention.errors.present? %>
-  <div class="buttons open-buttons" id="buttons">
+  <div class="buttons open-buttons" id="quick-buttons">
     <div class="row">
       <% (1..5).each do |i| %>
         <%= render partial: 'interventions/button', locals: { i: i } %>
