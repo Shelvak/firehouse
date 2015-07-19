@@ -29,7 +29,11 @@ module InterventionsHelper
     end
 
     form.input :intervention_type_id, collection: collection,
-      input_html: { selected: form.object.try(:intervention_type_id), data: { intervention_trigger: 'quick-buttons' } }
+      input_html: {
+        selected: form.object.try(:intervention_type_id),
+        disabled: form.object.finished?,
+        data: { intervention_trigger: 'quick-buttons' }
+    }
   end
 
   def special_intervention_buttons

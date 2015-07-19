@@ -3,6 +3,7 @@
       target: dom_id(@firefighter), error: 'modal', modal: true, replace: true }
   }) do |f| %>
     <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
       <h3><%= t('view.firefighters.edit_title') %></h3>
     </div>
     <div class="modal-body">

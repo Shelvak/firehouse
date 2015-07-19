@@ -153,6 +153,10 @@ new Rule
       if (key == 10 || key == 13) && e.ctrlKey
         $('form').submit()
 
+    @map.ignoreEnter ||= (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+
 
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
@@ -162,6 +166,7 @@ new Rule
     $(document).on 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
     $(document).on 'change', '[data-intervention-saver]', Intervention.saveIntervention
     $(document).on 'change', '[data-intervention-trigger="quick-buttons"]', Intervention.clickTrigger
+    $(document).on 'keyup', '[data-ignore-enter]', @map.ignoreEnter
 
     # Fucking fix for double trigger....
     $(document).off('click', '[data-intervention-special-button]').on('click', '[data-intervention-special-button]', @map.sendSpecialSign)

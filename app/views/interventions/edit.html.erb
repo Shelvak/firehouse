@@ -10,5 +10,5 @@
     type: @intervention.type) %>
 </h2>
 
-<%= render 'interventions/alert_and_trap_buttons' %>
+<%= render 'interventions/alert_and_trap_buttons' unless @intervention.finished? %>
 <%= render 'form' %>

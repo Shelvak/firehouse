@@ -4,20 +4,22 @@ MAINTAINER Néstor Coppi <nestorcoppi@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN git clone https://github.com/FRM-UTN/firehouse
+RUN apt-get install -qq -y postgresql-server-dev-9.3 nodejs \
+                           postgresql-client-9.3 imagemagick
 
-WORKDIR $HOME/firehouse
+RUN mkdir -p /firehouse
+RUN mkdir -p /firehouse/bundler
 
-ADD config/app_config.example.yml config/app_config.yml
+ENV GEM_HOME /firehouse/bundler
+ENV GEM_PATH $GEM_HOME
+ENV GEM_ROOT $GEM_HOME
+ENV PATH $GEM_HOME/bin:$PATH
+RUN gem update --system \
+  && gem install bundler \
+  && bundle config --global path "$GEM_HOME/" \
+  && bundle config --global root "$GEM_HOME/" \
+  && bundle config --global bin "$GEM_HOME/bin"
 
-ENV RAILS_ENV production
+WORKDIR /firehouse
 
-RUN bundle install --without development test --deployment --quiet
-RUN bundle exec rake db:migrate
-RUN bundle exec rake assets:precompile
-
-VOLUME ["/shared", "/tmp"]
-
-RUN ln -sf $(pwd) /shared/firehouse
-
-CMD bundle exec unicorn -E production -c config/unicorn.rb
+CMD bundle exec unicorn -c /firehouse/config/unicorn.rb -E production

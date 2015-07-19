@@ -14,7 +14,8 @@ class Intervention < ActiveRecord::Base
   #validate :sco_presence
 
   before_validation :assign_endowment_number, :validate_truck_presence
-  after_create :assign_mileage_to_trucks, :send_first_alert_to_redis
+  after_create :assign_mileage_to_trucks, :send_first_alert_to_redis,
+    :play_intervention_audio!
   after_save :endowment_alert_changer, :put_in_redis_list
 
   belongs_to :intervention_type
@@ -32,6 +33,8 @@ class Intervention < ActiveRecord::Base
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
   accepts_nested_attributes_for :endowments, allow_destroy: true,
     reject_if: :reject_endowment_item?
+
+  delegate :audio, to: :intervention_type
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
@@ -130,7 +133,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def lights_for_redis
-    if (_lights = $redis.get('interventions:' + self.id.to_s))
+    if (_lights = $redis.get('interventions:' + self.id.to_s)).present?
       JSON.parse _lights
     else
       _lights = default_lights
@@ -145,8 +148,12 @@ class Intervention < ActiveRecord::Base
     $redis.publish('semaphore-lights-alert', lights_for_redis.to_json)
   end
 
+  def turn_off_the_lights!
+    off = InterventionType::COLORS.inject({}) {|h, light| h.merge!(light => false)}
+    $redis.publish('semaphore-lights-alert', off.to_json)
+  end
+
   def send_first_alert_to_redis
-    p $redis
     put_in_redis_list
 
     send_lights
@@ -158,8 +165,8 @@ class Intervention < ActiveRecord::Base
 
   def endowment_alert_changer
     case
-      when endowments.any? { |e| e.in_at.present? }  then turn_off_alert
       when endowments.any? { |e| e.out_at.present? } then send_alert_on_repose
+      when endowments.any? { |e| e.in_at.present? }  then turn_off_alert
     end
   end
 
@@ -174,6 +181,7 @@ class Intervention < ActiveRecord::Base
   def turn_off_alert
     remove_item_from_actives_list
     $redis.del('interventions:' + self.id.to_s)
+    turn_off_the_lights!
   end
 
   def start_looping_active_alerts!
@@ -226,8 +234,18 @@ class Intervention < ActiveRecord::Base
     end
   end
 
-  protected
-    def trucks_numbers
-      endowments.map{ |endowment| endowment.truck.number if endowment.truck }.uniq
+  def finished?
+    self.endowments.all? { |e| e.in_at.present? }
+  end
+
+  def play_intervention_audio!
+    if self.audio.try(:file)
+      $redis.publish('interventions:play_audio_file', self.audio.url)
     end
+  end
+
+  protected
+  def trucks_numbers
+    endowments.map{ |endowment| endowment.truck.number if endowment.truck }.uniq
+  end
 end
