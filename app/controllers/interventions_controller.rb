@@ -1,6 +1,6 @@
 class InterventionsController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:console_create]
   before_filter :active_sco?, only: [:new, :edit]
 
   check_authorization
@@ -125,6 +125,13 @@ class InterventionsController < ApplicationController
 
     render nothing: true
   end
+
+  def console_create
+    Intervention.create_by_lights(params[:lights])
+
+    render nothing: true
+  end
+
   private
 
     def active_sco?

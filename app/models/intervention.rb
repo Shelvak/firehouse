@@ -42,6 +42,12 @@ class Intervention < ActiveRecord::Base
     self.endowments.build if self.endowments.empty?
   end
 
+  def self.create_by_lights(lights)
+    if (it = InterventionType.find_by_lights(lights))
+      create(intervention_type_id: it.id)
+    end
+  end
+
   def receptor
     self.user
   end
@@ -160,9 +166,14 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_first_alert_to_redis
+    send_alert_to_lcd
     put_in_redis_list
 
     send_lights
+  end
+
+  def send_alert_to_lcd
+    $redis.publish('lcd-messages', { full: self.type }.to_json)
   end
 
   def is_active?

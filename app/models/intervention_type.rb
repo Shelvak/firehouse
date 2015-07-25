@@ -4,6 +4,7 @@ class InterventionType < ActiveRecord::Base
   mount_uploader :audio, AudioUploader
 
   COLORS = ['red', 'green', 'blue', 'yellow', 'white']
+  COLORS_HASH = Hash[COLORS.map {|k| [k, false]}]
 
   serialize :lights, Hash
 
@@ -29,6 +30,15 @@ class InterventionType < ActiveRecord::Base
 
     COLORS.each do |light|
       self.lights[light] ||= false
+    end
+  end
+
+  def self.find_by_lights(lights)
+    search_lights = COLORS_HASH.merge(lights)
+    all.each do |it|
+      if COLORS.map { |c| it.lights[c] == search_lights[c] }.all?
+        return it
+      end
     end
   end
 
