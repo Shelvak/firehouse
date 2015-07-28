@@ -236,8 +236,7 @@ es:
     interventions:
       add_endowment_link: "Agregar nueva dotación"
       buttons:
-        hide: "Ocultar botones"
-        show: "Mostrar botones"
+        change: "Cambiar botones"
       correctly_created: "Intervención agregada correctamente."
       correctly_updated: "Intervención actualizada correctamente."
       current_sco: "CEO actual"
@@ -266,17 +265,19 @@ es:
         other: "Otros"
         person_rescue: "Rescate a persona"
         truck_accident: "Accidente de camion"
-      map_index:
-        fullscreen: "Pantalla completa"
-        title: "Intervenciones en curso"
+      map:
+        index:
+          fullscreen: "Pantalla completa"
+          title: "Intervenciones en curso"
+        marker_popup:
+          common: "<h4>%{type}</h4> %{address}."
+          with_index: "<h4>%{index}: %{type}</h4> %{address}."
+          with_truck: "<h4>%{index}: %{type}</h4> %{address} <div style='display:block'>Camiones afectados: %{trucks}</div>"
       mileages: "Kilometraje"
       new: "Nueva Intervención"
       new_title: "Nueva intervención"
       no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
       output_title: "Detalles de dotaciones"
-      popup_description: "<h4>%{type}</h4> %{address}."
-      popup_description_with_index: "<h4>%{index}: %{type}</h4> %{address}."
-      popup_description_with_truck: "<h4>%{index}: %{type}</h4> %{address} <div style='display:block'>Camiones afectados: %{trucks}</div>"
       set_time: "Ingresar hora"
       show_title: "Detalle de intervención"
       stale_object_error: "La intervención no pudo ser actualizada, intente nuevamente."

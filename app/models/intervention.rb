@@ -88,17 +88,23 @@ class Intervention < ActiveRecord::Base
     "#{type}: #{address}"
   end
 
-  def popup_description(index)
+  def popup_description(index = nil)
+    base_i18n_key = 'view.interventions.map.marker_popup'
+    popup_params  = { type: type, address: address }
+    popup_type    = '.common'
+
     if index
-      index = index + 1
+      index               += 1
+      popup_params[:index] = index
+      popup_type           = '.with_index'
+
       if trucks_numbers.any?
-        I18n.t('view.interventions.popup_description_with_truck', type: type, address: address, trucks: trucks_numbers, index: index)
-      else
-        I18n.t('view.interventions.popup_description_with_index', type: type, address: address, index: index)
+        popup_type            = '.with_truck'
+        popup_params[:trucks] = trucks_numbers
       end
-    else
-      I18n.t('view.interventions.popup_description', type: type, address: address)
     end
+
+    I18n.t(base_i18n_key + popup_type, popup_params)
   end
 
   def special_sign(sign)

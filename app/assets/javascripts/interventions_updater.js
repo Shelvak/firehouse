@@ -1,8 +1,12 @@
 var InterventionUpdater = ( function () {
-  var socket  = io('http://localhost:8085')
+  var socket
     , timeout = 1500
 
+    , setupSocket = function () {
+        socket = io('http://localhost:8085')
+    }
     , listenToUpdates = function () {
+        setupSocket()
         socket.on('update interventions', function (data) {
           var message = 'Han habido cambios en las intervenciones, acutalizando página'
           showMessage(message)
@@ -10,6 +14,7 @@ var InterventionUpdater = ( function () {
         });
     }
     , emitEvent = function (event, incomingMessage) {
+        setupSocket()
         var message = incomingMessage || 'Hay una nueva intervención en el sistema.'
         if (event == 'new intervention') socket.emit(event, { message: message })
     }

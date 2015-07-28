@@ -2,35 +2,22 @@ QuickButtons = (function () {
   var
       quickButtons
     , alertButtons
-    , quickButtonsClasses  = {
+    , quickButtonsClasses = {
           open   : "buttons open-buttons"
         , closed : "buttons closed-buttons"
     }
-    , quickButtonsHideText
-    , quickButtonsShowText
-    , quickButtonsState    = 'open'
+    , quickButtonsState   = 'open'
     , quickButtonsTrigger
 
     , setVariables = function () {
       quickButtons         = document.getElementById("quick-buttons")
       alertButtons         = document.getElementById("alert-buttons")
       quickButtonsTrigger  = document.getElementById('buttons-trigger')
-      quickButtonsShowText = quickButtonsTrigger.dataset.showText
-      quickButtonsHideText = quickButtonsTrigger.dataset.hideText
-    }
-
-    , toggleButtonsTrigger = function () {
-      if (quickButtonsState == 'open')
-        quickButtonsTrigger.innerText = quickButtonsHideText;
-      else
-        quickButtonsTrigger.innerText = quickButtonsShowText;
     }
 
     , toggleQuickButtons = function () {
         if (quickButtonsState == 'open' ) closeButtons()
-        else openButtons()
-
-        toggleButtonsTrigger()
+        else                              openButtons()
     }
 
     , openButtons = function () {
@@ -63,7 +50,6 @@ QuickButtons = (function () {
 
         $('#intervention_intervention_type_id').change(function () {
           closeButtons();
-          toggleButtonsTrigger();
         });
     }
 

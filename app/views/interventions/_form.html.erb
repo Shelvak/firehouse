@@ -19,7 +19,7 @@
         <%= intervention_type_select(f) %>
         <%= f.input :address, input_html: {
           autocomplete: 'off', class: 'address-autocomplete span10',
-          data: { ignore_enter: true, intervention: 'address', intervention_saver: true }
+          data: { ignore_enter: true, intervention: 'address' }
         } %>
         <%= f.input :latitude, as: :hidden %>
         <%= f.input :longitude, as: :hidden  %>
