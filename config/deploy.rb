@@ -3,7 +3,7 @@ set :user, 'webmaster'
 set :repo_url, 'https://github.com/FRM-UTN/firehouse.git'
 
 set :scm, :git
-set :deploy_to, '/var/firehouse/web'
+set :deploy_to, '/var/firehouse'
 set :deploy_via, :remote_cache
 
 set :format, :pretty

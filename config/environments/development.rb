@@ -27,10 +27,7 @@ Rails.application.configure do
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
-  config.middleware.delete Rack::Lock
+  #config.middleware.delete Rack::Lock
   # Do not compress assets
   config.assets.compress = false
-
-  # Expands the lines which load the assets
-  config.assets.debug = true
 end

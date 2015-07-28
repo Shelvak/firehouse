@@ -37,10 +37,17 @@ module InterventionsHelper
   end
 
   def special_intervention_buttons
-    {
-      trap:  { url: 'trap_button.png'  },
-      alert: { url: 'alert_button.png' },
-      fake:  { url: 'fake_button.png'  }
+    buttons = {
+      alert: { url: 'alert_button.png' }
     }
+
+    if action_name != 'new'
+      buttons.merge!({
+        trap:  { url: 'trap_button.png' },
+        qta:   { url: 'qta_button.png' }
+      })
+    end
+
+    buttons
   end
 end

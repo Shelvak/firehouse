@@ -73,4 +73,12 @@ class ActionDispatch::IntegrationTest
   def assert_page_has_no_errors!
     assert page.has_no_css?('#unexpected_error')
   end
+
+  def show_collapse_menu_if_needed
+    collapse_css = 'a[data-toggle="collapse"]'
+
+    if page.has_css?(collapse_css) && find(collapse_css).visible?
+      find(collapse_css).click
+    end
+  end
 end

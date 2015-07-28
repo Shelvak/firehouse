@@ -42,9 +42,9 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
   test 'should be able to login and logout' do
     login
+    show_collapse_menu_if_needed
 
-    sleep 0.5
-    find('#logout').click
+    click_link('logout')
 
     assert_equal new_user_session_path, current_path
 
