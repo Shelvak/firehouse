@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+[data-new-console-alert="div"] {
+  position: fixed;
+  right: 5px;
+  top: 80px;
+}
+
 #add_new_endowment {
   font-size: 1.8em;
   padding: 0.3em;

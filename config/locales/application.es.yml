@@ -33,6 +33,7 @@ es:
         phone: "Teléfono"
       intervention:
         address: "Dirección"
+        alerts: "Alertas"
         endowments_attributes: "Dotaciones"
         hierarchy_id: "Jerarquía"
         hierarchy_name: "Jerarquía"
@@ -46,7 +47,6 @@ es:
         observations: "Observaciones"
         receptor_id: "Receptor"
         sco_id: "CEO"
-        alerts: 'Alertas'
       intervention_type:
         audio: "Sonido de alerta"
         callback: "Función de retorno"
@@ -272,9 +272,10 @@ es:
         marker_popup:
           common: "<h4>%{type}</h4> %{address}."
           with_index: "<h4>%{index}: %{type}</h4> %{address}."
-          with_truck: "<h4>%{index}: %{type}</h4> %{address} <div style='display:block'>Camiones afectados: %{trucks}</div>"
+          with_truck: "<h4>%{index}: %{type}</h4> %{address} <div style=\"display:block\">Camiones afectados: %{trucks}</div>"
       mileages: "Kilometraje"
       new: "Nueva Intervención"
+      new_console_intervention: "Nueva Intervención por consola"
       new_title: "Nueva intervención"
       no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
       output_title: "Detalles de dotaciones"
@@ -305,6 +306,9 @@ es:
       forgot_pass: "¿Olvidaste tu contraseña?"
       help: "Ayuda"
       title: "Inicio de sesión"
+    maps:
+      new_intervention: "Hay una nueva intervención en el sistema."
+      updating_the_page: "Han habido cambios en las intervenciones, acutalizando página"
     misc:
       news:
         title: "Novedades"

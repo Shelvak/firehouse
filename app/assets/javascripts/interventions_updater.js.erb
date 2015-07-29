@@ -1,0 +1,50 @@
+var InterventionUpdater = ( function () {
+  var socket
+    , timeout = 1500
+    , host = '<%= ENV['socketio_server'] || 'localhost:8085' %>'
+
+    , setupSocket = function () {
+        console.log('llamamos al socket')
+        socket = io('http://' + host)
+    }
+    , listenToUpdates = function () {
+        setupSocket()
+        socket.on('update interventions', function (data) {
+          var message = '<%= I18n.t('view.maps.updating_the_page') %>'
+          showMessage(message)
+          setTimeout(refreshPage, timeout)
+        });
+    }
+    , emitEvent = function (event, incomingMessage) {
+        setupSocket()
+        var message = incomingMessage || '<%= I18n.t('view.maps.new_intervention') %>'
+        if (event == 'new intervention') socket.emit(event, { message: message })
+    }
+    , showMessage = function (message) {
+        var alertDiv = document.querySelector('[rel="alerts"]')
+        alertDiv.className = 'alert alert-warning'
+        alertDiv.innerHTML = message
+    }
+    , alertForNewConsoleIntervention = function () {
+        console.log('activamos alert milonga')
+        var alertDiv = document.querySelector('[data-new-console-alert="div"]')
+          , template = alertDiv.getAttribute('data-template');
+
+        setupSocket()
+        socket.on('new-console-intervention', function (data) {
+
+          console.log(data)
+          content = template.replace('LINK_PLACE', data.link)
+          alertDiv.innerHTML = content;
+          alertDiv.className = '';
+        });
+    }
+    , refreshPage = function () {
+        window.location.reload()
+    }
+  return {
+      update        : listenToUpdates
+    , emitEvent     : emitEvent
+    , consoleAlerts : alertForNewConsoleIntervention
+  }
+} () )
