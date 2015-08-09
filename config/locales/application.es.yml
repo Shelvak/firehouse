@@ -34,6 +34,7 @@ es:
       intervention:
         address: "Dirección"
         alerts: "Alertas"
+        call_at: "Llamada entró a las"
         endowments_attributes: "Dotaciones"
         hierarchy_id: "Jerarquía"
         hierarchy_name: "Jerarquía"

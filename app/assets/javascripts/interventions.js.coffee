@@ -5,7 +5,7 @@ window.Intervention =
     if Intervention.lastFocusedInput
       $('#' + Intervention.lastFocusedInput.attr('id')).focus()
 
-  saveIntervention: (a, updatedPoint) ->
+  saveIntervention: (e, updatedPoint) ->
     interventionForm = $('form[data-intervention-form]')
     url              = interventionForm[0].getAttribute('action')
     _method          = interventionForm[0].getAttribute('method')
@@ -159,6 +159,9 @@ new Rule
       e.preventDefault()
       e.stopPropagation()
 
+    @map.changeCallAt ||= ->
+      $('#intervention_call_at').val(Helpers.time_now())
+
 
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
@@ -169,6 +172,7 @@ new Rule
     $(document).on 'change', '[data-intervention-saver]', Intervention.saveIntervention
     $(document).on 'change', '[data-intervention-trigger="quick-buttons"]', Intervention.clickTrigger
     $(document).on 'keyup', '[data-ignore-enter]', @map.ignoreEnter
+    $(document).on 'click', '[data-change-call-at]', @map.changeCallAt
 
     # Fucking fix for double trigger....
     $(document).off('click', '[data-intervention-special-button]').on('click', '[data-intervention-special-button]', @map.sendSpecialSign)
@@ -184,6 +188,7 @@ new Rule
     $(document).off 'change', '[data-intervention-saver]', Intervention.saveIntervention
     $(document).off 'click', '[data-intervention-special-button]', @map.sendSpecialSign
     $(document).off 'keyup', 'input', @map.handleEnterOnInputs
+    $(document).off 'click', '[data-change-call-at]', @map.changeCallAt
 
 jQuery ($) ->
   $(document).on 'focusin', 'input', ->

@@ -8,6 +8,9 @@ window.Helpers =
 
     hours + ':' + minutes
 
+  time_now: ->
+    (new Date()).toLocaleString()
+
 new Rule
   load: ->
     # For browsers with no autofocus support

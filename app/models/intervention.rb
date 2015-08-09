@@ -14,6 +14,7 @@ class Intervention < ActiveRecord::Base
   #validate :sco_presence
 
   before_validation :assign_endowment_number, :validate_truck_presence
+  before_create :assign_call_at
   after_create :assign_mileage_to_trucks, :send_first_alert_to_redis,
     :play_intervention_audio!
   after_save :endowment_alert_changer, :put_in_redis_list
@@ -40,6 +41,10 @@ class Intervention < ActiveRecord::Base
     super(attributes, options)
 
     self.endowments.build if self.endowments.empty?
+  end
+
+  def assign_call_at
+    self.call_at ||= Time.zone.now
   end
 
   def self.create_by_lights(lights)
