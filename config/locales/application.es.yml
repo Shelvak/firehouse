@@ -14,7 +14,7 @@ es:
         arrive_at: "Llegada"
         back_at: "Vuelta"
         in_at: "Cuartel"
-        number: "Número de dotación"
+        number: "Número de dotación →"
         out_at: "Salida"
         truck_id: "Móvil"
       endowment_line:
