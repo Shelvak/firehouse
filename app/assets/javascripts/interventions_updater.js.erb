@@ -1,11 +1,13 @@
 var InterventionUpdater = ( function () {
   var socket
     , timeout = 1500
-    , host = '<%= ENV['socketio_server'] || 'localhost:8085' %>'
+    , protocol = window.location.protocol
+    , host = window.location.hostname
+    , port = '<%= ENV['SOCKETIO_PORT_8085_TCP_PORT'] || '8085' %>'
 
     , setupSocket = function () {
         console.log('llamamos al socket')
-        socket = io('http://' + host)
+        socket = io(protocol + '//' + host + ':' port)
     }
     , listenToUpdates = function () {
         setupSocket()
