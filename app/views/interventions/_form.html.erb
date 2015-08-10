@@ -95,7 +95,7 @@
       </div>
     </div>
 
-    <div class="<%= 'hide' unless @intervention.persisted? %>" >
+    <% if @intervention.persisted? || (defined?(dynamic) && dynamic) %>
       <div class='page-header'>
         <h3><%= t('view.interventions.output_title') %></h3>
       </div>
@@ -144,7 +144,7 @@
           input_html: { class: 'span11', rows: 5,
                         data: { intervention_saver: true } } %>
       </div>
-    </div>
+    <% end %>
   </div>
 
   <div class="form-actions">
@@ -153,18 +153,20 @@
     <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
-<script type="text/javascript" charset="utf-8">
-  var dynamicTab =
-      '<%= content_tag(:li, link_to(
-        "dynamicContent", "#endowments_dynamicContent",
-        data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
-      )
-    ) %>'
-  var dynamicForm =
-      '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
+<% if @intervention.persisted? || (defined?(dynamic) && dynamic) %>
+  <script type="text/javascript" charset="utf-8">
+    var dynamicTab =
+        '<%= content_tag(:li, link_to(
+          "dynamicContent", "#endowments_dynamicContent",
+          data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
+        )
+      ) %>'
+    var dynamicForm =
+        '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
 
-  var without_result = '<%= t("label.without_results") %>'
-</script>
+    var without_result = '<%= t("label.without_results") %>'
+  </script>
+<% end %>
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {

@@ -1,6 +1,8 @@
 class EndowmentLine < ActiveRecord::Base
   has_paper_trail
 
+  default_scope -> { order(charge: :asc) }
+
   CHARGES = {
     1 => 'head',
     2 => 'pitonero',

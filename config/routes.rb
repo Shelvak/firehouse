@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
   match '/fullscreen' => 'tracking_maps#fullscreen', as: :fullscreen, via: :get
 
-  root to: redirect('/users/sign_in')
+  root to: 'interventions#new'
 
   namespace :configs do
     resources :intervention_types, except: :show do

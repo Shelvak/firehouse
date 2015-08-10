@@ -58,10 +58,8 @@ class Intervention < ActiveRecord::Base
   end
 
   def reject_endowment_item?(attrs)
-    endow_reject = false
-
-    attrs['endowment_lines_attributes'].each do |i, e|
-      endow_reject ||= e['firefighters_names'].present?
+    endow_reject = attrs['endowment_lines_attributes'].any? do |i, e|
+      e['firefighters_names'].present?
     end
 
     attrs['truck_id'].blank? && attrs['truck_number'].blank? && !endow_reject
