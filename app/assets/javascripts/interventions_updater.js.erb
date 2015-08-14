@@ -1,17 +1,18 @@
 var InterventionUpdater = ( function () {
-  var socket
+  var _socket
     , timeout = 1500
-    , protocol = window.location.protocol
-    , host = window.location.hostname
-    , port = '<%= ENV['SOCKETIO_PORT_8085_TCP_PORT'] || '8085' %>'
 
     , setupSocket = function () {
-        console.log('llamamos al socket')
-        socket = io(protocol + '//' + host + ':' port)
+        var _protocol = window.location.protocol
+          , _host = window.location.hostname
+          , _port = '8085'
+          , _full_path = _protocol + '//' + _host + ':' + _port
+        console.log('llamamos al _socket')
+        _socket = io( _full_path )
     }
     , listenToUpdates = function () {
         setupSocket()
-        socket.on('update interventions', function (data) {
+        _socket.on('update interventions', function (data) {
           var message = '<%= I18n.t('view.maps.updating_the_page') %>'
           showMessage(message)
           setTimeout(refreshPage, timeout)
@@ -20,7 +21,7 @@ var InterventionUpdater = ( function () {
     , emitEvent = function (event, incomingMessage) {
         setupSocket()
         var message = incomingMessage || '<%= I18n.t('view.maps.new_intervention') %>'
-        if (event == 'new intervention') socket.emit(event, { message: message })
+        if (event == 'new intervention') _socket.emit(event, { message: message })
     }
     , showMessage = function (message) {
         var alertDiv = document.querySelector('[rel="alerts"]')
@@ -33,7 +34,7 @@ var InterventionUpdater = ( function () {
           , template = alertDiv.getAttribute('data-template');
 
         setupSocket()
-        socket.on('new-console-intervention', function (data) {
+        _socket.on('new-console-intervention', function (data) {
 
           console.log(data)
           content = template.replace('LINK_PLACE', data.link)
