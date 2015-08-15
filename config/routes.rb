@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get :console, to: 'websockets#console'
+  get :console_create, to: 'interventions#console_create'
 
   resources :interventions do
     collection do

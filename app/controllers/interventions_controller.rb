@@ -1,5 +1,4 @@
 class InterventionsController < ApplicationController
-
   before_filter :authenticate_user!, except: [:console_create]
   before_filter :active_sco?, only: [:new, :edit]
 
