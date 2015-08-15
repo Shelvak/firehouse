@@ -15,7 +15,7 @@ begin
   User.create!(
     name: 'Console',
     lastname: 'Console',
-    email: 'Console@firehouse.com',
+    email: 'console@firehouse.com',
     password: 'Console',
     password_confirmation: 'Console',
     role: :admin

@@ -36,6 +36,7 @@ class Intervention < ActiveRecord::Base
     reject_if: :reject_endowment_item?
 
   delegate :audio, to: :intervention_type
+  delegate :url_helpers, to: 'Rails.application.routes'
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
@@ -49,7 +50,13 @@ class Intervention < ActiveRecord::Base
 
   def self.create_by_lights(lights)
     if (it = InterventionType.find_by_lights(lights)).present?
-      create(intervention_type_id: it.id, receptor_id: User.default_receptor.id)
+      intervention = create(
+        intervention_type_id: it.id, receptor_id: User.default_receptor.id
+      )
+      $redis.publish(
+        'socketio-new-intervention',
+        url_helpers.edit_intervention_path(intervention)
+      )
     end
   end
 
