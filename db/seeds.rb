@@ -11,6 +11,20 @@ rescue
   puts "Admin ya existe"
 end
 
+begin
+  User.create!(
+    name: 'Console',
+    lastname: 'Console',
+    email: 'Console@firehouse.com',
+    password: 'Console',
+    password_confirmation: 'Console',
+    role: :admin
+  )
+rescue
+  puts "Console ya existe"
+end
+
+
 %w(
   accidente_con_heridos_de_auto
   accidente_con_heridos_de_micro

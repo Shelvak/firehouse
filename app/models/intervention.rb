@@ -48,8 +48,8 @@ class Intervention < ActiveRecord::Base
   end
 
   def self.create_by_lights(lights)
-    if (it = InterventionType.find_by_lights(lights))
-      create(intervention_type_id: it.id)
+    if (it = InterventionType.find_by_lights(lights)).present?
+      create(intervention_type_id: it.id, receptor_id: User.default_receptor.id)
     end
   end
 

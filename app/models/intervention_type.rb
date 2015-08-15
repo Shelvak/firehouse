@@ -34,12 +34,18 @@ class InterventionType < ActiveRecord::Base
   end
 
   def self.find_by_lights(lights)
-    search_lights = COLORS_HASH.merge(lights)
+    search_lights = {}
+    COLORS.each do |color|
+      search_lights[color] = lights[color].to_bool
+    end
+
     all.each do |it|
       if COLORS.map { |c| it.lights[c] == search_lights[c] }.all?
         return it
       end
     end
+
+    nil
   end
 
   def to_s

@@ -60,4 +60,9 @@ class User < ActiveRecord::Base
   def self.filtered_list(query)
     query.present? ? magick_search(query) : all
   end
+
+  def self.default_receptor
+    console = find_by(email: 'console@firehouse.com')
+    console.present? ? console : (raise 'Need console user')
+  end
 end

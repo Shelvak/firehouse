@@ -2,8 +2,9 @@ class InterventionsController < ApplicationController
   before_filter :authenticate_user!, except: [:console_create]
   before_filter :active_sco?, only: [:new, :edit]
 
-  check_authorization
-  load_and_authorize_resource
+  #skip_authorization_check only: [:console_create]
+  check_authorization except: [:console_create]
+  load_and_authorize_resource except: [:console_create]
 
   # GET /interventions
   # GET /interventions.json
@@ -126,7 +127,7 @@ class InterventionsController < ApplicationController
   end
 
   def console_create
-    Intervention.create_by_lights(params[:lights])
+    Intervention.create_by_lights(params)
 
     render nothing: true
   end

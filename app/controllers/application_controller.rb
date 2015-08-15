@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
     current_user.try(:id)
   end
 
+  # TODO:
   before_filter :permit_all!
 
   def permit_all!
