@@ -4,4 +4,15 @@
   <%= f.input :firstname %>
   <%= f.input :lastname %>
   <%= f.input :identification %>
+  <%= f.label :user_id %>
+  <%= f.input :auto_user_name, label: false, input_html: {
+    value: @firefighter.user, class: 'span5 autocomplete-field',
+    data: {
+      'autocomplete-id-target' => '#firefighter_user_id',
+      'autocomplete-url' => autocomplete_for_user_name_users_path(
+        format: :json
+      )
+    }
+  } %>
+  <%= f.input :user_id, as: :hidden %>
 </div>

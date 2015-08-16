@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   # Relations
   has_many :interventions, foreign_key: 'receptor_id'
   belongs_to :hierarchy
+  has_one :user
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)

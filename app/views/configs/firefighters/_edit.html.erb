@@ -1,6 +1,6 @@
 <div class="modal">
   <%= simple_form_for([:configs, @firefighter], remote: true, html: { data: {
-      target: dom_id(@firefighter), error: 'modal', modal: true, replace: true }
+      target: dom_id(@firefighter), error: '#modal', modal: true, replace: true }
   }) do |f| %>
     <div class="modal-header">
       <a class="close" data-dismiss="modal">&times;</a>

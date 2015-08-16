@@ -88,3 +88,17 @@ html, body {
   float: left;
   margin: 4em 4em
 }
+
+.ui-autocomplete {
+  z-index:2147483647;
+  small {
+    display: block;
+    font-size: .75em;
+    color: #999999;
+  }
+}
+.ui-state-focus{
+  color: green;
+  background:#96B202;
+  outline: none;
+}

@@ -30,7 +30,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users do
-    get :autocomplete_for_hierarchy_name, on: :collection
+    collection do
+      get :autocomplete_for_hierarchy_name
+      get :autocomplete_for_user_name
+    end
     member do
       get :edit_profile
       put :update_profile

@@ -2,6 +2,7 @@
   <td><%= firefighter.firstname %></td>
   <td><%= firefighter.lastname %></td>
   <td><%= firefighter.identification %></td>
+  <td><%= firefighter.user %></td>
   <td><%= link_to_show [:configs, firefighter], remote: true, data: { target:
                        'modal', modal: true } %></td>
   <td><%= link_to_edit edit_configs_firefighter_path(firefighter), remote: true,

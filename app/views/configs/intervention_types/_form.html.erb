@@ -28,7 +28,7 @@
 <div class="form-horizontal">
   <% lights_collection_with_translation.each do |light, traduction| %>
     <div class="control-group">
-      <%= f.label light, class: 'control-label', for: "intervention_type_lights_#{light}" %>
+      <%= f.label traduction, class: 'control-label', for: "intervention_type_lights_#{light}" %>
       <div class="controls">
         <%= f.check_box :lights, checked: @intervention_type.lights[light],
           name: "intervention_type[lights][#{light}]",

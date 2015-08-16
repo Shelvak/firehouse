@@ -113,6 +113,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def autocomplete_for_user_name
+    users = User.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: users }
+    end
+  end
+
+
   private
 
     def load_current_user

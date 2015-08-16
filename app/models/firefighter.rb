@@ -4,13 +4,16 @@ class Firefighter < ActiveRecord::Base
     lastname: :string
 
   #attr_accessible :firstname, :lastname, :identification
+  attr_accessor :auto_user_name
+
+  belongs_to :user
 
   has_many :endowment_line_firefighter_relations
   has_many :endowment_lines, through: :endowment_line_firefighter_relations,
    autosave: true
 
   validates :firstname, :lastname, :identification, presence: true
-  validates :identification, uniqueness: true
+  validates :identification, :user_id, uniqueness: true
 
   def to_s
     [self.lastname, self.firstname].join(' ')

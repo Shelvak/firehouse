@@ -24,6 +24,7 @@ es:
         firstname: "Nombres"
         identification: "Identificación DNI/Legajo"
         lastname: "Apellidos"
+        user_id: "Usuario"
       hierarchy:
         name: "Nombre"
       informer:

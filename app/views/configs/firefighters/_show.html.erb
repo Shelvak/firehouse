@@ -4,17 +4,15 @@
       <h3><%= @firefighter %></h3>
     </div>
     <div class="modal-body readonly-data">
+      <% %w(firstname lastname identification).each do |attr| %>
+        <p>
+          <strong><%= Firefighter.human_attribute_name attr %></strong>:
+          <%= @firefighter[attr] %>
+        </p>
+      <% end %>
       <p>
-        <strong><%= Firefighter.human_attribute_name 'firstname' %></strong>:
-        <%= @firefighter.firstname %>
-      </p>
-      <p>
-        <strong><%= Firefighter.human_attribute_name 'lastname' %></strong>:
-        <%= @firefighter.lastname %>
-      </p>
-      <p>
-        <strong><%= Firefighter.human_attribute_name 'identification' %></strong>:
-        <%= @firefighter.identification %>
+        <strong><%= Firefighter.human_attribute_name 'user_id' %></strong>:
+        <%= @firefighter.user %>
       </p>
     </div>
 </div>

@@ -50,7 +50,7 @@ class Configs::FirefightersController < ApplicationController
       render partial: 'firefighter', locals: { firefighter: @firefighter },
         content_type: 'text/html'
     else
-      render partial: 'new', status: :unprocessable_entity
+      render partial: 'new', status: :unprocessable_entity, content_type: 'text/html'
     end
   end
 
@@ -64,7 +64,7 @@ class Configs::FirefightersController < ApplicationController
       render partial: 'firefighter', locals: { firefighter: @firefighter },
         content_type: 'text/html'
     else
-      render partial: 'edit', status: :unprocessable_entity
+      render partial: 'edit', status: :unprocessable_entity, content_type: 'text/html'
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_configs_firefighter_url(@firefighter),
