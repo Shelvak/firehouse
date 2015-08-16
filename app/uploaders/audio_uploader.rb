@@ -9,9 +9,9 @@ class AudioUploader < CarrierWave::Uploader::Base
     'tmp/uploads'
   end
 
-  def extension_white_list
-    %w(mp3 wav)
-  end
+  #def extension_white_list
+  #  %w(mp3 wav)
+  #end
 
   def filename
     original_filename.to_s.normalize_to_filename if original_filename.present?

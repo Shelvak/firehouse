@@ -127,6 +127,7 @@ class Intervention < ActiveRecord::Base
     case sign.to_s
       when 'alert' then reactivate!
       when 'trap'  then its_a_trap!
+      when 'qta'   then self.delete_lights_on_redis
     end
   end
 
@@ -146,6 +147,10 @@ class Intervention < ActiveRecord::Base
 
   def save_lights_on_redis(_lights)
     $redis.set('interventions:' + self.id.to_s, _lights.to_json)
+  end
+
+  def delete_lights_on_redis
+    $redis.del('interventions:' + self.id.to_s)
   end
 
   def default_lights
