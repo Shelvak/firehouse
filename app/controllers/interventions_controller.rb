@@ -77,7 +77,7 @@ class InterventionsController < ApplicationController
   # no deberiamos tener deletes.
   def destroy
     @intervention = Intervention.find(params[:id])
-    @intervention.delete_lights_on_redis
+    @intervention.turn_off_alert
     @intervention.destroy
 
     redirect_to interventions_url
