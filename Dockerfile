@@ -4,6 +4,7 @@ MAINTAINER Néstor Coppi <nestorcoppi@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-get -qq update
 RUN apt-get install -qq -y postgresql-server-dev-9.3 nodejs \
                            postgresql-client-9.3 imagemagick
 
