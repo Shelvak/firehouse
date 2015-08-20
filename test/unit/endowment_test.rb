@@ -9,7 +9,7 @@ class EndowmentTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Endowment.count' do
       # Firefighter + EndowLine + Endow + Endow-EndowLine-Relation
-      assert_difference 'PaperTrail::Version.count', 4 do
+      assert_difference 'PaperTrail::Version.count', 5 do
         Endowment.create! Fabricate.attributes_for(
           :endowment, truck_id: @endowment.truck_id,
           intervention_id: @endowment.intervention_id
