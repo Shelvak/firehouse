@@ -9,8 +9,20 @@ window.Intervention =
     interventionForm = $('form[data-intervention-form]')
     url              = interventionForm[0].getAttribute('action')
     _method          = interventionForm[0].getAttribute('method')
+    selector         = $('#intervention_intervention_type_id')
 
-    if $('#intervention_intervention_type_id').val().toString() != ''
+    # Important button click
+    interventionSaver = if this.attributes
+      this.attributes['data-intervention-saver']
+
+    if interventionSaver &&
+        interventionSaver.value.toString() == 'important-button' &&
+        this.attributes.target &&
+        this.attributes.target.value
+
+      selector.val(this.attributes.target.value)
+
+    if selector.val().toString() != ''
       $.ajax
         url: url
         type: _method

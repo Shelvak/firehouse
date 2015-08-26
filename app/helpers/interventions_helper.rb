@@ -25,7 +25,7 @@ module InterventionsHelper
       name = it.name
       name = "-> #{name}" if it.is_a_son?
 
-      collection << [name, it.id]
+      collection << [name, it.id, {class: (it.priority ? 'hidden' : '')}]
     end
 
     form.input :intervention_type_id, collection: collection,

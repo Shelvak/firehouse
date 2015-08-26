@@ -6,6 +6,8 @@ class InterventionType < ActiveRecord::Base
   COLORS = ['red', 'green', 'blue', 'yellow', 'white']
   COLORS_HASH = Hash[COLORS.map {|k| [k, false]}]
 
+  scope :without_emergencies, -> () { where(priority: nil) }
+
   serialize :lights, Hash
 
   belongs_to :father, class_name: 'InterventionType', foreign_key:
