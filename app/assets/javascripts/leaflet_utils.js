@@ -2,6 +2,11 @@
 var Leaflet = ( function () {
   var tile = { osm           : 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
              , openstreetmap : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+             , openfire      : 'http://openfiremap.org/hytiles/{z}/{x}/{y}.png'
+             , openemergency : 'http://openfiremap.org/eytiles/$%7Bz%7D/$%7Bx%7D/$%7By%7D.png' //vacio actualmente
+             //, thunderforest : 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png'
+             , thunderforest : 'http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png'
+             , mapnik        : 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
              }
     , elements = { map     : ''
                  , markers : []
@@ -10,7 +15,7 @@ var Leaflet = ( function () {
                        latitude    : MapUtils.station.latitude
                      , longitude   : MapUtils.station.longitude
                      , description : MapUtils.station.description
-                     , draggable   : true
+                     , draggable   : false
                      , isStation   : true
                    }
                  }
@@ -131,29 +136,55 @@ var Leaflet = ( function () {
 
         if (shouldMakeFullScreen) setFullscreenMapSize()
 
-        setupMap()
-        setNewMarker(Leaflet.elements.defaultMarkerInfo)
+        Leaflet.elements.map = new L.Map(MapUtils.map.div)
 
         if (shouldSetInterventions) setInterventionsMarkers()
-      }
-    , setupMap = function () {
-        L.Icon.Default.imagePath = leafletImagesRoute
-        Leaflet.elements.map     = new L.Map(MapUtils.map.div)
+        setNewMarker(Leaflet.elements.defaultMarkerInfo)
 
-        var osmUrl    = tile.osm
-          , osmAttrib = ''
-          , osm       = new L.TileLayer(osmUrl, {
+        setupMap(shouldSetInterventions)
+
+      }
+    , setupMap = function (shouldShowMarkersLayer) {
+        L.Icon.Default.imagePath = leafletImagesRoute
+
+        var osmUrl        = tile.osm
+          , osmAttrib     = ''
+          , osm           = new L.TileLayer(osmUrl, {
               minZoom     : MapUtils.map.minZoom
             , maxZoom     : MapUtils.map.maxZoom
             , attribution : osmAttrib
           })
-          , point     = new L.LatLng(  Leaflet.elements.defaultMarkerInfo.latitude
-                                     , Leaflet.elements.defaultMarkerInfo.longitude
-                                    )
-          , zoom = Leaflet.options.shouldShowGeneralMap ? 13 : 17
+          , thunderforest = new L.TileLayer(tile.thunderforest, {
+              minZoom     : MapUtils.map.minZoom
+            , maxZoom     : MapUtils.map.maxZoom
+            , attribution : osmAttrib
+          })
+          , openfire      = new L.TileLayer(tile.openfire, {
+              minZoom     : MapUtils.map.minZoom
+            , maxZoom     : MapUtils.map.maxZoom
+            , attribution : osmAttrib
+          })
+          , mapnik        = new L.TileLayer(tile.mapnik, {
+              minZoom     : MapUtils.map.minZoom
+            , maxZoom     : MapUtils.map.maxZoom
+            , attribution : osmAttrib
+          })
+          , point         = new L.LatLng(  Leaflet.elements.defaultMarkerInfo.latitude
+                                         , Leaflet.elements.defaultMarkerInfo.longitude
+                                        )
+          , zoom          = Leaflet.options.shouldShowGeneralMap ? 13 : 17
+          , markersLayer  = L.layerGroup(Leaflet.elements.markers)
 
         Leaflet.elements.map.setView(point, zoom)
+
+        if (shouldShowMarkersLayer) {
+          L.control.layers({'Base': osm, 'Curvas de nivel': thunderforest, 'Mapnik': mapnik}, { 'Mostrar Hidrantes': openfire, 'Mostrar Marcadores': markersLayer }).addTo(Leaflet.elements.map)
+        }
+        else {
+          L.control.layers({'Base': osm, 'Curvas de nivel': thunderforest, 'Mapnik': mapnik}, { 'Mostrar Hidrantes': openfire }).addTo(Leaflet.elements.map)
+        }
         Leaflet.elements.map.addLayer(osm)
+        Leaflet.elements.map.addLayer(markersLayer)
       }
     , setNewMarker = function (markerInfo) {
         var marker = L.marker([markerInfo.latitude, markerInfo.longitude], { draggable: markerInfo.draggable })
