@@ -58,16 +58,12 @@ class InterventionsController < ApplicationController
   def update
     @title = t('view.interventions.edit_title')
     @intervention = Intervention.find(params[:id])
+    html_request = request.format.html?
 
-    if @intervention.update(params[:intervention]) && request.format.html?
+    if @intervention.update(params[:intervention]) && html_request
       redirect_to @intervention, notice: t('view.interventions.correctly_updated')
     else
-      @intervention.build_informer unless @intervention.informer
-      if request.format.html?
-        render 'edit'
-      else
-        render 'edit', layout: false
-      end
+      render 'edit', layout: (html_request ? 'application' : false)
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_intervention_url(@intervention),

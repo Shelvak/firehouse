@@ -51,7 +51,11 @@ class InterventionType < ActiveRecord::Base
   end
 
   def to_s
-    self.name
+    self.parent_name + self.name
+  end
+
+  def parent_name
+    self.intervention_type_id ? "[#{self.father.to_s}] " : ''
   end
 
   def has_children?
@@ -78,6 +82,10 @@ class InterventionType < ActiveRecord::Base
     end
 
     collection
+  end
+
+  def emergency?
+    priority?
   end
 
   def emergency_or_urgency

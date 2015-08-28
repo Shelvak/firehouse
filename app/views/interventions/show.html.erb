@@ -4,25 +4,30 @@
   <div class='row-fluid'>
     <div class='span5'>
       <p>
-      <strong><%= Intervention.human_attribute_name 'id' %></strong>:
-      <%= @intervention.id %>
+        <strong><%= Intervention.human_attribute_name 'id' %></strong>:
+        <%= @intervention.id %>
       </p>
       <p>
-      <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
-      <%= link_to @intervention.user, user_path(@intervention.receptor_id) %>
+        <strong><%= Intervention.human_attribute_name 'call_at' %></strong>:
+        <%= l(@intervention.call_at) %>
       </p>
       <p>
-      <strong><%= Intervention.human_attribute_name 'address' %></strong>:
-      <span data-intervention="address"><%= @intervention.address %></span>
+        <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
+        <%= link_to @intervention.user, user_path(@intervention.receptor_id) %>
       </p>
       <p>
-      <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
-      <%= @intervention.near_corner %>
+        <strong><%= Intervention.human_attribute_name 'address' %></strong>:
+        <span data-intervention="address"><%= @intervention.address %></span>
       </p>
       <p>
-      <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
-      <%= @intervention.kind_notes %>
+        <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
+        <%= @intervention.near_corner %>
       </p>
+      <p>
+        <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
+        <%= @intervention.kind_notes %>
+      </p>
+
       <%= render 'informer_show' %>
 
       <table class="table">

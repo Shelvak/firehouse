@@ -22,10 +22,7 @@ module InterventionsHelper
     collection = []
 
     InterventionType.order_by_children.each do |it|
-      name = it.name
-      name = "-> #{name}" if it.is_a_son?
-
-      collection << [name, it.id, {class: (it.priority ? 'hidden' : '')}]
+      collection << [it.to_s, it.id, {class: (it.priority ? 'hidden' : '')}]
     end
 
     form.input :intervention_type_id, collection: collection,

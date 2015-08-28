@@ -28,7 +28,8 @@ window.Intervention =
         type: _method
         data: interventionForm.serialize()
         success: (data)->
-          $('.content').html(data)
+          if $.trim(data)
+            $('.content').html(data)
           if updatedPoint
             InterventionUpdater.emitEvent('new intervention')
 
@@ -54,8 +55,6 @@ window.Intervention =
             input.parents('[data-endowment-lines]')
               .find('[id^="token-input-intervention"]:visible:first').focus()
 
-  clickTrigger: ->
-    $('#buttons-trigger').click()
 
 new Rule
   condition: -> $('#c_interventions').length
@@ -171,9 +170,6 @@ new Rule
       e.preventDefault()
       e.stopPropagation()
 
-    @map.changeCallAt ||= ->
-      $('#intervention_call_at').val(Helpers.time_now())
-
 
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
@@ -182,9 +178,8 @@ new Rule
     $(document).on 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
     $(document).on 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
     $(document).on 'change', '[data-intervention-saver]', Intervention.saveIntervention
-    $(document).on 'change', '[data-intervention-trigger="quick-buttons"]', Intervention.clickTrigger
+    $(document).off('change', '[data-intervention-trigger="quick-buttons"]').on 'change', '[data-intervention-trigger="quick-buttons"]', QuickButtons.close
     $(document).on 'keyup', '[data-ignore-enter]', @map.ignoreEnter
-    $(document).on 'click', '[data-change-call-at]', @map.changeCallAt
 
     # Fucking fix for double trigger....
     $(document).off('click', '[data-intervention-special-button]').on('click', '[data-intervention-special-button]', @map.sendSpecialSign)
@@ -200,8 +195,9 @@ new Rule
     $(document).off 'change', '[data-intervention-saver]', Intervention.saveIntervention
     $(document).off 'click', '[data-intervention-special-button]', @map.sendSpecialSign
     $(document).off 'keyup', 'input', @map.handleEnterOnInputs
-    $(document).off 'click', '[data-change-call-at]', @map.changeCallAt
 
 jQuery ($) ->
   $(document).on 'focusin', 'input', ->
     Intervention.lastFocusedInput = $(this)
+
+  $(document).off('change', '[data-intervention-trigger="quick-buttons"]').on 'change', '[data-intervention-trigger="quick-buttons"]', QuickButtons.close

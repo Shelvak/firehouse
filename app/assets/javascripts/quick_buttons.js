@@ -16,8 +16,10 @@ QuickButtons = (function () {
     }
 
     , toggleQuickButtons = function () {
-        if (quickButtonsState == 'open' ) closeButtons()
-        else                              openButtons()
+        if (quickButtonsState == 'open' )
+          closeButtons()
+        else
+          openButtons()
     }
 
     , openButtons = function () {
@@ -27,33 +29,21 @@ QuickButtons = (function () {
     }
 
     , closeButtons = function () {
-        quickButtonsState      = 'closed'
-        alertButtons.className = 'alert-buttons open'
-        quickButtons.className = quickButtonsClasses.closed
+        setVariables();
+        if ( quickButtons ) {
+          quickButtonsState      = 'closed';
+          alertButtons.className = 'alert-buttons open';
+          quickButtons.className = quickButtonsClasses.closed;
+        }
     }
 
     , bind = function () {
         setVariables()
-        $('.alarm-button').click(function () {
-          $('#intervention_intervention_type_id').val( $(this).attr('target') )
-          $('#intervention_address').focus();
-          toggleQuickButtons()
-
-          var $self = $(this)
-          if( !$self.hasClass('clicked') )
-            $self.addClass("clicked").siblings().removeClass('clicked')
-        });
-
-        $('#buttons-trigger').click(function () {
-          toggleQuickButtons();
-        });
-
-        $('#intervention_intervention_type_id').change(function () {
-          closeButtons();
-        });
+        $(document).on('click change', '#buttons-trigger', toggleQuickButtons)
     }
 
   return {
-    init: bind
+    init: bind,
+    close: closeButtons
   }
 }());

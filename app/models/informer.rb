@@ -8,4 +8,5 @@ class Informer < ActiveRecord::Base
   validates :phone, numericality: {
     only_integer: true, allow_nil: true, allow_blank: true
   }
+  validates :full_name, presence: true
 end

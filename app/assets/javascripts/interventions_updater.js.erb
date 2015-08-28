@@ -7,7 +7,6 @@ var InterventionUpdater = ( function () {
           , _host = window.location.hostname
           , _port = '8085'
           , _full_path = _protocol + '//' + _host + ':' + _port
-        console.log('llamamos al _socket')
         _socket = io( _full_path )
     }
     , listenToUpdates = function () {
@@ -29,14 +28,12 @@ var InterventionUpdater = ( function () {
         alertDiv.innerHTML = message
     }
     , alertForNewConsoleIntervention = function () {
-        console.log('activamos alert milonga')
         var alertDiv = document.querySelector('[data-new-console-alert="div"]')
           , template = alertDiv.getAttribute('data-template');
 
         setupSocket()
         _socket.on('new-console-intervention', function (data) {
 
-          console.log(data)
           content = template.replace('LINK_PLACE', data.link)
           alertDiv.innerHTML = content;
           alertDiv.className = '';

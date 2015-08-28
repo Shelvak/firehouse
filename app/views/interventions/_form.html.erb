@@ -21,10 +21,6 @@
   defaults: { input_html: { class: 'span10' } },
   html: { autocomplete: 'off', data: { intervention_form: true } } do |f| %>
 
-  <%= f.error_notification %>
-  <%= content_tag :div, f.object.errors.full_messages.join(', '),
-    class: 'alert alert-danger' if f.object.errors.size > 0 %>
-
   <div class="form-inputs">
     <div class='row-fluid'>
       <div class='span7'>
@@ -37,8 +33,6 @@
         <%= f.input :longitude, as: :hidden  %>
         <%= f.input :near_corner, input_html: { data: { intervention_saver: true } } %>
         <%= f.input :kind_notes, input_html: { data: { intervention_saver: true } } %>
-        <%= f.input :call_at, as: :datetime_picker,
-          input_html: { readonly: true }, label_html: { data: { change_call_at: true } } %>
       </div>
       <div class='span5'>
         <div id="map_canvas" class="google-map"></div>

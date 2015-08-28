@@ -4,20 +4,14 @@ class Intervention < ActiveRecord::Base
 
   attr_accessor :auto_receptor_name, :auto_sco_name
 
- # attr_accessible :address, :kind_notes, :near_corner, :number,
- #   :observations, :receptor_id, :endowments_attributes, :auto_sco_name,
- #   :sco_id, :informer_attributes, :auto_receptor_name, :intervention_type_id,
- #   :latitude, :longitude, :endowments
-
   validates :intervention_type_id, presence: true
-  #validates :number, uniqueness: true
-  #validate :sco_presence
 
   before_validation :assign_endowment_number, :validate_truck_presence
   before_create :assign_call_at
-  after_create :assign_mileage_to_trucks, :send_first_alert_to_redis,
-    :play_intervention_audio!
-  after_save :endowment_alert_changer, :put_in_redis_list
+  after_create :send_first_alert_to_redis, :play_intervention_audio!,
+    if: -> (i) { i.intervention_type.emergency?  }
+  after_save :endowment_alert_changer, :put_in_redis_list,
+    :assign_mileage_to_trucks
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
@@ -30,13 +24,12 @@ class Intervention < ActiveRecord::Base
 
   scope :opened, -> { includes(:statuses).where(statuses: { name: 'open' }) }
 
-  accepts_nested_attributes_for :informer, allow_destroy: true,
+  accepts_nested_attributes_for :informer,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
   accepts_nested_attributes_for :endowments, allow_destroy: true,
     reject_if: :reject_endowment_item?
 
   delegate :audio, to: :intervention_type
-  delegate :url_helpers, to: 'Rails.application.routes'
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
@@ -58,6 +51,10 @@ class Intervention < ActiveRecord::Base
         url_helpers.edit_intervention_path(intervention)
       )
     end
+  end
+
+  def self.url_helpers
+    Rails.application.routes.url_helpers
   end
 
   def receptor
@@ -89,7 +86,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def type
-    self.intervention_type.try(:name)
+    self.intervention_type.try(:to_s)
   end
 
   def validate_truck_presence
@@ -132,9 +129,13 @@ class Intervention < ActiveRecord::Base
   end
 
   def reactivate!
-    alerts.create!
-
-    send_lights
+    if intervention_type.emergency?
+      alerts.create!
+      send_lights
+    else # urgency
+      send_first_alert_to_redis
+      play_intervention_audio!
+    end
   end
 
   def its_a_trap!
@@ -271,7 +272,8 @@ class Intervention < ActiveRecord::Base
     end
   end
 
-  protected
+protected
+
   def trucks_numbers
     endowments.map{ |endowment| endowment.truck.number if endowment.truck }.uniq
   end
