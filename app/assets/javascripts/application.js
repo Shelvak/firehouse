@@ -38,7 +38,11 @@
 //= require utils
 //= require configs/lights
 //= require quick_buttons
-//= require google_maps
-//= require map_utils
-//= require leaflet_utils
-//= require interventions_updater
+//= require maps/google_maps.js
+//= require maps/map_utils.js
+//= require leaflet/leaflet
+//= require leaflet/leaflet-routing-machine.min
+//= require maps/map_tiles.js
+//= require maps/leaflet_utils.js
+//= require socketio/core
+//= require maps/interventions_updater.js

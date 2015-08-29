@@ -1,14 +1,6 @@
 //Leaflet version: 0.7.2
 var Leaflet = ( function () {
-  var tile = { osm           : 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-             , openstreetmap : 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-             , openfire      : 'http://openfiremap.org/hytiles/{z}/{x}/{y}.png'
-             , openemergency : 'http://openfiremap.org/eytiles/$%7Bz%7D/$%7Bx%7D/$%7By%7D.png' //vacio actualmente
-             //, thunderforest : 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png'
-             , thunderforest : 'http://{s}.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png'
-             , mapnik        : 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
-             }
-    , elements = { map     : ''
+  var elements = { map     : ''
                  , markers : []
                  , route   : ''
                  , defaultMarkerInfo : {
@@ -147,44 +139,22 @@ var Leaflet = ( function () {
     , setupMap = function (shouldShowMarkersLayer) {
         L.Icon.Default.imagePath = leafletImagesRoute
 
-        var osmUrl        = tile.osm
-          , osmAttrib     = ''
-          , osm           = new L.TileLayer(osmUrl, {
+        var options      = {
               minZoom     : MapUtils.map.minZoom
             , maxZoom     : MapUtils.map.maxZoom
-            , attribution : osmAttrib
-          })
-          , thunderforest = new L.TileLayer(tile.thunderforest, {
-              minZoom     : MapUtils.map.minZoom
-            , maxZoom     : MapUtils.map.maxZoom
-            , attribution : osmAttrib
-          })
-          , openfire      = new L.TileLayer(tile.openfire, {
-              minZoom     : MapUtils.map.minZoom
-            , maxZoom     : MapUtils.map.maxZoom
-            , attribution : osmAttrib
-          })
-          , mapnik        = new L.TileLayer(tile.mapnik, {
-              minZoom     : MapUtils.map.minZoom
-            , maxZoom     : MapUtils.map.maxZoom
-            , attribution : osmAttrib
-          })
+            , attribution : ''
+          }
+          , baseTiles    = getBaseTiles(options)
+          , specialTiles = getSpecialTiles(options, shouldShowMarkersLayer)
+
           , point         = new L.LatLng(  Leaflet.elements.defaultMarkerInfo.latitude
                                          , Leaflet.elements.defaultMarkerInfo.longitude
                                         )
           , zoom          = Leaflet.options.shouldShowGeneralMap ? 13 : 17
-          , markersLayer  = L.layerGroup(Leaflet.elements.markers)
 
         Leaflet.elements.map.setView(point, zoom)
 
-        if (shouldShowMarkersLayer) {
-          L.control.layers({'Base': osm, 'Curvas de nivel': thunderforest, 'Mapnik': mapnik}, { 'Mostrar Hidrantes': openfire, 'Mostrar Marcadores': markersLayer }).addTo(Leaflet.elements.map)
-        }
-        else {
-          L.control.layers({'Base': osm, 'Curvas de nivel': thunderforest, 'Mapnik': mapnik}, { 'Mostrar Hidrantes': openfire }).addTo(Leaflet.elements.map)
-        }
-        Leaflet.elements.map.addLayer(osm)
-        Leaflet.elements.map.addLayer(markersLayer)
+        L.control.layers(baseTiles, specialTiles).addTo(Leaflet.elements.map)
       }
     , setNewMarker = function (markerInfo) {
         var marker = L.marker([markerInfo.latitude, markerInfo.longitude], { draggable: markerInfo.draggable })
@@ -232,6 +202,36 @@ var Leaflet = ( function () {
             }
           }
         }
+      }
+    , getBaseTiles = function (options) {
+        var tileset       = MapTiles.base
+          , osm           = new L.TileLayer(tileset.osm,           options)
+          , thunderforest = new L.TileLayer(tileset.thunderforest, options)
+          , mapnik        = new L.TileLayer(tileset.mapnik,        options)
+          , baseTiles     = {
+                'Base'            : osm
+              , 'Curvas de nivel' : thunderforest
+              , 'Mapnik'          : mapnik
+            }
+
+        Leaflet.elements.map.addLayer(osm)
+
+        return baseTiles
+      }
+    , getSpecialTiles = function (options, shouldShowMarkersLayer) {
+        var tileset       = MapTiles.special
+          , openfire      = new L.TileLayer(tileset.openfire, options)
+          , markersLayer  = L.layerGroup(Leaflet.elements.markers)
+          , specialTiles  = {
+              'Mostrar Hidrantes' : openfire
+            }
+
+
+        if (shouldShowMarkersLayer) specialTiles['Mostrar Marcadores'] = markersLayer
+
+        Leaflet.elements.map.addLayer(markersLayer)
+
+        return specialTiles
       };
 
   return {
