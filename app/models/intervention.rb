@@ -212,6 +212,7 @@ class Intervention < ActiveRecord::Base
   def turn_off_alert
     remove_item_from_actives_list
     $redis.del('interventions:' + self.id.to_s)
+    $redis.publish('stop-broadcast', 'stop')
     turn_off_the_lights!
   end
 
