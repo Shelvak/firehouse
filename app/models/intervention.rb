@@ -9,9 +9,8 @@ class Intervention < ActiveRecord::Base
   before_validation :assign_endowment_number, :validate_truck_presence
   before_create :assign_call_at
   after_create :send_first_alert_to_redis, :play_intervention_audio!,
-    if: -> (i) { i.intervention_type.emergency?  }
-  after_save :endowment_alert_changer, :put_in_redis_list,
-    :assign_mileage_to_trucks
+    if: -> (i) { i.intervention_type.emergency? }
+  after_save :endowment_alert_changer, :assign_mileage_to_trucks
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
@@ -62,7 +61,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def reject_endowment_item?(attrs)
-    endow_reject = attrs['endowment_lines_attributes'].any? do |i, e|
+    endow_reject = attrs['endowment_lines_attributes'].any? do |_, e|
       e['firefighters_names'].present?
     end
 
@@ -76,7 +75,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def assign_endowment_number
-    self.endowments.each_with_index { |e, i| e.number ||= i + 1}
+    self.endowments.each_with_index { |e, i| e.number ||= i + 1 }
   end
 
   def assign_mileage_to_trucks
@@ -139,30 +138,30 @@ class Intervention < ActiveRecord::Base
   end
 
   def its_a_trap!
-    _lights = lights_for_redis
-    _lights['trap'] = true
+    lights = lights_for_redis
+    lights['trap'] = true
 
-    save_lights_on_redis(_lights)
+    save_lights_on_redis(lights)
     send_lights
   end
 
-  def save_lights_on_redis(_lights)
-    $redis.set('interventions:' + self.id.to_s, _lights.to_json)
+  def save_lights_on_redis(lights)
+    $redis.set('interventions:' + self.id.to_s, lights.to_json)
   end
 
   def default_lights
-    _lights = intervention_type.lights
-    _lights['day'] = (8..19).include?(Time.now.hour)
-    _lights
+    lights = intervention_type.lights
+    lights['day'] = (8..19).include?(Time.zone.now.hour)
+    lights
   end
 
   def lights_for_redis
-    if (_lights = $redis.get('interventions:' + self.id.to_s)).present?
-      JSON.parse _lights
+    if (lights = $redis.get('interventions:' + self.id.to_s)).present?
+      JSON.parse lights
     else
-      _lights = default_lights
-      save_lights_on_redis(_lights)
-      _lights
+      lights = default_lights
+      save_lights_on_redis(lights)
+      lights
     end
   end
 
@@ -173,8 +172,10 @@ class Intervention < ActiveRecord::Base
   end
 
   def turn_off_the_lights!
-    off = InterventionType::COLORS.inject({}) {|h, light| h.merge!(light => false)}
-    $redis.publish('semaphore-lights-alert', off.to_json)
+    $redis.publish(
+      'semaphore-lights-alert',
+      InterventionType::COLORS_LIGHTS_OFF.to_json
+    )
   end
 
   def send_first_alert_to_redis
@@ -188,7 +189,7 @@ class Intervention < ActiveRecord::Base
     $redis.publish('lcd-messages', { full: self.type }.to_json)
   end
 
-  def is_active?
+  def active?
     $redis.lrange('interventions:actives', 0, -1).include? self.id
   end
 
@@ -200,10 +201,11 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_alert_on_repose
-    _lights = lights_for_redis
-    _lights['sleep'] = true
+    lights = lights_for_redis
+    lights['sleep'] = true
 
-    save_lights_on_redis(_lights)
+    save_lights_on_redis(lights)
+    put_in_redis_list
     start_looping_active_alerts!
   end
 
@@ -239,14 +241,18 @@ class Intervention < ActiveRecord::Base
   def put_in_redis_list
     list = list_key_for_redis
 
-    unless is_on_list?(list)
+    if not_in_list?(list)
       remove_item_from_actives_list
 
       $redis.lpush(list, self.id)
     end
   end
 
-  def is_on_list?(list)
+  def not_in_list?(list)
+    !in_list?(list)
+  end
+
+  def in_list?(list)
     $redis.lrange(list, 0, -1).include?(self.id)
   end
 
@@ -257,7 +263,7 @@ class Intervention < ActiveRecord::Base
   def remove_item_from_actives_list
     kind = intervention_type.emergency_or_urgency
 
-    ['low', 'high'].each do |priority|
+    %w(low high).each do |priority|
       remove_item_from_list("interventions:#{priority}:#{kind}")
     end
   end
@@ -275,6 +281,6 @@ class Intervention < ActiveRecord::Base
 protected
 
   def trucks_numbers
-    endowments.map{ |endowment| endowment.truck.number if endowment.truck }.uniq
+    endowments.map { |endowment| endowment.truck.number if endowment.truck }.uniq
   end
 end

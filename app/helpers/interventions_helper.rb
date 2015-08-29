@@ -29,7 +29,7 @@ module InterventionsHelper
       input_html: {
         selected: form.object.try(:intervention_type_id),
         disabled: form.object.finished?,
-        data: { intervention_trigger: 'quick-buttons' }
+        data: { intervention_saver: true }
     }
   end
 

@@ -176,9 +176,8 @@ new Rule
     $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
     $(document).on 'click', '#add_current_time', @map.setCurrentTimeToObservations
     $(document).on 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
-    $(document).on 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
-    $(document).on 'change', '[data-intervention-saver]', Intervention.saveIntervention
-    $(document).off('change', '[data-intervention-trigger="quick-buttons"]').on 'change', '[data-intervention-trigger="quick-buttons"]', QuickButtons.close
+    $(document).off('click', '[data-intervention-saver="important-button"]').on 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
+    $(document).off('change', '[data-intervention-saver]').on 'change', '[data-intervention-saver]', Intervention.saveIntervention
     $(document).on 'keyup', '[data-ignore-enter]', @map.ignoreEnter
 
     # Fucking fix for double trigger....
@@ -199,5 +198,3 @@ new Rule
 jQuery ($) ->
   $(document).on 'focusin', 'input', ->
     Intervention.lastFocusedInput = $(this)
-
-  $(document).off('change', '[data-intervention-trigger="quick-buttons"]').on 'change', '[data-intervention-trigger="quick-buttons"]', QuickButtons.close

@@ -4,7 +4,7 @@ class InterventionType < ActiveRecord::Base
   mount_uploader :audio, AudioUploader
 
   COLORS = ['red', 'green', 'blue', 'yellow', 'white']
-  COLORS_HASH = Hash[COLORS.map {|k| [k, false]}]
+  COLORS_LIGHTS_OFF = Hash[COLORS.map {|k| [k, false]}]
 
   scope :without_emergencies, -> () { where(priority: nil) }
 

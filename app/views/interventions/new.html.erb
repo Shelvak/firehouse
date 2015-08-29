@@ -4,33 +4,19 @@
 
 <h2>
   <%= t('view.interventions.new_title') %>
-  <div id="buttons-trigger" class="btn btn-mini">
-    <%= t('view.interventions.buttons.change') %>
-  </div>
-  <div class="alert-buttons closed" id="alert-buttons">
-    <%= render partial: 'interventions/special_buttons' %>
-  </div>
 </h2>
 
-<% unless @intervention.errors.present? %>
-  <div class="buttons open-buttons" id="quick-buttons">
-    <div class="row">
-      <% (1..5).each do |i| %>
-        <%= render partial: 'interventions/button', locals: { i: i } %>
-      <% end %>
-    </div>
-    <div class="row">
-      <% (6..10).each do |i| %>
-        <%= render partial: 'interventions/button', locals: { i: i } %>
-      <% end %>
-    </div>
+<div class="buttons open-buttons" id="quick-buttons">
+  <div class="row">
+    <% (1..5).each do |i| %>
+      <%= render partial: 'interventions/button', locals: { i: i } %>
+    <% end %>
   </div>
-<% end %>
+  <div class="row">
+    <% (6..10).each do |i| %>
+      <%= render partial: 'interventions/button', locals: { i: i } %>
+    <% end %>
+  </div>
+</div>
 
 <%= render 'form' %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    QuickButtons.init();
-  })
-</script>
