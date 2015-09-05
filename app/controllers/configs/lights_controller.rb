@@ -7,7 +7,7 @@ class Configs::LightsController < ApplicationController
     Light.update_by_kind(lights_params) if request_is_for_update?
 
     @lights = Light.separed_by_kind
-    @volume = $redis.get('volume', 30)
+    @volume = $redis.get('volume') || 30
 
     if request.format.js?
       render partial: 'light_kind',
