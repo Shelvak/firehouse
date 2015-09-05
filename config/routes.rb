@@ -59,5 +59,6 @@ Rails.application.routes.draw do
     end
 
     match 'lights/brightness', to: 'lights#brightness', via: [:patch, :get]
+    patch 'lights/volume', to: 'lights#volume'
   end
 end

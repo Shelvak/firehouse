@@ -6,7 +6,7 @@
         <%= render 'shared/empty_index' %>
       <% else %>
         <% Light::KINDS.each do |kind| %>
-          <div class="span4">
+          <div class="span3">
 
             <h2><%= t("view.lights.#{kind}") %></h2>
 
@@ -14,6 +14,11 @@
               locals: { kind: kind, lights: @lights } %>
           </div>
         <% end %>
+        <div class="span3">
+          <h2>Volumen</h2>
+
+          <%= render partial: 'volume', locals: { volume: @volume } %>
+        </span>
       <% end %>
     </div>
 </div>
