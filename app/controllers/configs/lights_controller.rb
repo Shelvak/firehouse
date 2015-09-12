@@ -19,9 +19,9 @@ class Configs::LightsController < ApplicationController
   def volume
     volume = params[:volume_changer][:volume].to_i
 
-    # Send to redis_module
+    #TODO: Send to redis_module
     $redis.set('volume', volume)
-    $redis.publish('anything', ">VOL#{volume.chr}<")
+    $redis.publish('volume-config', volume)
 
     render partial: 'volume', locals: { volume: volume },
       content_type: 'text/html'
