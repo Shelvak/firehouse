@@ -7,8 +7,7 @@ class Intervention < ActiveRecord::Base
   validates :intervention_type_id, presence: true
 
   before_validation :assign_endowment_number, :validate_truck_presence
-  before_create :assign_call_at
-  after_create :send_first_alert_to_redis, :play_intervention_audio!,
+  after_create :send_first_alert!, :play_intervention_audio!,
     if: -> (i) { i.intervention_type.emergency? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks
 
@@ -34,10 +33,6 @@ class Intervention < ActiveRecord::Base
     super(attributes, options)
 
     self.endowments.build if self.endowments.empty?
-  end
-
-  def assign_call_at
-    self.call_at ||= Time.zone.now
   end
 
   def self.create_by_lights(lights)
@@ -128,13 +123,9 @@ class Intervention < ActiveRecord::Base
   end
 
   def reactivate!
-    if intervention_type.emergency?
-      alerts.create!
-      send_lights
-    else # urgency
-      send_first_alert_to_redis
-      play_intervention_audio!
-    end
+    intervention_type.emergency? ? send_lights : send_first_alert!
+
+    play_intervention_audio!
   end
 
   def its_a_trap!
@@ -178,7 +169,8 @@ class Intervention < ActiveRecord::Base
     )
   end
 
-  def send_first_alert_to_redis
+  def send_first_alert!
+    alerts.create!
     send_alert_to_lcd
     put_in_redis_list
 
