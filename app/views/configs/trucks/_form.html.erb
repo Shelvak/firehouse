@@ -2,8 +2,28 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :number %>
-    <%= f.input :mileage %>
+    <div class="row-fluid">
+      <div class="span6">
+        <%= f.input :number %>
+        <%= f.input :brand, collection: Truck::BRANDS, selected: Truck::BRANDS[0] %>
+        <%= f.input :brand_model %>
+        <%= f.input :domain %>
+        <%= f.input :federation, input_html: { value: 'Federación de Mendoza', readonly: true  } %>
+        <%= f.input :firehouse_name, input_html: { value: 'Cuerpo de Bomberos Voluntarios Godoy Cruz', readonly: true } %>
+        <%= fuel_type_selector f %>
+        <%= f.input :mileage %>
+      </div>
+      <div class="span5">
+        <%= f.input :organization, input_html: { value: 'CFBVRA', readonly: true  } %>
+        <%= truck_type_selector f %>
+        <%= f.input :year %>
+        <%= f.input :acquisition_date, as: :string, input_html: { data: { date_picker: true } } %>
+        <%= f.input :has_ownership %>
+        <%= f.input :is_active %>
+        <%= f.input :is_permanently_disabled %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
   </div>
 
   <div class="form-actions">

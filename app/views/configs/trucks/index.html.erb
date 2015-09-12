@@ -8,7 +8,11 @@
         <thead>
           <tr>
             <th><%= Truck.human_attribute_name 'number' %></th>
+            <th><%= Truck.human_attribute_name 'brand_model' %></th>
+            <th><%= Truck.human_attribute_name 'domain' %></th>
             <th><%= Truck.human_attribute_name 'mileage' %></th>
+            <th><%= Truck.human_attribute_name 'is_active' %></th>
+            <th><%= Truck.human_attribute_name 'is_permanently_disabled' %></th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -17,7 +21,11 @@
           <% @trucks.each do |truck| %>
             <tr>
               <td><%= truck.number %></td>
+              <td><%= "#{truck.brand} - #{truck.brand_model}" %></td>
+              <td><%= truck.domain %></td>
               <td><%= truck.mileage %></td>
+              <td><%= boolean_text_field truck.is_active %></td>
+              <td><%= boolean_text_field truck.is_permanently_disabled %></td>
               <td><%= link_to_show [:configs, truck] %></td>
               <td><%= link_to_edit edit_configs_truck_path(truck) if can? :update, truck %></td>
               <td><%= link_to_destroy [:configs, truck] if can? :destroy, truck %></td>

@@ -3,7 +3,7 @@ $(document).on 'focus', 'input[data-date-picker]:not(.hasDatepicker)', ->
     showOn: 'both',
     onSelect: -> $(this).datepicker('hide')
   .focus()
-  
+
 $(document).on 'focus', 'input[data-datetime-picker]:not(.hasDatepicker)', ->
   $(this).datetimepicker
     showOn: 'both',

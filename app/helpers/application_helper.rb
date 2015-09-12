@@ -108,4 +108,8 @@ module ApplicationHelper
       [light, t("view.lights.#{light}")]
     end
   end
+
+  def boolean_text_field(value)
+    value ? t('label.yes') : t('label.no')
+  end
 end

@@ -1,5 +1,6 @@
 class Configs::FirefightersController < ApplicationController
   before_filter :authenticate_user!
+  before_action :check_parameters, only: [:create, :update]
 
   check_authorization
   load_and_authorize_resource
@@ -47,8 +48,8 @@ class Configs::FirefightersController < ApplicationController
     @firefighter = Firefighter.new(params[:firefighter])
 
     if @firefighter.save
-      render partial: 'firefighter', locals: { firefighter: @firefighter },
-        content_type: 'text/html'
+      # render partial: 'firefighter', locals: { firefighter: @firefighter }, content_type: 'text/html'
+      js_redirect to: configs_firefighters_path
     else
       render partial: 'new', status: :unprocessable_entity, content_type: 'text/html'
     end
@@ -61,8 +62,8 @@ class Configs::FirefightersController < ApplicationController
     @firefighter = Firefighter.find(params[:id])
 
     if @firefighter.update_attributes(params[:firefighter])
-      render partial: 'firefighter', locals: { firefighter: @firefighter },
-        content_type: 'text/html'
+      # render partial: 'firefighter', locals: { firefighter: @firefighter }, content_type: 'text/html'
+      js_redirect to: configs_firefighters_path
     else
       render partial: 'edit', status: :unprocessable_entity, content_type: 'text/html'
     end
@@ -79,4 +80,12 @@ class Configs::FirefightersController < ApplicationController
 
     render nothing: true, content_type: 'text/html'
   end
+
+  private
+    def check_parameters
+      parameters_to_check = %w(sex blood_type blood_factor)
+      parameters_to_check.each do |p|
+        params['firefighter'][p] = params['firefighter'][p].first if params['firefighter'][p]
+      end
+    end
 end

@@ -5,8 +5,60 @@
     <%= @truck.number %>
   </p>
   <p>
+    <strong><%= Truck.human_attribute_name 'brand' %></strong>:
+    <%= @truck.brand %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'brand_model' %></strong>:
+    <%= @truck.brand_model %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'domain' %></strong>:
+    <%= @truck.domain %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'federation' %></strong>:
+    <%= @truck.federation %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'firehouse_name' %></strong>:
+    <%= @truck.firehouse_name %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'fuel_type' %></strong>:
+    <%= @truck.fuel_type %>
+  </p>
+  <p>
     <strong><%= Truck.human_attribute_name 'mileage' %></strong>:
     <%= @truck.mileage %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'oraganization' %></strong>:
+    <%= @truck.organization %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'truck_type' %></strong>:
+    <%= @truck.truck_type %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'year' %></strong>:
+    <%= @truck.year %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'acquisition_date' %></strong>:
+    <%= l(@truck.acquisition_date) if @truck.acquisition_date %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'has_ownership' %></strong>:
+    <%= boolean_text_field @truck.has_ownership%>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'is_active' %></strong>:
+    <%= boolean_text_field @truck.is_active %>
+  </p>
+  <p>
+    <strong><%= Truck.human_attribute_name 'is_permanently_disabled' %></strong>:
+    <%= boolean_text_field @truck.is_permanently_disabled %>
   </p>
 
 </div>

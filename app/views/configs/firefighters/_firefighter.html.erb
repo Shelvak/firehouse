@@ -1,8 +1,11 @@
 <tr id="<%= dom_id(firefighter) %>">
-  <td><%= firefighter.firstname %></td>
+  <td><%= firefighter.hierarchy %></td>
   <td><%= firefighter.lastname %></td>
+  <td><%= firefighter.firstname %></td>
   <td><%= firefighter.identification %></td>
-  <td><%= firefighter.user %></td>
+  <td><%= firefighter.blood %></td>
+  <td><%= firefighter.status %></td>
+  <td><%= "#{firefighter.linephone} - #{firefighter.cellphone}" %></td>
   <td><%= link_to_show [:configs, firefighter], remote: true, data: { target:
                        'modal', modal: true } %></td>
   <td><%= link_to_edit edit_configs_firefighter_path(firefighter), remote: true,

@@ -1,9 +1,36 @@
 <%= f.error_notification %>
 
 <div class="form-inputs">
-  <%= f.input :firstname %>
-  <%= f.input :lastname %>
-  <%= f.input :identification %>
+  <div class="row-fluid">
+    <div class="span6">
+      <%= f.input :firehouse_name, input_html: { value: 'Cuerpo de Bomberos Voluntarios Godoy Cruz', readonly: true  } %>
+      <%= f.input :firstname %>
+      <%= f.input :lastname %>
+      <%= f.input :dni, as: :numeric %>
+      <%= f.input :identification %>
+      <%= f.input :birth_date, as: :string, input_html: { data: { date_picker: true } } %>
+      <%= f.input :sex, collection: ['Masculino', 'Femenino'], as: :radio_buttons  %>
+      <%= f.input :blood_type, collection: ['A', 'B', 'AB', '0'], as: :radio_buttons %>
+      <%= f.input :blood_factor, collection: ['Positivo', 'Negativo'], as: :radio_buttons %>
+      <%= f.input :started_at, as: :string, input_html: { data: { date_picker: true } } %>
+      <%= f.input :status %>
+    </div>
+    <div class="span5">
+      <%= f.input :education_level, collection: Firefighter::EDUCATION_LEVELS %>
+      <%= f.input :hierarchy %>
+      <%= f.input :role %>
+      <%= f.input :is_active_boss %>
+      <%= f.input :is_instructor %>
+      <%= f.input :state, collection: Firefighter::STATES  %>
+      <%= f.input :city %>
+      <%= f.input :address %>
+      <%= f.input :linephone, as: :numeric %>
+      <%= f.input :cellphone, as: :numeric %>
+      <%= f.input :email %>
+      <%= f.input :number_of_childrens, as: :numeric %>
+    </div>
+  </div>
+  <div class="clearfix"></div>
   <%= f.label :user_id %>
   <%= f.input :auto_user_name, label: false, input_html: {
     value: @firefighter.user, class: 'span5 autocomplete-field',
@@ -14,5 +41,6 @@
       )
     }
   } %>
+  <%= f.input :organization, input_html: { value: 'CFBVRA' }, as: :hidden %>
   <%= f.input :user_id, as: :hidden %>
 </div>
