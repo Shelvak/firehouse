@@ -6,10 +6,9 @@
   <td><%= firefighter.blood %></td>
   <td><%= firefighter.status %></td>
   <td><%= "#{firefighter.linephone} - #{firefighter.cellphone}" %></td>
-  <td><%= link_to_show [:configs, firefighter], remote: true, data: { target:
-                       'modal', modal: true } %></td>
-  <td><%= link_to_edit edit_configs_firefighter_path(firefighter), remote: true,
-                       data: { target: 'modal', modal: true } if can? :update,
+
+  <td><%= link_to_show [:configs, firefighter] %></td>
+  <td><%= link_to_edit edit_configs_firefighter_path(firefighter) if can? :update,
                        firefighter %></td>
   <td><%= link_to_destroy [:configs, firefighter], remote: true, data: {
                           target: dom_id(firefighter) } if can? :destroy,

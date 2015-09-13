@@ -29,8 +29,6 @@
 <% end %>
 
 <div class="form-actions">
-  <%= link_to(
-    t('view.firefighters.new', default: :'label.new'),
-    new_configs_firefighter_path, class: 'btn btn-primary', remote: true, data: {
-    target: 'modal', modal: true } ) if can? :create, Firefighter %>
+  <%= link_to(t('view.firefighters.new', default: :'label.new'), new_configs_firefighter_path,
+              class: 'btn btn-primary') if can? :create, Firefighter %>
 </div>
