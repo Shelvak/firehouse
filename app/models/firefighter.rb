@@ -32,6 +32,7 @@ class Firefighter < ActiveRecord::Base
   # todo: validaciones de tipos
   validates :firstname, :lastname, :identification, presence: true
   validates :identification, uniqueness: true
+  validates :user_id, uniqueness: true, allow_nil: true, allow_blank: true
 
   def to_s
     [self.lastname, self.firstname].join(' ')
