@@ -18,6 +18,7 @@ gem 'sidekiq'
 gem 'SrBuj'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'bugsnag'
 
 # Deploy
 gem 'capistrano'

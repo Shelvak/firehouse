@@ -7,7 +7,11 @@ class AlertTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference 'Alert.count' do
-      Alert.create!(Fabricate.attributes_for(:alert))
+      Alert.create!(
+        Fabricate.attributes_for(
+          :alert, intervention_id: @alert.intervention_id
+        )
+      )
     end
   end
 

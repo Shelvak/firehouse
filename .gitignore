@@ -1,7 +1,6 @@
 *.swp
 /.bundle
 /.sass-cache/
-/config/app_config.yml
 /doc/
 /log/
 /public/assets/
@@ -9,3 +8,6 @@
 /.idea
 .rbenv-version
 /uploads
+
+config/secrets.yml
+config/app_config.yml
