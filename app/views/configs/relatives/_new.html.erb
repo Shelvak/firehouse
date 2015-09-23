@@ -1,0 +1,19 @@
+<div class="modal">
+  <div class="modal-header">
+    <h3>
+      <%= t('view.relatives.new_title') %>
+      <a class="close" data-dismiss="modal">&times;</a>
+    </h3>
+  </div>
+  <%= simple_form_for([:configs, @firefighter, @relative], remote: true, html: {
+        data: { target: 'relatives', error: 'modal', modal: true }, class: 'form-horizontal' } ) do |f| %>
+    <div class="modal-body">
+        <%= render partial: 'form', locals: { f: f } %>
+    </div>
+    <div class="modal-footer">
+      <%= yield :form_actions %>
+      <%= f.submit t('label.save'), class: 'btn btn-primary',
+                   disable_with: t('label.saving') %>
+    </div>
+  <% end %>
+</div>

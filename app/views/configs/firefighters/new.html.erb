@@ -1,7 +1,6 @@
 <%= configs_subnav %>
 <div class="container-fluid">
   <%= simple_form_for([:configs, @firefighter]) do |f| %>
-    <a class="close" data-dismiss="modal">&times;</a>
     <h3><%= t('view.firefighters.new_title') %></h3>
     <%= render partial: 'form', locals: { f: f } %>
     <%= yield :form_actions %>

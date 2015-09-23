@@ -1,7 +1,7 @@
 <%= configs_subnav %>
 <div class="container-fluid">
   <h3><%= @firefighter %></h3>
-  <div class="span6">
+  <div class="span5">
     <% %w(lastname firstname address birth_date blood_type blood_factor cellphone city dni
           education_level email firehouse_name federation hierarchy
           identification linephone number_of_childrens organization
@@ -30,6 +30,6 @@
   </div>
 
   <div class="span6">
-    <h4></h4>
+    <%= render partial: 'configs/relatives/index' %>
   </div>
 </div>

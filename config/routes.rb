@@ -52,7 +52,10 @@ Rails.application.routes.draw do
         put :set_priority
       end
     end
-    resources :firefighters, :trucks, :hierarchies, :users
+    resources :firefighters do
+      resources :relatives, except: :show
+    end
+    resources :trucks, :hierarchies, :users
     resources :scos do
       put :activate, on: :member
       get :mini_index, on: :collection

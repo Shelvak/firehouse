@@ -8,11 +8,11 @@
       <%= f.input :lastname %>
       <%= f.input :dni, as: :numeric %>
       <%= f.input :identification %>
-      <%= f.input :birth_date, as: :string, input_html: { data: { date_picker: true } } %>
+      <%= f.input :birth_date, as: :date_picker %>
       <%= f.input :sex, collection: ['Masculino', 'Femenino'], as: :radio_buttons  %>
       <%= f.input :blood_type, collection: ['A', 'B', 'AB', '0'], as: :radio_buttons %>
       <%= f.input :blood_factor, collection: ['Positivo', 'Negativo'], as: :radio_buttons %>
-      <%= f.input :started_at, as: :string, input_html: { data: { date_picker: true } } %>
+      <%= f.input :started_at, as: :date_picker %>
       <%= f.input :status %>
     </div>
     <div class="span6">

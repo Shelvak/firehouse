@@ -22,6 +22,7 @@ class Configs::FirefightersController < ApplicationController
   def show
     @title = t('view.firefighters.show_title')
     @firefighter = Firefighter.find(params[:id])
+    @relatives = @firefighter.relatives
   end
 
   # GET /firefighters/new

@@ -17,7 +17,7 @@
         <%= f.input :organization, input_html: { value: 'CFBVRA', readonly: true  } %>
         <%= truck_type_selector f %>
         <%= f.input :year %>
-        <%= f.input :acquisition_date, as: :string, input_html: { data: { date_picker: true } } %>
+        <%= f.input :acquisition_date, as: :date_picker %>
         <%= f.input :has_ownership %>
         <%= f.input :is_active %>
         <%= f.input :is_permanently_disabled %>

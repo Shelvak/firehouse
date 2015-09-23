@@ -1,0 +1,14 @@
+<tr id="relative_<%= dom_id(relative) %>">
+  <td><%= relative.relation_type %></td>
+  <td><%= relative.to_s %></td>
+  <td><%= relative.dni %></td>
+  <td><%= l(relative.birth_date) if relative.birth_date %></td>
+  <td><%= boolean_text_field relative.alive %></td>
+  <td><%= relative.details %></td>
+
+  <td><%= link_to_edit [:edit, :configs, @firefighter, relative],
+            remote: true, data: { target: 'modal', modal: true } if can? :update,
+            relative %></td>
+  <td><%= link_to_destroy [:configs, @firefighter, relative], remote: true, data: {
+          target: "relative_#{dom_id(relative)}" } if can? :destroy, relative %></td>
+</tr>

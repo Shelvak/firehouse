@@ -95,6 +95,14 @@ es:
         name: "Nombre"
         phone_number: "Teléfono"
         relation: "Vínculo"
+      relative:
+        birth_date: "Fecha de nacimiento"
+        details: "Observaciones"
+        dni: "DNI"
+        last_name: "Apellido"
+        alive: "Vive"
+        name: "Nombre"
+        relation_type: "Vínculo"
       sco:
         current: "Actual"
         full_name: "Nombre y apellido"
@@ -160,6 +168,9 @@ es:
       mobile_intervention:
         one: "Planilla móvil"
         other: "Planillas móviles"
+      relatives:
+        one: "Familiar"
+        other: "Familiares"
       truck:
         one: "Móvil"
         other: "Moviles"
@@ -407,6 +418,24 @@ es:
         phone: "Teléfono"
         responsible: "A cargo"
       vehicles_info: "Vehículos"
+    relatives:
+      correctly_created: "Familiar agregado correctamente"
+      correctly_destroyed: "Familiar eliminado correctamente"
+      correctly_updated: "Familiar actualizado correctamente"
+      edit: "Editar familiar"
+      edit_title: "Editando familiar"
+      index_title: "Familiares"
+      new: "Agregar familiar"
+      new_title: "Agregando familiar"
+      show_title: "Familiar"
+      stale_object_error: "El familiar no pudo ser actualizado, intente nuevamente."
+      types:
+        brothers: "Hermana/o"
+        father: "Padre"
+        married: "Cónyuge"
+        mother: "Madre"
+        other: "Otro"
+        son: "Hija/o"
     people:
       correctly_created: "Persona agregada correctamente"
       correctly_destroyed: "Persona eliminada correctamente"

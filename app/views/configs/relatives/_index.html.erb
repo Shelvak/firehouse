@@ -1,0 +1,19 @@
+<h4><%= t('view.relatives.index_title') %></h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th><%= Relative.human_attribute_name :relation_type %></th>
+      <th><%= Relative.human_attribute_name :name %></th>
+      <th><%= Relative.human_attribute_name :dni %></th>
+      <th><%= Relative.human_attribute_name :birth_date %></th>
+      <th><%= Relative.human_attribute_name :alive %></th>
+      <th><%= Relative.human_attribute_name :details %></th>
+    </tr>
+  </thead>
+  <tbody id="relatives">
+    <%= render partial: 'configs/relatives/relative', collection: @relatives  %>
+  </tbody>
+</table>
+<p><%= link_to t('view.relatives.new'), [:new, :configs, @firefighter, :relative],
+               class: 'btn btn-primary', remote: true,
+               data: { target: 'modal', modal: true } %></p>
