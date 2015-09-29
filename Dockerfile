@@ -4,9 +4,10 @@ MAINTAINER Néstor Coppi <nestorcoppi@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get -qq update
-RUN apt-get install -qq -y postgresql-server-dev-9.3 \
+RUN apt-get update
+RUN apt-get install -y postgresql-server-dev-9.3 \
                            postgresql-client-9.3 imagemagick
+RUN apt-get -y clean autoclean autoremove
 
 RUN mkdir -p /firehouse
 RUN mkdir -p /bundle
