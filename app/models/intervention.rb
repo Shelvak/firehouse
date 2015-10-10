@@ -47,6 +47,10 @@ class Intervention < ActiveRecord::Base
     end
   end
 
+  def to_s
+    [self.id, self.type].join(' - ')
+  end
+
   def self.url_helpers
     Rails.application.routes.url_helpers
   end
@@ -178,7 +182,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_alert_to_lcd
-    $redis.publish('lcd-messages', { full: self.type }.to_json)
+    $redis.publish('lcd-messages', { full: self.to_s }.to_json)
   end
 
   def active?
