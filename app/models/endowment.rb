@@ -57,7 +57,6 @@ class Endowment < ActiveRecord::Base
       self.errors.add second_sym, I18n.t(
         'validations.distance.must_be_greater_than', distance: first
       )
-
     end
   end
 

@@ -22,11 +22,18 @@
       </td>
       <td>
         <%= f.input :out_at, label: false, input_html: {
-          value: f.object.out_at, class: 'span12', data: { intervention_saver: true }
+          value: f.object.out_at, class: 'span12', data: {
+            intervention_saver: true,
+          }
         } %>
       </td>
       <td>
-        <%= f.input :out_mileage, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
+        <%= f.input :out_mileage, label: false, input_html: {
+          class: 'span12', data: {
+            intervention_saver: true,
+            travel_type: 'out_mileage'
+          }
+        } %>
       </td>
     </tr>
     <tr>
@@ -39,7 +46,11 @@
         <%= f.input :arrive_at, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
       </td>
       <td>
-        <%= f.input :arrive_mileage, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
+        <%= f.input :arrive_mileage, label: false, input_html: {
+          class: 'span12', data: {
+            travel_type: 'arrive_mileage'
+          }
+        } %>
       </td>
     </tr>
     <tr>
@@ -52,7 +63,11 @@
         <%= f.input :back_at, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
       </td>
       <td>
-        <%= f.input :back_mileage, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
+        <%= f.input :back_mileage, label: false, input_html: {
+          class: 'span12', data: {
+            travel_type: 'back_mileage'
+          }
+        } %>
       </td>
     </tr>
     <tr>
@@ -65,7 +80,11 @@
         <%= f.input :in_at, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
       </td>
       <td>
-        <%= f.input :in_mileage, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
+        <%= f.input :in_mileage, label: false, input_html: {
+          class: 'span12', data: {
+            travel_type: 'in_mileage'
+          }
+        } %>
       </td>
     </tr>
   </tbody>

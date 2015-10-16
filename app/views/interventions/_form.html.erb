@@ -147,22 +147,19 @@
     <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
-<% if @intervention.persisted? || (defined?(dynamic) && dynamic) %>
-  <script type="text/javascript" charset="utf-8">
-    var dynamicTab =
-        '<%= content_tag(:li, link_to(
-          "dynamicContent", "#endowments_dynamicContent",
-          data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
-        )
-      ) %>'
-    var dynamicForm =
-        '<%= link_to_add_fields("+", intervention_form, :endowments) %>'
-
-    var without_result = '<%= t("label.without_results") %>'
-  </script>
-<% end %>
 
 <script type="text/javascript" charset="utf-8">
+  <% if @intervention.persisted? || (defined?(dynamic) && dynamic) %>
+    var dynamicTab =
+        '<%= content_tag(:li, link_to(
+            "dynamicContent", "#endowments_dynamicContent",
+            data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
+          )
+        ) %>',
+      dynamicForm = '<%= link_to_add_fields("+", intervention_form, :endowments) %>',
+      without_result = '<%= t("label.without_results") %>';
+  <% end %>
+
   $(document).ready(function() {
     <% if @intervention.latitude.present? && @intervention.longitude.present? %>
       Leaflet.elements.defaultMarkerInfo.latitude    = '<%= @intervention.latitude %>'
@@ -174,6 +171,7 @@
     Leaflet.options.shouldShowSimple = true
     Leaflet.newMap();
     autocompleteAddress('intervention_address');
+    $('textarea').textareaAutoSize();
   });
 
   Intervention.focusLastFocusedInput();
