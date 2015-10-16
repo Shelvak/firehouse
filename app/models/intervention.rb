@@ -48,7 +48,9 @@ class Intervention < ActiveRecord::Base
   end
 
   def to_s
-    [self.id, self.type].join(' - ')
+    _to_s = "##{self.id} - #{self.type}"
+    _to_s << " (#{I18n.t('view.interventions.kinds.its_a_trap')})" if its_a_trap?
+    _to_s
   end
 
   def self.url_helpers
@@ -135,6 +137,8 @@ class Intervention < ActiveRecord::Base
   def its_a_trap!
     lights = lights_for_redis
     lights['trap'] = true
+
+    update_column(:its_a_trap, true)
 
     save_lights_on_redis(lights)
     send_lights

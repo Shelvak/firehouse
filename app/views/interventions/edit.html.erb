@@ -3,12 +3,7 @@
   <%= link_to t('label.list'), interventions_path %>
 <% end %>
 
-<h2>
-  <%= t(
-    'view.interventions.edit_title',
-    number: @intervention.id,
-    type: @intervention.type) %>
-</h2>
+<h2><%= @intervention %></h2>
 
 <%= render partial: 'interventions/special_buttons' unless @intervention.finished? %>
 <%= render 'form' %>

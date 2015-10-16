@@ -327,6 +327,7 @@ es:
         other: "Otros"
         person_rescue: "Rescate a persona"
         truck_accident: "Accidente de camion"
+        its_a_trap: "Persona atrapada"
       map:
         index:
           fullscreen: "Pantalla completa"

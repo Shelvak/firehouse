@@ -153,8 +153,8 @@ new Rule
           url: '/interventions/' + id + '/special_sign'
           type: 'PUT'
           data: { sign: type }
-      else if type == 'alert'
-        Intervention.saveIntervention()
+
+      Intervention.saveIntervention()
 
     @map.handleEnterOnInputs ||= (e) ->
       key = e.which

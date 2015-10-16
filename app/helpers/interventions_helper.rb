@@ -22,7 +22,7 @@ module InterventionsHelper
     collection = []
 
     InterventionType.order_by_children.each do |it|
-      collection << [it.to_s, it.id, {class: (it.priority ? 'hidden' : '')}]
+      collection << [it.to_s, it.id, { class: (it.priority ? 'hidden' : '') }]
     end
 
     form.input :intervention_type_id, collection: collection,
@@ -38,13 +38,14 @@ module InterventionsHelper
       alert: { url: 'alert_button.png' }
     }
 
-    if action_name != 'new'
+    unless @intervention.try(:its_a_trap?)
       buttons.merge!({
-        trap:  { url: 'trap_button.png' },
-        qta:   { url: 'qta_button.png' }
+        trap:  { url: 'trap_button.png' }
       })
     end
 
-    buttons
+    buttons.merge({
+      qta: { url: 'qta_button.png' }
+    })
   end
 end
