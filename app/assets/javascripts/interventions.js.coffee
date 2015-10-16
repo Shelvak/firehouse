@@ -159,6 +159,9 @@ new Rule
     @map.handleEnterOnInputs ||= (e) ->
       key = e.which
 
+      if e.target && e.target.type == 'textarea'
+        return
+
       if key == 13 && !e.ctrlKey
         e.preventDefault()
         Intervention.saveIntervention()
@@ -198,3 +201,5 @@ new Rule
 jQuery ($) ->
   $(document).on 'focusin', 'input', ->
     Intervention.lastFocusedInput = $(this)
+
+  $('textarea').textareaAutoSize();

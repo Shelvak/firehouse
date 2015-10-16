@@ -14,6 +14,8 @@
  *= require jquery/token-input-facebook
  *= require jquery/ui-custom
  *= require fonts
+
+
  *= require common
  *= require common-responsive
  *= require devise

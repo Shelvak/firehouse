@@ -16,6 +16,7 @@
 //= require jquery_ujs
 //= require jquery/tokeninput
 //= require jquery/emuletab
+//= require jquery/textarea-autosize
 //= require twitter/bootstrap
 //= require SrBuj
 //= require bootstrap-colorpicker
