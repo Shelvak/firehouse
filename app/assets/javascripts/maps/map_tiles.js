@@ -6,6 +6,7 @@ MapTiles = {
       , mapnik        : 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
     }
   , special : {
-        openfire      : 'https://{s}.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJ5bWNicmlkZSIsImEiOiJXN1NuOFFjIn0.3YNvR1YOvqEdeSsJDa-JUw'
+        openfire      : 'http://openfiremap.org/hytiles/{z}/{x}/{y}.png'
+      , mapbox        : 'https://{s}.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJ5bWNicmlkZSIsImEiOiJXN1NuOFFjIn0.3YNvR1YOvqEdeSsJDa-JUw'
     }
 }
