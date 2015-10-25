@@ -82,7 +82,10 @@ es:
         priority: "Prioridad"
         target: "Destino"
       mobile_intervention:
-        date: "Fecha"
+        received_at: "Fecha y hora del llamado"
+        activated_at: "Fecha y hora de activación"
+        labors: "Labores"
+        news: "Novedades"
         observations: "Observaciones"
       person:
         address: "Dirección"

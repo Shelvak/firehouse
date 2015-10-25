@@ -2,18 +2,20 @@
   <div class="page-header">
     <h2><%= @intervention.type %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
     <p>
-      <strong><%= MobileIntervention.human_attribute_name 'date' %></strong>:
+      <strong><%= MobileIntervention.human_attribute_name :received_at %></strong>:
       <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
     </p>
-    <%= form_for @mobile_intervention,
-                 url: intervention_endowment_mobile_intervention_path(
-                     @intervention, @endowment
-                 ), method: :put do |f| %>
+    <p>
+      <strong><%= MobileIntervention.human_attribute_name :activated_at %></strong>:
+      <%= @intervention.alerts.first.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
+    </p>
+    <%= simple_form_for( [@intervention, @endowment, @mobile_intervention], method: :put) do |f| %>
       <span class="pull-right"><%= f.submit t('view.mobile_interventions.edit_button'),
                                             class: 'btn btn-primary' %></span>
       <div class="form-inputs">
-        <%= f.text_area :observations, class: 'span9', rows: 5, placeholder:
-            t('activerecord.attributes.intervention.observations') %>
+        <%= f.input :observations, input_html: { class: 'span9' } %>
+        <%= f.input :labors,       input_html: { class: 'span9' } %>
+        <%= f.input :news,         input_html: { class: 'span9' } %>
       </div>
   <% end %>
   </div>
