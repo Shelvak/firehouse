@@ -36,7 +36,6 @@ class BuildingsControllerTest < ActionController::TestCase
     assert_equal assigns(:building), assigns(:mobile_intervention).buildings.last
     assert_response :success
     assert_template 'mobile_interventions/_building'
-    assert_template 'mobile_interventions/_people_table'
   end
 
   test 'should get edit' do
@@ -59,14 +58,13 @@ class BuildingsControllerTest < ActionController::TestCase
           intervention_id: @mobile_intervention.endowment.intervention.to_param,
           endowment_id: @mobile_intervention.endowment.to_param,
           id: @building,
-          building: Fabricate.attributes_for(:building, floor: 'Wood')
+          building: Fabricate.attributes_for(:building, floor: '2')
     assert_not_nil assigns(:intervention)
     assert_not_nil assigns(:endowment)
     assert_not_nil assigns(:mobile_intervention)
     assert_not_nil assigns(:building)
     assert_response :success
     assert_template 'mobile_interventions/_building'
-    assert_template 'mobile_interventions/_people_table'
   end
 
   test 'should destroy building' do
