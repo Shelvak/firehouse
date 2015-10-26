@@ -4,12 +4,18 @@ es:
     attributes:
       building:
         address: "Dirección"
-        damage: "Daños"
+        affected_surface: "Superficie afectada"
+        automatic_alert: "¿Hubo detección automática?"
+        building_type: "Tipo de lugar"
         description: "Descripción"
-        electrics: "Instalación eléctrica"
+        details: "Detalle"
+        extinguishers: "¿Había extintores?"
+        fire_hydrants: "¿Había nichos hidrantes?"
         floor: "Piso"
-        roof: "Techo"
-        window: "Aberturas"
+        number_of_floors: "Cantidad de pisos"
+        number_of_rooms: "Cantidad de ambientes"
+        roof_type: "Tipo de techo"
+        window_type: "Tipo de abertura"
       endowment:
         arrive_at: "Llegada"
         back_at: "Vuelta"
@@ -226,10 +232,43 @@ es:
       must_be_greater_than: "Debe ser mayor a %{distance} Km"
   view:
     buildings:
+      collections:
+        affected_areas:
+          hectare: "Hectáreas"
+          kilometers: "Kilómetros"
+          meters: "Metros"
+          no_evactuation: "No se evacuó"
+          other: "Otro"
+          partial_evacuation: "Evacuación Parcial"
+          total_evactuation: "Evacuación Total"
+        building_types:
+          apartment: "Departamento"
+          booth: "Casilla"
+          house: "Casa"
+          ranch: "Rancho"
+          multi: "Multifamiliar"
+          other: "Otro"
+        ternary_options:
+          yes: "Sí"
+          no: "No"
+          unknown: "Se desconoce"
+        roof_types:
+          cardboard: "Chapa cartón"
+          gypsum: "Yeso"
+          metal: "Chapa metálica"
+          other: "Otro tipo de techo"
+          tile: "Tejas"
+          wooden: "Madera-Paja"
+        window_types:
+          aluminium: "Aluminio"
+          iron: "Acero-hierro"
+          other: "Otro tipo de abertura"
+          plastic: "Plástica"
+          wooden: "Madera"
       correctly_created: "Inmueble agregado correctamente"
       correctly_destroyed: "Inmueble eliminado correctamente"
       correctly_updated: "Inmueble actualizado correctamente"
-      damages_title: "Daños"
+      damages_title: "Datos de la superficie afectada"
       edit: "Editar inmueble"
       edit_title: "Editando el inmueble"
       index_title: "Inmuebles"

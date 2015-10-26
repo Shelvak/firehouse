@@ -112,4 +112,12 @@ module ApplicationHelper
   def boolean_text_field(value)
     value ? t('label.yes') : t('label.no')
   end
+
+  def ternary_text_field(value)
+    case value
+      when true  then t('view.buildings.collections.ternary_options.yes')
+      when false then t('view.buildings.collections.ternary_options.no')
+      else            t('view.buildings.collections.ternary_options.unknown')
+    end
+  end
 end

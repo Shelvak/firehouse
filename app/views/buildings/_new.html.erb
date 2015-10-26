@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal modal-large">
   <%= simple_form_for( [@intervention, @endowment, 'mobile_intervention', @building],
       remote: true, html: { data: { target: 'new_building', error: 'modal',
       modal: true, callback: "highlightItem('new_building',
