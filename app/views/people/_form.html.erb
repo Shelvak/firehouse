@@ -1,20 +1,30 @@
 <div class="row-fluid">
   <div class="span5">
-    <%= f.input :name %>
+    <%= f.input :name, input_html: { tabindex: 1, autofocus: true } %>
     <%= f.input :dni_type, collection: ['DNI', 'Libreta Cívica', 'Otro'],
-                default: 'DNI' %>
-    <%= f.input :age %>
-    <%= f.input :relation, collection: (params[:vehicle_id] ?
-        ['Propietario', 'Conductor'] : ['Propietario','Inquilino']),
-                default: 'Propietario' %>
+                default: 'DNI', input_html: { tabindex: 3 }  %>
+    <%= f.input :genre, collection: Person::GENERES_FOR_COLLECTION,
+                selected: Person::GENERES_FOR_COLLECTION[3],
+                input_html: { tabindex: 5 }  %>
   </div>
   <div class="span5 offset1">
-    <%= f.input :last_name %>
-    <%= f.input :dni_number %>
-    <%= f.input :phone_number %>
-    <%= f.input :moved_to %>
+    <%= f.input :last_name,  input_html: { tabindex: 2 } %>
+    <%= f.input :dni_number, input_html: { tabindex: 4 }  %>
+  </div>
+</div>
+<hr/>
+<div class="row-fluid">
+  <div class="span5">
+    <%= f.input :age, input_html: { tabindex: 6 }  %>
+    <%= f.input :relation, collection: (params[:vehicle_id] ?
+        ['Propietario', 'Conductor'] : ['Propietario','Inquilino']),
+                default: 'Propietario', input_html: { tabindex: 8 }  %>
+  </div>
+  <div class="span5 offset1">
+    <%= f.input :phone_number, input_html: { tabindex: 7 }  %>
+    <%= f.input :moved_to, input_html: { tabindex: 9 }  %>
   </div>
   <div class="clearfix"></div>
-  <%= f.input :address, input_html: { class: 'span11' }  %>
-  <%= f.input :injuries, input_html: { class: 'span11', rows: 5 } %>
+  <%= f.input :address, input_html: { class: 'span11',tabindex: 10 }  %>
+  <%= f.input :injuries, input_html: { class: 'span11', rows: 3, tabindex: 11 } %>
 </div>

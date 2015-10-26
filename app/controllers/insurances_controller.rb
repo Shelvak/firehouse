@@ -52,6 +52,7 @@ class InsurancesController < ApplicationController
     js_notify message: t('view.insurances.messages.correctly_destroyed'),
               type: 'alert-danger js-notify-18px-text', time: 2500
 
+    # todo: cuando borro ya no puedo crear mas insurances porque se oculta el boton, ver como recargar
     render nothin: true, content_type: 'text/html'
   end
 

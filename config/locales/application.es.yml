@@ -102,6 +102,7 @@ es:
         age: "Edad"
         dni_number: "DNI numero"
         dni_type: "DNI tipo"
+        genre: "Género"
         injuries: "Lesiones"
         last_name: "Apellido"
         moved_to: "Trasladado a"
@@ -469,6 +470,7 @@ es:
         age: "Edad"
         belongs: "Pertenece"
         dni: "DNI"
+        genre: "Género"
         driver: "Conduce"
         in_the_place: "En el lugar"
         injuries: "Lesiones"
@@ -501,6 +503,12 @@ es:
       correctly_created: "Persona agregada correctamente"
       correctly_destroyed: "Persona eliminada correctamente"
       correctly_updated: "Persona actualizada correctamente"
+      collections:
+        genre:
+          male: "Masculino"
+          female: "Femenino"
+          other: "Otro"
+          unknown: "Se desconoce"
       edit: "Editar persona"
       edit_title: "Editando la persona"
       index_title: "Personas"
