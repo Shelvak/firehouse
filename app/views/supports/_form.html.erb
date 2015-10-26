@@ -1,7 +1,7 @@
 <div class="row-fluid">
   <span class='span5'>
     <%= f.input :support_type, collection: Support::SUPPORT_TYPES,
-                default: Support::SUPPORT_TYPES[0] %>
+                selected: Support::SUPPORT_TYPES[0], input_html: { autofocus: true } %>
     <%= f.input :number %>
   </span>
   <span class='span5'>

@@ -28,11 +28,11 @@ class Building < ActiveRecord::Base
       I18n.t('view.buildings.collections.building_types.other')
   ]
   ROOF_TYPES_FOR_COLLECTION = [
-      I18n.t('view.buildings.collections.building_types.wooden'),
-      I18n.t('view.buildings.collections.building_types.gypsum'),
-      I18n.t('view.buildings.collections.building_types.tile'),
-      I18n.t('view.buildings.collections.building_types.cardbodard'),
-      I18n.t('view.buildings.collections.building_types.other')
+      I18n.t('view.buildings.collections.roof_types.wooden'),
+      I18n.t('view.buildings.collections.roof_types.gypsum'),
+      I18n.t('view.buildings.collections.roof_types.tile'),
+      I18n.t('view.buildings.collections.roof_types.cardboard'),
+      I18n.t('view.buildings.collections.roof_types.other')
   ]
   WINDOW_TYPES_FOR_COLLECTION = [
       I18n.t('view.buildings.collections.window_types.wooden'),
@@ -42,8 +42,8 @@ class Building < ActiveRecord::Base
       I18n.t('view.buildings.collections.window_types.wooden'),
   ]
   TERNARY_OPTIONS_FOR_COLLECTION = [
-      [I18n.t('view.buildings.collections.ternary_options.yes'), true],
-      [I18n.t('view.buildings.collections.ternary_options.no'), false],
+      [I18n.t('view.buildings.collections.ternary_options.affirmative'), true],
+      [I18n.t('view.buildings.collections.ternary_options.negative'), false],
       [I18n.t('view.buildings.collections.ternary_options.unknown'), nil]
   ]
 end

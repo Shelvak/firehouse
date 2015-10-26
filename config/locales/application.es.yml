@@ -257,8 +257,8 @@ es:
           multi: "Multifamiliar"
           other: "Otro"
         ternary_options:
-          yes: "Sí"
-          no: "No"
+          affirmative: "Sí"
+          negative: "No"
           unknown: "Se desconoce"
         roof_types:
           cardboard: "Chapa cartón"

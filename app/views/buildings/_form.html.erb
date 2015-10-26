@@ -1,6 +1,6 @@
 <div class="form-inputs clearfix">
   <div class='row-fluid'>
-    <%= f.input :address,     input_html: { class: 'span11' } %>
+    <%= f.input :address,     input_html: { class: 'span11', autofocus: true } %>
     <%= f.input :description, input_html: { class: 'span11', rows: 3 } %>
   </div>
   <div class="row-fluid page-header">
@@ -9,7 +9,7 @@
   <div class="row-fluid">
     <div class="span6">
       <%= f.input :affected_surface, input_html: { class: 'span11' },
-                  collection: Building::AFFECTED_AREAS_FOR_COLLECTION %>
+                  collection: Building::AFFECTED_AREAS_FOR_COLLECTION   %>
       <%= f.input :affected_surface, input_html: { class: 'span11' },
                   label: t('view.buildings.collections.affected_areas.other') %>
       <%= f.input :details,          input_html: { class: 'span11' } %>
