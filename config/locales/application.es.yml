@@ -60,6 +60,10 @@ es:
         full_name: "Nombre y apellido"
         nid: "DNI (solo nº)"
         phone: "Teléfono"
+      insurance:
+        company: "Compañía de seguros"
+        policy_number: "Número de póliza"
+        valid_until: "Fecha de vencimiento"
       intervention:
         address: "Dirección"
         alerts: "Alertas"
@@ -171,6 +175,9 @@ es:
       intervention:
         one: "Intervención"
         other: "Intervenciones"
+      insurance:
+        one: "Seguro"
+        other: "Seguros"
       intervention_type:
         one: "Tipo de intervención"
         other: "Tipos de intervenciones"
@@ -412,6 +419,17 @@ es:
           gasoil: "Gas Oil"
           hybrid: "Híbrido"
           naphtha: "Nafta"
+    insurances:
+      edit: "Editar datos del seguro"
+      messages:
+        correctly_created: "Datos del seguro agregados correctamente"
+        correctly_updated: "Datos del seguro modificados correctamente"
+        correctly_destroyed: "Datos del seguro eliminados correctamente"
+      modal:
+        edit_title: "Editando datos del seguro"
+        new_title: "Agregando datos del seguro"
+        show_title: "Datos del seguro"
+      new: "Agregar datos del seguro"
     lights:
       blue: "Azul"
       day: "Día"

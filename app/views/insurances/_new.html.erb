@@ -1,0 +1,16 @@
+<div class="modal">
+  <%= simple_form_for @insurance, url: [@type, @insurance], remote: true, html: {
+      data: { target: "insurances_show_#{dom_id(@type)}", error: 'modal',
+              modal: true, replace: true } } do |f| %>
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
+      <h2><%= @title %></h2>
+    </div>
+    <div class="modal-body">
+      <%= render partial: 'form', locals: { f: f } %>
+    </div>
+    <div class="modal-footer">
+      <%= f.button :submit, t('view.insurances.new') ,  class: 'btn-primary' %>
+    </div>
+  <% end %>
+</div>

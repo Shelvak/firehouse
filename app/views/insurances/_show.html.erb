@@ -1,0 +1,21 @@
+<table class='table table-bordered table-hover background-white'>
+  <thead>
+  <tr>
+    <th><%= t 'activerecord.attributes.insurance.company' %></th>
+    <th><%= t 'activerecord.attributes.insurance.policy_number' %></th>
+    <th><%= t 'activerecord.attributes.insurance.valid_until' %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody id="people_table_body_<%= dom_id(type) %>">
+    <% if type.insurance %>
+      <%= render partial: 'insurances/insurance', locals: { type: type, insurance: type.insurance } %>
+    <% else %>
+      <%= link_to t('view.insurances.new'), ['new', type, 'insurance'],
+                  remote: true, data: { target: 'modal', modal: true },
+                  class: 'btn btn-primary' %>
+    <% end %>
+  </tbody>
+</table>
+<br/>
+<br/>

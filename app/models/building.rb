@@ -3,6 +3,7 @@ class Building < ActiveRecord::Base
 
   belongs_to :mobile_intervention
   has_many :people
+  has_one :insurance
 
   #attr_accessible :address, :description, :floor, :roof, :window, :electrics,
   #  :damage, :mobile_intervention_id

@@ -60,6 +60,7 @@
                          target: dom_id(building) } %>
   </span>
   <span class='span9'>
+    <div id="insurances_show_<%= dom_id(building) %>"><%= render partial: 'insurances/show', locals: { type: building } %></div>
     <%= render partial: 'mobile_interventions/people_table', locals: {
         people: building.people, type: building } %>
     <p><%= link_to t('view.people.new'), ['new', @intervention, @endowment,

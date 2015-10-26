@@ -32,6 +32,7 @@
                         data: { target: dom_id(vehicle) } %>
   </span>
   <span class='span9'>
+    <div id="insurances_show_<%= dom_id(vehicle) %>"><%= render partial: 'insurances/show', locals: { type: vehicle } %></div>
     <%= render partial: 'mobile_interventions/people_table',
                locals: { people: vehicle.people, type: vehicle}%>
     <p><%= link_to t('view.people.new'), ['new', @intervention, @endowment,

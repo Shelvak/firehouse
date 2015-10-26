@@ -27,6 +27,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :vehicles, :buildings, only: [:show] do
+    resources :insurances, only: [:show, :new, :create, :edit, :update, :destroy]
+  end
+
   devise_for :users
 
   resources :users do
