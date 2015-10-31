@@ -3,8 +3,8 @@ Fabricator(:building) do
   affected_surface        { Building::AFFECTED_AREAS_FOR_COLLECTION.sample }
   automatic_alert         { [true, false, nil].sample }
   building_type           { Building::BUILDING_TYPES_FOR_COLLECTION.sample }
-  description             { Faker::Lorem.paragraph }
-  details                 { Faker::Lorem.paragraph }
+  description             { Faker::Lorem.sentence }
+  details                 { Faker::Lorem.sentence }
   extinguishers           { [true, false, nil].sample }
   fire_hydrants           { [true, false, nil].sample }
   floor                   { Faker::Number.number(2) }
