@@ -14,17 +14,17 @@
 </div>
 <hr/>
 <div class="row-fluid">
+  <%= f.input :address, input_html: { class: 'span11',tabindex: 6 }  %>
   <div class="span5">
-    <%= f.input :age, input_html: { tabindex: 6 }  %>
+    <%= f.input :age, input_html: { tabindex: 7 }  %>
     <%= f.input :relation, collection: (params[:vehicle_id] ?
-        ['Propietario', 'Conductor'] : ['Propietario','Inquilino']),
-                default: 'Propietario', input_html: { tabindex: 8 }  %>
+        ['Propietario', 'Conductor', 'Otro'] : ['Propietario','Inquilino', 'Otro']),
+                default: 'Propietario', input_html: { tabindex: 9 }  %>
   </div>
   <div class="span5 offset1">
-    <%= f.input :phone_number, input_html: { tabindex: 7 }  %>
-    <%= f.input :moved_to, input_html: { tabindex: 9 }  %>
+    <%= f.input :phone_number, input_html: { tabindex: 8 }  %>
+    <%= f.input :moved_to, input_html: { tabindex: 10 }  %>
   </div>
   <div class="clearfix"></div>
-  <%= f.input :address, input_html: { class: 'span11',tabindex: 10 }  %>
   <%= f.input :injuries, input_html: { class: 'span11', rows: 3, tabindex: 11 } %>
 </div>

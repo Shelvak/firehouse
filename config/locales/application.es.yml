@@ -457,7 +457,7 @@ es:
       news:
         title: "Novedades"
     mobile_interventions:
-      buildings_info: "Datos de inmuebles"
+      buildings_info: "Inmuebles"
       correctly_created: "Planilla móvil creada correctamente"
       correctly_updated: "Planilla móvil actualizada"
       edit_title: "Editando la planilla móvil"
