@@ -7,8 +7,7 @@ class PeopleController < ApplicationController
 
   def new
     @title = t('view.people.modal.involved_person')
-    @person = (@building || @vehicle).people.build
-    @type = @building || @vehicle
+    @person = @type.people.build
 
     render partial: 'new', content_type: 'text/html'
   end
@@ -16,15 +15,13 @@ class PeopleController < ApplicationController
   def edit
     @title = t('view.people.modal.involved_person')
     @person = Person.find(params[:id])
-    @type = @building || @vehicle
 
     render partial: 'edit', content_type: 'text/html'
   end
 
   def create
     @title = t('view.people.modal.involved_person')
-    @person = @building.people.build(params[:person]) if @building
-    @person = @vehicle.people.build(params[:person]) if @vehicle
+    @person = @type.people.build(params[:person])
 
     if @person.save
       js_notify message: t('view.people.correctly_created'),
@@ -32,7 +29,6 @@ class PeopleController < ApplicationController
       render partial: 'mobile_interventions/person', locals: { person: @person },
              content_type: 'text/html'
     else
-      @type = @building || @vehicle
       render partial: 'new', status: :unprocessable_entity
     end
   end
@@ -47,14 +43,11 @@ class PeopleController < ApplicationController
       render partial: 'mobile_interventions/person', locals: { person: @person },
              content_type: 'text/html'
     else
-      @type = @building || @vehicle
       render partial: 'edit', status: :unprocessable_entity
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to [
-      'edit', @intervention, @endowment, 'mobile_intervention',
-      (@vehicle || @building), @person
-    ], alert: t('view.people.stale_object_error')
+    redirect_to [@intervention, @endowment, 'mobile_intervention'],
+                alert: t('view.people.stale_object_error')
   end
 
   def destroy
@@ -74,10 +67,12 @@ class PeopleController < ApplicationController
 
       if b_id = params[:building_id]
         @building = @mobile_intervention.buildings.find(b_id)
-      end
-
-      if v_id = params[:vehicle_id]
+        @type     = @building
+      elsif v_id = params[:vehicle_id]
         @vehicle = @mobile_intervention.vehicles.find(v_id)
+        @type    = @vehicle
+      else
+        @type = @mobile_intervention
       end
     end
 end

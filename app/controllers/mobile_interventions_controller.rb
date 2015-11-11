@@ -16,8 +16,9 @@ class MobileInterventionsController < ApplicationController
                            end
 
     @buildings = @mobile_intervention.buildings.order(:id)
-    @vehicles = @mobile_intervention.vehicles.order(:id)
-    @supports = @mobile_intervention.supports.order(:id)
+    @people    = @mobile_intervention.people.order(:id)
+    @supports  = @mobile_intervention.supports.order(:id)
+    @vehicles  = @mobile_intervention.vehicles.order(:id)
 
     respond_to do |format|
       format.html # show.html.erb

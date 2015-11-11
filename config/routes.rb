@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         resources :vehicles, except: [:index, :show] do
           resources :people, except: [:index, :show]
         end
+        resources :people, except: [:index, :show]
       end
     end
   end

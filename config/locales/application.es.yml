@@ -463,6 +463,7 @@ es:
       edit_title: "Editando la planilla móvil"
       index_title: "Planillas moviles"
       new_title: "Nueva planilla movil"
+      people_title: "Personas"
       show_title: "Planilla móvil"
       stale_object_error: "La Planilla móvil no pudo ser actualizada, intente nuevamente"
       supports_info: "Movilidades de apoyo"

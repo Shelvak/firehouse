@@ -17,7 +17,21 @@
         <%= f.input :labors,       input_html: { class: 'span9' } %>
         <%= f.input :news,         input_html: { class: 'span9' } %>
       </div>
-  <% end %>
+    <% end %>
+  </div>
+
+  <div class='row-fluid page-header'>
+    <h3><%= t 'view.mobile_interventions.people_title' %></h3>
+    <div id="people_list" class="well">
+      <%= render 'mobile_interventions/people_table', people: @people, type: @mobile_intervention %>
+      <div id="new_person"></div>
+    </div>
+    <p>
+      <%= link_to t('view.people.new'), ['new', @intervention, @endowment,
+             'mobile_intervention', 'person'], remote: true,
+             data: { target: 'modal', modal: true },
+             class: 'btn btn-primary' %>
+    </p>
   </div>
 
   <div class='row-fluid page-header'>
