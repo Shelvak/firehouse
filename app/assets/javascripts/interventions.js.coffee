@@ -103,10 +103,17 @@ new Rule
         dataType: 'json'
         data: { q: input.val() }
         success: (data)->
-          if data[0]
+          parentDiv = input.parents('.intervention_endowments_truck_number:first')
+          helpInline = input.parents('td:first').find('.help-inline')
+          if data && data[0]
             input.parents('[data-endowment-item]')
               .find('input[name$="[out_mileage]"]')
               .val(parseInt data[0].mileage)
+            parentDiv.removeClass('error')
+            helpInline.hide()
+          else
+            parentDiv.addClass('error')
+            helpInline.show()
 
     @map.setCurrentTimeToTruckData ||= (e) ->
       e.preventDefault()
@@ -220,14 +227,14 @@ new Rule
     $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
     $(document).on 'click', '#add_current_time', @map.setCurrentTimeToObservations
     $(document).on 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
-    $(document).off('click', '[data-intervention-saver="important-button"]').on 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
-    $(document).off('change', '[data-intervention-saver]').on 'change', '[data-intervention-saver]', Intervention.saveIntervention
     $(document).on 'keyup', '[data-ignore-enter]', @map.ignoreEnter
-    $(document).off('change', '[data-travel-type]').on 'change', '[data-travel-type]', @map.alertWhenDistanceIsBig
 
     # Fucking fix for double trigger....
     $(document).off('click', '[data-intervention-special-button]').on('click', '[data-intervention-special-button]', @map.sendSpecialSign)
+    $(document).off('change', '[data-travel-type]').on 'change', '[data-travel-type]', @map.alertWhenDistanceIsBig
     $(document).off('keypress').on('keypress', '[data-intervention-form="true"]', @map.handleEnterOnInputs)
+    $(document).off('click', '[data-intervention-saver="important-button"]').on 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
+    $(document).off('change', '[data-intervention-saver]').on 'change', '[data-intervention-saver]', Intervention.saveIntervention
 
   unload: ->
     $(document).off 'click', '#add_new_endowment', @map.addNewTab

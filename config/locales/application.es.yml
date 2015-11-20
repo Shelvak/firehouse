@@ -22,7 +22,7 @@ es:
         in_at: "Cuartel"
         number: "Número de dotación →"
         out_at: "Salida"
-        truck_id: "Móvil"
+        truck_id: "Móvil Nro"
       endowment_line:
         charge: "Cargo"
         firefighter_id: "Bombero"
@@ -122,8 +122,8 @@ es:
         full_name: "Nombre y apellido"
       support:
         driver: "Conductor"
-        number: "Número"
-        owner: "Pertence"
+        number: "Número de Móvil"
+        owner: "Institución a la que pertenece"
         responsible: "A cargo"
         support_type: "Tipo de apoyo"
       truck:
@@ -233,6 +233,7 @@ es:
     users: "Usuarios"
   messages:
     confirmation: "¿Está seguro?"
+    not_found: "No encontrado"
   validations:
     date:
       must_be_after: "Debe ser posterior a %{date}"

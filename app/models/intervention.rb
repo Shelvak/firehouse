@@ -131,6 +131,7 @@ class Intervention < ActiveRecord::Base
   def reactivate!
     intervention_type.emergency? ? send_lights : send_first_alert!
 
+    alerts.create!
     play_intervention_audio!
   end
 
@@ -178,7 +179,6 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_first_alert!
-    alerts.create!
     send_alert_to_lcd
     put_in_redis_list
 

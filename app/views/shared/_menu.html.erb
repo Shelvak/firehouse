@@ -22,6 +22,13 @@
           <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">
             <li>
+              <%= link_to '&#xe008;'.html_safe, root_path,
+                class: 'iconic',
+                title: t('view.interventions.new'),
+                target: :blank,
+                data: { 'show-tooltip' => true, 'placement' => 'bottom' } %>
+            </li>
+            <li>
               <%= link_to(
                 current_user.email, edit_profile_user_path(current_user),
                 'title' => t('view.users.edit_profile'),

@@ -45,22 +45,33 @@
           <div class='span6'>
             <h3><%= t('view.interventions.informer_title') %></h3>
           </div>
-          <div class='span3 pull-right'>
-            <%= f.label :sco_id %>
-            <%= f.input :auto_sco_name, label: false, input_html: {
-              value: @intervention.sco || current_sco,
-              class: 'span10 autocomplete-field',
-              data: {
-                'autocomplete-id-target' => '#intervention_sco_id',
-                'autocomplete-url' => autocomplete_for_sco_name_interventions_path(
-                  format: :json
-                )
-              }
-            } %>
-          <%= f.input :sco_id, as: :hidden, input_html: {
-                value: f.object.sco_id || current_sco.try(:id),
-                data: { intervention_saver: true }
-            } %>
+          <div class='span6 pull-right'>
+            <div class="row-fluid">
+              <div class="span2">
+              </div>
+              <div class="span4 hide">
+                <%= label_tag 'use_sco', 'Usar CEO' %>
+                <%= check_box_tag 'use_sco' %>
+              </div>
+              <div class="span6 pull-right">
+                <%= f.label :sco_id %>
+                <%= f.input :auto_sco_name, label: false, input_html: {
+                  value: @intervention.sco || current_sco,
+                  class: 'span10 autocomplete-field',
+                  data: {
+                    'autocomplete-id-target' => '#intervention_sco_id',
+                    'autocomplete-url' => autocomplete_for_sco_name_interventions_path(
+                      format: :json
+                    )
+                  }
+                } %>
+
+                <%= f.input :sco_id, as: :hidden, input_html: {
+                  value: f.object.sco_id || current_sco.try(:id),
+                  data: { intervention_saver: true }
+                } %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
