@@ -8,6 +8,8 @@
 /.idea
 .rbenv-version
 /uploads
+bundler/
 
 config/secrets.yml
 config/app_config.yml
+db/schema.rb
