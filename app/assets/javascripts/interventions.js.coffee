@@ -172,7 +172,8 @@ new Rule
       if (key == 10 || key == 13) && !e.ctrlKey
         e.preventDefault()
         e.stopPropagation()
-        Intervention.saveIntervention()
+        if e.target && !e.target.getAttribute('data-ignore-enter')
+          Intervention.saveIntervention()
 
       if (key == 10 || key == 13) && e.ctrlKey
         $('form').submit()
