@@ -36,7 +36,6 @@ Rails.application.routes.draw do
 
   resources :users do
     collection do
-      get :autocomplete_for_hierarchy_name
       get :autocomplete_for_user_name
     end
     member do
@@ -60,7 +59,10 @@ Rails.application.routes.draw do
     resources :firefighters do
       resources :relatives, except: :show
     end
-    resources :trucks, :hierarchies, :users
+    resources :trucks, :users
+    resources :hierarchies do
+      get :autocomplete_for_hierarchy_name, on: :collection
+    end
     resources :scos do
       put :activate, on: :member
       get :mini_index, on: :collection

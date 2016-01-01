@@ -20,10 +20,10 @@ class Firefighter < ActiveRecord::Base
     I18n.t('view.firefighters.education_levels.master')
   ]
 
-  #attr_accessible :firstname, :lastname, :identification
-  attr_accessor :auto_user_name
+  attr_accessor :auto_user_name, :auto_hierarchy_name
 
   belongs_to :user
+  belongs_to :hierarchy
 
   has_many :endowment_line_firefighter_relations
   has_many :endowment_lines, through: :endowment_line_firefighter_relations,
@@ -34,6 +34,7 @@ class Firefighter < ActiveRecord::Base
   validates :firstname, :lastname, :identification, presence: true
   validates :identification, uniqueness: true
   validates :user_id, uniqueness: true, allow_nil: true, allow_blank: true
+  validate :hierarchy_presence, if: -> { self.auto_hierarchy_name.present? }
 
   def to_s
     [self.lastname, self.firstname].join(' ')
@@ -56,5 +57,15 @@ class Firefighter < ActiveRecord::Base
 
   def self.filtered_list(query)
     query.present? ? magick_search(query) : all
+  end
+
+  def hierarchy_presence
+    self.errors.add(
+      :auto_hierarchy_name,
+      I18n.t(
+        'validations.autocomplete.must_pick_one',
+        attr: self.class.human_attribute_name('hierarchy_id').downcase
+      )
+    ) if self.hierarchy_id.blank?
   end
 end

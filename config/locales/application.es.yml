@@ -40,12 +40,13 @@ es:
         firstname: "Nombres"
         federation: "Federación"
         hierarchy: "Jerarquía"
+        hierarchy_id: "Jerarquía"
         identification: "Legajo"
         is_active_boss: "¿Es jefe activo?"
         is_instructor: "¿Es instructor de la institución?"
         lastname: "Apellidos"
         linephone: "Teléfono"
-        number_of_childrens: "Cantidad de hijos"
+        number_of_children: "Cantidad de hijos"
         organization: "Organización"
         role: "Cargo"
         sex: "Sexo"
@@ -239,6 +240,8 @@ es:
       must_be_after: "Debe ser posterior a %{date}"
     distance:
       must_be_greater_than: "Debe ser mayor a %{distance} Km"
+    autocomplete:
+      must_pick_one: "Debe seleccionar una %{attr} existente."
   view:
     buildings:
       collections:

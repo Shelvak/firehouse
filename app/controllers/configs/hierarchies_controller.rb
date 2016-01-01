@@ -70,4 +70,12 @@ class Configs::HierarchiesController < ApplicationController
 
     redirect_to configs_hierarchies_url
   end
+
+  def autocomplete_for_hierarchy_name
+    hierarchies = Hierarchy.filtered_list(params[:q]).limit(5)
+
+    respond_to do |format|
+      format.json { render json: hierarchies }
+    end
+  end
 end

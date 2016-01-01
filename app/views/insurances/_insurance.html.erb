@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(insurance) %>">
   <td><%= insurance.company %></td>
   <td><%= insurance.policy_number %></td>
-  <td><%= insurance.valid_until.strftime('%d/%m/%y') if insurance.valid_until %></td>
+  <td><%= l insurance.valid_until if insurance.valid_until %></td>
   <td><%= link_to_edit ['edit', type, insurance],
                        remote: true, data: { target: 'modal', modal: true } %>
     <%= link_to_destroy [type, insurance],

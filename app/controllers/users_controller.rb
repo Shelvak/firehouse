@@ -105,14 +105,6 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def autocomplete_for_hierarchy_name
-    hierarchies = Hierarchy.filtered_list(params[:q]).limit(5)
-
-    respond_to do |format|
-      format.json { render json: hierarchies }
-    end
-  end
-
   def autocomplete_for_user_name
     users = User.filtered_list(params[:q]).limit(5)
 

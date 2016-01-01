@@ -3,12 +3,14 @@
     <h2><%= @intervention.type %> - <%= t('activerecord.models.mobile_intervention.one') %> </h2>
     <p>
       <strong><%= MobileIntervention.human_attribute_name :received_at %></strong>:
-      <%= @intervention.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
+      <%= l @intervention.created_at, format: :minimal %>
     </p>
-    <p>
-      <strong><%= MobileIntervention.human_attribute_name :activated_at %></strong>:
-      <%= @intervention.alerts.first.created_at.strftime('%d/%m/%Y - %H:%MHs.') %>
-    </p>
+    <% if (alerts = @intervention.alerts).any? %>
+      <p>
+        <strong><%= MobileIntervention.human_attribute_name :activated_at %></strong>:
+        <%= l alerts.first.created_at, format: :minimal %>
+      </p>
+    <% end %>
     <%= simple_form_for( [@intervention, @endowment, @mobile_intervention], method: :put) do |f| %>
       <span class="pull-right"><%= f.submit t('view.mobile_interventions.edit_button'),
                                             class: 'btn btn-primary' %></span>

@@ -12,9 +12,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :auto_hierarchy_name
 
-  # Setup accessible (or protected) attributes for your model
-  #attr_accessible :name, :lastname, :email, :password, :password_confirmation,
-  #  :role, :remember_me, :lock_version, :auto_hierarchy_name, :hierarchy_id
 
   # Defaul order
   default_scope -> () { order('lastname ASC') }
@@ -23,6 +20,8 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :name, :lastname, :email, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
+
+  validate :hierarchy_presence, if: -> () { auto_hierarchy_name.present? }
 
   # Relations
   has_many :interventions, foreign_key: 'receptor_id'
@@ -65,5 +64,15 @@ class User < ActiveRecord::Base
   def self.default_receptor
     console = find_by(email: 'console@firehouse.com')
     console.present? ? console : (raise 'Need console user')
+  end
+
+  def hierarchy_presence
+    self.errors.add(
+      :auto_hierarchy_name,
+      I18n.t(
+        'validations.autocomplete.must_pick_one',
+        attr: self.class.human_attribute_name('hierarchy_id').downcase
+      )
+    ) if self.hierarchy_id.blank?
   end
 end

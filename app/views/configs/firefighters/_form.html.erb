@@ -17,7 +17,18 @@
     </div>
     <div class="span6">
       <%= f.input :education_level, collection: Firefighter::EDUCATION_LEVELS %>
-      <%= f.input :hierarchy %>
+      <%= f.label :hierarchy_id %>
+      <%= f.input :auto_hierarchy_name, label: false, input_html: {
+        value: @firefighter.hierarchy, class: 'span5 autocomplete-field',
+        data: {
+          'autocomplete-id-target' => '#firefighter_hierarchy_id',
+          'autocomplete-url' => autocomplete_for_hierarchy_name_configs_hierarchies_path(
+            format: :json
+          )
+        }
+      } %>
+      <%= f.input :hierarchy_id, as: :hidden %>
+
       <%= f.input :role %>
       <%= f.input :is_active_boss %>
       <%= f.input :is_instructor %>
@@ -27,7 +38,7 @@
       <%= f.input :linephone, as: :numeric %>
       <%= f.input :cellphone, as: :numeric %>
       <%= f.input :email %>
-      <%= f.input :number_of_childrens, as: :numeric %>
+      <%= f.input :number_of_children, as: :numeric %>
     </div>
   </div>
   <div class="clearfix"></div>
