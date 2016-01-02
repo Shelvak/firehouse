@@ -151,7 +151,7 @@ class Intervention < ActiveRecord::Base
 
   def default_lights
     lights = intervention_type.lights
-    lights['day'] = (8..19).include?(Time.zone.now.hour)
+    lights['day'] = (8..20).include?(Time.zone.now.hour)
     lights
   end
 
