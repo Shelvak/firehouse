@@ -6,11 +6,6 @@
     <%= mail_to @user.email %>
   </p>
 
-  <p>
-    <%= User.human_attribute_name 'hierarchy_id' %>:
-    <strong><%= @user.hierarchy %></strong>
-  </p>
-
   <% if @user.role %>
     <p>
       <%= User.human_attribute_name 'roles', count: 1 %>:

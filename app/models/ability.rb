@@ -2,34 +2,36 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ? user_rules(user) : default_rules
+    user ? user_rules(user) : nil
   end
 
   def user_rules(user)
     user.roles.each do |role|
       send("#{role}_rules") if respond_to?("#{role}_rules")
     end
-
-    default_rules
   end
 
   def admin_rules
     can :manage, :all
-    can :assign_roles, User
-    can :edit_profile, User
-    can :update_profile, User
   end
 
-  def regular_rules
-    can :manage, :all
-    can :read, :all
-    can :create, :all
-    can :update, :all
+  def firefighter_rules
+    can :manage, [
+      MobileIntervention, Endowment, EndowmentLine, Building,
+      Informer, Insurance, Person, Relative, Support, Vehicle
+    ]
+    can :activate, Sco
+    can :map, Intervention
+    can :special_sign, Intervention
+    can :create, Intervention
+    can :update, Intervention
+    can :read, [
+      Intervention, Sco, InterventionType, Firefighter, Truck
+    ]
     can :edit_profile, User
     can :update_profile, User
-  end
-
-  def default_rules
-    can :read, :all
+    can do |action, subject_class, subject|
+      action.match(/autocomplete_for_(\w+)_name/)
+    end
   end
 end

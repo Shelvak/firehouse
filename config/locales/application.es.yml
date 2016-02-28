@@ -581,7 +581,8 @@ es:
       profile_correctly_updated: "Actualizaste tus datos correctamente."
       roles:
         admin: "Administrador"
-        regular: "Normal"
+        firefighter: "Bombero"
+        reporter: "Reportes"
       show_title: "Detalle de usuario"
       stale_object_error: "El usuario no pudo ser actualizado, intente nuevamente."
       update_password: "Actualizar contraseña"

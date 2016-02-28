@@ -17,18 +17,6 @@
           <label><%= User.human_attribute_name 'roles', count: 1 %></label>
           <%= show_user_roles_options(f) %>
         <% end %>
-
-        <%= f.label :hierarchy_id %>
-        <%= f.input :auto_hierarchy_name, label: false, input_html: {
-          value: @user.hierarchy, class: 'span5 autocomplete-field',
-          data: {
-            'autocomplete-id-target' => '#user_hierarchy_id',
-            'autocomplete-url' => autocomplete_for_hierarchy_name_configs_hierarchies_path(
-              format: :json
-            )
-          }
-        } %>
-        <%= f.input :hierarchy_id, as: :hidden %>
       </div>
     </div>
   </div>

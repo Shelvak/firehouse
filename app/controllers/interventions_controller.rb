@@ -2,7 +2,6 @@ class InterventionsController < ApplicationController
   before_filter :authenticate_user!, except: [:console_create]
   before_filter :active_sco?, only: [:new, :edit]
 
-  #skip_authorization_check only: [:console_create]
   check_authorization except: [:console_create]
   load_and_authorize_resource except: [:console_create]
 
