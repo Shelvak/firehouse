@@ -1,0 +1,67 @@
+<h2><%= @intervention %></h2>
+
+<div class='row-fluid'>
+  <div class='span5'>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'call_at' %></strong>:
+      <%= l(@intervention.created_at) %>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
+      <%= link_to @intervention.user, user_path(@intervention.receptor_id) %>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'address' %></strong>:
+      <span data-intervention="address"><%= @intervention.address %></span>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
+      <%= @intervention.near_corner %>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
+      <%= @intervention.kind_notes %>
+    </p>
+
+    <%= render 'informer_show' %>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th colspan="2"><%= Intervention.human_attribute_name 'alerts' %>:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @alerts.each_with_index do |a, i| %>
+          <tr><td><%= i + 1 %> </td><td><%= l(a.created_at) %></td></tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class='span7'>
+    <div id="map_canvas" class="google-map"></div>
+  </div>
+</div>
+<br/>
+<p>
+  <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
+  <%= simple_format @intervention.observations %>
+</p>
+<%= render 'endowment_show' %>
+</div>
+
+<script>
+$(document).ready(function() {
+  <% if @intervention.latitude.present? && @intervention.longitude.present? %>
+    Leaflet.elements.defaultMarkerInfo = {
+        latitude    : '<%= @intervention.latitude %>'
+      , longitude   : '<%= @intervention.longitude %>'
+      , description : '<%= @intervention.address %>'
+      , draggable   : false
+      , isStation   : false
+    }
+    Leaflet.options.shouldDrawRoute = true
+  <% end %>
+  Leaflet.newMap();
+})
+</script>

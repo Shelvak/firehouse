@@ -152,6 +152,7 @@ class Intervention < ActiveRecord::Base
   def default_lights
     lights = intervention_type.lights
     lights['day'] = (8..20).include?(Time.zone.now.hour)
+    lights['priority'] = 1 if intervention_type.emergency?
     lights
   end
 
