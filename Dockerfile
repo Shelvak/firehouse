@@ -1,4 +1,4 @@
-FROM shelvak/ruby:2.1
+FROM firehouse/ruby:2.1
 
 MAINTAINER Néstor Coppi <nestorcoppi@gmail.com>
 

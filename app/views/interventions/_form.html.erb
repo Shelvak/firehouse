@@ -1,5 +1,5 @@
 <%= content_for :js_headers do %>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true" data-turbolinks-track="false"></script>
+      <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.google_api_key %>&libraries=places&sensor=true" data-turbolinks-track="false"></script>
 <% end %>
 
 <%= content_tag :div, t('view.interventions.no_active_ceo'),
@@ -49,7 +49,7 @@
             <div class="row-fluid">
               <div class="span2">
               </div>
-              <div class="span4 hide">
+              <div class="span4">
                 <%= label_tag 'use_sco', 'Usar CEO' %>
                 <%= check_box_tag 'use_sco' %>
               </div>
@@ -67,8 +67,8 @@
                 } %>
 
                 <%= f.input :sco_id, as: :hidden, input_html: {
-                  value: f.object.sco_id || current_sco.try(:id),
-                  data: { intervention_saver: true }
+                   value: f.object.sco_id || current_sco.try(:id),
+                    data: { intervention_saver: true }
                 } %>
               </div>
             </div>
