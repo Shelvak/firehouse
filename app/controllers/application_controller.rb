@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   after_filter -> { expires_now if user_signed_in? }
 
+  helper_method :configs_controller?
+
   rescue_from Exception do |exception|
     begin
       if exception.kind_of? CanCan::AccessDenied
@@ -26,11 +28,15 @@ class ApplicationController < ActionController::Base
     current_user.try(:id)
   end
 
-  # TODO:
+  # TODO: improve params, implement logger
   before_filter :permit_all!
-
   def permit_all!
     params.permit!
+  end
+
+  def configs_controller?
+    # TODO: Find a better way
+    controller_path.to_s.match(/configs\//)
   end
 
   private

@@ -25,20 +25,19 @@ es:
         truck_id: "Móvil Nro"
       endowment_line:
         charge: "Cargo"
-        firefighter_id: "Bombero"
       firefighter:
         address: "Dirección"
         birth_date: "Fecha de nacimiento"
-        blood_type: "Grupo sanguíneo"
         blood_factor: "Factor RH"
+        blood_type: "Grupo sanguíneo"
         cellphone: "Celular"
         city: "Localidad"
         dni: "DNI"
         education_level: "Nivel educativo"
         email: "Email"
+        federation: "Federación"
         firehouse_name: "Cuerpo"
         firstname: "Nombres"
-        federation: "Federación"
         hierarchy: "Jerarquía"
         hierarchy_id: "Jerarquía"
         identification: "Legajo"
@@ -93,11 +92,11 @@ es:
         priority: "Prioridad"
         target: "Destino"
       mobile_intervention:
-        received_at: "Fecha y hora del llamado"
         activated_at: "Fecha y hora de activación"
         labors: "Labores"
         news: "Novedades"
         observations: "Observaciones"
+        received_at: "Fecha y hora del llamado"
       person:
         address: "Dirección"
         age: "Edad"
@@ -111,16 +110,21 @@ es:
         phone_number: "Teléfono"
         relation: "Vínculo"
       relative:
+        alive: "Vive"
         birth_date: "Fecha de nacimiento"
         details: "Observaciones"
         dni: "DNI"
         last_name: "Apellido"
-        alive: "Vive"
         name: "Nombre"
         relation_type: "Vínculo"
       sco:
         current: "Actual"
         full_name: "Nombre y apellido"
+      shift:
+        finish_at: "Salida"
+        kind: "Tipo"
+        notes: "Anotaciones"
+        start_at: "Entrada"
       support:
         driver: "Conductor"
         number: "Número de Móvil"
@@ -174,12 +178,12 @@ es:
       hierarchy:
         one: "Jerarquía"
         other: "Jerarquías"
-      intervention:
-        one: "Intervención"
-        other: "Intervenciones"
       insurance:
         one: "Seguro"
         other: "Seguros"
+      intervention:
+        one: "Intervención"
+        other: "Intervenciones"
       intervention_type:
         one: "Tipo de intervención"
         other: "Tipos de intervenciones"
@@ -202,6 +206,8 @@ es:
   attributes:
     created_at: "Creación"
     updated_at: "Actualización"
+    firefighter: "Bombero"
+    firefighter_id: "Bombero"
   errors:
     access_denied: "No tiene permisos para acceder al contenido"
     title: "Error"
@@ -237,12 +243,12 @@ es:
     confirmation: "¿Está seguro?"
     not_found: "No encontrado"
   validations:
+    autocomplete:
+      must_pick_one: "Debe seleccionar una %{attr} existente."
     date:
       must_be_after: "Debe ser posterior a %{date}"
     distance:
       must_be_greater_than: "Debe ser mayor a %{distance} Km"
-    autocomplete:
-      must_pick_one: "Debe seleccionar una %{attr} existente."
   view:
     buildings:
       collections:
@@ -258,13 +264,9 @@ es:
           apartment: "Departamento"
           booth: "Casilla"
           house: "Casa"
-          ranch: "Rancho"
           multi: "Multifamiliar"
           other: "Otro"
-        ternary_options:
-          affirmative: "Sí"
-          negative: "No"
-          unknown: "Se desconoce"
+          ranch: "Rancho"
         roof_types:
           cardboard: "Chapa cartón"
           gypsum: "Yeso"
@@ -272,6 +274,10 @@ es:
           other: "Otro tipo de techo"
           tile: "Tejas"
           wooden: "Madera-Paja"
+        ternary_options:
+          affirmative: "Sí"
+          negative: "No"
+          unknown: "Se desconoce"
         window_types:
           aluminium: "Aluminio"
           iron: "Acero-hierro"
@@ -295,27 +301,27 @@ es:
       correctly_created: "Bombero agregado correctamente."
       correctly_updated: "Bombero actualizado correctamente."
       edit_title: "Modificar bombero"
+      education_levels:
+        college: "Universitario Completo"
+        elemental: "Primario Completo"
+        highschool: "Secundario Completo"
+        master: "Maestría/Posgrado Completo"
+        none: "Sin Estudios"
+        third_grade: "Terciario Completo"
       empty_index:
         html: 'No se ha creado ningún bombero hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo Bombero</span>'
+      family_relation:
+        brother: "Hermana/o"
+        father: "Padre"
+        mother: "Madre"
+        other: "Otro"
+        politic: "Cónyuge"
+        son: "Hija/o"
       index_title: "Listado de bomberos"
       new: "Nuevo Bombero"
       new_title: "Nuevo bombero"
       show_title: "Detalle de bombero"
       stale_object_error: "El bombero no pudo ser actualizado, intente nuevamente."
-      education_levels:
-        none: "Sin Estudios"
-        elemental: "Primario Completo"
-        highschool: "Secundario Completo"
-        third_grade: "Terciario Completo"
-        college: "Universitario Completo"
-        master: "Maestría/Posgrado Completo"
-      family_relation:
-        mother: "Madre"
-        father: "Padre"
-        politic: "Cónyuge"
-        son: "Hija/o"
-        brother: "Hermana/o"
-        other: "Otro"
     generic:
       all_right: "Todo bien!"
       empty_index:
@@ -334,6 +340,17 @@ es:
       new_title: "Nueva jerarquía"
       show_title: "Detalle de jerarquía"
       stale_object_error: "La jerarquía no pudo ser actualizada, intente nuevamente."
+    insurances:
+      edit: "Editar datos del seguro"
+      messages:
+        correctly_created: "Datos del seguro agregados correctamente"
+        correctly_destroyed: "Datos del seguro eliminados correctamente"
+        correctly_updated: "Datos del seguro modificados correctamente"
+      modal:
+        edit_title: "Editando datos del seguro"
+        new_title: "Agregando datos del seguro"
+        show_title: "Datos del seguro"
+      new: "Agregar datos del seguro"
     intervention_types:
       audio_file: "Archivo: %{name}"
       change_priorities: "Cambiar prioridades"
@@ -378,11 +395,11 @@ es:
         field_fire: "Incendio en campo"
         house_fire: "Incendio en casa"
         industry_fire: "Incendio en industria"
+        its_a_trap: "Persona atrapada"
         motorbike_accident: "Accidente de moto"
         other: "Otros"
         person_rescue: "Rescate a persona"
         truck_accident: "Accidente de camion"
-        its_a_trap: "Persona atrapada"
       map:
         index:
           fullscreen: "Pantalla completa"
@@ -405,6 +422,11 @@ es:
         arrive_updated: "Llegada al hecho actualizada"
         back_not_updated: "Ha habido un problema con la actualización de la vuelta al cuartel"
         back_updated: "Vuelta al cuartel actualizada"
+        fuel_type:
+          gas: "Gas"
+          gasoil: "Gas Oil"
+          hybrid: "Híbrido"
+          naphtha: "Nafta"
         in_not_updated: "Ha habido un problema con la actualización de la llegada al cuartel"
         in_updated: "Llegada al cuartel actualizada"
         types:
@@ -415,27 +437,11 @@ es:
           fast_attack: "Ataque rápido"
           heavy: "Autobomba Pesada &gt; a 3000 hasta 10000 lts"
           hidro_stair: "Escalera/hidro"
-          light:  "Autobomba Liviana &lt;= a 1500 lts"
+          light: "Autobomba Liviana &lt;= a 1500 lts"
           medium: "Autobomba Mediana &gt; a 1500 hasta 3000 lts"
           other: "Otros"
           rescue: "Unidad de Rescate"
           transport: "Unidad de Transporte Carga/Personal"
-        fuel_type:
-          gas: "Gas"
-          gasoil: "Gas Oil"
-          hybrid: "Híbrido"
-          naphtha: "Nafta"
-    insurances:
-      edit: "Editar datos del seguro"
-      messages:
-        correctly_created: "Datos del seguro agregados correctamente"
-        correctly_updated: "Datos del seguro modificados correctamente"
-        correctly_destroyed: "Datos del seguro eliminados correctamente"
-      modal:
-        edit_title: "Editando datos del seguro"
-        new_title: "Agregando datos del seguro"
-        show_title: "Datos del seguro"
-      new: "Agregar datos del seguro"
     lights:
       blue: "Azul"
       day: "Día"
@@ -448,9 +454,9 @@ es:
       stay: "Reposo"
       submit_volume: "Enviar"
       trap: "Titilante"
+      volume: "Volumen"
       white: "Blanco"
       yellow: "Amarillo"
-      volume: "Volumen"
     login:
       forgot_pass: "¿Olvidaste tu contraseña?"
       help: "Ayuda"
@@ -476,8 +482,8 @@ es:
         age: "Edad"
         belongs: "Pertenece"
         dni: "DNI"
-        genre: "Género"
         driver: "Conduce"
+        genre: "Género"
         in_the_place: "En el lugar"
         injuries: "Lesiones"
         link: "Vínculo"
@@ -487,6 +493,25 @@ es:
         phone: "Teléfono"
         responsible: "A cargo"
       vehicles_info: "Vehículos"
+    people:
+      collections:
+        genre:
+          female: "Femenino"
+          male: "Masculino"
+          other: "Otro"
+          unknown: "Se desconoce"
+      correctly_created: "Persona agregada correctamente"
+      correctly_destroyed: "Persona eliminada correctamente"
+      correctly_updated: "Persona actualizada correctamente"
+      edit: "Editar persona"
+      edit_title: "Editando la persona"
+      index_title: "Personas"
+      modal:
+        involved_person: "Persona afectada"
+      new: "Agregar persona"
+      new_title: "Nueva persona"
+      show_title: "Persona"
+      stale_object_error: "La persona no pudo ser actualizada, intente nuevamente."
     relatives:
       correctly_created: "Familiar agregado correctamente"
       correctly_destroyed: "Familiar eliminado correctamente"
@@ -505,25 +530,6 @@ es:
         mother: "Madre"
         other: "Otro"
         son: "Hija/o"
-    people:
-      correctly_created: "Persona agregada correctamente"
-      correctly_destroyed: "Persona eliminada correctamente"
-      correctly_updated: "Persona actualizada correctamente"
-      collections:
-        genre:
-          male: "Masculino"
-          female: "Femenino"
-          other: "Otro"
-          unknown: "Se desconoce"
-      edit: "Editar persona"
-      edit_title: "Editando la persona"
-      index_title: "Personas"
-      modal:
-        involved_person: "Persona afectada"
-      new: "Agregar persona"
-      new_title: "Nueva persona"
-      show_title: "Persona"
-      stale_object_error: "La persona no pudo ser actualizada, intente nuevamente."
     scos:
       activate: "Activar"
       activated: "CEO activado"
@@ -537,6 +543,11 @@ es:
       new_title: "Nuevo CEO"
       show_title: "Detalle de CEO"
       stale_object_error: "El CEO no pudo ser actualizado, intente nuevamente."
+    shifts:
+      kinds:
+        mandatory: "Obligatorio"
+        others: "Otros"
+        voluntary: "Voluntario"
     statuses:
       allowed_statuses:
         cancelled: "Cancelado"

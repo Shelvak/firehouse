@@ -29,6 +29,7 @@ class Firefighter < ActiveRecord::Base
   has_many :endowment_lines, through: :endowment_line_firefighter_relations,
    autosave: true
   has_many :relatives
+  has_many :shifts
 
   # todo: validaciones de tipos
   validates :firstname, :lastname, :identification, presence: true

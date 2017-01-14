@@ -1,0 +1,47 @@
+class Configs::ShiftsController < ApplicationController
+  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+
+  respond_to :html
+
+  def index
+    @shifts = Shift.page(params[:page])
+    respond_with(:configs, @shifts)
+  end
+
+  def show
+    respond_with(:configs, @shift)
+  end
+
+  def new
+    @shift = Shift.new
+    respond_with(:configs, @shift)
+  end
+
+  def edit
+  end
+
+  def create
+    @shift = Shift.new(shift_params)
+    @shift.save
+    respond_with(:configs, @shift)
+  end
+
+  def update
+    @shift.update(shift_params)
+    respond_with(:configs, @shift)
+  end
+
+  def destroy
+    @shift.destroy
+    respond_with(:configs, @shift)
+  end
+
+  private
+    def set_shift
+      @shift = Shift.find(params[:id])
+    end
+
+    def shift_params
+      params.require(:shift).permit(:firefighter_id, :start_at, :finish_at, :kind, :notes)
+    end
+end

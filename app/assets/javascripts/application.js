@@ -14,6 +14,8 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require jquery-customs/jquery-ui-timepicker-addon
+//= require jquery-customs/jquery.ui.datepicker-es
 //= require jquery/tokeninput
 //= require jquery/emuletab
 //= require jquery/textarea-autosize

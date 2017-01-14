@@ -1,0 +1,25 @@
+<div class="readonly-data">
+  <h2><%= @shift %></h2>
+
+  <p>
+    <strong><%= Shift.human_attribute_name 'start_at' %></strong>:
+    <%= locale_if_exist @shift.start_at %>
+  </p>
+  <p>
+    <strong><%= Shift.human_attribute_name 'finish_at' %></strong>:
+    <%= locale_if_exist @shift.finish_at %>
+  </p>
+  <p>
+    <strong><%= Shift.human_attribute_name 'kind' %></strong>:
+    <%= show_shift_kind @shift %>
+  </p>
+  <p>
+    <strong><%= Shift.human_attribute_name 'notes' %></strong>:
+    <%= @shift.notes %>
+  </p>
+
+</div>
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_configs_shift_path(@shift) if can? :update, @shift %> |
+  <%= link_to t('label.list'), configs_shifts_path %>
+</div>

@@ -22,6 +22,9 @@ module ConfigsHelper
     li += content_tag(:li, link_to(
       t('menu.lights'), configs_lights_brightness_path
     ), class: active_nav([configs_lights_brightness_path])) if can?(:read, Light)
+    li += content_tag(:li, link_to(
+      t('menu.shifts'), configs_shifts_path
+    ), class: active_nav_for_controller('shifts')) if can?(:read, Shift)
 
     content_tag(:ul, li.html_safe, class: 'nav nav-tabs')
   end
@@ -34,6 +37,10 @@ module ConfigsHelper
       t('view.intervention_types.priorities'), priorities_configs_intervention_types_path
     ), class: active_nav( [priorities_configs_intervention_types_path])) if can?(:read, :priorities)
     content_tag(:ul, li.html_safe, class: 'nav nav-tabs')
+  end
+
+  def active_nav_for_controller(ctroller)
+    'active' if controller_name == ctroller
   end
 
   def active_nav(urls)

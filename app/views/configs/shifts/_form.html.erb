@@ -1,0 +1,16 @@
+<%= simple_form_for([:configs, @shift]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :firefighter %>
+    <%= f.input :start_at, as: :datetime_picker %>
+    <%= f.input :finish_at, as: :datetime_picker %>
+    <%= select_kind_for_shift(f) %>
+    <%= f.input :notes %>
+  </div>
+
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

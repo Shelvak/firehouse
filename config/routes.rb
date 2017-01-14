@@ -68,6 +68,8 @@ Rails.application.routes.draw do
       get :mini_index, on: :collection
     end
 
+    resources :shifts
+
     match 'lights/brightness', to: 'lights#brightness', via: [:patch, :get]
     patch 'lights/volume', to: 'lights#volume'
   end

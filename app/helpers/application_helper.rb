@@ -120,4 +120,8 @@ module ApplicationHelper
       else            t('view.buildings.collections.ternary_options.unknown')
     end
   end
+
+  def locale_if_exist(datetime)
+    l(datetime) if datetime
+  end
 end

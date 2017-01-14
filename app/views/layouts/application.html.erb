@@ -22,7 +22,10 @@
   <div id="intervention_alert" class="alert alert-error hide">
   </div>
   <div class="container">
-    <div class="content"><%= yield %></div>
+    <div class="content">
+      <%= configs_subnav if configs_controller? %>
+      <%= yield %>
+    </div>
   </div>
 
   <%= render 'shared/notice' if flash.notice %>

@@ -54,7 +54,8 @@ end
       )
       puts "Creado #{file}"
     end
-  rescue
+  rescue => e
     puts "#{file} error..."
+    p e
   end
 end
