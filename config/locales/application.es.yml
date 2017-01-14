@@ -193,6 +193,9 @@ es:
       relatives:
         one: "Familiar"
         other: "Familiares"
+      shift:
+        one: "Turno"
+        other: "Turnos"
       truck:
         one: "Móvil"
         other: "Moviles"
@@ -237,6 +240,7 @@ es:
     lights: "Semáforos"
     new_tab: "&#xe008; Nueva Pestaña"
     scos: "CEOs"
+    shifts: "Turnos"
     trucks: "Moviles"
     users: "Usuarios"
   messages:
@@ -545,9 +549,11 @@ es:
       stale_object_error: "El CEO no pudo ser actualizado, intente nuevamente."
     shifts:
       kinds:
-        mandatory: "Obligatorio"
+        mandatory_guard: "Guardia Obligatoria"
+        volunteer_guard: "Guardia Voluntaria"
+        internal_training: "Capacitación interna"
+        external_training: "Capacitación externa"
         others: "Otros"
-        voluntary: "Voluntario"
     statuses:
       allowed_statuses:
         cancelled: "Cancelado"
