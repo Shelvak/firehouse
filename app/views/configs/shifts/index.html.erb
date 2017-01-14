@@ -20,7 +20,7 @@
               <td><%= shift.firefighter %></td>
               <td><%= locale_if_exist shift.start_at %></td>
               <td><%= locale_if_exist shift.finish_at %></td>
-              <td><%= show_shift_kind(shift) %></td>
+              <td><%= show_shift_kind(shift.kind) %></td>
               <td><%= link_to_show [:configs, shift] %></td>
               <td><%= link_to_edit edit_configs_shift_path(shift) if can? :update, shift %></td>
               <td><%= link_to_destroy [:configs, shift] if can? :destroy, shift %></td>

@@ -9,7 +9,7 @@ module ShiftsHelper
   end
 
   def select_kind_for_shift(form)
-    collection = Shift::KINDS.each_with_index.map do |kind, i|
+    collection = Shift::KINDS.map do |i, kind|
       [_get_translation_for_kind(kind), i]
     end
 

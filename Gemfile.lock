@@ -205,7 +205,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
-    timeliness (0.3.7)
+    timeliness (0.3.8)
     timers (4.0.1)
       hitimes
     turbolinks (2.5.2)
@@ -219,8 +219,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    validates_timeliness (3.0.14)
-      timeliness (~> 0.3.6)
+    validates_timeliness (4.0.2)
+      timeliness (~> 0.3.7)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.2.2)

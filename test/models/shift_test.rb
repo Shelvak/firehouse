@@ -7,42 +7,39 @@ class ShiftTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference ['Shift.count', 'PaperTrail::Version.count'] do
-      @shift = Shift.create(Fabricate.attributes_for(:shift))
-    end 
+      Shift.create!(
+        Fabricate.attributes_for(:shift, firefighter_id: @shift.firefighter_id)
+      )
+    end
   end
-    
+
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Shift.count' do
-        assert @shift.update_attributes(attr: 'Updated')
+        assert @shift.update_attributes(notes: 'Updated')
       end
     end
 
-    assert_equal 'Updated', @shift.reload.attr
+    assert_equal 'Updated', @shift.reload.notes
   end
-    
-  test 'destroy' do 
+
+  test 'destroy' do
     assert_difference 'PaperTrail::Version.count' do
       assert_difference('Shift.count', -1) { @shift.destroy }
     end
   end
-    
+
   test 'validates blank attributes' do
-    @shift.attr = ''
-    
-    assert @shift.invalid?
-    assert_equal 1, @shift.errors.size
-    assert_equal [error_message_from_model(@shift, :attr, :blank)],
-      @shift.errors[:attr]
-  end
-    
-  test 'validates unique attributes' do
-    new_shift = Fabricate(:shift)
-    @shift.attr = new_shift.attr
+    @shift = Shift.new
+    @shift.firefighter = nil
+    @shift.start_at = nil
+    @shift.kind = nil
 
     assert @shift.invalid?
-    assert_equal 1, @shift.errors.size
-    assert_equal [error_message_from_model(@shift, :attr, :taken)],
-      @shift.errors[:attr]
+    assert_equal 3, @shift.errors.size
+    [:firefighter, :start_at, :kind].each do |attr|
+    assert_equal [error_message_from_model(@shift, attr, :blank)],
+      @shift.errors[attr]
+    end
   end
 end

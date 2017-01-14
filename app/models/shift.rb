@@ -1,13 +1,13 @@
 class Shift < ActiveRecord::Base
   has_paper_trail
 
-  KINDS = [
-    'volunteer_guard',
-    'mandatory_guard',
-    'internal_training',
-    'external_training',
-    'others'
-  ]
+  KINDS = {
+    0 => 'volunteer_guard',
+    1 => 'mandatory_guard',
+    2 => 'internal_training',
+    3 => 'external_training',
+    4 => 'others'
+  }
 
   scope :between, ->(start, finish) { where(created_at: start..finish) }
   scope :finished, ->() { where.not(finish_at: nil) }
@@ -16,7 +16,7 @@ class Shift < ActiveRecord::Base
 
   validates :firefighter, :start_at, :kind, presence: true
   validates_datetime :start_at, allow_nil: true, allow_blank: true
-  validates_datetime :start_at, before: :finish,
+  validates_datetime :start_at, before: :finish_at,
     allow_nil: true, allow_blank: true, if: :finish_at_present?
   validates_datetime :finish_at, after: :start_at, allow_nil: true, allow_blank: true
 

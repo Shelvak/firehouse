@@ -28,7 +28,7 @@
     <table class="table table-striped">
       <thead>
         <th><%= Shift.human_attribute_name 'firefighter' %></th>
-        <% Shift::KINDS.each_with_index do |_kind, i| %>
+        <% Shift::KINDS.each do |i, _kind| %>
           <th><%= show_shift_kind i %></th>
         <% end %>
         <th><%= t('view.shifts.reports.total') %></th>
@@ -37,7 +37,7 @@
         <% @shifts_report.each do |report| %>
           <tr>
             <td><%= report.firefighter %></td>
-            <% Shift::KINDS.each_with_index do |kind, i| %>
+            <% Shift::KINDS.each do |i, _kind| %>
               <td><%= related_seconds_if_exist report.kinds[i] %></td>
             <% end %>
             <td><%= related_seconds_if_exist report.total_seconds %></td>

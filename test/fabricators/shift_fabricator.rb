@@ -1,7 +1,7 @@
 Fabricator(:shift) do
-  firefighter { references }
-  start_at { rand(1.year).ago }
-  finish_at { rand(1.year).ago }
-  kind { 100 * rand }
-  notes { Faker::Lorem.sentence }
+  firefighter_id { Fabricate(:firefighter).id }
+  start_at       { rand(100).days.ago }
+  finish_at      { |attr| attr[:start_at] + rand(1..9).hours }
+  kind           { Shift::KINDS.keys.sample }
+  notes          { Faker::Lorem.sentence }
 end

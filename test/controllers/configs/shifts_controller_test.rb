@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ShiftsControllerTest < ActionController::TestCase
+class Configs::ShiftsControllerTest < ActionController::TestCase
 
   setup do
     @shift = Fabricate(:shift)
@@ -29,7 +29,7 @@ class ShiftsControllerTest < ActionController::TestCase
       post :create, shift: Fabricate.attributes_for(:shift)
     end
 
-    assert_redirected_to shift_url(assigns(:shift))
+    assert_redirected_to configs_shift_url(assigns(:shift))
   end
 
   test "should show shift" do
@@ -49,9 +49,9 @@ class ShiftsControllerTest < ActionController::TestCase
   end
 
   test "should update shift" do
-    put :update, id: @shift, 
-      shift: Fabricate.attributes_for(:shift, attr: 'value')
-    assert_redirected_to shift_url(assigns(:shift))
+    put :update, id: @shift,
+      shift: Fabricate.attributes_for(:shift, notes: 'value')
+    assert_redirected_to configs_shift_url(assigns(:shift))
   end
 
   test "should destroy shift" do
@@ -59,6 +59,6 @@ class ShiftsControllerTest < ActionController::TestCase
       delete :destroy, id: @shift
     end
 
-    assert_redirected_to shifts_path
+    assert_redirected_to configs_shifts_path
   end
 end
