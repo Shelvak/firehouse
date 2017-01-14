@@ -125,6 +125,7 @@ es:
         kind: "Tipo"
         notes: "Anotaciones"
         start_at: "Entrada"
+        hours: "Horas"
       support:
         driver: "Conductor"
         number: "Número de Móvil"
@@ -208,9 +209,9 @@ es:
   app_name: "Firehouse"
   attributes:
     created_at: "Creación"
-    updated_at: "Actualización"
     firefighter: "Bombero"
     firefighter_id: "Bombero"
+    updated_at: "Actualización"
   errors:
     access_denied: "No tiene permisos para acceder al contenido"
     title: "Error"
@@ -301,6 +302,11 @@ es:
       new_title: "Nuevo inmueble"
       show_title: "Inmueble"
       stale_object_error: "El inmueble no pudo ser actualizado, intente nuevamente."
+    commons:
+      date_filter:
+        start: "Desde"
+        end: "Hasta"
+        apply: "Aplicar"
     firefighters:
       correctly_created: "Bombero agregado correctamente."
       correctly_updated: "Bombero actualizado correctamente."
@@ -549,11 +555,14 @@ es:
       stale_object_error: "El CEO no pudo ser actualizado, intente nuevamente."
     shifts:
       kinds:
-        mandatory_guard: "Guardia Obligatoria"
-        volunteer_guard: "Guardia Voluntaria"
-        internal_training: "Capacitación interna"
         external_training: "Capacitación externa"
+        internal_training: "Capacitación interna"
+        mandatory_guard: "Guardia Obligatoria"
         others: "Otros"
+        volunteer_guard: "Guardia Voluntaria"
+      reports:
+        title: "Reportes"
+        total: "Total"
     statuses:
       allowed_statuses:
         cancelled: "Cancelado"

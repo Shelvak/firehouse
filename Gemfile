@@ -19,6 +19,7 @@ gem 'SrBuj'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'bugsnag'
+gem 'dotiw'
 
 # Deploy
 gem 'capistrano'

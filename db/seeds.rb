@@ -59,3 +59,6 @@ end
     p e
   end
 end
+
+Light.populate
+puts "Lights configured"

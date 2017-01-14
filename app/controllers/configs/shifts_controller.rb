@@ -36,6 +36,13 @@ class Configs::ShiftsController < ApplicationController
     respond_with(:configs, @shift)
   end
 
+  def reports
+    @from, @to = make_datetime_range(params[:interval])
+    @shifts_report = Shift.reports_between(@from, @to)
+
+    respond_with(@shifts_report)
+  end
+
   private
     def set_shift
       @shift = Shift.find(params[:id])

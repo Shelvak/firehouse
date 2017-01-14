@@ -1,0 +1,52 @@
+<div class='well form-inputs'>
+  <%= simple_form_for :interval, html: { method: :get } do |f| %>
+  <div class='row-fluid'>
+    <div class='span1'>
+      <%= t('view.commons.date_filter.start') %>
+    </div>
+    <div class='span3'>
+      <%= f.input :from, as: :datetime_picker, label: false, input_html: {
+        value: (l(@from, format: :minimal) if @from)
+      } %>
+    </div>
+    <div class='span1'>
+      <%= t('view.commons.date_filter.end') %>
+    </div>
+    <div class='span3'>
+      <%= f.input :to, as: :datetime_picker, label: false, input_html: {
+        value: (l(@to, format: :minimal) if @to)
+      } %>
+    </div>
+    <div class='span4'>
+      <%= f.button :submit, t('view.commons.date_filter.apply'), class: 'btn btn-inverse' %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<% if @shifts_report.any? %>
+    <table class="table table-striped">
+      <thead>
+        <th><%= Shift.human_attribute_name 'firefighter' %></th>
+        <% Shift::KINDS.each_with_index do |_kind, i| %>
+          <th><%= show_shift_kind i %></th>
+        <% end %>
+        <th><%= t('view.shifts.reports.total') %></th>
+      </thead>
+      <tbody>
+        <% @shifts_report.each do |report| %>
+          <tr>
+            <td><%= report.firefighter %></td>
+            <% Shift::KINDS.each_with_index do |kind, i| %>
+              <td><%= related_seconds_if_exist report.kinds[i] %></td>
+            <% end %>
+            <td><%= related_seconds_if_exist report.total_seconds %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+<% end %>
+
+<div class="form-actions">
+
+</div>

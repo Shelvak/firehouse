@@ -4,8 +4,8 @@ module ShiftsHelper
     I18n.t('view.shifts.kinds.' + kind)
   end
 
-  def show_shift_kind(shift)
-    _get_translation_for_kind Shift::KINDS[shift.kind]
+  def show_shift_kind(kind)
+    _get_translation_for_kind Shift::KINDS[kind]
   end
 
   def select_kind_for_shift(form)

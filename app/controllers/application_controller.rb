@@ -39,6 +39,21 @@ class ApplicationController < ActionController::Base
     controller_path.to_s.match(/configs\//)
   end
 
+  def make_datetime_range(parameters = nil)
+    if parameters
+      from_datetime = Timeliness::Parser.parse(
+        parameters[:from], :datetime, zone: :local
+      )
+      to_datetime = Timeliness::Parser.parse(
+        parameters[:to], :datetime, zone: :local
+      )
+    end
+    from_datetime ||= Time.zone.now.at_beginning_of_day
+    to_datetime ||= Time.zone.now
+
+    [from_datetime.to_datetime, to_datetime.to_datetime].sort
+  end
+
   private
 
   # Overwriting the sign_out redirect path method

@@ -124,4 +124,12 @@ module ApplicationHelper
   def locale_if_exist(datetime)
     l(datetime) if datetime
   end
+
+  def related_seconds_if_exist(seconds)
+    if seconds
+      distance_of_time(seconds, accumulate_on: :hours)
+    else
+      '-'
+    end
+  end
 end
