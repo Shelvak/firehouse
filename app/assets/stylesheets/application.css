@@ -18,6 +18,7 @@
 
  *= require common
  *= require common-responsive
+ *= require print
  *= require devise
  *= require interventions
  *= require intervention-types

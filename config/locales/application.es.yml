@@ -122,10 +122,10 @@ es:
         full_name: "Nombre y apellido"
       shift:
         finish_at: "Salida"
+        hours: "Horas"
         kind: "Tipo"
         notes: "Anotaciones"
         start_at: "Entrada"
-        hours: "Horas"
       support:
         driver: "Conductor"
         number: "Número de Móvil"
@@ -303,10 +303,11 @@ es:
       show_title: "Inmueble"
       stale_object_error: "El inmueble no pudo ser actualizado, intente nuevamente."
     commons:
+      between: "Desde %{from} hasta %{to}"
       date_filter:
-        start: "Desde"
-        end: "Hasta"
         apply: "Aplicar"
+        end: "Hasta"
+        start: "Desde"
     firefighters:
       correctly_created: "Bombero agregado correctamente."
       correctly_updated: "Bombero actualizado correctamente."

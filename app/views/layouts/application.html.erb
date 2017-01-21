@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <%= yield :js_headers %>
   <%= javascript_include_tag 'application', data: { 'turbolinks-track' => true } %>
-  <%= stylesheet_link_tag 'application', data: { 'turbolinks-track' => true } %>
+  <%= stylesheet_link_tag 'application', media: 'all', data: { 'turbolinks-track' => true } %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag %>
 </head>
@@ -19,10 +19,12 @@
   <div id="loading_caption" class="alert" style="display: none;">
     <strong><%= t('label.loading') %></strong>
   </div>
-  <div id="intervention_alert" class="alert alert-error hide">
+  <div id="intervention_alert" class="alert alert-error hide not-printable">
   </div>
   <div class="container">
     <div class="content">
+      <%= content_tag(:h1, @title, class: 'print-only') if @title %>
+
       <%= configs_subnav if configs_controller? %>
       <%= yield %>
     </div>

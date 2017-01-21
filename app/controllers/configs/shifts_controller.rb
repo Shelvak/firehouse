@@ -37,6 +37,7 @@ class Configs::ShiftsController < ApplicationController
   end
 
   def reports
+    @title = t('view.shifts.reports.title')
     @from, @to = make_datetime_range(params[:interval])
     @shifts_report = Shift.reports_between(@from, @to)
 
