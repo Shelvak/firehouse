@@ -2,6 +2,7 @@ class Configs::LightsController < ApplicationController
   before_filter :authenticate_user!
 
   def brightness
+    authorize! :brightness, Light
     @title = t('view.intervention_types.index_title')
 
     Light.update_by_kind(lights_params) if request_is_for_update?
@@ -17,6 +18,7 @@ class Configs::LightsController < ApplicationController
   end
 
   def volume
+    authorize! :volume, Light
     volume = params[:volume_changer][:volume].to_i
 
     #TODO: Send to redis_module

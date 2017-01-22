@@ -608,8 +608,13 @@ es:
       profile_correctly_updated: "Actualizaste tus datos correctamente."
       roles:
         admin: "Administrador"
+        bosses: "Jefatura"
         firefighter: "Bombero"
+        officer: "Oficial"
+        radio: "RadioOperador"
         reporter: "Reportes"
+        subofficer: "SubOficial"
+        sysadmin: "Sysadmin"
       show_title: "Detalle de usuario"
       stale_object_error: "El usuario no pudo ser actualizado, intente nuevamente."
       update_password: "Actualizar contraseña"

@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
   include RoleModel
-  roles :admin, :firefighter, :reporter
+  roles *[
+    :admin, :firefighter, :reporter,
+    :bosses, :officer, :subofficer, :radio,
+    :sysadmin, :shifts_admin, :intervention_admin
+  ]
 
   has_paper_trail
 

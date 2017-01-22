@@ -1,7 +1,10 @@
 class Configs::ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   respond_to :html
+
+  check_authorization
+  load_and_authorize_resource
 
   def index
     @shifts = Shift.page(params[:page])

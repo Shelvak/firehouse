@@ -9,5 +9,4 @@ class Vehicle < ActiveRecord::Base
   #  :mobile_intervention_id
 
   validates :damage, :domain, presence: true
-
 end
