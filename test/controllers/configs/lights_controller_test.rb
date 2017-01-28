@@ -6,14 +6,7 @@ class Configs::LightsControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should get unpermitted brightness" do
-    get :brightness
-    assert_redirected_to root_url
-  end
-
   test "should get brightness" do
-    @user.role = :sysadmin
-    @user.save
     get :brightness
     assert_response :success
   end

@@ -28,7 +28,6 @@ class Ability
 
   def admin_rules(user)
     can :manage, :all
-    cannot [:brightness, :volume], Light
   end
 
   def radio_rules(user)
