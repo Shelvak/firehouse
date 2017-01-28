@@ -63,40 +63,40 @@ class Ability
     can :update, intervention_subclasses
   end
 
-  def reporter_roles(user)
+  def reporter_rules(user)
     firefighter_rules(user)
 
     can [:read, :reports], Shift
   end
 
-  def shifts_admin_roles(user)
+  def shifts_admin_rules(user)
     firefighter_rules(user)
 
     can :manage, Shift
   end
 
-  def officer_roles(user)
+  def officer_rules(user)
     firefighter_rules(user)
 
     can :manage, intervention_subclasses + [Intervention]
   end
 
-  def intervention_admin_roles(user)
-    officer_roles(user)
+  def intervention_admin_rules(user)
+    officer_rules(user)
 
     can :manage, [
       Firefighter, Sco, Hierarchy, Truck, InterventionType, User
     ]
   end
 
-  def bosses_roles(user)
-    intervention_admin_roles(user)
+  def bosses_rules(user)
+    intervention_admin_rules(user)
 
     can :manage, Shift
     cannot [:brightness, :volume], Light
   end
 
-  def sysadmin_roles(user)
+  def sysadmin_rules(user)
     can :manage, :all
   end
 end

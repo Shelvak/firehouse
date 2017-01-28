@@ -610,9 +610,11 @@ es:
         admin: "Administrador"
         bosses: "Jefatura"
         firefighter: "Bombero"
+        intervention_admin: 'Admin intervenciones'
         officer: "Oficial"
         radio: "RadioOperador"
         reporter: "Reportes"
+        shifts_admin: "Admin de turnos"
         subofficer: "SubOficial"
         sysadmin: "Sysadmin"
       show_title: "Detalle de usuario"
