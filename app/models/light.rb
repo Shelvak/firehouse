@@ -36,7 +36,7 @@ class Light < ActiveRecord::Base
     def populate
       KINDS.each do |kind|
         COLORS.each do |color|
-          create(kind: kind, color: color)
+          first_or_create(kind: kind, color: color)
         end
       end
     end
