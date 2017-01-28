@@ -57,12 +57,12 @@ var Leaflet = ( function () {
           // Siempre debería existir un marcador al menos, pero lo agregamos por si las dudas
           markers.push(marker)
         }
-      // Cambio popup
-      setPopup(marker, description)
+        // Cambio popup
+        setPopup(marker, description)
 
-      // Bindeo movimiento del marcador
-      bindDrag(marker)
-      Intervention.saveIntervention(false, true)
+        // Bindeo movimiento del marcador
+        bindDrag(marker)
+        Intervention.saveIntervention(false, true)
     }
     , setPopup = function (marker, description) {
         var popupText
@@ -99,9 +99,10 @@ var Leaflet = ( function () {
         var station  = L.latLng(MapUtils.station.latitude, MapUtils.station.longitude)
           , newPoint = L.latLng(parseFloat(latitude), parseFloat(longitude))
           , bounds   = [
-                [station.lat,  station.lng ]
+                [station.lat,  station.lng]
               , [newPoint.lat, newPoint.lng]
             ]
+
         if (Leaflet.elements.route) {
           Leaflet.elements.route.setWaypoints([station, newPoint])
         }
@@ -196,8 +197,11 @@ var Leaflet = ( function () {
                   , marker    = Leaflet.elements.markers[index]
                   , latitude  = marker._latlng.lat
                   , longitude = marker._latlng.lng
+
                 marker.openPopup()
-                drawRoute(latitude, longitude)
+                // temporal fix
+                Leaflet.elements.map.setView(marker._latlng, 17, {animation: true});
+                // drawRoute(latitude, longitude)
               })
             }
           }
