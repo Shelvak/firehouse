@@ -20,7 +20,7 @@ jQuery(function($){
 		showMonthAfterYear: false,
 		yearSuffix: ''};
 	$.datepicker.setDefaults($.datepicker.regional['es']);
-        
+
         /* Spanish translation for the jQuery Timepicker Addon */
         /* Written by Ianaré Sévi */
         $.timepicker.regional['es'] = {
@@ -33,7 +33,7 @@ jQuery(function($){
 		timezoneText: 'Huso horario',
 		currentText: 'Ahora',
 		closeText: 'Cerrar',
-		timeFormat: 'hh:mm',
+		timeFormat: 'HH:mm',
 		amNames: ['a.m.', 'AM', 'A'],
 		pmNames: ['p.m.', 'PM', 'P'],
 		ampm: false
