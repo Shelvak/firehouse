@@ -7,7 +7,7 @@ class Configs::ShiftsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @shifts = Shift.page(params[:page])
+    @shifts = shift_scope.page(params[:page])
     respond_with(:configs, @shifts)
   end
 
@@ -16,7 +16,7 @@ class Configs::ShiftsController < ApplicationController
   end
 
   def new
-    @shift = Shift.new
+    @shift = shift_scope.new
     respond_with(:configs, @shift)
   end
 
@@ -24,7 +24,7 @@ class Configs::ShiftsController < ApplicationController
   end
 
   def create
-    @shift = Shift.new(shift_params)
+    @shift = shift_scope.new(shift_params)
     @shift.save
     respond_with(:configs, @shift)
   end
@@ -49,7 +49,15 @@ class Configs::ShiftsController < ApplicationController
 
   private
     def set_shift
-      @shift = Shift.find(params[:id])
+      @shift = shift_scope.find(params[:id])
+    end
+
+    def shift_scope
+      if can?(:manage, Shift) || can?(:reports, Shift)
+        Shift.all
+      else
+        current_user.firefighter.shifts
+      end
     end
 
     def shift_params

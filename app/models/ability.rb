@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  intervention_subclasses = [
+  INTERVENTION_SUBCLASSES = [
     MobileIntervention, Endowment, EndowmentLine, Building,
     Informer, Insurance, Person, Relative, Support, Vehicle
   ]
@@ -17,6 +17,7 @@ class Ability
   end
 
   def initialize(user)
+    puts "initialized madafaca"
     user ? user_rules(user) : nil
   end
 
@@ -27,16 +28,21 @@ class Ability
   end
 
   def admin_rules(user)
+    puts "Admin rules"
     can :manage, :all
   end
 
   def radio_rules(user)
-    can :manage, intervention_subclasses
-    can [:destroy, :update], intervention_subclasses do |instance|
-      instance.created_at <= MAX_PERMITTED_HANDLE_DAYS.days.ago
+    puts "Radio rules"
+    can [:create, :read], INTERVENTION_SUBCLASSES
+    can [:destroy, :update], INTERVENTION_SUBCLASSES do |instance|
+      instance.created_at >= MAX_PERMITTED_HANDLE_DAYS.days.ago
     end
     can :activate, Sco
-    can [:map, :special_sign, :create, :update, :read], Intervention
+    can [:map, :special_sign, :create], Intervention
+    can [:update, :read], Intervention do |intervention|
+      intervention.created_at >= MAX_PERMITTED_HANDLE_DAYS.days.ago
+    end
     can :read, [
       Sco, InterventionType, Firefighter, Truck
     ]
@@ -45,42 +51,54 @@ class Ability
       action.match(/autocomplete_for_(\w+)_name/)
     end
 
-    can :read, Shift, user_id: user.id
     can :create, Shift
+    can :read, Shift do |shift|
+      shift.firefighter.user_id == user.id
+    end
     can :update, Shift do |shift|
-      shift.user_id == user.id && shift.created_at <= 2.days.ago
+      shift.firefighter.user_id == user.id && shift.created_at >= 2.days.ago
     end
   end
 
   def firefighter_rules(user)
+    puts "Firefighter rules"
     radio_rules(user)
+    can :destroy, Intervention do |intervention|
+      intervention.created_at >= MAX_PERMITTED_HANDLE_DAYS.days.ago
+    end
   end
 
   def subofficer_rules(user)
+    puts "Subofficer rules"
     firefighter_rules(user)
 
-    can :update, intervention_subclasses
+    can :update, INTERVENTION_SUBCLASSES
   end
 
   def reporter_rules(user)
+    puts "reporter rules"
     firefighter_rules(user)
 
+    can :read, Intervention
     can [:read, :reports], Shift
   end
 
   def shifts_admin_rules(user)
+    puts "Shift rules"
     firefighter_rules(user)
 
     can :manage, Shift
   end
 
   def officer_rules(user)
+    puts "officer_rules"
     firefighter_rules(user)
 
-    can :manage, intervention_subclasses + [Intervention]
+    can :manage, INTERVENTION_SUBCLASSES + [Intervention]
   end
 
   def intervention_admin_rules(user)
+    puts "intervention rules"
     officer_rules(user)
 
     can :manage, [
@@ -89,6 +107,7 @@ class Ability
   end
 
   def bosses_rules(user)
+    puts "bosses rules"
     intervention_admin_rules(user)
 
     can :manage, Shift
@@ -96,6 +115,7 @@ class Ability
   end
 
   def sysadmin_rules(user)
+    puts "Sysadmin rules"
     can :manage, :all
   end
 end

@@ -40,5 +40,5 @@
     new_configs_shift_path, class: 'btn btn-primary'
   ) if can? :create, Shift %>
   <%=  link_to t('view.shifts.reports.title'), reports_configs_shifts_path,
-      class: 'btn btn-info' %>
+      class: 'btn btn-info' if can? :reports, Shift %>
 </div>

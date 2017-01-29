@@ -14,6 +14,8 @@
     <%= render partial: 'configs/relatives/relative', collection: @relatives  %>
   </tbody>
 </table>
-<p><%= link_to t('view.relatives.new'), [:new, :configs, @firefighter, :relative],
-               class: 'btn btn-primary', remote: true,
-               data: { target: 'modal', modal: true } %></p>
+<p><%= link_to(
+  t('view.relatives.new'), [:new, :configs, @firefighter, :relative],
+  class: 'btn btn-primary', remote: true,
+  data: { target: 'modal', modal: true }
+) if can?(:update, @firefighter) %></p>

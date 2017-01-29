@@ -22,7 +22,9 @@ class User < ActiveRecord::Base
     allow_blank: true
 
   # Relations
+  has_one :firefighter
   has_many :interventions, foreign_key: 'receptor_id'
+  has_many :shifts, through: :firefighter
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)

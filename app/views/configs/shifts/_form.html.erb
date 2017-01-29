@@ -2,7 +2,9 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :firefighter %>
+    <%= f.association :firefighter,
+      input_html: { disabled:  cannot?(:manage, Shift) } %>
+
     <%= f.input :start_at, as: :datetime_picker %>
     <%= f.input :finish_at, as: :datetime_picker %>
     <%= select_kind_for_shift(f) %>

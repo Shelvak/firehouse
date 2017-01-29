@@ -19,7 +19,7 @@
               <td><%= intervention.id %></td>
               <td><%= intervention.type %></td>
               <td><%= intervention.user %></td>
-              <td><%= link_to_show intervention %></td>
+              <td><%= link_to_show(intervention) if can? :read, intervention %></td>
               <td><%= link_to_edit(
                 edit_intervention_path(intervention)
               ) if can? :update, intervention %></td>

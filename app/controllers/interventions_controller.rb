@@ -9,7 +9,7 @@ class InterventionsController < ApplicationController
   # GET /interventions.json
   def index
     @title = t('view.interventions.index_title')
-    @interventions = Intervention.includes(:intervention_type)
+    @interventions = intervention_scope.includes(:intervention_type)
                        .order(created_at: :desc).page(params[:page])
   end
 
@@ -17,7 +17,7 @@ class InterventionsController < ApplicationController
   # GET /interventions/1.json
   def show
     @title = t('view.interventions.show_title')
-    @intervention = Intervention.find(params[:id])
+    @intervention = intervention_scope.find(params[:id])
     @alerts = @intervention.alerts.order(:created_at)
   end
 
@@ -25,20 +25,20 @@ class InterventionsController < ApplicationController
   # GET /interventions/new.json
   def new
     @title = t('view.interventions.new_title')
-    @intervention = Intervention.new
+    @intervention = intervention_scope.new
   end
 
   # GET /interventions/1/edit
   def edit
     @title = t('view.interventions.edit_title')
-    @intervention = Intervention.find(params[:id])
+    @intervention = intervention_scope.find(params[:id])
   end
 
   # POST /interventions
   # POST /interventions.json
   def create
     @title = t('view.interventions.new_title')
-    @intervention = Intervention.new(params[:intervention])
+    @intervention = intervention_scope.new(params[:intervention])
 
     if @intervention.save
       @intervention.statuses.build(user_id: current_user.id).save
@@ -56,7 +56,7 @@ class InterventionsController < ApplicationController
   # PUT /interventions/1.json
   def update
     @title = t('view.interventions.edit_title')
-    @intervention = Intervention.find(params[:id])
+    @intervention = intervention_scope.find(params[:id])
     html_request = request.format.html?
 
     if @intervention.update(params[:intervention]) && html_request
@@ -71,7 +71,7 @@ class InterventionsController < ApplicationController
 
   # no deberiamos tener deletes.
   def destroy
-    @intervention = Intervention.find(params[:id])
+    @intervention = intervention_scope.find(params[:id])
     @intervention.turn_off_alert
     @intervention.destroy
 
@@ -112,11 +112,11 @@ class InterventionsController < ApplicationController
 
   def map
     @title = t('view.interventions.map.index.title')
-    @interventions = Intervention.includes(:statuses).where(statuses: { name: 'open' })
+    @interventions = intervention_scope.includes(:statuses).where(statuses: { name: 'open' })
   end
 
   def special_sign
-    @intervention = Intervention.find(params[:id])
+    @intervention = intervention_scope.find(params[:id])
     @intervention.special_sign(params[:sign])
 
     render nothing: true
@@ -132,5 +132,18 @@ class InterventionsController < ApplicationController
 
     def active_sco?
       @no_active_sco = Sco.where(current: true).empty?
+    end
+
+    def intervention_scope
+      case current_user.role
+        when :radio, :firefighter
+          current_user.interventions.where(
+            created_at: MAX_PERMITTED_HANDLE_DAYS.days.ago..Time.zone.now
+          )
+        #when :shifts_admin, :reporter, :subofficer
+        #  current_user.interventions
+        else
+          Intervention.all
+      end
     end
 end
