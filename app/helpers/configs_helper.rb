@@ -26,7 +26,7 @@ module ConfigsHelper
       t('menu.shifts'), configs_shifts_path
     ), class: active_nav_for_controller('shifts')) if can?(:read, Shift)
 
-    content_tag(:ul, li.html_safe, class: 'nav nav-tabs not-printable')
+    content_tag(:ul, li.html_safe, class: 'nav nav-tabs')
   end
 
   def intervention_types_subnav

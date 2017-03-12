@@ -58,6 +58,8 @@ class Ability
     can :update, Shift do |shift|
       shift.firefighter.user_id == user.id && shift.created_at >= 2.days.ago
     end
+
+    can :manage, TrackingMap
   end
 
   def firefighter_rules(user)
@@ -88,6 +90,7 @@ class Ability
     firefighter_rules(user)
 
     can :manage, Shift
+    can :read, User
   end
 
   def officer_rules(user)

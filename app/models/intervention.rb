@@ -9,7 +9,7 @@ class Intervention < ActiveRecord::Base
   before_validation :assign_endowment_number, :validate_truck_presence
   after_create :send_first_alert!, :play_intervention_audio!,
     if: -> (i) { i.intervention_type.emergency? }
-  after_save :endowment_alert_changer, :assign_mileage_to_trucks
+  after_save :endowment_alert_changer, :assign_mileage_to_trucks, :intervention_type_changed_tasks
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
@@ -284,5 +284,15 @@ protected
 
   def trucks_numbers
     endowments.map { |endowment| endowment.truck.number if endowment.truck }.uniq
+  end
+
+  def intervention_type_changed_tasks
+    if self.intervention_type_id_changed?
+      lights = default_lights
+      lights['trap'] = true if self.its_a_trap
+
+      save_lights_on_redis(lights)
+      send_lights
+    end
   end
 end

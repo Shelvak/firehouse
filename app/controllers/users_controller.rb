@@ -10,6 +10,10 @@ class UsersController < ApplicationController
   def index
     @title = t 'view.users.index_title'
     @searchable = true
+    # Stupid cancan bug
+    if !@users && can?(:read, User)
+      @users = User.all
+    end
     @users = @users.filtered_list(params[:q]).page(params[:page])
 
     respond_to do |format|
