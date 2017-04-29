@@ -41,7 +41,6 @@ class InterventionsController < ApplicationController
     @intervention = intervention_scope.new(params[:intervention])
 
     if @intervention.save
-      @intervention.statuses.build(user_id: current_user.id).save
       if request.format.html?
         redirect_to @intervention, notice: t('view.interventions.correctly_created')
       else
@@ -112,7 +111,7 @@ class InterventionsController < ApplicationController
 
   def map
     @title = t('view.interventions.map.index.title')
-    @interventions = intervention_scope.includes(:statuses).where(statuses: { name: 'open' })
+    @interventions = intervention_scope.opened
   end
 
   def special_sign

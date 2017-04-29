@@ -1,4 +1,4 @@
-<ul id="markers-data" class="unstyled markers-list <%= 'hide' unless interventions_list %>">
+<ol id="markers-data" class="unstyled markers-list <%= 'hide' unless interventions_list %>">
   <% @interventions.each do |intervention| %>
     <li
       data-marker-address="<%= intervention.to_s %>"
@@ -8,4 +8,4 @@
       <%= intervention.to_s if interventions_list %>
     </li>
   <% end %>
-</ul>
+</ol>

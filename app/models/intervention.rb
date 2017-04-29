@@ -7,6 +7,7 @@ class Intervention < ActiveRecord::Base
   validates :intervention_type_id, presence: true
 
   before_validation :assign_endowment_number, :validate_truck_presence
+  before_validation :update_status
   after_create :send_first_alert!, :play_intervention_audio!,
     if: -> (i) { i.intervention_type.emergency? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks, :intervention_type_changed_tasks
@@ -18,9 +19,8 @@ class Intervention < ActiveRecord::Base
   has_one :mobile_intervention
   has_many :alerts
   has_many :endowments
-  has_many :statuses, as: :trackeable
 
-  scope :opened, -> { includes(:statuses).where(statuses: { name: 'open' }) }
+  scope :opened, -> { where.not(status: :finished) }
 
   accepts_nested_attributes_for :informer,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
@@ -252,7 +252,11 @@ class Intervention < ActiveRecord::Base
   end
 
   def finished?
-    self.endowments.all? { |e| e.in_at.present? }
+    self.status == 'finished'
+  end
+
+  def endowment_back?
+    self.endowments.any? { |e| e.in_at.present? }
   end
 
   def play_intervention_audio!
@@ -274,6 +278,12 @@ protected
 
       save_lights_on_redis(lights)
       send_lights
+    end
+  end
+
+  def update_status
+    case
+      when !self.finished? && self.endowment_back? then self.status = 'finished'
     end
   end
 end

@@ -185,6 +185,7 @@ var Leaflet = ( function () {
               , shouldBindRoutDrawing = Leaflet.options.shouldShowGeneralMap && !Leaflet.options.shouldMakeFullScreen
 
             arrayOfLatLngs[i]               = [intervention.latitude, intervention.longitude]
+
             Leaflet.elements.markers[i]     = marker
             htmlElement.dataset.markerIndex = Leaflet.elements.markers.length - 1
             //Guardo en el html el indice que corresponde al array de marcadores para poderlo leer despues en el evento click
@@ -225,12 +226,19 @@ var Leaflet = ( function () {
     , getSpecialTiles = function (options, shouldShowMarkersLayer) {
         var tileset       = MapTiles.special
           , openfire      = new L.TileLayer(tileset.openfire, options)
-          , markersLayer  = L.layerGroup(Leaflet.elements.markers)
+          , markersLayer  = L.layerGroup([])
+          , cleanMarkers  = []
           , specialTiles  = {
               'Mostrar Hidrantes' : openfire
             }
 
+        // some markers are undefined and layerGroup raise...
+        // for (var i=0; i<Leaflet.elements.markers.length; ++i) {
+        //     if (Leaflet.elements.markers[i])
+        //         cleanMarkers.push(Leaflet.elements.markers[i])
+        // }
 
+        markersLayer = L.layerGroup([]);
         if (shouldShowMarkersLayer) specialTiles['Mostrar Marcadores'] = markersLayer
 
         Leaflet.elements.map.addLayer(markersLayer)

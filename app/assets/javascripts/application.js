@@ -28,8 +28,8 @@
 
 // Own
 //= require inspector
-//= require turboevents
-//= require turbolinks
+// require turboevents
+// require turbolinks
 //= require autocomplete
 //= require common
 //= require date_pickers
