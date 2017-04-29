@@ -101,25 +101,6 @@ class Intervention < ActiveRecord::Base
     "#{type}: #{address}"
   end
 
-  def popup_description(index = nil)
-    base_i18n_key = 'view.interventions.map.marker_popup'
-    popup_params  = { type: type, address: address }
-    popup_type    = '.common'
-
-    if index
-      index               += 1
-      popup_params[:index] = index
-      popup_type           = '.with_index'
-
-      if trucks_numbers.any?
-        popup_type            = '.with_truck'
-        popup_params[:trucks] = trucks_numbers
-      end
-    end
-
-    I18n.t(base_i18n_key + popup_type, popup_params)
-  end
-
   def special_sign(sign)
     case sign.to_s
       when 'alert' then reactivate!

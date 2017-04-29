@@ -8,11 +8,13 @@
       <%= link_to t('view.interventions.map.index.fullscreen'),
                   fullscreen_path, class: 'btn', target: :blank %>
     </h1>
-    <div class="span2">
-      <%= render partial: 'tracking_maps/general_map_objects', locals: { interventions_list: true } %>
-    </div>
-    <div class="span9">
-      <div id="map_canvas" class="map-large"></div>
+    <div class="row-fluid">
+      <div class="span2">
+        <%= render partial: 'tracking_maps/general_map_objects', locals: { interventions_list: true } %>
+      </div>
+      <div class="span10">
+        <div id="map_canvas" class="map-large"></div>
+      </div>
     </div>
   </div>
   <div class="form-actions">

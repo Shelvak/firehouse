@@ -1,13 +1,11 @@
-<ol id="markers-data" class="markers-list <%= 'hide' unless interventions_list %>">
-  <% @interventions.each_with_index do |intervention, index| %>
+<ul id="markers-data" class="unstyled markers-list <%= 'hide' unless interventions_list %>">
+  <% @interventions.each do |intervention| %>
     <li
-      data-marker-address="<%= intervention.popup_description(index) %>"
+      data-marker-address="<%= intervention.to_s %>"
       data-marker-latitude="<%= intervention.latitude %>"
       data-marker-longitude="<%= intervention.longitude %>"
     >
-      <% if interventions_list %>
-        <%= intervention.formatted_description %>
-      <% end %>
+      <%= intervention.to_s if interventions_list %>
     </li>
   <% end %>
-</ol>
+</ul>
