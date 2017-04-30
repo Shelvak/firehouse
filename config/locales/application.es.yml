@@ -543,7 +543,9 @@ es:
         son: "Hija/o"
     scos:
       activate: "Activar"
+      desactivate: "Desactivar"
       activated: "CEO activado"
+      desactivated: "CEO desactivado"
       correctly_created: "CEO agregado correctamente."
       correctly_updated: "CEO actualizado correctamente."
       correctly_destroyed: "CEO eliminado correctamente."

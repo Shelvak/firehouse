@@ -83,11 +83,17 @@ class Configs::ScosController < ApplicationController
                t('view.scos.stale_object_error')
              end
 
-    redirect_to :back, notice: notice
+    redirect_to configs_scos_url, notice: notice
   end
 
-  def mini_index
-    @title = t('view.scos.index_title')
-    @scos = Sco.order('current DESC')
+  def desactivate
+    sco = Sco.find(params[:id])
+    notice = if sco.desactivate!
+               t('view.scos.desactivated')
+             else
+               t('view.scos.stale_object_error')
+             end
+
+    redirect_to configs_scos_url, notice: notice
   end
 end

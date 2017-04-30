@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     end
     resources :scos do
       put :activate, on: :member
-      get :mini_index, on: :collection
+      put :desactivate, on: :member
     end
 
     resources :shifts do
