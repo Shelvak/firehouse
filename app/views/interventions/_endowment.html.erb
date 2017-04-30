@@ -1,7 +1,7 @@
-<% i ||= nil %>
-<% id = i || 'dynamicContent' %>
+<% i = f.try(:index) %>
+<% id = f.object.try(:number) || 'dynamicContent' %>
 
-<div class="tab-pane <%= 'active' if i == 1 %>"
+<div class="tab-pane <%= 'active' if i == 0 %>"
   id="endowments_<%= id %>" data-endowment-item="true">
   <fieldset>
     <div class='row-fluid'>

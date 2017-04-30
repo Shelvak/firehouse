@@ -34,7 +34,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'bootstrap-colorpicker-rails'
-gem 'pry-nav'
+gem 'byebug'
 
 group :development do
   gem 'thin'

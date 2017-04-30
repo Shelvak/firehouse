@@ -109,34 +109,22 @@
       <div class='row-fluid'>
         <div class='tabbable' data-endowments-items>
           <ul class="nav nav-tabs">
-            <li class="active">
-              <%= link_to(
-                1, '#endowments_1',
-                class: 'js-change-tab',
-                data: { toggle: 'tab', 'endowment-link' => true, number: 1 }
-              ) %>
-            </li>
-              <% if (count = f.object.endowments.size) > 1 %>
-                <% i = 1 %>
-                <% (count - 1).times do %>
-                  <% i += 1 %>
-                  <li>
-                    <%= link_to i, "#endowments_#{i}",
-                      class: 'js-change-tab',
-                      data: { toggle: 'tab', 'endowment-link' => true, number: i, target: "#endowments_#{i}"} %>
-                  </li>
-                <% end %>
-              <% end %>
+            <% f.object.endowments.each_with_index do |e, i| %>
+              <li class="<%= 'active' if i.zero? %>">
+                <%= link_to e.number, "#endowments_#{e.number}",
+                  class: 'js-change-tab',
+                  data: { toggle: 'tab', 'endowment-link' => true, number: e.number, target: "#endowments_#{e.number}"} %>
+              </li>
+            <% end %>
             <%= link_to(
               '&#xe008;'.html_safe, '#',
               id: 'add_new_endowment', class: 'iconic'
             ) %>
           </ul>
           <div class="tab-content">
-            <% i = 0 %>
             <% @intervention.endowments.build if @intervention.endowments.empty? %>
             <%= f.simple_fields_for :endowments do |e| %>
-              <%= render partial: 'endowment', locals: { f: e, i: (i += 1) } %>
+              <%= render partial: 'endowment', locals: { f: e } %>
             <% end %>
           </div>
         </div>

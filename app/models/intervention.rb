@@ -6,8 +6,7 @@ class Intervention < ActiveRecord::Base
 
   validates :intervention_type_id, presence: true
 
-  before_validation :assign_endowment_number, :validate_truck_presence
-  before_validation :update_status
+  before_validation :validate_truck_presence, :assign_endowment_number, :update_status
   after_create :send_first_alert!, :play_intervention_audio!,
     if: -> (i) { i.intervention_type.emergency? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks, :intervention_type_changed_tasks
@@ -90,11 +89,16 @@ class Intervention < ActiveRecord::Base
   end
 
   def validate_truck_presence
+    not_empty = []
     self.endowments.each do |e|
-      if e.truck_id.blank? || e.truck_number.blank?
-        e.errors.add :truck_number, :blank
+      if e.truck_id.present? || e.truck_number.present? ||
+          e.endowment_lines.any? { |el| el.firefighters_names.present? }
+
+        not_empty << e
       end
     end
+
+    self.endowments = not_empty
   end
 
   def formatted_description
