@@ -1,7 +1,7 @@
 class Firefighter < ActiveRecord::Base
+  include PgSearch
   has_paper_trail
-  has_magick_columns identification: :integer, firstname: :string,
-    lastname: :string
+  pg_search_scope :unicode_search, against: [:identification, :firstname, :lastname], ignoring: :accents
 
   STATES = [
       'Ciudad Autonoma de Buenos Aires', 'Provincia de Buenos Aires',
@@ -57,7 +57,7 @@ class Firefighter < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    query.present? ? unicode_search(query) : all
   end
 
   def hierarchy_presence

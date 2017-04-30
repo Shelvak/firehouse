@@ -276,7 +276,7 @@ protected
   end
 
   def intervention_type_changed_tasks
-    if self.intervention_type_id_changed?
+    if self.intervention_type_id_changed? && self.intervention_type_id_was.present?
       lights = default_lights
       lights['trap'] = true if self.its_a_trap
 

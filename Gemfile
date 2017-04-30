@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.8'
 
 gem 'pg'
+gem 'pg_search'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
