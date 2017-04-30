@@ -71,6 +71,8 @@ class Configs::ScosController < ApplicationController
   def destroy
     @sco = Sco.find(params[:id])
     @sco.destroy
+
+    redirect_to configs_scos_url, notice: t('view.scos.correctly_destroyed')
   end
 
   def activate

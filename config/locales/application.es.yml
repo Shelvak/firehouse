@@ -546,6 +546,7 @@ es:
       activated: "CEO activado"
       correctly_created: "CEO agregado correctamente."
       correctly_updated: "CEO actualizado correctamente."
+      correctly_destroyed: "CEO eliminado correctamente."
       edit_title: "Modificar CEO"
       empty_index:
         html: 'No se ha creado ningún CEO hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo CEO</span>'
