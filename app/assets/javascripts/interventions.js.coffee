@@ -1,5 +1,10 @@
 window.Intervention =
+  lastFocusedTab: null
   lastFocusedInput: null
+
+  focusLastTab: ->
+    if Intervention.lastFocusedTab
+      $("[href=\"#{Intervention.lastFocusedTab}\"]").click()
 
   focusLastFocusedInput: ->
     if Intervention.lastFocusedInput
@@ -30,6 +35,7 @@ window.Intervention =
         success: (data)->
           if $.trim(data)
             $('.content').html(data)
+            Intervention.focusLastTab()
           if updatedPoint
             InterventionUpdater.emitEvent('new intervention')
 
@@ -221,6 +227,12 @@ new Rule
           else
             group_parent.classList.remove('error')
 
+    @map.saveLastActiveTab ||= (e) ->
+      data = e.currentTarget.dataset
+      if data && data.target
+        Intervention.lastFocusedTab = data.target
+
+
 
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
@@ -235,6 +247,7 @@ new Rule
     $(document).off('keypress').on('keypress', '[data-intervention-form="true"]', @map.handleEnterOnInputs)
     $(document).off('click', '[data-intervention-saver="important-button"]').on 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
     $(document).off('change', '[data-intervention-saver]').on 'change', '[data-intervention-saver]', Intervention.saveIntervention
+    $(document).on 'click', '.js-change-tab', @map.saveLastActiveTab
 
   unload: ->
     $(document).off 'click', '#add_new_endowment', @map.addNewTab

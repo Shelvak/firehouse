@@ -112,6 +112,7 @@
             <li class="active">
               <%= link_to(
                 1, '#endowments_1',
+                class: 'js-change-tab',
                 data: { toggle: 'tab', 'endowment-link' => true, number: 1 }
               ) %>
             </li>
@@ -121,7 +122,8 @@
                   <% i += 1 %>
                   <li>
                     <%= link_to i, "#endowments_#{i}",
-                      data: { toggle: 'tab', number: i } %>
+                      class: 'js-change-tab',
+                      data: { toggle: 'tab', 'endowment-link' => true, number: i, target: "#endowments_#{i}"} %>
                   </li>
                 <% end %>
               <% end %>
@@ -164,7 +166,11 @@
     var dynamicTab =
         '<%= content_tag(:li, link_to(
             "dynamicContent", "#endowments_dynamicContent",
-            data: { toggle: 'tab', 'endowment-link' => true, number: "dynamicContent" }
+            class: 'js-change-tab',
+            data: {
+              toggle: 'tab', 'endowment-link' => true,
+              number: "dynamicContent" , target: "#endowments_dynamicContent"
+            }
           )
         ) %>',
       dynamicForm = '<%= link_to_add_fields("+", intervention_form, :endowments) %>',

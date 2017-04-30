@@ -29,12 +29,17 @@
         } %>
       </td>
       <td>
-        <%= f.input :out_mileage, label: false, input_html: {
-          class: 'span12', data: {
-            'ignore-enter' => true,
-            travel_type: 'out_mileage'
-          }
-        } %>
+        <div class="input-append">
+          <%= f.input :out_mileage, label: false, input_html: {
+            class: 'span12', data: {
+              'ignore-enter' => true,
+              travel_type: 'out_mileage'
+            }
+          } do %>
+            <%= f.input_field :out_mileage %>
+            <span class="add-on">Km</span>
+          <% end %>
+        </div>
       </td>
     </tr>
     <tr>
@@ -47,12 +52,17 @@
         <%= f.input :arrive_at, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
       </td>
       <td>
-        <%= f.input :arrive_mileage, label: false, input_html: {
-          class: 'span12', data: {
-            'ignore-enter' => true,
-            travel_type: 'arrive_mileage'
-          }
-        } %>
+        <div class="input-append">
+          <%= f.input :arrive_mileage, label: false, input_html: {
+            class: 'span12', data: {
+              'ignore-enter' => true,
+              travel_type: 'arrive_mileage'
+            }
+          } do %>
+              <%= f.input_field :arrive_mileage %>
+            <span class="add-on">Km</span>
+          <% end %>
+        </div>
       </td>
     </tr>
     <tr>
@@ -65,12 +75,17 @@
         <%= f.input :back_at, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
       </td>
       <td>
-        <%= f.input :back_mileage, label: false, input_html: {
-          class: 'span12', data: {
-            'ignore-enter' => true,
-            travel_type: 'back_mileage'
-          }
-        } %>
+        <div class="input-append">
+          <%= f.input :back_mileage, label: false, input_html: {
+            class: 'span12', data: {
+              'ignore-enter' => true,
+              travel_type: 'back_mileage'
+            }
+          } do %>
+            <%= f.input_field :back_mileage %>
+            <span class="add-on">Km</span>
+          <% end %>
+        </div>
       </td>
     </tr>
     <tr>
@@ -83,12 +98,17 @@
         <%= f.input :in_at, label: false, input_html: { class: 'span12', data: { intervention_saver: true } } %>
       </td>
       <td>
-        <%= f.input :in_mileage, label: false, input_html: {
-          class: 'span12', data: {
-            'ignore-enter' => true,
-            travel_type: 'in_mileage'
-          }
-        } %>
+        <div class="input-append">
+          <%= f.input :in_mileage, label: false, input_html: {
+            class: 'span12', data: {
+              'ignore-enter' => true,
+              travel_type: 'in_mileage'
+            }
+          } do %>
+            <%= f.input_field :in_mileage %>
+            <span class="add-on">Km</span>
+          <% end %>
+        </div>
       </td>
     </tr>
   </tbody>
