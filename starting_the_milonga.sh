@@ -1,9 +1,13 @@
 #!/bin/bash
 
+
 psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -U postgres \
     -c "CREATE ROLE firehouse WITH SUPERUSER \
      CREATEDB CREATEROLE LOGIN ENCRYPTED \
      PASSWORD 'firehouse' NOINHERIT VALID UNTIL 'infinity';"
+
+psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -U postgres \
+    -c "\c print_hub_production; create extension unaccent;"
 
 export RAILS_ENV=production
 cd /firehouse
