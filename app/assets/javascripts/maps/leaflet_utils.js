@@ -124,6 +124,8 @@ var Leaflet = ( function () {
          fitBounds(bounds)
       }
     , newMap = function () {
+        L.Icon.Default.imagePath = leafletImagesRoute;
+
         var shouldSetInterventions = Leaflet.options.shouldShowGeneralMap
           , shouldMakeFullScreen   = Leaflet.options.shouldMakeFullScreen
 
@@ -138,7 +140,7 @@ var Leaflet = ( function () {
 
       }
     , setupMap = function (shouldShowMarkersLayer) {
-        L.Icon.Default.imagePath = leafletImagesRoute
+        L.Icon.Default.imagePath = leafletImagesRoute;
 
         var options      = {
               minZoom     : MapUtils.map.minZoom
