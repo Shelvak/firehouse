@@ -56,13 +56,13 @@ class Ability
       action.match(/autocomplete_for_(\w+)_name/)
     end
 
-    can :create, Shift
-    can :read, Shift do |shift|
-      shift.firefighter.user_id == user.id
-    end
-    can :update, Shift do |shift|
-      shift.firefighter.user_id == user.id && shift.created_at >= 2.days.ago
-    end
+    # can :create, Shift
+    # can :read, Shift do |shift|
+    #   shift.firefighter.user_id == user.id
+    # end
+    # can :update, Shift do |shift|
+    #   shift.firefighter.user_id == user.id && shift.created_at >= 2.days.ago
+    # end
 
     can :manage, TrackingMap
   end
@@ -95,13 +95,14 @@ class Ability
     firefighter_rules(user)
 
     can :manage, Shift
-    can :read, User
+    # can :read, User  # check that in the future
   end
 
   def officer_rules(user)
     puts "officer_rules"
     firefighter_rules(user)
 
+    can :read, Shift
     can :manage, INTERVENTION_SUBCLASSES + [Intervention]
   end
 
@@ -109,6 +110,7 @@ class Ability
     puts "intervention rules"
     officer_rules(user)
 
+    can :read, Shift
     can :manage, [
       Firefighter, Sco, Hierarchy, Truck, InterventionType, User
     ]
