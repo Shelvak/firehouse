@@ -259,6 +259,10 @@ class Intervention < ActiveRecord::Base
     self.status == 'finished'
   end
 
+  def open?
+    self.status == 'open'
+  end
+
   def endowment_back?
     self.endowments.any? { |e| e.in_at.present? }
   end

@@ -41,7 +41,8 @@ class Ability
     can :activate, Sco
     can [:map, :special_sign, :create], Intervention
     can [:update, :read], Intervention do |intervention|
-      intervention.created_at >= MAX_PERMITTED_HANDLE_DAYS.days.ago
+      intervention.open?  ||
+        intervention.created_at >= MAX_PERMITTED_HANDLE_DAYS.days.ago
     end
     can :read, [
       Sco, InterventionType, Firefighter, Truck
