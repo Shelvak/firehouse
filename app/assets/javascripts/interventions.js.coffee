@@ -105,7 +105,7 @@ new Rule
       input = $(this)
 
       $.ajax
-        url: '/configs/trucks'
+        url: '/interventions/autocomplete_for_truck_number'
         dataType: 'json'
         data: { q: input.val() }
         success: (data)->
@@ -160,13 +160,17 @@ new Rule
 
       id = this.getAttribute('data-intervention-id')
       type = this.getAttribute('data-intervention-special-button')
+      refresh = this.getAttribute('data-refresh-page')
 
       if id.match(/\d+/)
         $.ajax
           url: '/interventions/' + id + '/special_sign'
           type: 'PUT'
-          data: { sign: type }
-      #Intervention.saveIntervention()
+          data: { sign: type, refresh: refresh}
+          success: (data)->
+            if $.trim(data)
+              $('.content').html(data)
+              Intervention.focusLastTab()
 
     @map.handleEnterOnInputs ||= (e) ->
       key = e.which

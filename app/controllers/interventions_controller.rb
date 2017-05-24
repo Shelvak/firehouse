@@ -114,11 +114,16 @@ class InterventionsController < ApplicationController
     @interventions = intervention_scope.opened
   end
 
+  # PUT (always came via ajax)
   def special_sign
     @intervention = intervention_scope.find(params[:id])
     @intervention.special_sign(params[:sign])
 
-    render nothing: true
+    if params[:refresh].to_bool
+      render 'edit', layout: false
+    else
+      render nothing: true
+    end
   end
 
   def console_create

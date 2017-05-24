@@ -3,7 +3,7 @@
   <%= link_to t('label.list'), interventions_path %>
 <% end %>
 
-<h2><%= @intervention %></h2>
+<h2 class="js-intervention-title"><%= @intervention %></h2>
 
 <%= render partial: 'interventions/special_buttons' unless @intervention.finished? %>
 <%= render 'form' %>

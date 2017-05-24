@@ -40,7 +40,19 @@ module InterventionsHelper
 
     unless @intervention.try(:its_a_trap?)
       buttons.merge!({
-        trap:  { url: 'trap_button.png' }
+        trap:  {
+          url: 'trap_button.png',
+          refresh: true
+        }
+      })
+    end
+
+    unless @intervention.try(:electric_risk?)
+      buttons.merge!({
+        electric_risk:  {
+          url: 'electric_risk_button.png',
+          refresh: true
+        }
       })
     end
 

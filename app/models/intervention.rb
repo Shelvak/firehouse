@@ -7,6 +7,7 @@ class Intervention < ActiveRecord::Base
   validates :intervention_type_id, presence: true
 
   before_validation :validate_truck_presence, :assign_endowment_number, :update_status
+  before_create :assign_special_light_behaviors
   after_create :send_first_alert!, :play_intervention_audio!,
     if: -> (i) { i.intervention_type.emergency? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks, :intervention_type_changed_tasks
@@ -107,9 +108,10 @@ class Intervention < ActiveRecord::Base
 
   def special_sign(sign)
     case sign.to_s
-      when 'alert' then reactivate!
-      when 'trap'  then its_a_trap!
-      when 'qta'   then turn_off_alert
+      when 'alert'         then reactivate!
+      when 'trap'          then its_a_trap!
+      when 'qta'           then turn_off_alert
+      when 'electric_risk' then activate_electric_risk!
     end
   end
 
@@ -125,6 +127,22 @@ class Intervention < ActiveRecord::Base
     lights['trap'] = true
 
     update_column(:its_a_trap, true)
+
+    save_lights_on_redis(lights)
+    send_lights
+  end
+
+  def activate_electric_risk!
+    lights = lights_for_redis
+    lights['blue'] = true
+
+    self.update(
+      electric_risk: true,
+      observations: [
+        self.observations,
+        "[#{I18n.l(Time.now, format: '%H:%M')}] Riesgo Eléctrico"
+      ].compact.join("\n")
+    )
 
     save_lights_on_redis(lights)
     send_lights
@@ -293,5 +311,9 @@ protected
     case
       when !self.finished? && self.endowment_back? then self.status = 'finished'
     end
+  end
+
+  def assign_special_light_behaviors
+    self.electric_risk = true if intervention_type.lights['blue']
   end
 end

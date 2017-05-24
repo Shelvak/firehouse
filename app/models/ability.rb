@@ -44,9 +44,13 @@ class Ability
       intervention.open?  ||
         intervention.created_at >= MAX_PERMITTED_HANDLE_DAYS.days.ago
     end
-    can :read, [
-      Sco, InterventionType, Firefighter, Truck
-    ]
+    #  Sco, InterventionType, Firefighter, Truck
+    #]
+    can [
+      :autocomplete_for_truck_number, :autocomplete_for_receptor_name,
+      :autocomplete_for_sco_name, :autocomplete_for_firefighter_name
+    ], Intervention
+
     can [:edit_profile, :update_profile], User, id: user.id
     can do |action, subject_class, subject|
       action.match(/autocomplete_for_(\w+)_name/)
