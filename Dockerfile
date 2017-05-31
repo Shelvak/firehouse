@@ -1,4 +1,4 @@
-FROM firehouse/ruby:2.1
+FROM shelvak/ruby
 
 MAINTAINER Néstor Coppi <nestorcoppi@gmail.com>
 
@@ -9,11 +9,12 @@ RUN apt-get install -y postgresql-server-dev-9.5 \
                            postgresql-client-9.5 imagemagick
 RUN apt-get -y clean autoclean autoremove
 
-RUN mkdir -p /firehouse
-RUN mkdir -p /bundle
+
+RUN gem install bundler
+RUN git clone --depth 1 https://github.com/Shelvak/firehouse
 
 WORKDIR /firehouse
 
-RUN gem install bundler
+RUN bundle install
 
 CMD bundle exec unicorn -c /firehouse/config/unicorn.rb -E production
