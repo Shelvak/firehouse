@@ -171,7 +171,10 @@ class Intervention < ActiveRecord::Base
     stop_running_alerts!
 
     $redis.publish('semaphore-lights-alert', lights_for_redis.to_json)
-    play_intervention_audio! if play_audio
+    if play_audio
+      sleep 1
+      play_intervention_audio!
+    end
   end
 
   def turn_off_the_lights!
