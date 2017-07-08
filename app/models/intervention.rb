@@ -8,8 +8,7 @@ class Intervention < ActiveRecord::Base
 
   before_validation :validate_truck_presence, :assign_endowment_number, :update_status
   before_create :assign_special_light_behaviors
-  after_create :send_first_alert!, :play_intervention_audio!,
-    if: -> (i) { i.intervention_type.emergency? }
+  after_create :send_first_alert!, if: -> (i) { i.intervention_type.emergency? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks, :intervention_type_changed_tasks
 
   belongs_to :intervention_type
@@ -116,10 +115,9 @@ class Intervention < ActiveRecord::Base
   end
 
   def reactivate!
-    intervention_type.emergency? ? send_lights : send_first_alert!
+    intervention_type.emergency? ? send_lights(true) : send_first_alert!
 
     alerts.create!
-    play_intervention_audio!
   end
 
   def its_a_trap!
@@ -169,10 +167,11 @@ class Intervention < ActiveRecord::Base
     end
   end
 
-  def send_lights
+  def send_lights(play_audio=false)
     stop_running_alerts!
 
     $redis.publish('semaphore-lights-alert', lights_for_redis.to_json)
+    play_intervention_audio! if play_audio
   end
 
   def turn_off_the_lights!
@@ -186,7 +185,7 @@ class Intervention < ActiveRecord::Base
     send_alert_to_lcd
     put_in_redis_list
 
-    send_lights
+    send_lights(true)
   end
 
   def send_alert_to_lcd
