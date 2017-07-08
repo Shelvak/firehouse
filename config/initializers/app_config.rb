@@ -5,3 +5,7 @@ if File.exists?(config_path)
 else
   raise "You must have a configuration file in #{config_path}, see config/app_config.example.yml"
 end
+
+SECRETS = Rails.application.secrets
+          .deep_symbolize_keys
+          .with_indifferent_access
