@@ -30,6 +30,7 @@ class Firefighter < ActiveRecord::Base
    autosave: true
   has_many :relatives
   has_many :shifts
+  has_many :docket
 
   # todo: validaciones de tipos
   validates :firstname, :lastname, :identification, presence: true
