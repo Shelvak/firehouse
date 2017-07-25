@@ -22,6 +22,8 @@ class Endowment < ActiveRecord::Base
   def initialize(attributes = nil, options = {})
     super(attributes, options)
 
+    self.number ||= 1
+
     EndowmentLine::CHARGES.each do |k, v|
       self.endowment_lines.build(charge: k)
     end if self.endowment_lines.empty?

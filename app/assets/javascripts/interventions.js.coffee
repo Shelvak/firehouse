@@ -1,4 +1,4 @@
-window.Intervention =
+window.Intervention ||=
   lastFocusedTab: null
   lastFocusedInput: null
 
@@ -100,6 +100,7 @@ new Rule
       $('input[name$="[number]"]:visible:first').val(itemCount)
 
       Intervention.tokenizeAutocompleteInputs()
+      Intervention.lastFocusedTab = "#endowments_#{itemCount}"
 
     @map.assignTruckMileage ||= ->
       input = $(this)

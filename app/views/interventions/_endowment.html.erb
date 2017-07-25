@@ -1,8 +1,8 @@
-<% i = f.try(:index) %>
-<% id = f.object.try(:number) || 'dynamicContent' %>
+<% i = f.try(:index) || 0 %>
+<% number = defined?(dynamic) ? 'dynamicContent' : f.object.number %>
 
 <div class="tab-pane <%= 'active' if i == 0 %>"
-  id="endowments_<%= id %>" data-endowment-item="true">
+  id="endowments_<%= number %>" data-endowment-item="true">
   <fieldset>
     <div class='row-fluid'>
       <div class='span5'>
@@ -12,7 +12,7 @@
           </div>
           <div class="span6">
             <%= f.input :number, label: false,
-              input_html: { class: 'span11', value: f.object.number || 1 } %>
+              input_html: { class: 'span11', value: number } %>
           </div>
         </div>
         <div class='row-fluid'>

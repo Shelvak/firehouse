@@ -60,6 +60,12 @@ class Intervention < ActiveRecord::Base
     self.user
   end
 
+  def head_in_charge
+    endowments.first.endowment_lines.where(charge: 1).first.firefighters.first.to_s
+  rescue
+    ''
+  end
+
   def reject_endowment_item?(attrs)
     endow_reject = attrs['endowment_lines_attributes'].any? do |_, e|
       e['firefighters_names'].present?

@@ -6,9 +6,10 @@
       <table class="table resource-list table-hover">
         <thead>
           <tr>
-            <th><%= Intervention.human_attribute_name 'id' %></th>
+            <th><%= Intervention.human_attribute_name 'created_at' %></th>
             <th><%= Intervention.human_attribute_name 'kind' %></th>
             <th><%= Intervention.human_attribute_name 'receptor_id' %></th>
+            <th><%= t('view.interventions.endowments_charges.head') %></th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -16,9 +17,10 @@
         <tbody>
           <% @interventions.each do |intervention| %>
             <tr>
-              <td><%= intervention.id %></td>
+              <td><%= l intervention.created_at %></td>
               <td><%= intervention.type %></td>
               <td><%= intervention.user %></td>
+              <td><%= intervention.head_in_charge %></td>
               <td><%= link_to_show(intervention) if can? :read, intervention %></td>
               <td><%= link_to_edit(
                 edit_intervention_path(intervention)
