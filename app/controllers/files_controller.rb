@@ -6,6 +6,7 @@ class FilesController < ApplicationController
     file = (PRIVATE_PATH + path).expand_path
 
     if path.start_with? 'dockets'
+      authorize!(:read, Docket)
       send_file_with_headers(
         file, non_existent_path: :back
       )

@@ -120,7 +120,7 @@ class Ability
     puts "bosses rules"
     intervention_admin_rules(user)
 
-    can :manage, Shift
+    can :manage, [Shift, Docket]
     cannot [:brightness, :volume], Light
   end
 
