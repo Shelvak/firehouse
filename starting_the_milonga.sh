@@ -6,9 +6,6 @@ psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -U postgres \
      CREATEDB CREATEROLE LOGIN ENCRYPTED \
      PASSWORD 'firehouse' NOINHERIT VALID UNTIL 'infinity';"
 
-psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -U postgres -d firehouse_production\
-    -c "create extension unaccent;"
-
 export RAILS_ENV=production
 cd /firehouse
 
