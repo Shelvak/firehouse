@@ -1,0 +1,11 @@
+<div class="modal">
+  <div class="modal-header">
+    <%= @docket.title %>
+  </div>
+  <div class="modal-body">
+    <%= simple_format @docket.description %>
+  </div>
+  <div class="modal-footer">
+    <%= @docket.file_name %>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="modal">
+  <% url = @docket.persisted? ? configs_firefighter_docket_path(firefighter_id: @firefighter_id) : configs_firefighter_dockets_path(firefighter_id: @firefighter_id) %>
+  <%= simple_form_for @docket, url: url, html: {
+      data: { target: "new_docket", error: 'modal', modal: true, replace: true } } do |f| %>
+    <%= f.error_notification %>
+
+    <div class="modal-body">
+      <%= f.input :title %>
+      <%= f.input :description %>
+      <%= f.input :file %>
+      <%= f.input :file_cache, as: :hidden %>
+      <% if @docket.file? %>
+        <span class="label label-info"><%= @docket.file_name %></span>
+      <% end %>
+    </div>
+
+    <div class="modal-footer">
+      <%= f.button :submit, class: 'btn-primary' %>
+    </div>
+  <% end %>
+</div>

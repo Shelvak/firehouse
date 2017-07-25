@@ -1,0 +1,30 @@
+<h4>Legajos</h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Descripción</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dockets.each do |docket| %>
+      <tr>
+        <td><%= docket.title %></td>
+        <td><%= link_to_builder truncate(docket.description), docket_url(docket, :show), remote: true %></td>
+        <td><%= link_to_download docket.file.url if docket.file? %></td>
+        <td><%= link_to_edit docket_url(docket, :edit), remote: true if can? :update, docket %></td>
+        <td><%= link_to_destroy docket_url(docket, :delete) if can? :destroy, docket %></td>
+      </tr>
+    <% end %>
+    <tr id="new_docket"> </tr>
+  </tbody>
+</table>
+
+<div class="row-fluid">
+  <div class="pull-right">
+    <%= pagination_links(@dockets) %>
+  </div>
+  <%= link_to_builder 'Agregar legajo', new_configs_firefighter_docket_path(@firefighter.id), remote: true, class: 'btn btn-primary'  %>
+</div>

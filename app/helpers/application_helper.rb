@@ -72,7 +72,7 @@ module ApplicationHelper
     options['title'] ||= t('label.show')
     options['data-show-tooltip'] ||= true
 
-    link_to '&#xe074;'.html_safe, *args, options
+    link_to_builder '&#xe074;'.html_safe, *args, options
   end
 
   def link_to_edit(*args)
@@ -82,7 +82,7 @@ module ApplicationHelper
     options['title'] ||= t('label.edit')
     options['data-show-tooltip'] ||= true
 
-    link_to '&#x270e;'.html_safe, *args, options
+    link_to_builder '&#x270e;'.html_safe, *args, options
   end
 
   def link_to_destroy(*args)
@@ -94,7 +94,29 @@ module ApplicationHelper
     options['data-confirm'] ||= t('messages.confirmation')
     options['data-show-tooltip'] ||= true
 
-    link_to '&#xe05a;'.html_safe, *args, options
+    link_to_builder '&#xe05a;'.html_safe, *args, options
+  end
+
+  def link_to_download(*args)
+    options = args.extract_options!
+
+    options['class'] ||= 'iconic'
+    options['title'] ||= t('label.download')
+    options['data-show-tooltip'] ||= true
+
+    link_to_builder '&#xe044;'.html_safe, *args, options
+  end
+
+  def link_to_builder(*args)
+    options = args.extract_options!
+
+    if options['remote'] || options[:remote]
+      options['data-target'] ||= 'modal'
+      options['data-modal'] ||= true
+      options['remote'] ||= true
+    end
+
+     link_to *args, options
   end
 
   def errors_for(object, field)

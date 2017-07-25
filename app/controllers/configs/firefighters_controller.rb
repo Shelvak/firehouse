@@ -23,6 +23,7 @@ class Configs::FirefightersController < ApplicationController
     @title = t('view.firefighters.show_title')
     @firefighter = Firefighter.find(params[:id])
     @relatives = @firefighter.relatives
+    @dockets = @firefighter.dockets.order(:id).page(params[:page])
   end
 
   # GET /firefighters/new

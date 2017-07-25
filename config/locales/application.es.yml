@@ -16,6 +16,10 @@ es:
         number_of_rooms: "Cantidad de ambientes"
         roof_type: "Tipo de techo"
         window_type: "Tipo de abertura"
+      docket:
+        description: "Descripción"
+        file: "Archivo"
+        title: "Titulo"
       endowment:
         arrive_at: "Llegada"
         back_at: "Vuelta"
@@ -167,6 +171,9 @@ es:
         number: "Número"
         year: "Año"
     models:
+      docket:
+        one: "Legajo"
+        other: "Legajos"
       endowment:
         one: "Dotación"
         other: "Dotaciones"
@@ -218,6 +225,7 @@ es:
   label:
     close: "Cerrar"
     delete: "Eliminar"
+    download: "Descargar"
     edit: "Editar"
     list: "Listado"
     loading: "Cargando..."
@@ -308,6 +316,8 @@ es:
         apply: "Aplicar"
         end: "Hasta"
         start: "Desde"
+    files:
+      non_existent: "Archivo no existe"
     firefighters:
       correctly_created: "Bombero agregado correctamente."
       correctly_updated: "Bombero actualizado correctamente."
@@ -543,12 +553,12 @@ es:
         son: "Hija/o"
     scos:
       activate: "Activar"
-      desactivate: "Desactivar"
       activated: "CEO activado"
-      desactivated: "CEO desactivado"
       correctly_created: "CEO agregado correctamente."
-      correctly_updated: "CEO actualizado correctamente."
       correctly_destroyed: "CEO eliminado correctamente."
+      correctly_updated: "CEO actualizado correctamente."
+      desactivate: "Desactivar"
+      desactivated: "CEO desactivado"
       edit_title: "Modificar CEO"
       empty_index:
         html: 'No se ha creado ningún CEO hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo CEO</span>'
@@ -613,7 +623,7 @@ es:
         admin: "Administrador"
         bosses: "Jefatura"
         firefighter: "Bombero"
-        intervention_admin: 'Admin intervenciones'
+        intervention_admin: "Admin intervenciones"
         officer: "Oficial"
         radio: "RadioOperador"
         reporter: "Reportes"

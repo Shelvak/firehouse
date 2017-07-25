@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get :console, to: 'websockets#console'
   get :console_create, to: 'interventions#console_create'
 
@@ -48,6 +49,8 @@ Rails.application.routes.draw do
 
   root to: 'interventions#new'
 
+  get 'private/:path' => 'files#download', constraints: { path: /.+/ }
+
   namespace :configs do
     resources :intervention_types, except: :show do
       collection do
@@ -57,6 +60,7 @@ Rails.application.routes.draw do
       end
     end
     resources :firefighters do
+      resources :dockets, on: :member
       resources :relatives, except: :show
     end
     resources :trucks, :users

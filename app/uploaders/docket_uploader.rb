@@ -11,6 +11,12 @@ class DocketUploader < CarrierWave::Uploader::Base
     'tmp/uploads'
   end
 
+  def filename
+    if original_filename.present? && super.present?
+      [Time.new.to_i, super].join('_')
+    end
+  end
+
   def extension_white_list
     %w(jpg jpeg png pdf doc docx )
   end
