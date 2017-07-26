@@ -93,52 +93,50 @@ var Leaflet = ( function () {
     // Coloca el zoom necesario para mostrar todos los marcadores
     , fitBounds = function (arrayOfLatLngs) {
         var bounds = new L.LatLngBounds(arrayOfLatLngs)
-        Leaflet.elements.map.fitWorld(bounds)
+        Leaflet.elements.map.fitBounds(bounds)
     }
     , fitMarkers = function (first, second) {
+        console.log("Rock")
         var bounds = new L.LatLngBounds([first, second])
 
-        Leaflet.elements.map.setView(
-            bounds.getCenter(),
-            Leaflet.elements.map.getBoundsZoom(bounds)
-        );
-        Leaflet.elements.map
-        // Leaflet.elements.map.fitBounds(bounds, {
-        //     paddingTopLeft: [2, 2],
-        //     paddingBottomRight: [2, 2]
-        // });
+        Leaflet.elements.map.fitBounds(bounds, {
+            paddingTopLeft: [2, 2],
+            paddingBottomRight: [2, 2]
+        });
     }
     , drawRoute = function (latitude, longitude) {
         var station  = L.latLng(MapUtils.station.latitude, MapUtils.station.longitude)
           , newPoint = L.latLng(parseFloat(latitude), parseFloat(longitude))
-          // , bounds   = [
-          //       [station.lat,  station.lng]
-          //     , [newPoint.lat, newPoint.lng]
-          //   ]
-
-        // fitBounds(bounds)
+          , bounds   = [
+                [station.lat,  station.lng]
+              , [newPoint.lat, newPoint.lng]
+            ]
 
         if (Leaflet.elements.route) {
             Leaflet.elements.map.removeControl(Leaflet.elements.route);
         }
         Leaflet.elements.route = L.Routing.control({
               waypoints          : [station, newPoint]
-            , lineOptions        : {addWaypoints: false}
+            // , lineOptions        : {addWaypoints: false}
             // , autoRoute          : false
             , routeWhileDragging : false
             , showAlternatives   : false
             // , draggableWaypoints : false
-            // , createMarker       : function(i, wp) {
-            //     // El primer marcador solamente tiene que ser de color rojo porque es la estación
-            //     if (i == 0) {
-            //         return L.marker(wp.latLng, {
-            //             icon: icons.redIcon
-            //         })
-            //     }
-            // }
+            , createMarker       : function(i, wp) {
+                // El primer marcador solamente tiene que ser de color rojo porque es la estación
+                if (i == 0) {
+                    return L.marker(wp.latLng, {
+                        icon: icons.redIcon
+                    })
+                }
+            }
         }).addTo(Leaflet.elements.map);
 
-        // fitMarkers(station, newPoint)
+        // If we fit the markers/bounds more than ones, map freeze and not auto-refresh
+        //fitMarkers(station, newPoint)
+        if (Leaflet.options.shouldFitMarkers) {
+            setTimeout( function() {fitBounds(bounds)}, 1500);
+        }
       }
     , newMap = function () {
         L.Icon.Default.imagePath = leafletImagesRoute;
