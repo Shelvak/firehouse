@@ -95,33 +95,50 @@ var Leaflet = ( function () {
         var bounds = new L.LatLngBounds(arrayOfLatLngs)
         Leaflet.elements.map.fitWorld(bounds)
     }
+    , fitMarkers = function (first, second) {
+        var bounds = new L.LatLngBounds([first, second])
+
+        Leaflet.elements.map.setView(
+            bounds.getCenter(),
+            Leaflet.elements.map.getBoundsZoom(bounds)
+        );
+        Leaflet.elements.map
+        // Leaflet.elements.map.fitBounds(bounds, {
+        //     paddingTopLeft: [2, 2],
+        //     paddingBottomRight: [2, 2]
+        // });
+    }
     , drawRoute = function (latitude, longitude) {
         var station  = L.latLng(MapUtils.station.latitude, MapUtils.station.longitude)
           , newPoint = L.latLng(parseFloat(latitude), parseFloat(longitude))
-          , bounds   = [
-                [station.lat,  station.lng]
-              , [newPoint.lat, newPoint.lng]
-            ]
+          // , bounds   = [
+          //       [station.lat,  station.lng]
+          //     , [newPoint.lat, newPoint.lng]
+          //   ]
+
+        // fitBounds(bounds)
 
         if (Leaflet.elements.route) {
-          Leaflet.elements.route.setWaypoints([station, newPoint])
+            Leaflet.elements.map.removeControl(Leaflet.elements.route);
         }
-        else {
-          Leaflet.elements.route = L.Routing.control({
-            waypoints          : [station, newPoint]
-            , draggableWaypoints : false
-            , createMarker       : function(i, wp) {
-              // El primer marcador solamente tiene que ser de color rojo porque es la estación
-              if (i == 0) {
-                return L.marker(wp.latLng, {
-                  icon: icons.redIcon
-                })
-              }
-            }
-          }).addTo(Leaflet.elements.map);
-        }
+        Leaflet.elements.route = L.Routing.control({
+              waypoints          : [station, newPoint]
+            , lineOptions        : {addWaypoints: false}
+            // , autoRoute          : false
+            , routeWhileDragging : false
+            , showAlternatives   : false
+            // , draggableWaypoints : false
+            // , createMarker       : function(i, wp) {
+            //     // El primer marcador solamente tiene que ser de color rojo porque es la estación
+            //     if (i == 0) {
+            //         return L.marker(wp.latLng, {
+            //             icon: icons.redIcon
+            //         })
+            //     }
+            // }
+        }).addTo(Leaflet.elements.map);
 
-         fitBounds(bounds)
+        // fitMarkers(station, newPoint)
       }
     , newMap = function () {
         L.Icon.Default.imagePath = leafletImagesRoute;
@@ -201,10 +218,11 @@ var Leaflet = ( function () {
                   , latitude  = marker._latlng.lat
                   , longitude = marker._latlng.lng
 
+                console.log(marker._latlng.toString())
                 marker.openPopup()
                 // temporal fix
                 Leaflet.elements.map.setView(marker._latlng, 17, {animation: true});
-                // drawRoute(latitude, longitude)
+                if (Leaflet.options.shouldDrawRoute) drawRoute(latitude, longitude);
               })
             }
           }
