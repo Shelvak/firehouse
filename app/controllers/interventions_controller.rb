@@ -9,8 +9,13 @@ class InterventionsController < ApplicationController
   # GET /interventions.json
   def index
     @title = t('view.interventions.index_title')
+    @from, @to = make_datetime_range(params[:interval])
+
     @interventions = intervention_scope.includes(:intervention_type)
-                       .order(created_at: :desc).page(params[:page])
+    @interventions = @interventions.between(@from, @to) if params[:interval]
+    @interventions = @interventions.where(intervention_type_id: params[:type]) if params[:type]
+    @interventions = @interventions.where(receptor_id: params[:user]) if params[:user]
+    @interventions = @interventions.order(created_at: :desc).page(params[:page])
   end
 
   # GET /interventions/1

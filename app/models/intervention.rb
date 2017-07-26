@@ -20,6 +20,7 @@ class Intervention < ActiveRecord::Base
   has_many :endowments
 
   scope :opened, -> { where.not(status: :finished) }
+  scope :between, ->(from, to) { where(created_at: from..to) }
 
   accepts_nested_attributes_for :informer,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }

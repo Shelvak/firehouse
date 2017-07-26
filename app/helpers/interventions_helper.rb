@@ -60,4 +60,23 @@ module InterventionsHelper
       qta: { url: 'qta_button.png' }
     })
   end
+
+  def intervention_path_with_params(hash)
+    hash[:interval] ||= params[:interval]
+    hash[:page]     ||= params[:page]
+    hash[:type]     ||= params[:type]
+    hash[:user]     ||= params[:user]
+
+    interventions_path(hash.compact)
+  end
+
+  def filters_header
+      return unless [params[:user], params[:interval], params[:type]].any? {|e| e.present? }
+
+      filtered = content_tag(:h3, 'Filtrado por:')
+      filtered << content_tag(:h4, "- Usuario: #{User.find(params[:user])}") if params[:user]
+      filtered << content_tag(:h4, "- Tipo: #{InterventionType.find(params[:type])}") if params[:type]
+      filtered << content_tag(:h4, "- Rango: [#{l @from, format: :minimal} => #{l @to, format: :minimal}] ") if params[:interval]
+      filtered
+  end
 end

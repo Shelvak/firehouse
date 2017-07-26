@@ -1,6 +1,14 @@
 <% if @interventions.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
+	<div class="row-fluid">
+		<%= render 'shared/datetime_filter' %>
+  </div>
+
+  <div class="row-fluid">
+    <%= filters_header %>
+  </div>
+
   <div class="row">
     <div class="span12">
       <table class="table resource-list table-hover">
@@ -18,8 +26,8 @@
           <% @interventions.each do |intervention| %>
             <tr>
               <td><%= l intervention.created_at %></td>
-              <td><%= intervention.type %></td>
-              <td><%= intervention.user %></td>
+              <td><%= link_to intervention.type, intervention_path_with_params(type: intervention.intervention_type_id) %></td>
+              <td><%= link_to intervention.user, intervention_path_with_params(user: intervention.receptor_id) %></td>
               <td><%= intervention.head_in_charge %></td>
               <td><%= link_to_show(intervention) if can? :read, intervention %></td>
               <td><%= link_to_edit(
@@ -37,6 +45,9 @@
 <% end %>
 
 <div class="form-actions">
+  <div class="pull-right">
+    <%= link_to 'Limpiar filtros', interventions_path %>
+  </div>
   <%= link_to(
     t('view.interventions.new', default: :'label.new'),
     new_intervention_path, class: 'btn btn-primary'
