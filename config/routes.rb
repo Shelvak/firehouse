@@ -54,9 +54,14 @@ Rails.application.routes.draw do
   namespace :configs do
     resources :intervention_types, except: :show do
       collection do
+        get :lights_priorities
         get :priorities
         get :edit_priorities
         put :set_priority
+        put :clean_light_priorities
+      end
+      member do
+        put :lights_priority
       end
     end
     resources :firefighters do

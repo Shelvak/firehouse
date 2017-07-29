@@ -80,6 +80,24 @@ class Configs::InterventionTypesController < ApplicationController
     render partial: 'edit_priorities', content_type: 'text/html'
   end
 
+  def lights_priorities
+    @all_by_lights = InterventionType.all_grouped_by_lights
+
+    render 'lights_priorities'
+  end
+
+  # Put
+  def lights_priority
+    it = InterventionType.find(params[:id])
+    it.mark_as_light_priority!
+    redirect_to lights_priorities_configs_intervention_types_path, notice: "#{it.name} priorizado...."
+  end
+
+  def clean_light_priorities
+    InterventionType.clean_light_priorities!(JSON.load(params[:lights]))
+    redirect_to lights_priorities_configs_intervention_types_path, notice: "Limpias..."
+  end
+
   def set_priority
     (1..10).each do |i|
       old_intervention_type = InterventionType.where(priority: i).first

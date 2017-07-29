@@ -36,6 +36,10 @@ module ConfigsHelper
     li += content_tag( :li, link_to(
       t('view.intervention_types.priorities'), priorities_configs_intervention_types_path
     ), class: active_nav( [priorities_configs_intervention_types_path])) if can?(:read, :priorities)
+    li += content_tag( :li, link_to(
+        t('view.intervention_types.lights_priorities'), lights_priorities_configs_intervention_types_path
+      ), class: active_nav( [lights_priorities_configs_intervention_types_path])) if can?(:read, :priorities)
+
     content_tag(:ul, li.html_safe, class: 'nav nav-tabs')
   end
 

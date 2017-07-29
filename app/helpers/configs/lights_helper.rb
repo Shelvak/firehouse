@@ -28,4 +28,9 @@ module Configs::LightsHelper
     html.html_safe
   end
 
+  def show_lights_with_values(lights)
+    colors = lights.map do |k, v|
+      t('view.lights.' + k) if v
+    end.compact.join(' | ')
+  end
 end

@@ -35,19 +35,42 @@ class InterventionType < ActiveRecord::Base
     end
   end
 
-  def self.find_by_lights(lights)
+  def self.find_by_lights(lights, with_priority=true)
     search_lights = {}
     COLORS.each do |color|
       search_lights[color] = lights[color].to_bool
     end
 
     all.each do |it|
-      if COLORS.map { |c| it.lights[c] == search_lights[c] }.all?
+      check_priority = with_priority ? it.light_priority : true
+      if COLORS.map { |c| it.lights[c] == search_lights[c] && it.light_priority? }.all?
         return it
       end
     end
 
     nil
+  end
+
+  def self.all_by_lights(lights)
+    search_lights = {}
+    COLORS.each do |color|
+      search_lights[color] = lights[color].to_bool
+    end
+
+    all.map do |it|
+      it if COLORS.map { |c| it.lights[c] == search_lights[c] }.all?
+    end.compact.uniq
+  end
+
+  def self.all_grouped_by_lights
+    all_combinations = {}
+    all.pluck(:lights).compact.uniq.map do |lights|
+      all_combinations[lights] ||= []
+      all_combinations[lights] += self.all_by_lights(lights)
+      all_combinations[lights].uniq!
+    end
+
+    all_combinations
   end
 
   def to_s
@@ -90,6 +113,18 @@ class InterventionType < ActiveRecord::Base
 
   def emergency_or_urgency
     priority? ? 'emergency' : 'urgency'
+  end
+
+  def mark_as_light_priority!
+    ids = InterventionType.all_by_lights(self.lights).map(&:id)
+    InterventionType.where(id: ids).update_all(light_priority: false)
+    self.light_priority = true
+    self.save!
+  end
+
+  def self.clean_light_priorities!(lights)
+    ids = InterventionType.all_by_lights(lights).map(&:id)
+    InterventionType.where(id: ids).update_all(light_priority: false)
   end
 
   private

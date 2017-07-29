@@ -386,6 +386,7 @@ es:
       new: "Nuevo tipo"
       new_title: "Nuevo tipo de intervención"
       priorities: "Prioridades"
+      lights_priorities: "Grupos de luces"
       show_title: "Intervención: %{intervention_type}"
       stale_object_error: "El tipo de intervención no pudo ser actualizado, intente nuevamente."
     interventions:

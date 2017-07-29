@@ -1,0 +1,25 @@
+<%= intervention_types_subnav %>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span8">
+      <h1><%= t 'view.intervention_types.priorities' %></h1>
+
+      <% @all_by_lights.each do |lights, intervention_types| %>
+        <div class="well">
+          <div class="pull-right">
+            <%= clean_lights_link_to(lights) %>
+          </div>
+          <%= show_lights_with_values(lights) %>
+        </div>
+        <ul>
+          <% intervention_types.flatten.each do |it| %>
+            <li><%= lights_priority_link_to(it) %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="form-actions">
+</div>
