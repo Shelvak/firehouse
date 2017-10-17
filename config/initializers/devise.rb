@@ -5,7 +5,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = SECRETS[:email][:user_name]
-  config.secret_key = '5762492fcd3f9298d815ea54a3c1de6b53de862b53faa2ef827ae07ac233d4923265fbd61aca176aae4dd2a3ccdb21ad64aeb660679c8c716194f0afeb84db4b'
+  config.secret_key = 'f020374177f314cb3017b3c271010fe4a212e1baac67af12648c42c94f5edddff8696833bd867957248dbf412c0ac28589fc8c8737e6afb077a99d08f908aae1'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'DeviseBackgrounder'
@@ -153,12 +153,12 @@ Devise.setup do |config|
   # ==> Configuration for :recoverable
   #
   # Defines which key will be used when recovering the password for an account
-  # config.reset_password_keys = [ :email ]
+  config.reset_password_keys = [ :email ]
 
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
-  config.reset_password_within = 6.hours
+  config.reset_password_within = 1.days
 
   # ==> Configuration for :encryptable
   # Allow you to use another encryption algorithm besides bcrypt (default). You can use
