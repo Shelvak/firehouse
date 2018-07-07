@@ -40,7 +40,7 @@ class Intervention < ActiveRecord::Base
       intervention = create(
         intervention_type_id: it.id, receptor_id: User.default_receptor.id
       )
-      $redis.publish(
+      RedisClient.publish(
         'socketio-new-intervention',
         url_helpers.edit_intervention_path(intervention)
       )
@@ -154,7 +154,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def save_lights_on_redis(lights)
-    $redis.set('interventions:' + self.id.to_s, lights.to_json)
+    RedisClient.set('interventions:' + self.id.to_s, lights.to_json)
   end
 
   def default_lights
@@ -165,7 +165,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def lights_for_redis
-    if (lights = $redis.get('interventions:' + self.id.to_s)).present?
+    if (lights = RedisClient.get('interventions:' + self.id.to_s)).present?
       JSON.parse lights
     else
       lights = default_lights
@@ -177,15 +177,15 @@ class Intervention < ActiveRecord::Base
   def send_lights(play_audio=false)
     stop_running_alerts!
 
-    $redis.publish('semaphore-lights-alert', lights_for_redis.to_json)
+    RedisClient.publish('semaphore-lights-alert', lights_for_redis.to_json)
     if play_audio
-      sleep 1
+      sleep 2
       play_intervention_audio!
     end
   end
 
   def turn_off_the_lights!
-    $redis.publish(
+    RedisClient.publish(
       'semaphore-lights-alert',
       InterventionType::COLORS_LIGHTS_OFF.to_json
     )
@@ -199,11 +199,11 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_alert_to_lcd
-    $redis.publish('lcd-messages', { full: self.to_s }.to_json)
+    RedisClient.publish('lcd-messages', { full: self.to_s }.to_json)
   end
 
   def active?
-    $redis.lrange('interventions:actives', 0, -1).include? self.id
+    RedisClient.lrange('interventions:actives', 0, -1).include? self.id
   end
 
   def endowment_alert_changer
@@ -224,17 +224,17 @@ class Intervention < ActiveRecord::Base
 
   def turn_off_alert
     remove_item_from_actives_list
-    $redis.del('interventions:' + self.id.to_s)
-    $redis.publish('stop-broadcast', 'stop')
+    RedisClient.del('interventions:' + self.id.to_s)
+    RedisClient.publish('stop-broadcast', 'stop')
     turn_off_the_lights!
   end
 
   def start_looping_active_alerts!
-    $redis.publish('interventions:lights:start_loop', 'start')
+    RedisClient.publish('interventions:lights:start_loop', 'start')
   end
 
   def stop_running_alerts!
-    $redis.publish('interventions:lights:stop_loop', 'stop')
+    RedisClient.publish('interventions:lights:stop_loop', 'stop')
   end
 
   def lights_off
@@ -258,7 +258,7 @@ class Intervention < ActiveRecord::Base
     if not_in_list?(list)
       remove_item_from_actives_list
 
-      $redis.lpush(list, self.id)
+      RedisClient.lpush(list, self.id)
     end
   end
 
@@ -267,11 +267,11 @@ class Intervention < ActiveRecord::Base
   end
 
   def in_list?(list)
-    $redis.lrange(list, 0, -1).include?(self.id)
+    RedisClient.lrange(list, 0, -1).include?(self.id)
   end
 
   def remove_item_from_list(list)
-    $redis.lrem(list, 1, self.id)
+    RedisClient.lrem(list, 1, self.id)
   end
 
   def remove_item_from_actives_list
@@ -296,7 +296,7 @@ class Intervention < ActiveRecord::Base
 
   def play_intervention_audio!
     if self.audio.try(:file)
-      $redis.publish('interventions:play_audio_file', self.audio.url)
+      RedisClient.publish('interventions:play_audio_file', self.audio.url)
     end
   end
 

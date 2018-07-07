@@ -8,7 +8,7 @@ class Configs::LightsController < ApplicationController
     Light.update_by_kind(lights_params) if request_is_for_update?
 
     @lights = Light.separed_by_kind
-    @volume = $redis.get('volume') || 30
+    @volume = RedisClient.get('volume') || 30
 
     if request.format.js?
       render partial: 'light_kind',
@@ -22,8 +22,8 @@ class Configs::LightsController < ApplicationController
     volume = params[:volume_changer][:volume].to_i
 
     #TODO: Send to redis_module
-    $redis.set('volume', volume)
-    $redis.publish('volume-config', volume)
+    RedisClient.set('volume', volume)
+    RedisClient.publish('volume-config', volume)
 
     render partial: 'volume', locals: { volume: volume },
       content_type: 'text/html'

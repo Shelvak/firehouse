@@ -11,7 +11,7 @@ class Light < ActiveRecord::Base
   end
 
   def update_semaphore_brightness
-    $redis.publish('configs:lights', self.to_json)
+    RedisClient.publish('configs:lights', self.to_json)
   end
 
   def as_json(options = nil)
