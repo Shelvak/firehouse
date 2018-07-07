@@ -132,8 +132,10 @@ class InterventionsController < ApplicationController
   end
 
   def console_create
+    ::Rails.logger.info("CREANDO DESDE CONSOLA...")
     Intervention.create_by_lights(params)
 
+    ::Rails.logger.info("CREACION TERMINADA...")
     render nothing: true
   end
 

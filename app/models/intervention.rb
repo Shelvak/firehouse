@@ -37,9 +37,11 @@ class Intervention < ActiveRecord::Base
 
   def self.create_by_lights(lights)
     if (it = InterventionType.find_by_lights(lights)).present?
+      ::Rails.logger.info("Intervencion encontrada [#{it.emergency_or_urgency}] #{it}...")
       intervention = create(
         intervention_type_id: it.id, receptor_id: User.default_receptor.id
       )
+      ::Rails.logger.info("Publicando a socketIO")
       RedisClient.publish(
         'socketio-new-intervention',
         url_helpers.edit_intervention_path(intervention)
@@ -175,11 +177,14 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_lights(play_audio=false)
+    ::Rails.logger.info("Enviando stop loop")
     stop_running_alerts!
 
+    ::Rails.logger.info("Enviando luces ")
     RedisClient.publish('semaphore-lights-alert', lights_for_redis.to_json)
     if play_audio
       sleep 2
+      ::Rails.logger.info("Dale play!!!")
       play_intervention_audio!
     end
   end
@@ -192,7 +197,9 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_first_alert!
+    ::Rails.logger.info("Enviando alerta a LCD")
     send_alert_to_lcd
+    ::Rails.logger.info("Poniendo alerta en redis")
     put_in_redis_list
 
     send_lights(true)
