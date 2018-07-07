@@ -2,13 +2,13 @@ class Intervention < ActiveRecord::Base
   has_paper_trail
   has_magick_columns address: :string, id: :integer
 
-  attr_accessor :auto_receptor_name, :auto_sco_name
+  attr_accessor :auto_receptor_name, :auto_sco_name, :console_activation
 
   validates :intervention_type_id, presence: true
 
   before_validation :validate_truck_presence, :assign_endowment_number, :update_status
   before_create :assign_special_light_behaviors
-  after_create :send_first_alert!, if: -> (i) { i.intervention_type.emergency? }
+  after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.emergency? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks, :intervention_type_changed_tasks
 
   belongs_to :intervention_type
@@ -39,7 +39,7 @@ class Intervention < ActiveRecord::Base
     if (it = InterventionType.find_by_lights(lights)).present?
       ::Rails.logger.info("Intervencion encontrada [#{it.emergency_or_urgency}] #{it}...")
       intervention = create(
-        intervention_type_id: it.id, receptor_id: User.default_receptor.id
+        intervention_type_id: it.id, receptor_id: User.default_receptor.id, console_activation: true
       )
       ::Rails.logger.info("Publicando a socketIO")
       RedisClient.publish(
@@ -199,6 +199,7 @@ class Intervention < ActiveRecord::Base
   def send_first_alert!
     ::Rails.logger.info("Enviando alerta a LCD")
     send_alert_to_lcd
+
     ::Rails.logger.info("Poniendo alerta en redis")
     put_in_redis_list
 
@@ -206,7 +207,9 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_alert_to_lcd
-    RedisClient.publish('lcd-messages', { full: self.to_s }.to_json)
+    ::Rails.logger.info("Enviando alerta a LCD: #{{ full: self.to_s }.to_json}")
+    resp = RedisClient.publish('lcd-messages', { full: self.to_s }.to_json)
+    ::Rails.logger.info("Alerta enviada a LCD respuesta: #{resp}")
   end
 
   def active?
