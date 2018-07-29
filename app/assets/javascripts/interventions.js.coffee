@@ -169,6 +169,9 @@ new Rule
           type: 'PUT'
           data: { sign: type, refresh: refresh}
           success: (data)->
+            if +(data) == 302
+              window.location.href = '/interventions/' + id
+              return
             if $.trim(data)
               $('.content').html(data)
               Intervention.focusLastTab()

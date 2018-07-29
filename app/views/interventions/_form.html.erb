@@ -107,6 +107,7 @@
       </div>
 
       <div class='row-fluid'>
+        <% # esto dejemoslo acá así no jode desde el modelo %>
         <% @intervention.endowments.build if @intervention.endowments.empty? %>
         <div class='tabbable' data-endowments-items>
           <ul class="nav nav-tabs">

@@ -6,7 +6,6 @@ class Intervention < ActiveRecord::Base
 
   validates :intervention_type_id, presence: true
 
-  after_initialize :apply_defaults
   before_validation :assign_endowment_number, :update_status
   before_create :assign_special_light_behaviors
   after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.emergency? }
@@ -30,10 +29,6 @@ class Intervention < ActiveRecord::Base
     reject_if: :reject_endowment_item?
 
   delegate :audio, to: :intervention_type
-
-  def apply_defaults
-    self.endowments.build if self.endowments.empty?
-  end
 
   def self.create_by_lights(lights)
     if (it = InterventionType.find_by_lights(lights)).present?
@@ -109,7 +104,7 @@ class Intervention < ActiveRecord::Base
     case sign.to_s
       when 'alert'         then reactivate!
       when 'trap'          then its_a_trap!
-      when 'qta'           then turn_off_alert
+      when 'qta'           then qta!
       when 'electric_risk' then activate_electric_risk!
     end
   end
@@ -125,7 +120,7 @@ class Intervention < ActiveRecord::Base
     lights['trap'] = true
     lights['priority'] = false
 
-    update_column(:its_a_trap, true)
+    update_observations_with('Personas Atrapadas', its_a_trap: true)
 
     save_lights_on_redis(lights)
     send_lights
@@ -176,6 +171,12 @@ class Intervention < ActiveRecord::Base
       ::Rails.logger.info("Dale play!!!")
       play_intervention_audio!
     end
+  end
+
+  def qta!
+    update_observations_with('QTA', qta: true)
+
+    turn_off_alert
   end
 
   def turn_off_the_lights!
@@ -282,10 +283,10 @@ class Intervention < ActiveRecord::Base
   end
 
   def remove_item_from_actives_list
-    kind = intervention_type.emergency_or_urgency
-
     %w(low high).each do |priority|
-      remove_item_from_list("interventions:#{priority}:#{kind}")
+      %w(emergency urgency).each do |kind|
+        remove_item_from_list("interventions:#{priority}:#{kind}")
+      end
     end
   end
 
@@ -321,7 +322,7 @@ class Intervention < ActiveRecord::Base
         send_lights(true)
       end
 
-      update_observations_with("Cambio de alerta (#{InterventionType.find(intervention_type_id_was)} => #{self.type})")
+      update_observations_with("Cambio de Alarma (#{InterventionType.find(intervention_type_id_was)} => #{self.type})")
     end
   end
 

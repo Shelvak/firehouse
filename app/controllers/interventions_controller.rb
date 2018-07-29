@@ -124,7 +124,9 @@ class InterventionsController < ApplicationController
     @intervention = intervention_scope.find(params[:id])
     @intervention.special_sign(params[:sign])
 
-    if params[:refresh].to_bool
+    if params[:sign] == 'qta'
+      render text: 302 # emulate a redirect from js
+    elsif params[:refresh].to_bool
       render 'edit', layout: false
     else
       render nothing: true
