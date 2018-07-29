@@ -117,7 +117,7 @@ class Configs::InterventionTypesController < ApplicationController
      params.require(:intervention_type).permit(
         :name, :priority, :father, :target, :callback, :color,
         :image, :remote_image_url, :intervention_type_id, :audio,
-        :display_text,
+        :display_text, :emergency,
         lights: [:red, :blue, :green, :white, :yellow, :trap]
       )
     end

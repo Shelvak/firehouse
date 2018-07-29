@@ -107,12 +107,9 @@ class InterventionType < ActiveRecord::Base
     collection
   end
 
-  def emergency?
-    priority?
-  end
 
   def emergency_or_urgency
-    priority? ? 'emergency' : 'urgency'
+    emergency? ? 'emergency' : 'urgency'
   end
 
   def mark_as_light_priority!

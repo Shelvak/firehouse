@@ -1,12 +1,19 @@
 <div class="control-group">
-  <label class="control-label"><%= InterventionType.human_attribute_name :name %></label>
+  <label class="control-label" for="intervention_type_name"><%= InterventionType.human_attribute_name :name %></label>
   <div class="controls">
     <%= f.text_field :name, autofocus: true, placeholder: InterventionType.human_attribute_name(:name) %>
     <span class="red"><%= errors_for @intervention_type, :name %></span>
   </div>
 </div>
 <div class="control-group">
-  <label class="control-label"><%= InterventionType.human_attribute_name :display_text %></label>
+  <label class="control-label" for="intervention_type_emergency"><%= InterventionType.human_attribute_name :emergency %></label>
+  <div class="controls">
+    <%= f.check_box :emergency, placeholder: InterventionType.human_attribute_name(:emergency) %>
+    <span class="red"><%= errors_for @intervention_type, :emergency %></span>
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label" for="intervention_type_display_text"><%= InterventionType.human_attribute_name :display_text %></label>
   <div class="controls">
     <%= f.text_field :display_text, placeholder: InterventionType.human_attribute_name(:display_text) %>
     <span class="red"><%= errors_for @intervention_type, :display_text %></span>

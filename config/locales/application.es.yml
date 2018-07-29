@@ -96,6 +96,7 @@ es:
         priority: "Prioridad"
         target: "Destino"
         display_text: "Texto a mostrar"
+        emergency: "Emergencia"
       mobile_intervention:
         activated_at: "Fecha y hora de activación"
         labors: "Labores"
