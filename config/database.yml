@@ -3,17 +3,18 @@ development:
   encoding: unicode
   database: firehouse_development
   pool: 5
-  username: firehouse
-  password: firehouse
+  username: docker
+  password: docker
   host: localhost
+  port: 5432
 
 test:
   adapter: postgresql
   encoding: unicode
   database: firehouse_test
   pool: 5
-  username: <%= ENV['TRAVIS'] ? 'postgres' : 'firehouse' %>
-  password: <%= ENV['TRAVIS'] ? '' : 'firehouse' %>
+  username: <%= ENV['TRAVIS'] ? 'postgres' : 'docker' %>
+  password: <%= ENV['TRAVIS'] ? '' : 'docker' %>
   host: localhost
 
 production:
