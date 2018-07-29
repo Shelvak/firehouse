@@ -6,6 +6,7 @@ class Intervention < ActiveRecord::Base
 
   validates :intervention_type_id, presence: true
 
+  after_initialize :apply_defaults
   before_validation :validate_truck_presence, :assign_endowment_number, :update_status
   before_create :assign_special_light_behaviors
   after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.emergency? }
@@ -29,9 +30,7 @@ class Intervention < ActiveRecord::Base
 
   delegate :audio, to: :intervention_type
 
-  def initialize(attributes = nil, options = {})
-    super(attributes, options)
-
+  def apply_defaults
     self.endowments.build if self.endowments.empty?
   end
 
@@ -94,7 +93,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def type
-    self.intervention_type.try(:to_s)
+    intervention_type.to_s
   end
 
   def display_type
@@ -136,6 +135,7 @@ class Intervention < ActiveRecord::Base
   def its_a_trap!
     lights = lights_for_redis
     lights['trap'] = true
+    lights['priority'] = false
 
     update_column(:its_a_trap, true)
 
@@ -146,6 +146,7 @@ class Intervention < ActiveRecord::Base
   def activate_electric_risk!
     lights = lights_for_redis
     lights['blue'] = true
+    lights['priority'] = false
 
     self.update(
       electric_risk: true,
@@ -166,7 +167,7 @@ class Intervention < ActiveRecord::Base
   def default_lights
     lights = intervention_type.lights
     lights['day'] = (8..20).include?(Time.zone.now.hour)
-    lights['priority'] = 1 if intervention_type.emergency?
+    lights['priority'] = true if intervention_type.emergency?
     lights
   end
 
@@ -185,7 +186,9 @@ class Intervention < ActiveRecord::Base
     stop_running_alerts!
 
     ::Rails.logger.info("Enviando luces ")
-    RedisClient.publish('semaphore-lights-alert', lights_for_redis.to_json)
+    lights = lights_for_redis
+    lights['priority'] = true if play_audio && intervention_type.emergency?
+    RedisClient.publish('semaphore-lights-alert', lights.to_json)
     if play_audio
       sleep 2
       ::Rails.logger.info("Dale play!!!")
@@ -237,6 +240,7 @@ class Intervention < ActiveRecord::Base
   def send_alert_on_repose
     lights = lights_for_redis
     lights['sleep'] = true
+    lights['priority'] = false
 
     save_lights_on_redis(lights)
     put_in_redis_list

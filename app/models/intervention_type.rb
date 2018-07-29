@@ -43,7 +43,7 @@ class InterventionType < ActiveRecord::Base
 
     all.each do |it|
       check_priority = with_priority ? it.light_priority : true
-      if COLORS.map { |c| it.lights[c] == search_lights[c] && it.light_priority? }.all?
+      if COLORS.map { |c| it.lights[c] == search_lights[c] && check_priority }.all?
         return it
       end
     end
@@ -106,7 +106,6 @@ class InterventionType < ActiveRecord::Base
 
     collection
   end
-
 
   def emergency_or_urgency
     emergency? ? 'emergency' : 'urgency'
