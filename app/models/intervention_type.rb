@@ -96,7 +96,7 @@ class InterventionType < ActiveRecord::Base
   def self.order_by_children
     collection = []
 
-    only_fathers.each do |it|
+    only_fathers.order(name: :asc).each do |it|
       collection << it
 
       it.children.each do |c|

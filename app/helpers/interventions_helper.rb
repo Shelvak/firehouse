@@ -18,19 +18,27 @@ module InterventionsHelper
     InterventionType.all
   end
 
-  def intervention_type_select(form)
-    collection = []
-
-    InterventionType.order_by_children.each do |it|
-      collection << [it.to_s, it.id, { class: (it.priority ? 'hidden' : '') }]
+  def intervention_types_collection(hide_priority: true)
+    InterventionType.order_by_children.map do |it|
+      emergency_class = if hide_priority && it.priority
+                          'hidden'
+                        elsif it.emergency?
+                          'alert alert-danger'
+                        else
+                          ''
+                        end
+      [it.to_s, it.id, { class: emergency_class }]
     end
+  end
 
-    form.input :intervention_type_id, collection: collection,
+  def intervention_type_select(form)
+    form.input :intervention_type_id,
+      collection: intervention_types_collection,
       input_html: {
         selected: form.object.try(:intervention_type_id),
         disabled: form.object.finished?,
         data: { intervention_saver: true }
-    }
+      }
   end
 
   def special_intervention_buttons

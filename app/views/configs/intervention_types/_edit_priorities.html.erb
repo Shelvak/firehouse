@@ -10,7 +10,7 @@
       <% (1..10).each do |i| %>
         <p>
           <%= select_tag i.to_s, options_from_collection_for_select(
-            @children, 'id', 'to_s',
+            intervention_types_collection(hide_priority: false), :second, :first,
             selected: @children.map { |x| x.id if x.priority == i}
           ), prompt: "Tipo con prioridad #{i}" %>
         </p>
