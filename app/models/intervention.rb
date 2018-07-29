@@ -97,6 +97,10 @@ class Intervention < ActiveRecord::Base
     self.intervention_type.try(:to_s)
   end
 
+  def display_type
+    intervention_type.display_text.present? ? intervention_type.display_text : intervention_type.to_s
+  end
+
   def validate_truck_presence
     not_empty = []
     self.endowments.each do |e|
@@ -208,8 +212,8 @@ class Intervention < ActiveRecord::Base
 
   def send_alert_to_lcd
     lines = {
-      line3: self.type[0..19],
-      line4: "D:#{endowments.first&.number} M:#{endowments.first&.truck.to_s} ##{id}"
+      line3: self.display_type[0..19],
+      line4: "D:#{endowments.first&.number} M:#{endowments.first&.truck.to_s} ##{id}"[0..19]
     }
 
     lines.each do |line, text|

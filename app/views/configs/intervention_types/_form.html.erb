@@ -6,6 +6,13 @@
   </div>
 </div>
 <div class="control-group">
+  <label class="control-label"><%= InterventionType.human_attribute_name :display_text %></label>
+  <div class="controls">
+    <%= f.text_field :display_text, placeholder: InterventionType.human_attribute_name(:display_text) %>
+    <span class="red"><%= errors_for @intervention_type, :display_text %></span>
+  </div>
+</div>
+<div class="control-group">
   <label class="control-label"><%= InterventionType.human_attribute_name :image %></label>
   <div class="controls">
     <%= f.file_field :image, placeholder: InterventionType.human_attribute_name(:image) %>
