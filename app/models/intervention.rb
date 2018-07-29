@@ -199,7 +199,7 @@ class Intervention < ActiveRecord::Base
   def send_alert_to_lcd
     lines = {
       line3: self.display_type[0..19],
-      line4: "D:#{endowments.first&.number} M:#{endowments.first&.truck.to_s} ##{id}"[0..19]
+      line4: "D:#{endowments.first.try(:number)} M:#{endowments.first.try(:truck).to_s} ##{id}"[0..19]
     }
 
     lines.each do |line, text|
