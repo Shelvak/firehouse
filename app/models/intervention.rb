@@ -149,13 +149,7 @@ class Intervention < ActiveRecord::Base
     lights['blue'] = true
     lights['priority'] = false
 
-    self.update(
-      electric_risk: true,
-      observations: [
-        self.observations,
-        "[#{I18n.l(Time.now, format: '%H:%M')}] Riesgo Eléctrico"
-      ].compact.join("\n")
-    )
+    update_observations_with('Riesgo Eléctrico', electric_risk: true)
 
     save_lights_on_redis(lights)
     send_lights
@@ -339,7 +333,18 @@ class Intervention < ActiveRecord::Base
       elsif alerts.any? # urgency with alerts
         send_lights(true)
       end
+
+      update_observations_with("Cambio de alerta [#{InterventionType.find(intervention_type_id_was)}]")
     end
+  end
+
+  def update_observations_with(msg, extras = {})
+    update extras.merge(
+      observations: [
+        self.observations,
+        "[#{I18n.l(Time.zone.now, format: '%H:%M')}] #{msg}"
+      ].compact.join("\n")
+    )
   end
 
   def update_status
