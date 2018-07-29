@@ -207,9 +207,16 @@ class Intervention < ActiveRecord::Base
   end
 
   def send_alert_to_lcd
-    ::Rails.logger.info("Enviando alerta a LCD: #{{ full: self.to_s }.to_json}")
-    resp = RedisClient.publish('lcd-messages', { full: self.to_s }.to_json)
-    ::Rails.logger.info("Alerta enviada a LCD respuesta: #{resp}")
+    lines = {
+      line3: self.type[0..19],
+      line4: "D:#{endowments.first&.number} M:#{endowments.first&.truck.to_s} ##{id}"
+    }
+
+    lines.each do |line, text|
+      resp = RedisClient.publish('lcd-messages', { line => text }.to_json)
+      ::Rails.logger.info("Alerta enviada a LCD #{{ line => text }} Respuesta: #{resp}")
+      sleep 0.5 if line == :line3
+    end
   end
 
   def active?
