@@ -7,7 +7,7 @@ class Intervention < ActiveRecord::Base
   validates :intervention_type_id, presence: true
 
   after_initialize :apply_defaults
-  before_validation :validate_truck_presence, :assign_endowment_number, :update_status
+  before_validation :assign_endowment_number, :update_status
   before_create :assign_special_light_behaviors
   after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.emergency? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks
@@ -99,19 +99,6 @@ class Intervention < ActiveRecord::Base
 
   def display_type
     intervention_type.display_text.present? ? intervention_type.display_text : intervention_type.to_s
-  end
-
-  def validate_truck_presence
-    not_empty = []
-    self.endowments.each do |e|
-      if e.truck_id.present? || e.truck_number.present? ||
-          e.endowment_lines.any? { |el| el.firefighters_names.present? }
-
-        not_empty << e
-      end
-    end
-
-    self.endowments = not_empty
   end
 
   def formatted_description
@@ -334,14 +321,14 @@ class Intervention < ActiveRecord::Base
         send_lights(true)
       end
 
-      update_observations_with("Cambio de alerta [#{InterventionType.find(intervention_type_id_was)}]")
+      update_observations_with("Cambio de alerta (#{InterventionType.find(intervention_type_id_was)} => #{self.type})")
     end
   end
 
   def update_observations_with(msg, extras = {})
-    update extras.merge(
+    update_columns extras.merge(
       observations: [
-        self.observations,
+        self.observations.present? ? self.observations.strip : nil,
         "[#{I18n.l(Time.zone.now, format: '%H:%M')}] #{msg}"
       ].compact.join("\n")
     )
