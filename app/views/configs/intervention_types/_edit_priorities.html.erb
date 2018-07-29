@@ -8,9 +8,11 @@
     </div>
     <div class="modal-body text-center">
       <% (1..10).each do |i| %>
-        <p><%= select_tag i.to_s, options_from_collection_for_select(@children,
-               'id', 'name', selected: @children.map { |x| x.id if
-                x.priority == i}), prompt: "Tipo con prioridad #{i}" %>
+        <p>
+          <%= select_tag i.to_s, options_from_collection_for_select(
+            @children, 'id', 'to_s',
+            selected: @children.map { |x| x.id if x.priority == i}
+          ), prompt: "Tipo con prioridad #{i}" %>
         </p>
         <%# todo: hacer exclusiva la lista de las prioridades mediante javscript %>
       <% end %>
