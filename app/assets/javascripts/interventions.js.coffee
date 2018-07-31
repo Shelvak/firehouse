@@ -10,11 +10,13 @@ window.Intervention ||=
     if Intervention.lastFocusedInput
       $('#' + Intervention.lastFocusedInput.attr('id')).focus()
 
-  saveIntervention: (e, updatedPoint) ->
+  saveIntervention: (e, updatedPoint, no_refresh) ->
     interventionForm = $('form[data-intervention-form]')
     url              = interventionForm[0].getAttribute('action')
     _method          = interventionForm[0].getAttribute('method')
     selector         = $('#intervention_intervention_type_id')
+
+    $('.js-no-refresh-param').val(!!no_refresh)
 
     # Important button click
     interventionSaver = if this.attributes
@@ -33,7 +35,7 @@ window.Intervention ||=
         type: _method
         data: interventionForm.serialize()
         success: (data)->
-          if $.trim(data)
+          if $.trim(data) && !no_refresh
             $('.content').html(data)
             Intervention.focusLastTab()
           if updatedPoint
@@ -162,6 +164,8 @@ new Rule
       id = this.getAttribute('data-intervention-id')
       type = this.getAttribute('data-intervention-special-button')
       refresh = this.getAttribute('data-refresh-page')
+
+      Intervention.saveIntervention(null, null, true)
 
       if id.match(/\d+/)
         $.ajax

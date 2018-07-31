@@ -63,10 +63,17 @@ class InterventionsController < ApplicationController
     @intervention = intervention_scope.find(params[:id])
     html_request = request.format.html?
 
-    if @intervention.update(params[:intervention]) && html_request
-      redirect_to @intervention, notice: t('view.interventions.correctly_updated')
+    byebug
+    if @intervention.update(params[:intervention])
+      if params[:no_refresh].present? && params[:no_refresh] == 'true'
+        render nothing: true
+      elsif html_request
+        redirect_to @intervention, notice: t('view.interventions.correctly_updated')
+      else
+        render action: 'edit', layout: (html_request ? 'application' : false)
+      end
     else
-      render 'edit', layout: (html_request ? 'application' : false)
+      render action: 'edit', layout: (html_request ? 'application' : false)
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_intervention_url(@intervention),

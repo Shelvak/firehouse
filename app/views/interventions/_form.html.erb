@@ -25,6 +25,7 @@
   <div class="form-inputs">
     <div class='row-fluid'>
       <div class='span7'>
+        <%= hidden_field_tag :no_refresh, '', class: 'js-no-refresh-param' %>
         <%= intervention_type_select(f) %>
         <%= f.input :address, input_html: {
           autocomplete: 'off', class: 'address-autocomplete span10',
@@ -51,7 +52,7 @@
               </div>
               <div class="span4">
                 <%= label_tag 'use_sco', 'Usar CEO' %>
-                <%= check_box_tag 'use_sco' %>
+                <%= check_box_tag 'use_sco', 1, f.object.sco.present? %>
               </div>
               <div class="span6 pull-right">
                 <%= f.label :sco_id %>

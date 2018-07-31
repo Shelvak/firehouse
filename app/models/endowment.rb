@@ -30,7 +30,7 @@ class Endowment < ActiveRecord::Base
   end
 
   def assign_truck
-    self.truck_id ||= Truck.where(number: self.truck_number).first.try(:id)
+    self.truck_id ||= Truck.where(number: self.truck_number).first.try(:id) if truck_number
   end
 
   def truck_out_in_distance
