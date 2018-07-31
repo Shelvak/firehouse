@@ -33,7 +33,7 @@ module InterventionsHelper
 
   def intervention_type_select(form)
     form.input :intervention_type_id,
-      collection: intervention_types_collection,
+      collection: intervention_types_collection(hide_priority: form.object.new_record?),
       input_html: {
         selected: form.object.try(:intervention_type_id),
         disabled: form.object.finished?,

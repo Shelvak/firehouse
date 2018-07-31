@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   get :console, to: 'websockets#console'
   get :console_create, to: 'interventions#console_create'
 
+  resources :call_center, only: [:index], constraints: { id: /.*/ } do
+    get :download, on: :member
+  end
+
   resources :interventions do
     collection do
       ['firefighter', 'receptor', 'sco'].each do |obj|
