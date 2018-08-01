@@ -72,9 +72,6 @@ class InterventionsController < ApplicationController
         render action: 'edit', layout: (html_request ? 'application' : false)
       end
     else
-      @intervention.errors.add(:base, 'tu hna')
-      @intervention.errors.add(:base, 'en')
-      @intervention.errors.add(:base, 'tanga')
       render action: 'edit', layout: (html_request ? 'application' : false)
     end
   rescue ActiveRecord::StaleObjectError
