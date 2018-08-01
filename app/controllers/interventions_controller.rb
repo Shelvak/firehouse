@@ -63,7 +63,6 @@ class InterventionsController < ApplicationController
     @intervention = intervention_scope.find(params[:id])
     html_request = request.format.html?
 
-    byebug
     if @intervention.update(params[:intervention])
       if params[:no_refresh].present? && params[:no_refresh] == 'true'
         render nothing: true
@@ -73,6 +72,9 @@ class InterventionsController < ApplicationController
         render action: 'edit', layout: (html_request ? 'application' : false)
       end
     else
+      @intervention.errors.add(:base, 'tu hna')
+      @intervention.errors.add(:base, 'en')
+      @intervention.errors.add(:base, 'tanga')
       render action: 'edit', layout: (html_request ? 'application' : false)
     end
   rescue ActiveRecord::StaleObjectError

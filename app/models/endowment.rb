@@ -7,7 +7,7 @@ class Endowment < ActiveRecord::Base
   #  :arrive_at, :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage,
   #  :in_mileage, :truck_number, :truck_id, :intervention_id
 
-  belongs_to :intervention
+  belongs_to :intervention, touch: true
   belongs_to :truck
   has_many :endowment_lines
   has_one :mobile_intervention

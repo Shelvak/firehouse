@@ -1,0 +1,12 @@
+<% if list.present? %>
+  <br />
+  <div class="row-fluid">
+    <div class="alert alert-error">
+      <ul>
+        <% list.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
