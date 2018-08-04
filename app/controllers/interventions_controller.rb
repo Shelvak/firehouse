@@ -132,10 +132,10 @@ class InterventionsController < ApplicationController
 
     if params[:sign] == 'qta'
       render text: 302 # emulate a redirect from js
-    elsif params[:refresh].to_bool
+    else #if params[:refresh].to_bool
       render 'edit', layout: false
-    else
-      render nothing: true
+    # else
+    #   render nothing: true
     end
   end
 

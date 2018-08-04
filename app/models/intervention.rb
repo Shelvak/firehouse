@@ -111,7 +111,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def reactivate!
-    intervention_type.emergency? ? send_lights(true) : send_first_alert!
+    send_first_alert!
 
     alerts.create!
   end
@@ -321,10 +321,10 @@ class Intervention < ActiveRecord::Base
 
   def intervention_type_changed_tasks
     if self.intervention_type_id_was.present?
-      if intervention_type.emergency? || alerts.any?
+      if intervention_type.priority? || alerts.any?
         send_first_alert!
-      elsif alerts.any? # urgency with alerts
-        send_lights(true)
+      # elsif alerts.any? # urgency with alerts
+      #   send_lights(true)
       end
 
       update_observations_with("Cambio de Alarma (#{InterventionType.find(intervention_type_id_was)} => #{self.type})")

@@ -19,6 +19,9 @@
   <div id="loading_caption" class="alert" style="display: none;">
     <strong><%= t('label.loading') %></strong>
   </div>
+
+  <%= render "shared/new_intervention_popup" if controller_name.to_s.match(/intervention/i) %>
+
   <div id="intervention_alert" class="alert alert-error hide not-printable">
   </div>
   <div class="container">

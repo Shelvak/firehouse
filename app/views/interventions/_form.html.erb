@@ -5,18 +5,6 @@
 <%= content_tag :div, t('view.interventions.no_active_ceo'),
   class: 'alert alert-danger' if @no_active_ceo %>
 
-<div data-new-console-alert="div" class="hide" data-template="<%= %{
-  <div class="alert alert-info">
-    <a class="close" data-dismiss="alert">&times;</a>
-    <h3>
-      <a href="LINK_PLACE" target="_blank">
-        #{t('view.interventions.new_console_intervention')}
-      </a>
-    </h3>
-  </div>
-} %>">
-</div>
-
 <% intervention_form = nil %>
 <%= simple_form_for @intervention,
   defaults: { input_html: { class: 'span10' } },
@@ -185,5 +173,4 @@
 
   Intervention.focusLastFocusedInput();
   Intervention.tokenizeAutocompleteInputs();
-  InterventionUpdater.consoleAlerts();
 </script>

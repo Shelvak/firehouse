@@ -3,7 +3,7 @@
       <%= link_to image_tag(data[:url]), '#', data: {
           intervention_special_button: button,
           intervention_id:  @intervention.try(:id),
-          refresh_page: data[:refresh].to_bool
+          refresh_page: true # data[:refresh].to_bool
       }, class: 'intervention-special-button' %>
   <% end %>
 </div>

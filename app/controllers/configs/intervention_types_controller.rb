@@ -47,7 +47,7 @@ class Configs::InterventionTypesController < ApplicationController
     @title = t('view.intervention_types.edit_title')
     @intervention_type = InterventionType.find(params[:id])
 
-    if @intervention_type.update_attributes(intervention_type_params)
+    if @intervention_type.update_attributes(Hash[intervention_type_params])
       render_intervention_type
     else
       render partial: 'edit', status: :unprocessable_entity, content_type: 'text/html'
