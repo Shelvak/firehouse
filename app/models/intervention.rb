@@ -9,7 +9,7 @@ class Intervention < ActiveRecord::Base
   before_validation :assign_endowment_number, :update_status
   before_create :assign_special_light_behaviors
   before_update :first_endowment_change, if: ->(i) { i.endowments.any? }
-  after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.emergency? }
+  after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.priority? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks
   after_update :intervention_type_changed_tasks, if: :intervention_type_id_changed?
 
@@ -215,7 +215,6 @@ class Intervention < ActiveRecord::Base
   end
 
   def first_endowment_change
-    byebug
     send_alert_to_lcd if endowments.first.truck_id_changed? || endowments.first.number_changed?
   end
 
