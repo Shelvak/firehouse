@@ -64,9 +64,13 @@ module InterventionsHelper
       })
     end
 
-    buttons.merge({
-      qta: { url: 'qta_button.png' }
-    })
+    unless @intervention.try(:endowment_out?)
+      buttons.merge!({
+        qta: { url: 'qta_button.png' }
+      })
+    end
+
+    buttons
   end
 
   def intervention_path_with_params(hash)

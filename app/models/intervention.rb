@@ -21,7 +21,7 @@ class Intervention < ActiveRecord::Base
   has_many :alerts
   has_many :endowments, autosave: true
 
-  scope :opened, -> { where.not(status: :finished) }
+  scope :opened, -> { where.not(status: :finished, qta: true) }
   scope :between, ->(from, to) { where(created_at: from..to) }
 
   accepts_nested_attributes_for :informer,
@@ -175,6 +175,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def qta!
+    return if endowment_out?
     update_observations_with('QTA', qta: true)
 
     turn_off_alert
