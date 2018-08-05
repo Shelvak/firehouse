@@ -53,10 +53,10 @@ class Configs::ShiftsController < ApplicationController
     end
 
     def shift_scope
-      if can?(:manage, Shift) || can?(:reports, Shift)
+      if can?(:read, Shift) || can?(:reports, Shift)
         Shift.all
       else
-        current_user.firefighter.shifts
+        current_user.firefighter.try(:shifts) || Shift.none
       end
     end
 
