@@ -4,8 +4,8 @@ var InterventionUpdater = ( function () {
 
     , setupSocket = function () {
         var _protocol = window.location.protocol
-          , _host = window.location.hostname
-          , _port = '8085'
+          , _host = '<%= ENV['SOCKETIO_HOST'] %>' || window.location.hostname
+          , _port = '<%= ENV['SOCKETIO_PORT'] %>' || '8085'
           , _full_path = _protocol + '//' + _host + ':' + _port;
         _socket = io( _full_path )
     }
