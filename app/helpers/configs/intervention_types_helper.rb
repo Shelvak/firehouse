@@ -2,13 +2,13 @@ module Configs::InterventionTypesHelper
   def lights_priority_link_to(it)
     if it.light_priority?
       [
-        it.name,
+        it.to_s,
         content_tag(:span, '&#x2714;'.html_safe, class: 'iconic')
       ].join(' ').html_safe
 
     else
       link_to(
-        it.name,
+        it.to_s,
         lights_priority_configs_intervention_type_path(it.id),
         method: :put
       )

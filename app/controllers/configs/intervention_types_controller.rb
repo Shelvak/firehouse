@@ -90,7 +90,7 @@ class Configs::InterventionTypesController < ApplicationController
   def lights_priority
     it = InterventionType.find(params[:id])
     it.mark_as_light_priority!
-    redirect_to lights_priorities_configs_intervention_types_path, notice: "#{it.name} priorizado...."
+    redirect_to lights_priorities_configs_intervention_types_path, notice: "#{it} priorizado...."
   end
 
   def clean_light_priorities

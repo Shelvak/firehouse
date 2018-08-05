@@ -4,7 +4,7 @@
       data: { target: 'modal', modal: true }, rel: 'tooltip', title:
       'Agregar una subcategoría'  ) if( can?( :create, InterventionType ) &&
       special_class == 'type' )%>
-  <%= intervention_type.name %>
+  <%= intervention_type.to_s %>
   <span class="pull-right">
     <%= link_to_edit edit_configs_intervention_type_path(intervention_type),
         remote: true, data: { target: 'modal', modal: true } if can? :update,
