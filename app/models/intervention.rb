@@ -31,6 +31,13 @@ class Intervention < ActiveRecord::Base
 
   delegate :audio, to: :intervention_type
 
+  def self.last_console_creation_is_a_trap
+    i = opened.where(receptor_id: User.default_receptor.id).reorder(:id).last
+    i.its_a_trap!
+
+    RedisClient.socketio_emit("update-intervention-#{i.id}")
+  end
+
   def self.create_by_lights(lights)
     if (it = InterventionType.find_by_lights(lights)).present?
       ::Rails.logger.info("Intervencion encontrada [#{it.emergency_or_urgency}] #{it}...")
@@ -38,9 +45,9 @@ class Intervention < ActiveRecord::Base
         intervention_type_id: it.id, receptor_id: User.default_receptor.id, console_activation: true
       )
       ::Rails.logger.info("Publicando a socketIO")
-      RedisClient.publish(
-        'socketio-new-intervention',
-        url_helpers.edit_intervention_path(intervention)
+      RedisClient.socketio_emit(
+        'new-console-intervention',
+        { link: url_helpers.edit_intervention_path(intervention) }
       )
     end
   end

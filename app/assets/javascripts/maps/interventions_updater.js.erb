@@ -17,10 +17,19 @@ var InterventionUpdater = ( function () {
           setTimeout(refreshPage, timeout)
         });
     }
+    , listenToInterventionChanges = function (id) {
+        setupSocket()
+        _socket.on('update-intervention-' + id, function (data) {
+          window.Intervention.saveIntervention(null, null, true);
+          setTimeout(refreshPage, 2000);
+        });
+    }
     , emitEvent = function (event, incomingMessage) {
         setupSocket()
         var message = incomingMessage || '<%= I18n.t('view.maps.new_intervention') %>'
-        if (event == 'new intervention') _socket.emit(event, { message: message })
+        console.log('emit')
+        // if (event == 'new intervention') _socket.emit(event, { message: message })
+        _socket.emit(event, { message: message })
     }
     , showMessage = function (message) {
         var alertDiv = document.querySelector('[rel="alerts"]')
@@ -43,8 +52,9 @@ var InterventionUpdater = ( function () {
         window.location.reload()
     }
   return {
-      update        : listenToUpdates
-    , emitEvent     : emitEvent
-    , consoleAlerts : alertForNewConsoleIntervention
+      update                      : listenToUpdates
+    , emitEvent                   : emitEvent
+    , consoleAlerts               : alertForNewConsoleIntervention
+    , listenToInterventionChanges : listenToInterventionChanges
   }
 } () )

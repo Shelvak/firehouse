@@ -35,8 +35,8 @@ class InterventionsController < ApplicationController
 
   # GET /interventions/1/edit
   def edit
-    @title = t('view.interventions.edit_title')
     @intervention = intervention_scope.find(params[:id])
+    @title = t('view.interventions.edit_title', title: @intervention.to_s)
   end
 
   # POST /interventions
@@ -142,6 +142,14 @@ class InterventionsController < ApplicationController
   def console_create
     ::Rails.logger.info("CREANDO DESDE CONSOLA...")
     Intervention.create_by_lights(params)
+
+    ::Rails.logger.info("CREACION TERMINADA...")
+    render nothing: true
+  end
+
+  def console_trap_sign
+    ::Rails.logger.info("CREANDO DESDE CONSOLA...")
+    Intervention.last_console_creation_is_a_trap!
 
     ::Rails.logger.info("CREACION TERMINADA...")
     render nothing: true

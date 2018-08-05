@@ -398,7 +398,7 @@ es:
       correctly_created: "Intervención agregada correctamente."
       correctly_updated: "Intervención actualizada correctamente."
       current_sco: "CEO actual"
-      edit_title: "Intervención %{number} - %{type}"
+      edit_title: "Intervención %{title}"
       empty_index:
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
       endowments_charges:

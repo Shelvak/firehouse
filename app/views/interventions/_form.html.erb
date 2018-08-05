@@ -173,4 +173,8 @@
 
   Intervention.focusLastFocusedInput();
   Intervention.tokenizeAutocompleteInputs();
+  // it's a trap
+  <% unless @intervention.its_a_trap? || @intervention.finished? %>
+    InterventionUpdater.listenToInterventionChanges('<%= @intervention.id %>')
+  <% end %>
 </script>
