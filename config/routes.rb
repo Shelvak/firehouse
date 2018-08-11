@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     end
     member do
       get :edit_profile
-      put :update_profile
+      patch :update_profile
     end
   end
 
