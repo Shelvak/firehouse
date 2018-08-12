@@ -207,8 +207,8 @@ class Intervention < ActiveRecord::Base
 
   def send_alert_to_lcd
     lines = {
-      line3: self.display_type[0..19],
-      line4: "D:#{endowments.first.try(:number)} M:#{endowments.first.try(:truck).to_s} ##{id}"[0..19]
+      line3: finished? ? self.display_type[0..19] : '',
+      line4: finished? ? "D:#{endowments.first.try(:number)} M:#{endowments.first.try(:truck).to_s} ##{id}"[0..19] : ''
     }
 
     lines.each do |line, text|
@@ -247,6 +247,7 @@ class Intervention < ActiveRecord::Base
     remove_item_from_actives_list
     RedisClient.del('interventions:' + self.id.to_s)
     RedisClient.publish('stop-broadcast', 'stop')
+    send_alert_to_lcd # clean the milonga
     turn_off_the_lights!
   end
 
