@@ -217,10 +217,10 @@ var Leaflet = ( function () {
                   , longitude = marker._latlng.lng
 
                 console.log(marker._latlng.toString())
-                marker.openPopup()
                 // temporal fix
                 Leaflet.elements.map.setView(marker._latlng, 17, {animation: true});
                 if (Leaflet.options.shouldDrawRoute) drawRoute(latitude, longitude);
+                marker.openPopup()
               })
             }
           }

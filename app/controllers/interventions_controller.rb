@@ -164,11 +164,9 @@ class InterventionsController < ApplicationController
     def intervention_scope
       case current_user.role
         when :radio, :firefighter
-          current_user.interventions.where(
+          Intervention.where(
             created_at: MAX_PERMITTED_HANDLE_DAYS.days.ago..Time.zone.now
           )
-        #when :shifts_admin, :reporter, :subofficer
-        #  current_user.interventions
         else
           Intervention.all
       end

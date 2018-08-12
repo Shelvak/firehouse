@@ -33,9 +33,8 @@ var loadLargeMap = function () {
       if (latitude && longitude) {
         var point = new OpenLayers.Geometry.Point( longitude, latitude ).transform(fromProjection, toProjection)
         drawLine(map, station, point)
+        map.setCenter(point, zoom, true, true);
       }
-
-
     })
   }
 
