@@ -1,4 +1,6 @@
 var findAddressInMap = function (e) {
+  // ESTO NI SE USA
+  console.log('se llamo a findAddressInMap')
     var e = e || {},
         map_canvas = document.getElementById('map_canvas'),
         address = document.getElementById('intervention_address'),
@@ -45,6 +47,8 @@ var findAddressInMap = function (e) {
 };
 
 var findByCoordenates = function(latitude, longitude, address) {
+  // ESTO NI SE USA
+  console.log('se llamo a findByCoordinates')
     var latlng = new google.maps.LatLng( latitude, longitude);
     var myOptions = {
         zoom: 16,
@@ -65,6 +69,8 @@ var findByCoordenates = function(latitude, longitude, address) {
 };
 
 var loadGeneralMap = function () {
+  // ESTO NI SE USA
+  console.log('se llamo a loadGeneralMap')
     var firehouseStation = {
           latitude  : '-32.926887'
         , longitude : '-68.846255'
@@ -104,14 +110,12 @@ var loadGeneralMap = function () {
     });
   }
 
-var setLatitudeAndLongitude = function(latitude, longitude){
-    document.getElementById('intervention_latitude').value  = latitude;
-    document.getElementById('intervention_longitude').value = longitude;
-};
 
 //var interventions = getMarkersInfo();
 
 var setMarkerInfo = function(map, marker, title, index, infowindow) {
+  // NI SE USA
+  console.log('se llamo a setMarkerInfo')
     google.maps.event.addListener(marker, 'click', (function (marker, index) {
         return function () {
             infowindow.setContent(title);
@@ -120,10 +124,21 @@ var setMarkerInfo = function(map, marker, title, index, infowindow) {
     })(marker, index));
 };
 
-var autocompleteAddress = function(id){
+
+// TODAVIA EN USO
+var setLatitudeAndLongitude = function(latitude, longitude){
+    document.getElementById('intervention_latitude').value  = latitude;
+    document.getElementById('intervention_longitude').value = longitude;
+};
+
+var autocompleteAddress = function(id) {
+  var bounds = new google.maps.LatLngBounds();
+  bounds.extend(new google.maps.LatLng(-33.103957, -68.687023));
+  bounds.extend(new google.maps.LatLng(-32.785942, -68.961668));
     var input = document.getElementById(id)
       , options = {
-        componentRestrictions: { country: 'ar' }
+        bounds: bounds
+        , strictBounds: true
       };
     address_autocompleted = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(address_autocompleted, 'place_changed', function () {

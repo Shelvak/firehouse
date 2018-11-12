@@ -51,11 +51,16 @@ var Leaflet = ( function () {
         if (markersCount > 0) {
           marker = markers[markersCount - 1]
           marker.setLatLng(point);
-        }
-        else {
-          marker = L.marker(point, { draggable: true }).addTo(map)
-          // Siempre debería existir un marcador al menos, pero lo agregamos por si las dudas
-          markers.push(marker)
+        } else {
+          opts = _.defaults(
+            {
+              latitude: point.lat,
+              longitude: point.lon,
+              draggable: true
+            },
+            Leaflet.elements.defaultMarkerInfo
+          )
+          setNewMarker(opts)
         }
         // Cambio popup
         setPopup(marker, description)
@@ -81,9 +86,17 @@ var Leaflet = ( function () {
           marker.openPopup()
         }
     }
+    , setLatAndLongFromContextEvent = function(event) {
+        var marker = Leaflet.elements.markers[0],
+            point  = event.latlng
+
+        marker.setLatLng(point);
+        setLatitudeAndLongitude(point.lat, point.lng)
+        Intervention.saveIntervention(false, true)
+      }
     // Bindea las acciones para completar satisfactoriamente el drag del marcador
     , bindDrag = function (marker) {
-        marker.on('dragend', function (event) {
+        marker.on('dragend', function () {
           var position = marker.getLatLng()
           setLatitudeAndLongitude(position.lat, position.lng)
           setPopup(marker)
@@ -96,7 +109,6 @@ var Leaflet = ( function () {
         Leaflet.elements.map.fitBounds(bounds)
     }
     , fitMarkers = function (first, second) {
-        console.log("Rock")
         var bounds = new L.LatLngBounds([first, second])
 
         Leaflet.elements.map.fitBounds(bounds, {
@@ -143,10 +155,21 @@ var Leaflet = ( function () {
 
         var shouldSetInterventions = Leaflet.options.shouldShowGeneralMap
           , shouldMakeFullScreen   = Leaflet.options.shouldMakeFullScreen
+          , mapOpts                = {}
 
         if (shouldMakeFullScreen) setFullscreenMapSize()
 
-        Leaflet.elements.map = new L.Map(MapUtils.map.div)
+        if (Leaflet.elements.defaultMarkerInfo.draggable && Leaflet.options.shouldShowSimple) {
+          mapOpts.contextmenu = true
+          mapOpts.contextmenuItems = [
+            {
+              text: 'Poner marcador aquí',
+              callback: setLatAndLongFromContextEvent
+            }
+          ]
+        }
+
+        Leaflet.elements.map = new L.Map(MapUtils.map.div, mapOpts)
 
         if (shouldSetInterventions) setInterventionsMarkers()
         setNewMarker(Leaflet.elements.defaultMarkerInfo)
@@ -173,6 +196,13 @@ var Leaflet = ( function () {
         Leaflet.elements.map.setView(point, zoom)
 
         L.control.layers(baseTiles, specialTiles).addTo(Leaflet.elements.map)
+
+        // if (Leaflet.elements.defaultMarkerInfo.draggable) {
+        //   Leaflet.elements.map.on('contextmenu', function(context) {
+
+        //   })
+        // }
+
       }
     , setNewMarker = function (markerInfo) {
         var marker = L.marker([markerInfo.latitude, markerInfo.longitude], { draggable: markerInfo.draggable })
@@ -185,6 +215,7 @@ var Leaflet = ( function () {
         setPopup(marker, markerInfo.description)
 
         if (markerInfo.draggable) bindDrag(marker)
+
         if (Leaflet.options.shouldDrawRoute) drawRoute(markerInfo.latitude, markerInfo.longitude)
 
         Leaflet.elements.markers.push(marker)
@@ -216,7 +247,6 @@ var Leaflet = ( function () {
                   , latitude  = marker._latlng.lat
                   , longitude = marker._latlng.lng
 
-                console.log(marker._latlng.toString())
                 // temporal fix
                 Leaflet.elements.map.setView(marker._latlng, 17, {animation: true});
                 if (Leaflet.options.shouldDrawRoute) drawRoute(latitude, longitude);

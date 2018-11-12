@@ -20,6 +20,7 @@
 //= require jquery/emuletab
 //= require jquery/textarea-autosize
 //= require twitter/bootstrap
+//= require underscorejs
 //= require SrBuj
 //= require bootstrap-colorpicker
 //= require leaflet/leaflet
@@ -44,6 +45,7 @@
 //= require maps/map_utils.js
 //= require leaflet/leaflet
 //= require leaflet/leaflet-routing-machine.min
+//= require leaflet/leaflet.contextmenu
 //= require maps/map_tiles.js
 //= require maps/leaflet_utils.js
 //= require socketio/core
