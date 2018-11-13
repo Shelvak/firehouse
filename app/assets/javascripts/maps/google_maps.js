@@ -125,6 +125,8 @@ var setMarkerInfo = function(map, marker, title, index, infowindow) {
 };
 
 
+
+
 // TODAVIA EN USO
 var setLatitudeAndLongitude = function(latitude, longitude){
     document.getElementById('intervention_latitude').value  = latitude;

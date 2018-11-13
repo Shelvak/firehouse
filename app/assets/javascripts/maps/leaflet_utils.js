@@ -60,7 +60,7 @@ var Leaflet = ( function () {
             },
             Leaflet.elements.defaultMarkerInfo
           )
-          setNewMarker(opts)
+          marker = setNewMarker(opts)
         }
         // Cambio popup
         setPopup(marker, description)
@@ -219,6 +219,8 @@ var Leaflet = ( function () {
         if (Leaflet.options.shouldDrawRoute) drawRoute(markerInfo.latitude, markerInfo.longitude)
 
         Leaflet.elements.markers.push(marker)
+
+        return marker
       }
     , setInterventionsMarkers = function () {
         var interventions  = getMarkersInfo()

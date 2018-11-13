@@ -244,8 +244,71 @@ new Rule
       if data && data.target
         Intervention.lastFocusedTab = data.target
 
+    @map.intersectionStreetsSearch ||= ->
+      intersections = $('.js-intersection-streets')
+      i1 = intersections[0]
+      i2 = intersections[1]
+
+      if i1.value.length >= 3 && i2.value.length >= 3
+        bounds = new google.maps.LatLngBounds()
+        bounds.extend(new google.maps.LatLng(-33.103957, -68.687023))
+        bounds.extend(new google.maps.LatLng(-32.785942, -68.961668))
+
+        params = {
+          new_forward_geocoder: true
+          key: "AIzaSyCAOAVprqJGiyLRMIGpyQqo_7VWKycNqJA" # mover esto a secret
+          address: i1.value + ' y ' + i2.value + ', godoy cruz, mendoza, argentina'
+        }
+
+        $.ajax
+          url: "https://maps.googleapis.com/maps/api/geocode/json"
+          datatype: 'json'
+          data: params
+          success: (data)->
+            if data.status
+              select = document.querySelector('.js-intersection-results')
+
+              $(select).find('option').remove()
+
+              # Prompt
+              # option = document.createElement('option')
+              # option.text = ''
+              # select.add(option)
+
+              for result in data.results
+                option = document.createElement('option')
+                option.text     = result.formatted_address
+
+                option.dataset.lng = result.geometry.location.lng
+                option.dataset.lat = result.geometry.location.lat
+
+                select.add(option)
+              $(select).show()
+
+    @map.changeMarkerOnResult ||= (e)->
+      select = $(e.currentTarget)
+      option = select.find('option:selected')
+      text   = option.val()
+      if text.length <= 0
+        return
+
+      $('#intervention_address').val(text)
+      event = {
+        getPlace: ->
+          {
+            geometry: {
+              location: {
+                lat: -> option.data('lat')
+                lng: -> option.data('lng')
+              }
+            }
+          }
+      }
+      Leaflet.changeMarker(text, event)
 
 
+    $(document).on 'keyup', '.js-intersection-streets', @map.intersectionStreetsSearch
+    $(document).on 'change', '.js-intersection-results', @map.changeMarkerOnResult
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData

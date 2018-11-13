@@ -15,14 +15,27 @@
       <div class='span7'>
         <%= hidden_field_tag :no_refresh, '', class: 'js-no-refresh-param' %>
         <%= intervention_type_select(f) %>
+        <%= f.input :kind_notes, input_html: { data: { intervention_saver: true } } %>
         <%= f.input :address, input_html: {
           autocomplete: 'off', class: 'address-autocomplete span10',
           data: { ignore_enter: true, intervention: 'address' }
         } %>
         <%= f.input :latitude, as: :hidden %>
         <%= f.input :longitude, as: :hidden  %>
-        <%= f.input :near_corner, input_html: { data: { intervention_saver: true } } %>
-        <%= f.input :kind_notes, input_html: { data: { intervention_saver: true } } %>
+
+        <%= label_tag 'Intersecciones' %>
+        <div class="row-fluid">
+          <div class="span6">
+            <%= text_field_tag 'intersection_1', '', class: 'js-intersection-streets' %>
+          </div>
+          <div class="span6">
+            <%= text_field_tag 'intersection_2', '', class: 'js-intersection-streets' %>
+          </div>
+        </div>
+        <div class="">
+          <%= select_tag 'intersection_results', nil, class: 'span11 js-intersection-results', style: 'display: none;', size: 5 %>
+        </div>
+        <%# = f.input :near_corner, input_html: { data: { intervention_saver: true } } %>
       </div>
       <div class='span5'>
         <div id="map_canvas" class="google-map"></div>
