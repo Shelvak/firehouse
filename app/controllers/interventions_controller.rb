@@ -82,7 +82,6 @@ class InterventionsController < ApplicationController
   # no deberiamos tener deletes.
   def destroy
     @intervention = intervention_scope.find(params[:id])
-    @intervention.turn_off_alert
     @intervention.destroy
 
     redirect_to interventions_url

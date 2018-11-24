@@ -106,6 +106,11 @@ new Rule
 
     @map.assignTruckMileage ||= ->
       input = $(this)
+      if input.val().length == 0
+        input.parents('[data-endowment-item]')
+          .find('input[name$="[out_mileage]"]')
+          .val('')
+        return
 
       $.ajax
         url: '/interventions/autocomplete_for_truck_number'
@@ -186,18 +191,27 @@ new Rule
       if e.target && e.target.type == 'textarea'
         return
 
-      if (key == 10 || key == 13) && !e.ctrlKey
-        e.preventDefault()
-        e.stopPropagation()
-        if e.target && !e.target.getAttribute('data-ignore-enter')
-          Intervention.saveIntervention()
-
-      if (key == 10 || key == 13) && e.ctrlKey
-        $('form').submit()
+      if (key == 10 || key == 13)
+        if e.ctrlKey
+          $('form').submit()
+        else
+          e.preventDefault()
+          e.stopPropagation()
+          if e.target && !e.target.getAttribute('data-ignore-enter')
+            Intervention.saveIntervention()
 
     @map.ignoreEnter ||= (e) ->
       e.preventDefault()
       e.stopPropagation()
+
+    @map.enterTriggerChange ||= (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+
+      key = e.which
+      if (key == 10 || key == 13)
+        $(e.currentTarget).trigger('change')
+
 
     @map.alertWhenDistanceIsBig ||= (e) ->
       $input = $(e.target)
@@ -315,6 +329,7 @@ new Rule
     $(document).on 'click', '#add_current_time', @map.setCurrentTimeToObservations
     $(document).on 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
     $(document).on 'keyup', '[data-ignore-enter]', @map.ignoreEnter
+    $(document).on 'keyup', '[data-enter-trigger-change]', @map.enterTriggerChange
 
     # Fucking fix for double trigger....
     $(document).off('click', '[data-intervention-special-button]').on('click', '[data-intervention-special-button]', @map.sendSpecialSign)

@@ -7,7 +7,7 @@
       <td>
         <%= f.input :truck_number, label: false, input_html: {
           value: f.object.truck, class: 'span12',
-          data: { 'truck-number' => true }
+          data: { 'truck-number' => true, 'enter-trigger-change' => true,  'ignore-enter' => true }
         } %>
         <span class="alert-error help-inline hide"><%= t('messages.not_found') %></span>
       </td>

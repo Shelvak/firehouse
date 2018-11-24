@@ -1,6 +1,5 @@
 class Truck < ActiveRecord::Base
   has_paper_trail
-  has_magick_columns number: :integer
 
   BRANDS = ['Alfa Romeo', 'America Lafrance', 'Arctic Cat', 'Autocar', 'Batacazo',
             'Bedfor, BMW', 'Can-Am', 'Canestrari', 'Chevrolet', 'Chrysler',
@@ -56,6 +55,6 @@ class Truck < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    query.present? ? where(number: query.to_i) : none
   end
 end

@@ -1,7 +1,13 @@
 class Firefighter < ActiveRecord::Base
   include PgSearch
   has_paper_trail
-  pg_search_scope :unicode_search, against: [:identification, :firstname, :lastname], ignoring: :accents
+  pg_search_scope :unicode_search,
+    against: [:identification, :firstname, :lastname],
+    ignoring: :accents,
+    using: {
+      tsearch: { prefix: false },
+      trigram: { threshold: 0.1 }
+    }
 
   STATES = [
       'Ciudad Autonoma de Buenos Aires', 'Provincia de Buenos Aires',

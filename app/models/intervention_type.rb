@@ -13,7 +13,7 @@ class InterventionType < ActiveRecord::Base
   belongs_to :father, class_name: 'InterventionType', foreign_key:
     'intervention_type_id'
   has_many :children, class_name: 'InterventionType'
-  has_many :interventions
+  has_many :interventions, dependent: :restrict_with_error
 
   before_save :booleanize_lights
 

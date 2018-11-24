@@ -1,6 +1,15 @@
 class Sco < ActiveRecord::Base
+  include PgSearch
   has_paper_trail
-  has_magick_columns full_name: :string
+
+  pg_search_scope :unicode_search,
+    against: [:full_name],
+    ignoring: :accents,
+    using: {
+      tsearch: { prefix: false },
+      trigram: { threshold: 0.1 }
+    }
+
 
   #attr_accessible :full_name, :current
 
@@ -24,7 +33,7 @@ class Sco < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    query.present? ? unicode_search(query) : all
   end
 
   def activate!

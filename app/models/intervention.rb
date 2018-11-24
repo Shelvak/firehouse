@@ -12,6 +12,7 @@ class Intervention < ActiveRecord::Base
   after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.priority? }
   after_save :endowment_alert_changer, :assign_mileage_to_trucks
   after_update :intervention_type_changed_tasks, if: :intervention_type_id_changed?
+  after_destroy :turn_off_alert
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
@@ -77,7 +78,7 @@ class Intervention < ActiveRecord::Base
       e['firefighters_names'].present?
     end
 
-    attrs['truck_id'].blank? && attrs['truck_number'].blank? && !endow_reject
+    (attrs['truck_id'].blank? || attrs['truck_number'].blank?) && !endow_reject
   end
 
   def sco_presence
@@ -175,7 +176,6 @@ class Intervention < ActiveRecord::Base
     lights['priority'] = true if play_audio && intervention_type.emergency?
     RedisClient.publish('semaphore-lights-alert', lights.to_json)
     if play_audio
-      sleep 2
       ::Rails.logger.info("Dale play!!!")
       play_intervention_audio!
     end
@@ -207,8 +207,8 @@ class Intervention < ActiveRecord::Base
 
   def send_alert_to_lcd
     lines = {
-      line3: finished? ? self.display_type[0..19] : '',
-      line4: finished? ? "D:#{endowments.first.try(:number)} M:#{endowments.first.try(:truck).to_s} ##{id}"[0..19] : ''
+      line3: finished? ? '' : self.display_type[0..19],
+      line4: finished? ? '' : "D:#{endowments.first.try(:number)} M:#{endowments.first.try(:truck).to_s} ##{id}"[0..19]
     }
 
     lines.each do |line, text|
@@ -219,6 +219,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def active?
+    # Esto no se usa
     RedisClient.lrange('interventions:actives', 0, -1).include? self.id
   end
 
@@ -246,9 +247,11 @@ class Intervention < ActiveRecord::Base
   def turn_off_alert
     remove_item_from_actives_list
     RedisClient.del('interventions:' + self.id.to_s)
-    RedisClient.publish('stop-broadcast', 'stop')
-    send_alert_to_lcd # clean the milonga
-    turn_off_the_lights!
+    if current_lights?
+      RedisClient.publish('stop-broadcast', 'stop')
+      send_alert_to_lcd # clean the milonga
+      turn_off_the_lights!
+    end
   end
 
   def start_looping_active_alerts!
@@ -293,7 +296,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def remove_item_from_list(list)
-    RedisClient.lrem(list, 1, self.id)
+    RedisClient.lrem(list, 0, self.id)
   end
 
   def remove_item_from_actives_list
@@ -305,7 +308,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def finished?
-    self.status == 'finished'
+    self.status == 'finished' || try(:destroyed?)
   end
 
   def open?
@@ -357,5 +360,17 @@ class Intervention < ActiveRecord::Base
 
   def assign_special_light_behaviors
     self.electric_risk = true if intervention_type.lights['blue']
+  end
+
+  def current_lights?
+    raw_lights = RedisClient.get('last_lights_alert')
+    return false if raw_lights.blank?
+
+    last_lights = JSON.parse(raw_lights)
+    last_lights.all? do |color, value|
+      intervention_type.lights[color] == value
+    end
+  rescue => e
+    false
   end
 end
