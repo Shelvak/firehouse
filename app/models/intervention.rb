@@ -165,8 +165,8 @@ class Intervention < ActiveRecord::Base
     lights
   end
 
-  def lights_for_redis
-    if (lights = RedisClient.get('interventions:' + self.id.to_s)).present?
+  def lights_for_redis(force_update=false)
+    if !force_update && (lights = RedisClient.get('interventions:' + self.id.to_s)).present?
       JSON.parse lights
     else
       lights = default_lights
@@ -180,9 +180,11 @@ class Intervention < ActiveRecord::Base
     stop_running_alerts!
 
     ::Rails.logger.info("Enviando luces ")
-    lights = lights_for_redis
+    lights = lights_for_redis(play_audio) # force lights update
     lights['priority'] = true if play_audio && intervention_type.emergency?
+
     RedisClient.publish('semaphore-lights-alert', lights.to_json)
+
     if play_audio
       ::Rails.logger.info("Dale play!!!")
       play_intervention_audio!

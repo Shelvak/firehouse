@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get :console, to: 'websockets#console'
   get :console_create, to: 'interventions#console_create'
+  get :console_trap_sign, to: 'interventions#console_trap_sign'
 
   resources :call_center, only: [:index], constraints: { id: /.*/ } do
     get :download, on: :member
