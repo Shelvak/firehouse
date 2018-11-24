@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include RoleModel
+  include PgSearch
   roles *[
     :admin, :firefighter, :reporter,
     :bosses, :officer, :subofficer, :radio,
@@ -8,7 +9,14 @@ class User < ActiveRecord::Base
 
   has_paper_trail
 
-  has_magick_columns name: :string, lastname: :string, email: :email
+  pg_search_scope :unicode_search,
+    against: [:name, :lastname, :email],
+    ignoring: :accents,
+    using: {
+      tsearch: { prefix: false },
+      trigram: { threshold: 0.1 }
+    }
+
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
     :validatable
@@ -56,7 +64,7 @@ class User < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    query.present? ? unicode_search(query) : all
   end
 
   def self.default_receptor

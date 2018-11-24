@@ -1,6 +1,14 @@
 class Hierarchy < ActiveRecord::Base
+  include PgSearch
   has_paper_trail
-  has_magick_columns name: :string
+  pg_search_scope :unicode_search,
+    against: [:name],
+    ignoring: :accents,
+    using: {
+      tsearch: { prefix: false },
+      trigram: { threshold: 0.1 }
+    }
+
 
   #attr_accessible :name
 
@@ -24,6 +32,6 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    query.present? ? unicode_search(query) : all
   end
 end

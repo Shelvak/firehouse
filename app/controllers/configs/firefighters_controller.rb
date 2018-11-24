@@ -9,7 +9,8 @@ class Configs::FirefightersController < ApplicationController
   # GET /firefighters.json
   def index
     @title = t('view.firefighters.index_title')
-    @firefighters = Firefighter.page(params[:page])
+    @searchable = true
+    @firefighters = Firefighter.filtered_list(params[:q]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

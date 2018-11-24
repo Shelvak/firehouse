@@ -8,6 +8,7 @@ class Configs::TrucksController < ApplicationController
   # GET /trucks.json
   def index
     @title = t('view.trucks.index_title')
+    @searchable = true
     @trucks = Truck.filtered_list(params[:q]).page(params[:page])
 
     respond_to do |format|

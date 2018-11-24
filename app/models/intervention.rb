@@ -1,6 +1,14 @@
 class Intervention < ActiveRecord::Base
+  include PgSearch
   has_paper_trail
-  has_magick_columns address: :string, id: :integer
+  pg_search_scope :unicode_search,
+    against: [:address, :id],
+    ignoring: :accents,
+    using: {
+      tsearch: { prefix: false },
+      trigram: { threshold: 0.1 }
+    }
+
 
   attr_accessor :auto_receptor_name, :auto_sco_name, :console_activation
 

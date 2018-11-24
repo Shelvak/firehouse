@@ -95,37 +95,37 @@ class UserTest < ActiveSupport::TestCase
     ], @user.errors[:email]
   end
 
-  test 'magick search' do
+  test 'unicode search' do
     5.times { Fabricate(:user) { name { "magick_name" } } }
-    3.times { Fabricate(:user) { lastname { "magick_lastname" } } }
+    3.times { Fabricate(:user) { lastname { "magick_lástname" } } }
     Fabricate(:user) {
       name { "magick_name" }
       lastname { "magick_lastname" }
     }
 
-    users = User.magick_search('magick')
+    users = User.unicode_search('magick')
 
     assert_equal 9, users.count
     assert users.all? { |u| u.to_s =~ /magick/ }
 
-    users = User.magick_search('magick_name')
+    users = User.unicode_search('magick_name')
 
     assert_equal 6, users.count
     assert users.all? { |u| u.to_s =~ /magick_name/ }
 
-    users = User.magick_search('magick_name magick_lastname')
+    users = User.unicode_search('magick_name magick_lastname')
 
     assert_equal 1, users.count
     assert users.all? { |u| u.to_s =~ /magick_name magick_lastname/ }
 
-    users = User.magick_search(
+    users = User.unicode_search(
       "magick_name #{I18n.t('magick_columns.or').first} magick_lastname"
     )
 
     assert_equal 9, users.count
     assert users.all? { |u| u.to_s =~ /magick_name|magick_lastname/ }
 
-    users = User.magick_search('nobody')
+    users = User.unicode_search('nobody')
 
     assert users.empty?
   end

@@ -10,7 +10,8 @@ class Configs::ScosController < ApplicationController
   # GET /scos.json
   def index
     @title = t('view.scos.index_title')
-    @scos = Sco.order('current DESC').page(params[:page])
+    @searchable = true
+    @scos = Sco.order('current DESC').filtered_list(params[:q]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

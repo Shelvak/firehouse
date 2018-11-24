@@ -8,7 +8,8 @@ class Configs::HierarchiesController < ApplicationController
   # GET /hierarchies.json
   def index
     @title = t('view.hierarchies.index_title')
-    @hierarchies = Hierarchy.page(params[:page])
+    @searchable = true
+    @hierarchies = Hierarchy.filtered_list(params[:q]).page(params[:page])
   end
 
   # GET /hierarchies/1
