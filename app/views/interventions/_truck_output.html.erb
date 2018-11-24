@@ -9,6 +9,7 @@
           value: f.object.truck, class: 'span12',
           data: { 'truck-number' => true, 'enter-trigger-change' => true,  'ignore-enter' => true }
         } %>
+        <%= f.input :truck_id, as: :hidden %>
         <span class="alert-error help-inline hide"><%= t('messages.not_found') %></span>
       </td>
       <td>

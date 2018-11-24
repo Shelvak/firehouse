@@ -55,6 +55,6 @@ class Truck < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? where(number: query.to_i) : none
+    query.present? ? where(number: query.to_i) : all
   end
 end

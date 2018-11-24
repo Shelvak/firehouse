@@ -123,6 +123,7 @@ new Rule
             input.parents('[data-endowment-item]')
               .find('input[name$="[out_mileage]"]')
               .val(parseInt data[0].mileage)
+            input.parents('[data-endowment-item]').find('[name$="[truck_id]"]').val(data[0].id)
             parentDiv.removeClass('error')
             helpInline.hide()
           else
