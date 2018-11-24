@@ -377,10 +377,11 @@ class Intervention < ActiveRecord::Base
     return false if raw_lights.blank?
 
     last_lights = JSON.parse(raw_lights)
-    last_lights.all? do |color, value|
-      intervention_type.lights[color] == value
+    intervention_type.lights.all? do |color, value|
+      last_lights[color] == value
     end
   rescue => e
+    ::Rails.logger.error(e)
     false
   end
 end
