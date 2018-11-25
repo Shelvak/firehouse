@@ -162,6 +162,7 @@ class Intervention < ActiveRecord::Base
     lights = intervention_type.lights
     lights['day'] = (8..20).include?(Time.zone.now.hour)
     lights['priority'] = true if intervention_type.emergency?
+    lights['blue'] ||= electric_risk?
     lights
   end
 
@@ -377,7 +378,10 @@ class Intervention < ActiveRecord::Base
     return false if raw_lights.blank?
 
     last_lights = JSON.parse(raw_lights)
-    intervention_type.lights.all? do |color, value|
+    it_lights = intervention_type.lights
+    it_lights['blue'] ||= electric_risk?
+
+    it_lights.all? do |color, value|
       last_lights[color] == value
     end
   rescue => e
