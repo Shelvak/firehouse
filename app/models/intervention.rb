@@ -155,6 +155,7 @@ class Intervention < ActiveRecord::Base
   end
 
   def save_lights_on_redis(lights)
+    ::Rails.logger.info("Guardando luces para #{self.id} => #{lights}")
     RedisClient.set('interventions:' + self.id.to_s, lights.to_json)
   end
 
@@ -194,7 +195,7 @@ class Intervention < ActiveRecord::Base
 
   def qta!
     return if endowment_out?
-    update_observations_with('QTA', qta: true)
+    update_observations_with('QTA', qta: true, status: 'finished')
 
     turn_off_alert
   end
@@ -240,7 +241,7 @@ class Intervention < ActiveRecord::Base
 
   def endowment_alert_changer
     case
-      when endowments.any? { |e| e.in_at.present? }  then turn_off_alert
+      when endowment_back?  then turn_off_alert
       when endowments.any? { |e| e.out_at.present? } then send_alert_on_repose
     end
   end
@@ -256,11 +257,17 @@ class Intervention < ActiveRecord::Base
   end
 
   def turn_off_alert
+    ::Rails.logger.info("Apagando alerta #{id}")
     remove_item_from_actives_list
     RedisClient.del('interventions:' + self.id.to_s)
     if current_lights?
+      ::Rails.logger.info("Parando broadcast")
       RedisClient.publish('stop-broadcast', 'stop')
+
+      ::Rails.logger.info("Apagando LCD")
       send_alert_to_lcd # clean the milonga
+
+      ::Rails.logger.info("Apagando luces")
       turn_off_the_lights!
     end
   end
@@ -375,15 +382,27 @@ class Intervention < ActiveRecord::Base
 
   def current_lights?
     raw_lights = RedisClient.get('last_lights_alert')
-    return false if raw_lights.blank?
+
+    if raw_lights.blank?
+      ::Rails.logger.info("No hay alacmas activas en REDIS")
+      return false
+    end
 
     last_lights = JSON.parse(raw_lights)
     it_lights = intervention_type.lights
     it_lights['blue'] ||= electric_risk?
 
-    it_lights.all? do |color, value|
+    same = it_lights.all? do |color, value|
       last_lights[color] == value
     end
+
+    unless same
+      ::Rails.logger.info(
+        "Alarma no es la actual (Corriendo: #{last_lightst} / Int #{it_lights}) "
+      )
+    end
+
+    same
   rescue => e
     ::Rails.logger.error(e)
     false
