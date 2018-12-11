@@ -398,13 +398,13 @@ class Intervention < ActiveRecord::Base
 
     unless same
       ::Rails.logger.info(
-        "Alarma no es la actual (Corriendo: #{last_lightst} / Int #{it_lights}) "
+        "Alarma no es la actual (Corriendo: #{last_lights} / Int #{it_lights}) "
       )
     end
 
     same
   rescue => e
-    ::Rails.logger.error(e)
+    ::ErrorLogger.error(e)
     false
   end
 end

@@ -9,13 +9,13 @@ class ApplicationController < ActionController::Base
       if exception.kind_of? CanCan::AccessDenied
         redirect_to root_url, alert: t('errors.access_denied')
       else
+        ErrorLogger.error(exception)
+
         @title = t('errors.title')
 
         if response.redirect_url.blank? && request.format.html?
           render template: 'shared/show_error', locals: { error: exception }
         end
-
-        logger.error(([exception, ''] + exception.backtrace).join("\n"))
       end
 
     # In case the rescue explodes itself =)
