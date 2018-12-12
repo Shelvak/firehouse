@@ -1,0 +1,14 @@
+.git/
+.gitignore
+Dockerfile
+.dockerignore
+tmp/*
+build/
+.ruby-gemset
+.ruby-version
+log/*
+.byebug_history
+*.sql
+*.log
+public/assets/*
+public/system/*

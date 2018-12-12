@@ -1,19 +1,22 @@
-FROM ruby:2.5-alpine
+FROM ruby:2.3-alpine
 
 MAINTAINER Néstor Coppi <nestorcoppi@gmail.com>
 
 RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc \
-    && apk --update add --virtual build-dependencies build-base gcc postgresql-dev \
-    && apk --update add libpq bash nodejs libxml2 libxml2-dev libxml2-utils libxslt libxslt-dev zlib tzdata git imagemagick \
+    && apk --update add --virtual build-dependencies build-base gcc postgresql-dev linux-headers libxml2 libxml2-dev libxml2-utils libxslt libxslt-dev \
+    && apk --update add libpq bash nodejs zlib tzdata git imagemagick \
     && gem install bundler
-# libxml2-dev
 
 RUN git clone --depth 1 https://github.com/Shelvak/firehouse /firehouse
 
 WORKDIR /firehouse
 
-# RUN bundle config build.nokogiri --use-system-libraries && \
-RUN bundle install --deployment --jobs 4 && \
+RUN bundle config build.nokogiri --use-system-libraries && \
+    bundle install --deployment --jobs 4 && \
     apk del build-dependencies
 
-CMD bundle exec unicorn -c /firehouse/config/unicorn.rb -E production
+RUN cp config/app_config.example.yml config/app_config.yml \
+    && mkdir -p /firehouse/tmp \
+    && bundle exec rake assets:precompile
+
+CMD /firehouse/start.sh

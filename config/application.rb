@@ -53,5 +53,7 @@ module Firehouse
       g.test_framework :test_unit, fixture_replacement: :fabrication
       g.fixture_replacement :fabrication, dir: 'test/fabricators'
     end
+
+    config.assets.initialize_on_precompile = false
   end
 end

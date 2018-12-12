@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.8'
+gem 'rails', '~> 4.1.8'
 
 gem 'pg'
 gem 'pg_search'
@@ -9,7 +9,7 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'will_paginate'
 gem 'simple_form'
-gem 'devise'
+gem 'devise', '~> 3.5.10'
 gem 'cancan'
 gem 'role_model'
 gem 'paper_trail'
