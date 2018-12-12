@@ -7,7 +7,7 @@ RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc \
     && apk --update add libpq bash nodejs zlib tzdata git imagemagick \
     && gem install bundler
 
-RUN git clone --depth 1 https://github.com/Shelvak/firehouse /firehouse
+RUN git clone --depth 2 https://github.com/Shelvak/firehouse /firehouse
 
 WORKDIR /firehouse
 
@@ -16,6 +16,7 @@ RUN bundle config build.nokogiri --use-system-libraries && \
     apk del build-dependencies
 
 RUN cp config/app_config.example.yml config/app_config.yml \
+    && cp config/secrets.example.yml config/secrets.yml \
     && mkdir -p /firehouse/tmp \
     && bundle exec rake assets:precompile
 
