@@ -1,5 +1,5 @@
 <%= content_for :js_headers do %>
-      <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.google_api_key %>&libraries=places"></script>
+      <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.google_api_key %>&libraries=places"></script>
 <% end %>
 
 <%= content_tag :div, t('view.interventions.no_active_ceo'),
