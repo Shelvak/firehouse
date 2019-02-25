@@ -1,5 +1,3 @@
-require 'fileutils'
-FileUtils.mkdir_p('/logs')
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -46,8 +44,9 @@ Rails.application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  #complex config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
-  config.logger = ::Logger.new('/logs/production.log', 7, 10240000)
+  if ENV['HEROKU'].blank?
+    config.logger = ::Logger.new('/logs/production.log', 7, 10240000)
+  end
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
