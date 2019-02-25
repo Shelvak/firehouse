@@ -4,7 +4,7 @@ ruby '~> 2.4.5'
 
 gem 'rails', '~> 4.2.8'
 
-gem 'pg'
+gem 'pg', '~> 0.20'
 gem 'pg_search'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
