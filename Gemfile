@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.3.8'
+ruby '~> 2.4.5'
 
-gem 'rails', '~> 4.1.8'
+gem 'rails', '~> 4.2.8'
 
 gem 'pg'
 gem 'pg_search'
