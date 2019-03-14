@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
 
         if response.redirect_url.blank? && request.format.html?
           render template: 'shared/show_error', locals: { error: exception }
+        else
+          render json: { error: exception.to_s }
         end
       end
 

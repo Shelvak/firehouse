@@ -1,4 +1,6 @@
 window.Intervention ||=
+  showErrorWarning: -> alert("Ha habido un error, cuidado")
+
   lastFocusedTab: null
   lastFocusedInput: null
 
@@ -35,11 +37,18 @@ window.Intervention ||=
         type: _method
         data: interventionForm.serialize()
         success: (data)->
-          if $.trim(data) && !no_refresh
+          criticError = (typeof(data) == 'object' && data.error)
+          if $.trim(data) && !no_refresh && !criticError
             $('.content').html(data)
             Intervention.focusLastTab()
+            if $('.error').length
+              $('.error:first')[0].scrollIntoView(true)
+
           if updatedPoint
             InterventionUpdater.emitEvent('new intervention')
+          if criticError
+            Intervention.showErrorWarning()
+        error: Intervention.showErrorWarning
 
   tokenizeAutocompleteInputs: ->
     $('.token-autocomplete:not(.tokenized)').each ->
@@ -75,7 +84,10 @@ new Rule
       tabContent= $('.tab-content')
       tabContent.find('.active').removeClass('active')
 
-      itemCount = $('[data-endowment-link]:last').data('number') + 1
+      numbers = []
+      $('[data-endowment-link]').each (i, e) -> numbers.push(Math.abs(e.dataset.number))
+      itemCount = _.max(numbers) + 1
+
 
       dynamicNumber = dynamicForm.match(
         /intervention\[endowments_attributes\]\[(\d+)\]/
