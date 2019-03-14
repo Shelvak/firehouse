@@ -17,6 +17,16 @@ class Endowment < ActiveRecord::Base
 
   before_validation :assign_truck
 
+  validates_each :number, if: :new_record? do |endowment, attr, value|
+    if endowment.intervention
+      used_numbers = endowment.intervention.endowments.reject(&:new_record?).map do |e|
+        e.number.to_i
+      end
+
+      endowment.errors.add(:number, :taken) if used_numbers.include?(value.to_i)
+    end
+  end
+
   accepts_nested_attributes_for :endowment_lines, allow_destroy: true
 
   def initialize(attributes = nil, options = {})

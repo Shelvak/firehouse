@@ -41,7 +41,7 @@
         <div id="map_canvas" class="google-map"></div>
       </div>
     </div>
-    <%= render 'shared/errors_for', list: f.object.errors[:base] %>
+    <%= render 'shared/errors_for', list: f.object.errors[:base] if f.object.errors[:base]%>
     <div class='row-fluid'>
       <div class='page-header'>
         <div class='row-fluid'>
@@ -128,7 +128,7 @@
           </ul>
           <div class="tab-content">
             <%= f.simple_fields_for :endowments do |e| %>
-              <%= render 'shared/errors_for', list: e.object.errors[:base] %>
+              <%= render 'shared/errors_for', list: e.object.errors[:base] if e.object.errors[:base]%>
               <%= render partial: 'endowment', locals: { f: e } %>
             <% end %>
           </div>
