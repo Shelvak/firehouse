@@ -1,0 +1,10 @@
+<div class="row-fluid  slider-container">
+  <div class="span6">
+    <div data-slider="slider" data-orientation="horizontal" data-value="<%= value %>" data-max="<%= max_value ||= 100 %>">
+    </div>
+  </div>
+  <div class="span2">
+    <h4 data-slider="value"><%= value %></h4>
+    <%= f.hidden_field field, value: value, data: { slider: 'input' } %>
+  </div>
+</div>
