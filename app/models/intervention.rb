@@ -384,7 +384,7 @@ class Intervention < ActiveRecord::Base
     raw_lights = RedisClient.get('last_lights_alert')
 
     if raw_lights.blank?
-      ::Rails.logger.info("No hay alacmas activas en REDIS")
+      ::Rails.logger.info("No hay alarmas activas en REDIS")
       return false
     end
 

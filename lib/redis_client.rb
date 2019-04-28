@@ -1,6 +1,6 @@
 module RedisClient
   def self.client
-    Redis.new(SECRETS[:redis])
+    Redis.new(SECRETS[:redis].delete_if { |k, v| v.blank? })
   end
 
   def method_missing(m, *args, &block)
