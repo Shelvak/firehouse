@@ -4,11 +4,3 @@ class FakeRedis
     true
   end
 end
-
-# $redis = Redis.new(host: APP_CONFIG[:redis][:host])
-
-# begin
-#   $redis.ping
-# rescue
-#   $redis = FakeRedis.new
-# end
