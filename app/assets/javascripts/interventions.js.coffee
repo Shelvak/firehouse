@@ -10,7 +10,10 @@ window.Intervention ||=
 
   focusLastFocusedInput: ->
     if Intervention.lastFocusedInput
-      $('#' + Intervention.lastFocusedInput.attr('id')).focus()
+      if Intervention.lastFocusedInput.attr('id') == 'intervention_observations'
+        Intervention.setCurrentTimeToObservations()
+      else
+        Intervention.lastFocusedInput.focus()
 
   saveIntervention: (e, updatedPoint, no_refresh) ->
     interventionForm = $('form[data-intervention-form]')
@@ -41,6 +44,7 @@ window.Intervention ||=
           if $.trim(data) && !no_refresh && !criticError
             $('.content').html(data)
             Intervention.focusLastTab()
+            Intervention.focusLastFocusedInput()
             if $('.error').length
               $('.error:first')[0].scrollIntoView(true)
 
@@ -72,6 +76,16 @@ window.Intervention ||=
             input.parents('[data-endowment-lines]')
               .find('[id^="token-input-intervention"]:visible:first').focus()
 
+  setCurrentTimeToObservations: ->
+    input       = $('#intervention_observations')
+    wrote       = input.val()
+    timeNow     = "[#{Helpers.getHour()}] "
+
+    if wrote.length && _.last(wrote.split("\n")) != timeNow
+        wrote += "\n#{timeNow}"
+
+    input.focus()
+    input.val(wrote)
 
 new Rule
   condition: -> $('#c_interventions').length
@@ -153,13 +167,6 @@ new Rule
       inputTarget.val Helpers.getHour()
       Intervention.saveIntervention()
 
-    @map.setCurrentTimeToObservations ||= ->
-      input = $('#intervention_observations')
-      writed = input.val()
-      writed += "\n" if writed.length
-
-      input.focus()
-      input.val(writed + "[#{Helpers.getHour()}]  ")
 
     @map.changeEndowmentNumber ||= ->
       input = $(this)
@@ -197,6 +204,7 @@ new Rule
             if $.trim(data)
               $('.content').html(data)
               Intervention.focusLastTab()
+              Intervention.focusLastFocusedInput()
 
     @map.handleEnterOnInputs ||= (e) ->
       key = e.which
@@ -339,7 +347,7 @@ new Rule
     $(document).on 'click', '#add_new_endowment', @map.addNewTab
     $(document).on 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).on 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
-    $(document).on 'click', '#add_current_time', @map.setCurrentTimeToObservations
+    $(document).on 'click', '#add_current_time', Intervention.setCurrentTimeToObservations
     $(document).on 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
     $(document).on 'keyup', '[data-ignore-enter]', @map.ignoreEnter
     $(document).on 'keyup', '[data-enter-trigger-change]', @map.enterTriggerChange
@@ -356,7 +364,7 @@ new Rule
     $(document).off 'click', '#add_new_endowment', @map.addNewTab
     $(document).off 'change', '[data-truck-number]', @map.assignTruckMileage
     $(document).off 'click', '[data-set-time-to]', @map.setCurrentTimeToTruckData
-    $(document).off 'click', '#add_current_time', @map.setCurrentTimeToObservations
+    $(document).off 'click', '#add_current_time', Intervention.setCurrentTimeToObservations
     $(document).off 'keyup', 'input[name$="[number]"]', @map.changeEndowmentNumber
     $(document).off 'click', '[data-intervention-saver="important-button"]', Intervention.saveIntervention
     $(document).off 'change', '[data-intervention-saver]', Intervention.saveIntervention
