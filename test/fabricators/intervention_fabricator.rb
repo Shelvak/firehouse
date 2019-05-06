@@ -5,6 +5,5 @@ Fabricator(:intervention) do
   kind_notes            { Faker::Lorem.sentence }
   receptor_id           { Fabricate(:user).id }
   observations          { Faker::Lorem.paragraph }
-  sco
   intervention_type
 end

@@ -2,9 +2,6 @@
       <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.google_api_key %>&libraries=places"></script>
 <% end %>
 
-<%= content_tag :div, t('view.interventions.no_active_ceo'),
-  class: 'alert alert-danger' if @no_active_ceo %>
-
 <% intervention_form = nil %>
 <%= simple_form_for @intervention,
   defaults: { input_html: { class: 'span10' } },
@@ -50,28 +47,9 @@
           </div>
           <div class='span6 pull-right'>
             <div class="row-fluid">
-              <div class="span2">
-              </div>
-              <div class="span4">
-                <%= label_tag 'use_sco', 'Usar CEO' %>
-                <%= check_box_tag 'use_sco', 1, f.object.sco.present? %>
-              </div>
               <div class="span6 pull-right">
-                <%= f.label :sco_id %>
-                <%= f.input :auto_sco_name, label: false, input_html: {
-                  value: @intervention.sco || current_sco,
-                  class: 'span10 autocomplete-field',
-                  data: {
-                    'autocomplete-id-target' => '#intervention_sco_id',
-                    'autocomplete-url' => autocomplete_for_sco_name_interventions_path(
-                      format: :json
-                    )
-                  }
-                } %>
-
-                <%= f.input :sco_id, as: :hidden, input_html: {
-                   value: f.object.sco_id || current_sco.try(:id),
-                    data: { intervention_saver: true }
+                <%= f.input :sco_name, input_html: {
+                  data: { intervention_saver: true }
                 } %>
               </div>
             </div>

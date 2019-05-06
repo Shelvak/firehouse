@@ -17,9 +17,9 @@
       <%= inf.address %>
     </p>
   <% end %>
-<% else %>
-  <strong><%= Intervention.human_attribute_name 'sco_id' %></strong>:
-  <%= link_to(
-    @intervention.sco, configs_sco_path(@intervention.sco)
-  ) if @intervention.sco %>
+<% end %>
+
+<% if @intervention.sco_name.present? %>
+  <strong><%= Intervention.human_attribute_name 'sco_name' %></strong>:
+  <%= @intervention.sco_name %>
 <% end %>

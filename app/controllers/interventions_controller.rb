@@ -1,6 +1,5 @@
 class InterventionsController < ApplicationController
   before_filter :authenticate_user!, except: [:console_create, :console_trap_sign]
-  before_filter :active_sco?, only: [:new, :edit]
 
   check_authorization except: [:console_create]
   load_and_authorize_resource except: [:console_create, :console_trap_sign]
@@ -103,14 +102,6 @@ class InterventionsController < ApplicationController
     end
   end
 
-  def autocomplete_for_sco_name
-    scos = Sco.filtered_list(params[:q]).limit(5)
-
-    respond_to do |format|
-      format.json { render json: scos }
-    end
-  end
-
   def autocomplete_for_firefighter_name
     firefighters = Firefighter.filtered_list(params[:q]).limit(5)
 
@@ -155,10 +146,6 @@ class InterventionsController < ApplicationController
   end
 
   private
-
-    def active_sco?
-      @no_active_sco = Sco.where(current: true).empty?
-    end
 
     def intervention_scope
       case current_user.role

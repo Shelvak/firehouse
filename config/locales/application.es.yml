@@ -84,7 +84,7 @@ es:
         near_corner: "Esquina cercana"
         observations: "Observaciones"
         receptor_id: "Receptor"
-        sco_id: "CEO"
+        sco_name: "CEO"
       intervention_type:
         audio: "Sonido de alerta"
         callback: "Función de retorno"
@@ -123,9 +123,6 @@ es:
         last_name: "Apellido"
         name: "Nombre"
         relation_type: "Vínculo"
-      sco:
-        current: "Actual"
-        full_name: "Nombre y apellido"
       shift:
         finish_at: "Salida"
         hours: "Horas"
@@ -250,7 +247,6 @@ es:
     interventions: "Intervenciones"
     lights: "Semáforos"
     new_tab: "&#xe008; Nueva Pestaña"
-    scos: "CEOs"
     shifts: "Turnos"
     trucks: "Moviles"
     users: "Usuarios"
@@ -397,7 +393,6 @@ es:
         change: "Cambiar botones"
       correctly_created: "Intervención agregada correctamente."
       correctly_updated: "Intervención actualizada correctamente."
-      current_sco: "CEO actual"
       edit_title: "Intervención %{title}"
       empty_index:
         html: 'No se ha creado ninguna intervención hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva Intervención</span>'
@@ -436,7 +431,6 @@ es:
       new: "Nueva Intervención"
       new_console_intervention: "Nueva Intervención por consola"
       new_title: "Nueva intervención"
-      no_active_ceo: "Debe haber algún CEO actual definido antes de crear o editar intervenciones."
       output_title: "Detalles de dotaciones"
       set_time: "Ingresar hora"
       show_title: "Detalle de intervención"
@@ -554,22 +548,6 @@ es:
         mother: "Madre"
         other: "Otro"
         son: "Hija/o"
-    scos:
-      activate: "Activar"
-      activated: "CEO activado"
-      correctly_created: "CEO agregado correctamente."
-      correctly_destroyed: "CEO eliminado correctamente."
-      correctly_updated: "CEO actualizado correctamente."
-      desactivate: "Desactivar"
-      desactivated: "CEO desactivado"
-      edit_title: "Modificar CEO"
-      empty_index:
-        html: 'No se ha creado ningún CEO hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo CEO</span>'
-      index_title: "Listado de CEOs"
-      new: "Nuevo CEO"
-      new_title: "Nuevo CEO"
-      show_title: "Detalle de CEO"
-      stale_object_error: "El CEO no pudo ser actualizado, intente nuevamente."
     shifts:
       kinds:
         external_training: "Capacitación externa"

@@ -38,17 +38,14 @@ class Ability
     can [:destroy, :update], INTERVENTION_SUBCLASSES do |instance|
       instance.created_at >= MAX_PERMITTED_HANDLE_DAYS.days.ago
     end
-    can :activate, Sco
     can [:map, :special_sign, :create], Intervention
     can [:update, :read], Intervention do |intervention|
       intervention.open?  ||
         intervention.created_at >= MAX_PERMITTED_HANDLE_DAYS.days.ago
     end
-    #  Sco, InterventionType, Firefighter, Truck
-    #]
     can [
       :autocomplete_for_truck_number, :autocomplete_for_receptor_name,
-      :autocomplete_for_sco_name, :autocomplete_for_firefighter_name
+      :autocomplete_for_firefighter_name
     ], Intervention
 
     can [:edit_profile, :update_profile], User, id: user.id
@@ -112,7 +109,7 @@ class Ability
 
     can :read, Shift
     can :manage, [
-      Firefighter, Sco, Hierarchy, Truck, InterventionType, User
+      Firefighter, Hierarchy, Truck, InterventionType, User
     ]
   end
 

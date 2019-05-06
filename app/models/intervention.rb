@@ -10,7 +10,7 @@ class Intervention < ActiveRecord::Base
     }
 
 
-  attr_accessor :auto_receptor_name, :auto_sco_name, :console_activation
+  attr_accessor :auto_receptor_name, :console_activation
 
   validates :intervention_type_id, presence: true
 
@@ -24,7 +24,6 @@ class Intervention < ActiveRecord::Base
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
-  belongs_to :sco
   has_one :informer
   has_one :mobile_intervention
   has_many :alerts
@@ -95,12 +94,6 @@ class Intervention < ActiveRecord::Base
     end
 
     (attrs['truck_id'].blank? || attrs['truck_number'].blank?) && !endow_reject
-  end
-
-  def sco_presence
-    if self.sco_id.blank? && self.informer.blank?
-      self.errors.add :auto_sco_name, :blank
-    end
   end
 
   def assign_endowment_number
