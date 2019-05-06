@@ -1,9 +1,9 @@
 class InterventionsController < ApplicationController
-  before_filter :authenticate_user!, except: [:console_create]
+  before_filter :authenticate_user!, except: [:console_create, :console_trap_sign]
   before_filter :active_sco?, only: [:new, :edit]
 
   check_authorization except: [:console_create]
-  load_and_authorize_resource except: [:console_create]
+  load_and_authorize_resource except: [:console_create, :console_trap_sign]
 
   # GET /interventions
   # GET /interventions.json

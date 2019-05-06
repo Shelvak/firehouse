@@ -40,8 +40,16 @@ class Intervention < ActiveRecord::Base
 
   delegate :audio, to: :intervention_type
 
-  def self.last_console_creation_is_a_trap
-    i = opened.where(receptor_id: User.default_receptor.id).reorder(:id).last
+  def self.last_console_creation_is_a_trap!
+    # Afinarlo para ver de seleccionar solo intervenciones pasible de personas atrapadas
+    i = opened.emergencies.where(el camion no salio).reorder(id: :desc).first # esto hay que implementarlo
+    i ||= opened.emergencies.reorder(id: :desc).first
+
+    unless i
+      ::Rails.logger.info("No hay intervenciones a cambiar con personas atrapadas")
+      return
+    end
+
     i.its_a_trap!
 
     RedisClient.socketio_emit("update-intervention-#{i.id}")
@@ -272,9 +280,9 @@ class Intervention < ActiveRecord::Base
     end
   end
 
-  def start_looping_active_alerts!
-    RedisClient.publish('interventions:lights:start_loop', 'start')
-  end
+  # def start_looping_active_alerts!
+  #   RedisClient.publish('interventions:lights:start_loop', 'start')
+  # end
 
   def stop_running_alerts!
     RedisClient.publish('interventions:lights:stop_loop', 'stop')
