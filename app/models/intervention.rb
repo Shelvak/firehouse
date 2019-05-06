@@ -261,7 +261,6 @@ class Intervention < ActiveRecord::Base
 
     save_lights_on_redis(lights)
     put_in_redis_list
-    start_looping_active_alerts!
   end
 
   def turn_off_alert
