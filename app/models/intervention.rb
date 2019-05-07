@@ -31,6 +31,7 @@ class Intervention < ActiveRecord::Base
 
   scope :opened, -> { where.not(status: :finished, qta: true) }
   scope :between, ->(from, to) { where(created_at: from..to) }
+  scope :emergencies, -> { includes(:intervention_type).where(intervention_types: { emergency: true }) }
 
   accepts_nested_attributes_for :informer,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
@@ -41,8 +42,13 @@ class Intervention < ActiveRecord::Base
 
   def self.last_console_creation_is_a_trap!
     # Afinarlo para ver de seleccionar solo intervenciones pasible de personas atrapadas
-    i = opened.emergencies.where(el camion no salio).reorder(id: :desc).first # esto hay que implementarlo
-    i ||= opened.emergencies.reorder(id: :desc).first
+    # Esto deberia pasarlo a manso scope pero no deberian nunca haber muchas intervenciones
+    interventions = opened.emergencies.preload(:endowments).reorder(id: :desc).to_a
+    i = interventions.find do |i|
+      i.endowments.empty? || i.endowments.empty? { |e| e.out_at.present? }
+    end
+
+    i ||= interventions.first
 
     unless i
       ::Rails.logger.info("No hay intervenciones a cambiar con personas atrapadas")
