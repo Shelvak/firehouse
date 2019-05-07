@@ -246,7 +246,10 @@ GEM
       timeliness (~> 0.3.7)
     warden (1.2.7)
       rack (>= 1.0)
+    wicked_pdf (1.2.2)
+      activesupport
     will_paginate (3.1.6)
+    wkhtmltopdf-binary (0.12.4)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -290,7 +293,9 @@ DEPENDENCIES
   uglifier
   unicorn
   validates_timeliness
+  wicked_pdf
   will_paginate
+  wkhtmltopdf-binary
 
 RUBY VERSION
    ruby 2.4.5p335

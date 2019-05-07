@@ -23,6 +23,26 @@ class InterventionsController < ApplicationController
     @title = t('view.interventions.show_title')
     @intervention = intervention_scope.find(params[:id])
     @alerts = @intervention.alerts.order(:created_at)
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        @intervention = Intervention.preload(
+          :alerts,
+          endowments: [
+            :truck,
+            endowment_lines: :firefighters,
+            mobile_intervention: [:buildings, :people, :supports, :vehicles]
+          ]
+        ).find(params[:id])
+
+        render pdf: 'tanga',
+          # template: 'interventions/show_pdf',
+          viewport_size: '1280x1024',
+          layout: 'pdf',
+          encoding: 'UTF-8'
+      end
+    end
   end
 
   # GET /interventions/new

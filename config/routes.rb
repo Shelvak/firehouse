@@ -17,7 +17,10 @@ Rails.application.routes.draw do
       get :map
     end
 
-    put :special_sign, on: :member
+    member do
+      put :special_sign
+      get :show_pdf
+    end
 
 
     resources :endowments do

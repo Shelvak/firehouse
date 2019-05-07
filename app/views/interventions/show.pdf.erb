@@ -1,0 +1,159 @@
+<h2><%= @intervention.type %></h2>
+
+<div class='row-fluid'>
+  <div class='span5'>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'id' %></strong>:
+      <%= @intervention.id %>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'call_at' %></strong>:
+      <%= l(@intervention.created_at) %>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'receptor_id' %></strong>:
+      <%= @intervention.user %>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'address' %></strong>:
+      <span data-intervention="address"><%= @intervention.address %></span>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
+      <%= @intervention.near_corner %>
+    </p>
+    <p>
+      <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
+      <%= simple_format @intervention.kind_notes %>
+    </p>
+
+    <%# = render 'informer_show' %>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th colspan="2"><%= Intervention.human_attribute_name 'alerts' %>:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @intervention.alerts.each_with_index do |a, i| %>
+          <tr><td><%= i + 1 %> </td><td><%= l(a.created_at) %></td></tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="span7">
+    ACA VA EL MAPA
+  </div>
+</div>
+
+<p>
+  <strong><%= Intervention.human_attribute_name 'observations' %></strong>:
+  <%= simple_format @intervention.observations %>
+</p>
+
+<% @intervention.endowments.each do |e| %>
+  <div class='row-fluid'>
+    <div class='span5'>
+      <h2><%= 'Dotacion #' + e.number.to_s %></h2>
+
+      <div class='row-fluid'>
+        <div class='span4'>
+          <strong><%= Endowment.human_attribute_name 'truck_id' %></strong>
+        </div>
+        <div class='span4'>
+          <%= e.truck.try(:number) %>
+        </div>
+        <div class='span4'>
+          <strong><%= t('view.interventions.mileages') %></strong>
+        </div>
+      </div>
+
+      <% ['out', 'arrive', 'back', 'in'].each do |type| %>
+        <div class='row-fluid'>
+          <div class='span4'>
+            <strong><%= Endowment.human_attribute_name "#{type}_at" %></strong>
+          </div>
+          <div class='span4'>
+            <%= e.send("#{type}_at") %>
+          </div>
+          <div class='span4'>
+            <%= e.send("#{type}_mileage") %>
+          </div>
+        </div>
+      <% end %>
+    </div> <!-- aca termina la parte izq de la dotacion -->
+
+    <div class="span7">
+      <div class="row-fluid">
+        <div class="span4">
+          <strong>
+            <%= EndowmentLine.human_attribute_name 'charge' %>
+          </strong>
+        </div>
+        <div class="span4">
+          <strong>
+            <%= EndowmentLine.human_attribute_name 'firefighter_id' %>
+          </strong>
+        </div>
+      </div>
+
+      <% e.endowment_lines.each do |el| %>
+        <div class="row-fluid">
+          <div class="span3"><span class="label"><%= show_charge_name(el.charge) %></span></div>
+          <div class="span9">
+            <% el.firefighters.each do |f| %>
+              <span class="badge badge-info"><%= f.to_s %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+    </div> <!-- aca termina la parte derecha de la dotacion -->
+  </div>
+  <hr>
+
+  <h3><%= t('activerecord.models.mobile_intervention.one') %></h3>
+  <% mobile_intervention = e.mobile_intervention || e.build_mobile_intervention %>
+  <div class="row">
+    <%= simple_format mobile_intervention.observations %>
+  </div>
+  <div class="row">
+    <%= simple_format mobile_intervention.labors %>
+  </div>
+  <div class="row">
+    <%= simple_format mobile_intervention.news %>
+  </div>
+
+  <div class='row-fluid page-header'>
+    <h3><%= t 'view.mobile_interventions.people_title' %></h3>
+    <div id="people_list" class="well">
+      <%#= render 'mobile_interventions/people_table',
+        people: mobile_intervention.people,
+        type:   mobile_intervention %>
+    </div>
+  </div>
+
+  <div class='row-fluid page-header'>
+    <h3><%= t 'view.mobile_interventions.buildings_info' %></h3>
+    <div id="buildings_list">
+      <% mobile_intervention.buildings.each do |building| %>
+        <%# = render 'mobile_interventions/building', building: building %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='row-fluid page-header'>
+    <h3><%= t 'view.mobile_interventions.vehicles_info' %></h3>
+    <div id="vehicles_list">
+      <% mobile_intervention.vehicles.each do |vehicle| %>
+        <%# = render 'mobile_interventions/vehicle', vehicle: vehicle %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='row-fluid'>
+    <h3><%= t 'view.mobile_interventions.supports_info' %></h3>
+    <%# = render 'mobile_interventions/support_table', supports: mobile_intervention.supports %>
+  </div>
+<% end %>

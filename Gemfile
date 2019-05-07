@@ -49,3 +49,6 @@ group :test do
   gem 'fabrication'
   gem 'faker'
 end
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'

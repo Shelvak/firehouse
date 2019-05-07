@@ -68,7 +68,7 @@
 
   <div class='row-fluid'>
     <h3><%= t 'view.mobile_interventions.supports_info' %></h3>
-    <%= render 'mobile_interventions/support_table' %>
+    <%= render 'mobile_interventions/support_table', supports: @supports %>
     <p><%= link_to t('view.supports.new'), ['new', @intervention, @endowment,
            'mobile_intervention', 'support'], remote: true, data: {
            target: 'modal', modal: true }, class: 'btn btn-primary' %></p>
