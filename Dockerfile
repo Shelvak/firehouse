@@ -1,4 +1,4 @@
-FROM ruby:2.4-alpine
+FROM ruby:2.3-alpine
 
 MAINTAINER Néstor Coppi <nestorcoppi@gmail.com>
 
@@ -7,13 +7,12 @@ RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc \
     && apk --update add libpq bash nodejs zlib tzdata git imagemagick \
     && gem install bundler
 
-# RUN git clone --depth 2 https://github.com/Shelvak/firehouse /firehouse
+RUN git clone --depth 2 https://github.com/Shelvak/firehouse /firehouse
 
 WORKDIR /firehouse
-ADD . .
 
-#RUN bundle config build.nokogiri --use-system-libraries && \
-RUN    bundle install --deployment --jobs 4 && \
+RUN bundle config build.nokogiri --use-system-libraries && \
+    bundle install --deployment --jobs 4 && \
     apk del build-dependencies
 
 RUN cp config/app_config.example.yml config/app_config.yml \

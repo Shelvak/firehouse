@@ -20,8 +20,8 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: firehouse_production
+  database: <%= ENV['DB_PROD_NAME'] %>
   pool: 5
-  username: firehouse
+  username: <%= ENV['DB_PROD_USR'] %>
   password: <%= ENV['DB_PROD_PASS'] || 'localhost' %>
-  host:     <%= ENV['DB_PROD_HOST'] || 'localhost' %>
+  host:     <%= ENV['DB_PROD_HOST'] %>

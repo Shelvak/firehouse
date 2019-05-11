@@ -5,8 +5,9 @@ pid "#{root}/tmp/pids.print_hub.unicorn.#{Time.new}.pid"
 stderr_path "/logs/unicorn.log"
 stdout_path "/logs/unicorn.log"
 
-listen '/tmp/unicorn.firehouse.socket', backlog: 1024
-worker_processes 8
+# listen '/tmp/unicorn.firehouse.socket', backlog: 1024
+listen 8080, backlog: 1024
+worker_processes 3
 timeout 60
 
 preload_app true
