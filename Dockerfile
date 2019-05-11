@@ -1,4 +1,4 @@
-FROM ruby:2.3-alpine
+FROM ruby:2.4-alpine
 
 MAINTAINER Néstor Coppi <nestorcoppi@gmail.com>
 
