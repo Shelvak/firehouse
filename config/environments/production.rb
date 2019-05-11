@@ -15,7 +15,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = true
+  config.serve_static_files = true
 
   # Compress JavaScripts and CSS
   config.assets.js_compressor = :uglifier
@@ -44,8 +44,9 @@ Rails.application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  #complex config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
-  config.logger = ::Logger.new('/logs/production.log', 7, 10240000)
+  if ENV['HEROKU'].blank?
+    config.logger = ::Logger.new('/logs/production.log', 7, 10240000)
+  end
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store

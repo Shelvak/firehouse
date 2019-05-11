@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.8'
+ruby '~> 2.4.5'
 
-gem 'pg'
+gem 'rails', '~> 4.2.8'
+
+gem 'pg', '~> 0.20'
 gem 'pg_search'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

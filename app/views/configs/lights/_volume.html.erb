@@ -6,33 +6,10 @@
             callback: "highlightItem('', '', '##{volume_changer}');"
   }  do |f|  %>
 
-    <div class="row-fluid">
-      <div class="span2">
-        <div data-slider="slider">
-        </div>
-      </div>
-      <div class="span6">
-        <h4 data-slider="value"><%= volume %></h4>
-      </div>
-    </div>
-    <%= f.hidden_field :volume, value: volume, data: { slider: 'input' } %>
+    <%= render "shared/vertical_slider", f: f, field: :volume, value: volume %>
     <br />
     <br />
     <br />
     <%= f.submit t('view.lights.submit_volume'), class: 'btn btn-primary' %>
   <% end %>
 </div>
-
-<script type="text/javascript">
-  $('[data-slider="slider"]').slider({
-      orientation: 'vertical',
-      range: 'min',
-      min: 0,
-      max: 100,
-      value: <%= volume.to_i %>,
-      slide: function( event, ui ) {
-        $('[data-slider="input"]').val( ui.value );
-        $('[data-slider="value"]').html( ui.value );
-      }
-    });
-</script>

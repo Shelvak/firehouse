@@ -1,5 +1,3 @@
-
-
 <div class="container-fluid">
   <div class="row-fluid">
     <% if @lights.empty? %>
@@ -21,6 +19,41 @@
       </div>
     <% end %>
   </div>
+  <hr>
+  <div class="row-fluid">
+    <%= form_for :config_semaphore do |f| %>
+      <div class="span3">
+        <h2>Tiempo de semaforo Colon</h2>
+        <%= render "shared/horizontal_slider", f: f, field: :timeout, value: 33 %>
+      </div>
+      <div class="span3">
+        <h2>Nº de Semaforo ppal</h2>
+        <%= f.number_field :main_id, min: 1, max: 10 %>
+      </div>
+    <% end %>
+  </div>
 </div>
 <div class="form-actions">
 </div>
+
+<script type="text/javascript">
+  initSliders = function() {
+    $('[data-slider="slider"]').each(function(i, element) {
+      $element = $(element)
+      $element.slider({
+        orientation: $element.data('orientation') || 'vertical',
+        range: 'min',
+        min: 0,
+        max: $element.data('max') || 100,
+        value: $element.data('value'),
+        slide: function( event, ui ) {
+          container = $(event.target).parents('.slider-container:first')
+          container.find('[data-slider="input"]').val( ui.value );
+          container.find('[data-slider="value"]').html( ui.value );
+        }
+      });
+    });
+  };
+  $(document).ready(initSliders);
+  $(document).on('ajaxSuccess', initSliders);
+</script>
