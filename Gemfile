@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.4.5'
+ruby '~> 2.4'
 
 gem 'rails', '~> 4.2.8'
 
@@ -49,3 +49,6 @@ group :test do
   gem 'fabrication'
   gem 'faker'
 end
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'

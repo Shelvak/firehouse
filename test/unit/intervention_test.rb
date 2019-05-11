@@ -14,7 +14,7 @@ class InterventionTest < ActiveSupport::TestCase
             :intervention,
             receptor_id: @intervention.receptor_id,
             intervention_type_id: @intervention.intervention_type_id,
-            sco_id: @intervention.sco_id
+            sco_name: Faker::Name.name
           )
         )
       end

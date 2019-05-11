@@ -10,7 +10,7 @@ class Intervention < ActiveRecord::Base
     }
 
 
-  attr_accessor :auto_receptor_name, :auto_sco_name, :console_activation
+  attr_accessor :auto_receptor_name, :console_activation
 
   validates :intervention_type_id, presence: true
 
@@ -24,7 +24,6 @@ class Intervention < ActiveRecord::Base
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
-  belongs_to :sco
   has_one :informer
   has_one :mobile_intervention
   has_many :alerts
@@ -32,6 +31,7 @@ class Intervention < ActiveRecord::Base
 
   scope :opened, -> { where.not(status: :finished, qta: true) }
   scope :between, ->(from, to) { where(created_at: from..to) }
+  scope :emergencies, -> { includes(:intervention_type).where(intervention_types: { emergency: true }) }
 
   accepts_nested_attributes_for :informer,
     reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
@@ -40,8 +40,21 @@ class Intervention < ActiveRecord::Base
 
   delegate :audio, to: :intervention_type
 
-  def self.last_console_creation_is_a_trap
-    i = opened.where(receptor_id: User.default_receptor.id).reorder(:id).last
+  def self.last_console_creation_is_a_trap!
+    # Afinarlo para ver de seleccionar solo intervenciones pasible de personas atrapadas
+    # Esto deberia pasarlo a manso scope pero no deberian nunca haber muchas intervenciones
+    interventions = opened.emergencies.preload(:endowments).reorder(id: :desc).to_a
+    i = interventions.find do |i|
+      i.endowments.empty? || i.endowments.empty? { |e| e.out_at.present? }
+    end
+
+    i ||= interventions.first
+
+    unless i
+      ::Rails.logger.info("No hay intervenciones a cambiar con personas atrapadas")
+      return
+    end
+
     i.its_a_trap!
 
     RedisClient.socketio_emit("update-intervention-#{i.id}")
@@ -87,12 +100,6 @@ class Intervention < ActiveRecord::Base
     end
 
     (attrs['truck_id'].blank? || attrs['truck_number'].blank?) && !endow_reject
-  end
-
-  def sco_presence
-    if self.sco_id.blank? && self.informer.blank?
-      self.errors.add :auto_sco_name, :blank
-    end
   end
 
   def assign_endowment_number
@@ -253,7 +260,6 @@ class Intervention < ActiveRecord::Base
 
     save_lights_on_redis(lights)
     put_in_redis_list
-    start_looping_active_alerts!
   end
 
   def turn_off_alert
@@ -272,9 +278,9 @@ class Intervention < ActiveRecord::Base
     end
   end
 
-  def start_looping_active_alerts!
-    RedisClient.publish('interventions:lights:start_loop', 'start')
-  end
+  # def start_looping_active_alerts!
+  #   RedisClient.publish('interventions:lights:start_loop', 'start')
+  # end
 
   def stop_running_alerts!
     RedisClient.publish('interventions:lights:stop_loop', 'stop')

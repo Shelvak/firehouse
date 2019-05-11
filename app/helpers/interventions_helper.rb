@@ -1,8 +1,4 @@
 module InterventionsHelper
-  def current_sco
-    Sco.current
-  end
-
   def show_kind_of_intervention(kind)
     #key = Intervention::KINDS.invert[kind]
     #t("view.interventions.kinds.#{key}")

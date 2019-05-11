@@ -13,11 +13,6 @@ if ENV['HEROKU']
   FileUtils.cp(Rails.root.join('config/secrets.example.yml'), Rails.root.join('config/secrets.yml'))
 end
 
-if ENV['HEROKU']
-  require 'fileutils'
-  FileUtils.cp(Rails.root.join('config/secrets.example.yml'), Rails.root.join('config/secrets.yml'))
-end
-
 SECRETS = Rails.application.secrets
           .deep_symbolize_keys
           .with_indifferent_access

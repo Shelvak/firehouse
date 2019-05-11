@@ -10,14 +10,17 @@ Rails.application.routes.draw do
 
   resources :interventions do
     collection do
-      ['firefighter', 'receptor', 'sco'].each do |obj|
+      ['firefighter', 'receptor'].each do |obj|
         get :"autocomplete_for_#{obj}_name"
       end
       get :autocomplete_for_truck_number
       get :map
     end
 
-    put :special_sign, on: :member
+    member do
+      put :special_sign
+      get :show_pdf
+    end
 
 
     resources :endowments do
@@ -76,10 +79,6 @@ Rails.application.routes.draw do
     resources :trucks, :users
     resources :hierarchies do
       get :autocomplete_for_hierarchy_name, on: :collection
-    end
-    resources :scos do
-      put :activate, on: :member
-      put :desactivate, on: :member
     end
 
     resources :shifts do

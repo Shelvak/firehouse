@@ -1,0 +1,18 @@
+<table class='table table-bordered table-hover background-white'>
+  <thead>
+  <tr>
+    <th><%= t 'view.mobile_interventions.tables.link' %></th>
+    <th><%= t 'view.mobile_interventions.tables.names' %></th>
+    <th><%= t 'view.mobile_interventions.tables.dni' %></th>
+    <th><%= t 'view.mobile_interventions.tables.genre' %></th>
+    <th><%= t 'view.mobile_interventions.tables.age' %></th>
+    <th><%= t 'view.mobile_interventions.tables.phone' %></th>
+    <th><%= t 'view.mobile_interventions.tables.moved_to' %></th>
+    <th><%= t 'view.mobile_interventions.tables.injuries' %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody id="people_table_body_<%= dom_id(type) %>">
+    <%= render partial: 'mobile_interventions/person', collection: people.order(:created_at), as: :person %>
+  </tbody>
+</table>

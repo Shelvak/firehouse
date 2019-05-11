@@ -1,0 +1,72 @@
+<div class='well' id="<%= dom_id(building) %>">
+  <span class='span3'>
+    <h4>
+      <%= t 'activerecord.attributes.building.address' %>:
+      <%= building.address %>
+    </h4>
+    <p>
+      <%= t 'activerecord.attributes.building.description' %>:
+      <%= building.description %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.affected_surface' %>:
+      <%= building.affected_surface %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.details' %>:
+      <%= building.details %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.building_type' %>:
+      <%= building.building_type %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.number_of_floors' %>:
+      <%= building.number_of_floors %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.number_of_rooms' %>:
+      <%= building.number_of_rooms %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.floor' %>:
+      <%= building.floor %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.roof_type' %>:
+      <%= building.roof_type %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.window_type' %>:
+      <%= building.window_type %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.automatic_alert' %>:
+      <%= ternary_text_field building.automatic_alert %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.extinguishers' %>:
+      <%= ternary_text_field building.extinguishers %>
+    </p>
+    <p>
+      <%= t 'activerecord.attributes.building.fire_hydrants' %>:
+      <%= ternary_text_field building.fire_hydrants %>
+    </p>
+    <%= link_to_edit ['edit', @intervention, @endowment,
+                      'mobile_intervention', building], remote: true,
+                     data: {target: 'modal', modal: true} %>
+    <%= link_to_destroy [@intervention, @endowment, 'mobile_intervention',
+                         building], remote: true, data: {
+                         target: dom_id(building) } %>
+  </span>
+  <span class='span9'>
+    <div id="insurances_show_<%= dom_id(building) %>"><%= render partial: 'insurances/show', locals: { type: building } %></div>
+    <%= render partial: 'mobile_interventions/people_table', locals: {
+        people: building.people, type: building } %>
+    <p><%= link_to t('view.people.new'), ['new', @intervention, @endowment,
+                   'mobile_intervention', building, 'person'], remote: true,
+                   data: { target: 'modal', modal: true },
+                   class: 'btn btn-success btn-mini' %></p>
+  </span>
+<div class="clearfix"></div>
+</div>

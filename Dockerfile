@@ -15,6 +15,9 @@ RUN bundle config build.nokogiri --use-system-libraries && \
     bundle install --deployment --jobs 4 && \
     apk del build-dependencies
 
+ENV SOCKETIO => así se compila todo acá
+
+
 RUN cp config/app_config.example.yml config/app_config.yml \
     && cp config/secrets.example.yml config/secrets.yml \
     && mkdir -p /firehouse/tmp \

@@ -38,7 +38,7 @@ jQuery ($) ->
     $(this).find('.dropdown-toggle').addClass('disabled')
 
 
-  $(document).on 'focusin', 'input', ->
+  $(document).on 'focusin', 'input,textarea', ->
     Intervention.lastFocusedInput = $(this)
 
   $('textarea').textareaAutoSize()

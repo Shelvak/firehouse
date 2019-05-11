@@ -5,9 +5,6 @@ module ConfigsHelper
       t('menu.firefighters'), configs_firefighters_path
     ), class: active_nav(firefighters_urls)) if can?(:read, Firefighter)
     li += content_tag(:li, link_to(
-      t('menu.scos'), configs_scos_path
-    ), class: active_nav(scos_urls)) if can?(:read, Sco)
-    li += content_tag(:li, link_to(
       t('menu.hierarchies'), configs_hierarchies_path
     ), class: active_nav(hierarchies_urls)) if can?(:read, Hierarchy)
     li += content_tag(:li, link_to(
@@ -71,14 +68,6 @@ module ConfigsHelper
     urls += [configs_hierarchy_path(@hierarchy)] if @hierarchy && @hierarchy.persisted?
     urls += [new_configs_hierarchy_path]
     urls += [edit_configs_hierarchy_path(@hierarchy)] if @hierarchy && @hierarchy.persisted?
-    urls
-  end
-
-  def scos_urls
-    urls = [configs_scos_path]
-    urls += [configs_sco_path(@sco)] if @sco && @sco.persisted?
-    urls += [new_configs_sco_path]
-    urls += [edit_configs_sco_path(@sco)] if @sco && @sco.persisted?
     urls
   end
 

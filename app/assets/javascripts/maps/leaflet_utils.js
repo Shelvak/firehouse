@@ -98,6 +98,19 @@ var Leaflet = ( function () {
     , bindDrag = function (marker) {
         marker.on('dragend', function () {
           var position = marker.getLatLng()
+          console.log('tangalanga')
+          geocoder = new google.maps.Geocoder()
+          geocoder.geocode({ 'location': position }, function(results, status) {
+            if (results.length)  {
+              notes = $('#intervention_kind_notes')
+              wrote = notes.val()
+              if (wrote.length){
+                wrote = wrote + "\n"
+              }
+              wrote = wrote + '[' + Helpers.getHour() + '] ' + results[0].formatted_address
+              notes.val(wrote)
+            }
+          })
           setLatitudeAndLongitude(position.lat, position.lng)
           setPopup(marker)
           Intervention.saveIntervention(false, true)
