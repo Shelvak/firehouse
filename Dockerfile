@@ -8,9 +8,9 @@ RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc \
     && gem install bundler
 
 # RUN git clone --depth 2 https://github.com/Shelvak/firehouse /firehouse
-ADD . .
 
 WORKDIR /firehouse
+ADD . .
 
 # RUN bundle config build.nokogiri --use-system-libraries && \
 RUN   bundle install --deployment --jobs 8 && \
@@ -18,10 +18,10 @@ RUN   bundle install --deployment --jobs 8 && \
 
 # ENV SOCKETIO => así se compila todo acá
 
+RUN mkdir -p /firehouse/tmp
 
-RUN cp config/app_config.example.yml config/app_config.yml \
-    && cp config/secrets.example.yml config/secrets.yml \
-    && mkdir -p /firehouse/tmp \
-    && bundle exec rake assets:precompile
+# RUN cp config/secrets.example.yml config/secrets.yml \
+#     && mkdir -p /firehouse/tmp \
+#     && bundle exec rake assets:precompile
 
 CMD /firehouse/start.sh
