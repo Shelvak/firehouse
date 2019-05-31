@@ -1,13 +1,11 @@
-class Endowment < ActiveRecord::Base
-  has_paper_trail
-
+class Endowment < ApplicationModel
   attr_accessor :truck_number
 
   #attr_accessible :number, :endowment_lines_attributes, :out_at,
   #  :arrive_at, :back_at, :in_at, :out_mileage, :arrive_mileage, :back_mileage,
   #  :in_mileage, :truck_number, :truck_id, :intervention_id
 
-  belongs_to :intervention, touch: true
+  belongs_to :intervention
   belongs_to :truck
   has_many :endowment_lines
   has_one :mobile_intervention
@@ -16,6 +14,8 @@ class Endowment < ActiveRecord::Base
   validate :truck_out_in_distance
 
   before_validation :assign_truck
+
+  default_scope -> { order(number: :asc) }
 
   validates_each :number, if: :new_record? do |endowment, attr, value|
     if endowment.intervention

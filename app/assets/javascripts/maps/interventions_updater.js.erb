@@ -20,7 +20,6 @@ var InterventionUpdater = ( function () {
     , listenToInterventionChanges = function (id) {
         setupSocket()
         _socket.on('update-intervention-' + id, function (data) {
-          window.Intervention.saveIntervention(null, null, true);
           setTimeout(refreshPage, 2000);
         });
     }

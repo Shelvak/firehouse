@@ -1,0 +1,8 @@
+<%
+  e = nil
+  simple_form_for [@intervention, endowment] do |f|
+    e = f
+  end
+%>
+<%= render partial: 'interventions/endowment', locals: { f: e, dynamic: true } %>
+

@@ -15,7 +15,7 @@ module InterventionsHelper
   end
 
   def intervention_types_collection(hide_priority: true)
-    InterventionType.order_by_children.map do |it|
+    intervention_types.order_by_children.map do |it|
       emergency_class = if hide_priority && it.priority
                           'hidden'
                         elsif it.emergency?
@@ -46,7 +46,7 @@ module InterventionsHelper
       buttons.merge!({
         trap:  {
           url: 'trap_button.png',
-          refresh: true
+          disappear: true
         }
       })
     end
@@ -55,14 +55,17 @@ module InterventionsHelper
       buttons.merge!({
         electric_risk:  {
           url: 'electric_risk_button.png',
-          refresh: true
+          disappear: true
         }
       })
     end
 
     unless @intervention.try(:endowment_out?)
       buttons.merge!({
-        qta: { url: 'qta_button.png' }
+        qta: {
+          url: 'qta_button.png',
+          disappear: true,
+        }
       })
     end
 

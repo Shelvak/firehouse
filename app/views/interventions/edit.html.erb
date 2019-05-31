@@ -5,5 +5,7 @@
 
 <h2 class="js-intervention-title"><%= @intervention %></h2>
 
-<%= render partial: 'interventions/special_buttons' unless @intervention.finished? %>
+<% content_for :quick_buttons do %>
+  <%= render partial: 'interventions/special_buttons' unless @intervention.finished? %>
+<% end %>
 <%= render 'form' %>

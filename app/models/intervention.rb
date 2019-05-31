@@ -1,6 +1,5 @@
-class Intervention < ActiveRecord::Base
+class Intervention < ApplicationModel
   include PgSearch
-  has_paper_trail
   pg_search_scope :unicode_search,
     against: [:address, :id],
     ignoring: :accents,
@@ -18,13 +17,14 @@ class Intervention < ActiveRecord::Base
   before_create :assign_special_light_behaviors
   before_update :first_endowment_change, if: ->(i) { i.endowments.any? }
   after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.priority? }
-  after_save :endowment_alert_changer, :assign_mileage_to_trucks
+  after_create :create_first_endowment
+  after_save :endowment_alert_changer, unless: :finished?
+  after_save :assign_mileage_to_trucks
   after_update :intervention_type_changed_tasks, if: :intervention_type_id_changed?
   after_destroy :turn_off_alert
 
   belongs_to :intervention_type
   belongs_to :user, foreign_key: 'receptor_id'
-  has_one :informer
   has_one :mobile_intervention
   has_many :alerts
   has_many :endowments, autosave: true
@@ -33,8 +33,6 @@ class Intervention < ActiveRecord::Base
   scope :between, ->(from, to) { where(created_at: from..to) }
   scope :emergencies, -> { includes(:intervention_type).where(intervention_types: { emergency: true }) }
 
-  accepts_nested_attributes_for :informer,
-    reject_if: ->(attrs) { attrs['full_name'].blank? && attrs['nid'].blank? }
   accepts_nested_attributes_for :endowments, allow_destroy: true,
     reject_if: :reject_endowment_item?
 
@@ -95,11 +93,12 @@ class Intervention < ActiveRecord::Base
   end
 
   def reject_endowment_item?(attrs)
-    endow_reject = attrs['endowment_lines_attributes'].any? do |_, e|
+    endow_reject = (attrs['endowment_lines_attributes'] || {}).any? do |_, e|
       e['firefighters_names'].present?
     end
 
-    (attrs['truck_id'].blank? || attrs['truck_number'].blank?) && !endow_reject
+    attrs['id'].blank? && !endow_reject &&
+      (attrs['truck_id'].blank? || attrs['truck_number'].blank?)
   end
 
   def assign_endowment_number
@@ -108,7 +107,7 @@ class Intervention < ActiveRecord::Base
 
   def assign_mileage_to_trucks
     self.endowments.each do |e|
-      e.truck.update_attributes(mileage: e.in_mileage) if e.in_mileage
+      e.truck.update(mileage: e.in_mileage) if e.in_mileage && e.truck
     end
   end
 
@@ -348,7 +347,6 @@ class Intervention < ActiveRecord::Base
       RedisClient.publish('interventions:play_audio_file', self.audio.url)
     end
   end
-
   protected
 
   def trucks_numbers
@@ -386,6 +384,10 @@ class Intervention < ActiveRecord::Base
     self.electric_risk = true if intervention_type.lights['blue']
   end
 
+  def create_first_endowment
+    self.endowments.create if self.endowments.empty?
+  end
+
   def current_lights?
     raw_lights = RedisClient.get('last_lights_alert')
 
@@ -413,4 +415,5 @@ class Intervention < ActiveRecord::Base
     ::ErrorLogger.error(e)
     false
   end
+
 end

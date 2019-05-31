@@ -1,9 +1,12 @@
 <% i = f.try(:index) || 0 %>
-<% number = defined?(dynamic) ? 'dynamicContent' : f.object.number %>
+<% dynamic ||= false %>
+<% number = f.object.number %>
 
-<div class="tab-pane <%= 'active' if i == 0 %>"
+<div class="tab-pane <%= 'active' if i.zero? %>"
   id="endowments_<%= number %>" data-endowment-item="true">
-  <fieldset>
+  <fieldset data-type="endowment"
+    data-url="<%= intervention_endowment_path(@intervention.id, f.object.id) %>"
+    >
     <div class='row-fluid'>
       <div class='span5'>
         <div class="row-fluid">
@@ -16,14 +19,14 @@
           </div>
         </div>
         <div class='row-fluid'>
-          <%= render partial: 'truck_output', locals: { f: f } %>
+          <%= render partial: 'interventions/truck_output', locals: { f: f } %>
         </div>
       </div>
       <div class='span7' data-endowment-lines="true">
         <%= f.simple_fields_for :endowment_lines,
           defaults: { input_html: { class: 'span11' } } do |el| %>
 
-          <%= render partial: 'endowment_line', locals: { f: el } %>
+          <%= render partial: 'interventions/endowment_line', locals: { f: el } %>
         <% end %>
       </div>
     </div>

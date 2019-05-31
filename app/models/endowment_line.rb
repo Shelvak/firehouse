@@ -1,6 +1,4 @@
-class EndowmentLine < ActiveRecord::Base
-  has_paper_trail
-
+class EndowmentLine < ApplicationModel
   default_scope -> { order(charge: :asc) }
 
   CHARGES = {
@@ -23,12 +21,12 @@ class EndowmentLine < ActiveRecord::Base
 
   validates :charge, presence: true
 
-  def initialize(attributes = nil, options = {})
-    super(attributes, options)
-  end
+  # def initialize(attributes = nil, options = {})
+  #   super(attributes, options)
+  # end
 
   def firefighters_names=(ids)
-    self.firefighter_ids = ids.split(',')
+    self.firefighter_ids = ids.split(',').uniq
   end
 
   def firefighters_names

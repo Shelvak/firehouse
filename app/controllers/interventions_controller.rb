@@ -53,25 +53,25 @@ class InterventionsController < ApplicationController
 
   # GET /interventions/1/edit
   def edit
-    @intervention = intervention_scope.find(params[:id])
+    @intervention = intervention_scope.preload(
+      endowments: { endowment_lines: :firefighters }
+    ).find(params[:id])
     @title = t('view.interventions.edit_title', title: @intervention.to_s)
   end
 
-  # POST /interventions
-  # POST /interventions.json
   def create
     @title = t('view.interventions.new_title')
-    @intervention = intervention_scope.new(params[:intervention])
 
-    if @intervention.save
-      if request.format.html?
-        redirect_to @intervention, notice: t('view.interventions.correctly_created')
-      else
-        render 'edit', layout: false
-      end
-    else
-      render action: 'new'
-    end
+    @intervention = intervention_scope.new(params[:intervention])
+    @intervention.receptor_id ||= current_user.id
+
+    body = if @intervention.save
+             { redirectTo: edit_intervention_path(@intervention.id) }
+           else
+             @intervention.changes_for_json
+           end
+
+    render json: body
   end
 
   # PUT /interventions/1
@@ -79,19 +79,17 @@ class InterventionsController < ApplicationController
   def update
     @title = t('view.interventions.edit_title')
     @intervention = intervention_scope.find(params[:id])
-    html_request = request.format.html?
 
-    if @intervention.update(params[:intervention])
-      if params[:no_refresh].present? && params[:no_refresh] == 'true'
-        render nothing: true
-      elsif html_request
-        redirect_to @intervention, notice: t('view.interventions.correctly_updated')
+    respond_to do |format|
+      if @intervention.update(params[:intervention])
+        format.html { redirect_to @intervention, notice: t('view.interventions.correctly_created') }
+        format.json { render json: @intervention.changes_for_json }
       else
-        render action: 'edit', layout: (html_request ? 'application' : false)
+        format.html { render action: 'new' }
+        format.json { render json: @intervention.errors.details }
       end
-    else
-      render action: 'edit', layout: (html_request ? 'application' : false)
     end
+
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_intervention_url(@intervention),
                 alert: t('view.interventions.stale_object_error')
@@ -137,15 +135,19 @@ class InterventionsController < ApplicationController
   # PUT (always came via ajax)
   def special_sign
     @intervention = intervention_scope.find(params[:id])
-    @intervention.special_sign(params[:sign])
+    sign = params[:sign]
+    @intervention.special_sign(sign)
 
-    if params[:sign] == 'qta'
-      render text: 302 # emulate a redirect from js
-    else #if params[:refresh].to_bool
-      render 'edit', layout: false
-    # else
-    #   render nothing: true
-    end
+    body = case sign
+           when 'qta'
+             { redirectTo: edit_intervention_path(@intervention.id) }
+           when 'electric_risk', 'trap'
+             { hideElement: true }
+           else
+             {}
+           end
+
+    render json: body
   end
 
   def console_create

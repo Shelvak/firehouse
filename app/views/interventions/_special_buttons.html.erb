@@ -1,9 +1,12 @@
 <div class="intervention-special-buttons" id="buttons">
   <% special_intervention_buttons.each do |button, data| %>
-      <%= link_to image_tag(data[:url]), '#', data: {
-          intervention_special_button: button,
-          intervention_id:  @intervention.try(:id),
-          refresh_page: true # data[:refresh].to_bool
-      }, class: 'intervention-special-button' %>
+    <% hide_on_success = ".intervention-special-button.sign-#{button}" if data[:disappear] %>
+    <%= link_to image_tag(data[:url]), '#',
+      class: "intervention-special-button.sign-#{button}",
+      data: {
+        special_sign:    true,
+        special_button:  button,
+        hide_on_success: hide_on_success
+      } %>
   <% end %>
 </div>

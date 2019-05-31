@@ -1,17 +1,17 @@
 <div class='row-fluid'>
   <div class='span5'>
-    <%= inf.input :full_name, input_html: { data: { intervention_saver: true } } %>
+    <%= f.input :informer_name, input_html: { data: { intervention_saver: true } } %>
   </div>
   <div class='span3'>
-    <%= inf.input :nid, as: :string, input_html: { data: { intervention_saver: true } } %>
+    <%= f.input :informer_nid, as: :string, input_html: { data: { intervention_saver: true } } %>
   </div>
   <div class='span3'>
-    <%= inf.input :phone, input_html: { data: { intervention_saver: true } } %>
+    <%= f.input :informer_phone, input_html: { data: { intervention_saver: true } } %>
   </div>
 </div>
 
 <div class='row-fluid'>
   <div class='span12'>
-    <%= inf.input :address, input_html: { class: 'span10', data: { intervention_saver: true } } %>
+    <%= f.input :informer_address, input_html: { class: 'span10', data: { intervention_saver: true } } %>
   </div>
 </div>
