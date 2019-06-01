@@ -348,6 +348,17 @@ new Rule
       }
       Leaflet.changeMarker(text, event)
 
+    @map.checkAjaxBefore ||= (e)->
+      if !_.isEmpty(Intervention.bufferToSave)
+        e.preventDefault()
+        e.stopPropagation()
+
+        Intervention.saveField(
+          $('#intervention_observations'),
+          -> (window.location.href = e.currentTarget.href)
+        )
+
+
 
     Helpers.docOn 'change', '.js-intersection-results', @map.changeMarkerOnResult
     Helpers.docOn 'change', '[data-travel-type]',       @map.alertWhenDistanceIsBig
@@ -360,6 +371,7 @@ new Rule
     Helpers.docOn 'keyup',  '.js-intersection-streets', @map.intersectionStreetsSearch
     Helpers.docOn 'keyup',  'input,select',             @map.ignoreEnter
     Helpers.docOn 'keyup',  'input[name$="[number]"]',  @map.changeEndowmentNumber
+    Helpers.docOn 'click',  '[data-check-ajax-before]',  @map.checkAjaxBefore
 
   unload: ->
     $(document).off 'click', '#add_new_endowment', @map.addNewTab

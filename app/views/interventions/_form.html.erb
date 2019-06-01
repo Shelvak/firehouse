@@ -2,7 +2,6 @@
       <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.google_api_key %>&libraries=places"></script>
 <% end %>
 
-<% intervention_form = nil %>
 <%= simple_form_for @intervention,
   defaults: { input_html: { class: 'span10' } },
   html: { autocomplete: 'off' } do |f| %>
@@ -98,7 +97,9 @@
 
   <div class="form-actions">
     <div class="pull-right"><%= yield :form_actions %></div>
-    <% intervention_form = f %>
+    <%= link_to t('label.show'), @intervention,
+      class: 'btn btn-primary',
+      data: { check_ajax_before: true } if @intervention.persisted?%>
   </div>
 <% end %>
 

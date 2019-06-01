@@ -1,7 +1,7 @@
 <% %i[informer_name informer_nid informer_phone informer_address].each do |attr| %>
   <% if (value = @intervention.send(attr)).present? %>
     <p>
-      <strong><%= Informer.human_attribute_name attr %></strong>:
+      <strong><%= Intervention.human_attribute_name attr %></strong>:
       <%= @intervention.send(attr) %>
     </p>
   <% end %>

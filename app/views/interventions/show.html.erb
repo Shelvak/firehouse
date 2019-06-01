@@ -20,12 +20,8 @@
         <span data-intervention="address"><%= @intervention.address %></span>
       </p>
       <p>
-        <strong><%= Intervention.human_attribute_name 'near_corner' %></strong>:
-        <%= @intervention.near_corner %>
-      </p>
-      <p>
         <strong><%= Intervention.human_attribute_name 'kind_notes' %></strong>:
-        <%= @intervention.kind_notes %>
+        <%= simple_format @intervention.kind_notes %>
       </p>
 
       <%= render 'informer_show' %>
