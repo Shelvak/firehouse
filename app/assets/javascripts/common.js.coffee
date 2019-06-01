@@ -8,8 +8,9 @@ window.Helpers =
 
     hours + ':' + minutes
 
-  time_now: ->
-    (new Date()).toLocaleString()
+  docOn: (event, selectors, fn) ->
+    # Prevent double trigger
+    $(document).off(event, selectors).on event, selectors, fn
 
 new Rule
   load: ->

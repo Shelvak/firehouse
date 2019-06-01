@@ -1,16 +1,24 @@
-<div class='row-fluid'>
-  <div class='span3 label'>
-    <%= f.label :auto_firefighter_name, show_charge_name(f.object.charge) %>
-    <%= f.input :charge, as: :hidden %>
+<fieldset data-type="endowment_line" data-id="<%= f.object.try(:id) %>"
+  data-url="<%= intervention_endowment_endowment_line_path(
+    f.object.id,
+    intervention_id: @intervention.id,
+    endowment_id: f.object.endowment_id
+  ) %>"
+  >
+  <div class='row-fluid'>
+    <div class='span3 label'>
+      <%= f.label :auto_firefighter_name, show_charge_name(f.object.charge) %>
+      <%= f.input :charge, as: :hidden %>
+    </div>
+    <div class='span9'>
+      <%= f.input :firefighters_names, label: false, input_html: {
+        class: 'span10 token-autocomplete',
+        autocomplete: 'off',
+        data: {
+          load: f.object.firefighters,
+          'token-limit' => ([3, 4, 6].include?(f.object.charge) ? nil : 1)
+        }
+      } %>
+    </div>
   </div>
-  <div class='span9'>
-    <%= f.input :firefighters_names, label: false, input_html: {
-      class: 'span10 token-autocomplete',
-      autocomplete: 'off',
-      data: {
-        load: f.object.firefighters,
-        'token-limit' => ([3, 4, 6].include?(f.object.charge) ? nil : 1)
-      }
-    } %>
-  </div>
-</div>
+</fieldset>

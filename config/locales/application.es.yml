@@ -59,11 +59,6 @@ es:
         user_id: "Usuario"
       hierarchy:
         name: "Nombre"
-      informer:
-        address: "Dirección"
-        full_name: "Nombre y apellido"
-        nid: "DNI (solo nº)"
-        phone: "Teléfono"
       insurance:
         company: "Compañía de seguros"
         policy_number: "Número de póliza"
@@ -85,6 +80,10 @@ es:
         observations: "Observaciones"
         receptor_id: "Receptor"
         sco_name: "CEO"
+        informer_address: "Dirección"
+        informer_name: "Nombre y apellido"
+        informer_nid: "DNI (solo nº)"
+        informer_phone: "Teléfono"
       intervention_type:
         audio: "Sonido de alerta"
         callback: "Función de retorno"

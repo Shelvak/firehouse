@@ -22,8 +22,9 @@ Rails.application.routes.draw do
       get :show_pdf
     end
 
+    resources :endowments, only: [:create, :update] do
+      resources :endowment_lines, only: :update
 
-    resources :endowments do
       resource :mobile_intervention, on: :member do
         resources :buildings, except: [:index, :show] do
           resources :people, except: [:index, :show]

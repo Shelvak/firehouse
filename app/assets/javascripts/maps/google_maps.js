@@ -129,8 +129,8 @@ var setMarkerInfo = function(map, marker, title, index, infowindow) {
 
 // TODAVIA EN USO
 var setLatitudeAndLongitude = function(latitude, longitude){
-    document.getElementById('intervention_latitude').value  = latitude;
-    document.getElementById('intervention_longitude').value = longitude;
+  Intervention.saveField($('#intervention_latitude').val(latitude), null, true)
+  Intervention.saveField($('#intervention_longitude').val(longitude))
 };
 
 var autocompleteAddress = function(id) {
@@ -144,6 +144,7 @@ var autocompleteAddress = function(id) {
       };
     address_autocompleted = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(address_autocompleted, 'place_changed', function () {
+      Intervention.saveField($(input), null, true)
       Leaflet.changeMarker(input.value, this)
     } );
 };

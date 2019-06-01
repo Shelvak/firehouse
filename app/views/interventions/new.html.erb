@@ -6,17 +6,19 @@
   <%= t('view.interventions.new_title') %>
 </h2>
 
-<div class="buttons open-buttons" id="quick-buttons">
-  <div class="row">
-    <% (1..5).each do |i| %>
-      <%= render partial: 'interventions/button', locals: { i: i } %>
-    <% end %>
+<% content_for :quick_buttons do %>
+  <div class="buttons open-buttons quick-intervention-types" id="quick-buttons">
+    <div class="row">
+      <% (1..5).each do |i| %>
+        <%= render partial: 'interventions/button', locals: { i: i } %>
+      <% end %>
+    </div>
+    <div class="row">
+      <% (6..10).each do |i| %>
+        <%= render partial: 'interventions/button', locals: { i: i } %>
+      <% end %>
+    </div>
   </div>
-  <div class="row">
-    <% (6..10).each do |i| %>
-      <%= render partial: 'interventions/button', locals: { i: i } %>
-    <% end %>
-  </div>
-</div>
+<% end %>
 
 <%= render 'form' %>

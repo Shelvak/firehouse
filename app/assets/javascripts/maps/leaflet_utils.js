@@ -67,7 +67,6 @@ var Leaflet = ( function () {
 
         // Bindeo movimiento del marcador
         bindDrag(marker)
-        Intervention.saveIntervention(false, true)
     }
     , setPopup = function (marker, description) {
         var popupText
@@ -92,28 +91,32 @@ var Leaflet = ( function () {
 
         marker.setLatLng(point);
         setLatitudeAndLongitude(point.lat, point.lng)
-        Intervention.saveIntervention(false, true)
       }
     // Bindea las acciones para completar satisfactoriamente el drag del marcador
     , bindDrag = function (marker) {
         marker.on('dragend', function () {
           var position = marker.getLatLng()
-          console.log('tangalanga')
           geocoder = new google.maps.Geocoder()
           geocoder.geocode({ 'location': position }, function(results, status) {
             if (results.length)  {
               notes = $('#intervention_kind_notes')
               wrote = notes.val()
-              if (wrote.length){
-                wrote = wrote + "\n"
-              }
-              wrote = wrote + '[' + Helpers.getHour() + '] ' + results[0].formatted_address
+
+              newLine = '[' + Helpers.getHour() + '] ' + results[0].formatted_address
+
+              if ( _.last(wrote.split("\n")) != newLine )
+                if ( wrote.length )
+                  wrote += "\n" + newLine
+                else
+                  wrote = newLine
+
               notes.val(wrote)
+
+              Intervention.saveField(notes)
             }
           })
           setLatitudeAndLongitude(position.lat, position.lng)
           setPopup(marker)
-          Intervention.saveIntervention(false, true)
         })
       }
     // Coloca el zoom necesario para mostrar todos los marcadores
