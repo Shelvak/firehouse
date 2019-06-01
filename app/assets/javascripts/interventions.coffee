@@ -75,10 +75,10 @@ window.Intervention ||=
       Intervention.cleanFieldErrors(field)
       controlGroup = field.parents('.control-group:first')
       controlGroup.addClass('error')
-      for message in msgs
-        controlGroup.append(
-          "<span class=\"help-inline\" style=\"font-size: 14px;\">#{message}</span>"
-        )
+      errors = []
+      for message in _.uniq(msgs)
+        errors.push("<span class=\"help-inline\" style=\"font-size: 14px;\">#{message}</span>")
+      controlGroup.append(errors.join('<br />'))
 
   cleanFieldErrors: (field)->
     if field && field.length
