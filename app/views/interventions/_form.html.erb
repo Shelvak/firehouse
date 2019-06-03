@@ -90,7 +90,7 @@
             data-show-tooltip='true'>&#xe079;</span>
         </h3>
         <%= f.input :observations, label: false,
-          input_html: { class: 'span12', rows: 2, data: { 'intervention-saver' => true } } %>
+          input_html: { class: 'span12', rows: 2 } %>
       </div>
     </div>
   </fieldset>
@@ -120,7 +120,6 @@
     $('textarea').textareaAutoSize();
   });
 
-  // Intervention.tokenizeAutocompleteInputs();
   // it's a trap
   <% unless @intervention.its_a_trap? || @intervention.finished? %>
     // TODO MANDAR ESTO A OTRO LADO

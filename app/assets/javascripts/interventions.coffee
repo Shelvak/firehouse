@@ -86,30 +86,6 @@ window.Intervention ||=
       controlGroup.removeClass('error')
       controlGroup.find('span.help-inline').remove()
 
-  # tokenizeAutocompleteInputs: ->
-  #   $('.token-autocomplete:not(.tokenized)').each ->
-
-  #     input = $(this)
-  #     input.tokenInput '/interventions/autocomplete_for_firefighter_name.json',
-  #       prePopulate: input.data('load'),
-  #       theme: 'facebook',
-  #       propertyToSearch: 'label',
-  #       preventDuplicates: true,
-  #       tokenLimit: input.data('token-limit'),
-  #       minChars: 3,
-  #       hintText: false,
-  #       noResultsText: without_result,
-  #       searchingText: false
-  #       onReady: ->
-  #         input.addClass('tokenized')
-  #       onAdd: ->
-  #         count = input.siblings('.token-input-list-facebook:first')
-  #           .find('li.token-input-token-facebook').size()
-  #         if (count - input.data('token-limit')) == 0
-  #           input.parents('[data-endowment-lines]')
-  #             .find('[id^="token-input-intervention"]:visible:first').focus()
-  #         input.trigger('change')
-
   setCurrentTimeToObservations: ->
     input       = $('#intervention_observations')
     wrote       = input.val()

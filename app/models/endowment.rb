@@ -29,6 +29,8 @@ class Endowment < ApplicationModel
 
   accepts_nested_attributes_for :endowment_lines, allow_destroy: true
 
+  after_update :intervention_callbacks
+
   def initialize(attributes = nil, options = {})
     super(attributes, options)
 
@@ -73,6 +75,24 @@ class Endowment < ApplicationModel
         'validations.distance.must_be_greater_than', distance: first
       )
     end
+  end
+
+  def intervention_callbacks
+    # first_endowment_change
+    intervention.send_alert_to_lcd if number == 1 && (truck_id_changed? || number_changed?)
+
+    # endowment_alert_changer
+    if number == 1 && !intervention.finished?
+      case
+      when in_at_changed? && in_at.present?  then intervention.turn_off_alert
+      when out_at_changed? && out_at.present? then intervention.send_alert_on_repose
+      end
+    end
+
+    intervention.update_status
+
+    # assign_mileage_to_trucks
+    truck.update(mileage: in_mileage) if in_mileage && truck
   end
 
   ['arrive', 'back', 'in'].each do |action|

@@ -13,13 +13,14 @@ class Intervention < ApplicationModel
 
   validates :intervention_type_id, presence: true
 
-  before_validation :assign_endowment_number, :update_status
+  # before_validation :assign_endowment_number, :update_status
+  # before_validation :update_status
   before_create :assign_special_light_behaviors
-  before_update :first_endowment_change, if: ->(i) { i.endowments.any? }
+  # before_update :first_endowment_change, if: ->(i) { i.endowments.any? }
   after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.priority? }
   after_create :create_first_endowment
-  after_save :endowment_alert_changer, unless: :finished?
-  after_save :assign_mileage_to_trucks
+  # after_save :endowment_alert_changer, unless: :finished?
+  # after_save :assign_mileage_to_trucks
   after_update :intervention_type_changed_tasks, if: :intervention_type_id_changed?
   after_destroy :turn_off_alert
 
@@ -101,15 +102,15 @@ class Intervention < ApplicationModel
       (attrs['truck_id'].blank? || attrs['truck_number'].blank?)
   end
 
-  def assign_endowment_number
-    self.endowments.each_with_index { |e, i| e.number ||= i + 1 }
-  end
+  # def assign_endowment_number
+  #   self.endowments.each_with_index { |e, i| e.number ||= i + 1 }
+  # end
 
-  def assign_mileage_to_trucks
-    self.endowments.each do |e|
-      e.truck.update(mileage: e.in_mileage) if e.in_mileage && e.truck
-    end
-  end
+  # def assign_mileage_to_trucks
+  #   self.endowments.each do |e|
+  #     e.truck.update(mileage: e.in_mileage) if e.in_mileage && e.truck
+  #   end
+  # end
 
   def type
     intervention_type.to_s
@@ -241,16 +242,16 @@ class Intervention < ApplicationModel
     RedisClient.lrange('interventions:actives', 0, -1).include? self.id
   end
 
-  def first_endowment_change
-    send_alert_to_lcd if endowments.first.truck_id_changed? || endowments.first.number_changed?
-  end
+  # def first_endowment_change
+  #   send_alert_to_lcd if endowments.first.truck_id_changed? || endowments.first.number_changed?
+  # end
 
-  def endowment_alert_changer
-    case
-      when endowment_back?  then turn_off_alert
-      when endowments.any? { |e| e.out_at.present? } then send_alert_on_repose
-    end
-  end
+  # def endowment_alert_changer
+  #   case
+  #     when endowment_back?  then turn_off_alert
+  #     when endowments.any? { |e| e.out_at.present? } then send_alert_on_repose
+  #   end
+  # end
 
   def send_alert_on_repose
     lights = lights_for_redis
@@ -347,7 +348,14 @@ class Intervention < ApplicationModel
       RedisClient.publish('interventions:play_audio_file', self.audio.url)
     end
   end
-  protected
+
+  def update_status
+    case
+      when !self.finished? && self.endowment_back? then self.update(status: 'finished')
+    end
+  end
+
+  # protected
 
   def trucks_numbers
     endowments.map { |endowment| endowment.truck.number if endowment.truck }.uniq
@@ -374,11 +382,6 @@ class Intervention < ApplicationModel
     )
   end
 
-  def update_status
-    case
-      when !self.finished? && self.endowment_back? then self.status = 'finished'
-    end
-  end
 
   def assign_special_light_behaviors
     self.electric_risk = true if intervention_type.lights['blue']
