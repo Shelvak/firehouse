@@ -26,7 +26,11 @@ class EndowmentLine < ApplicationModel
   # end
 
   def firefighters_names=(ids)
-    self.firefighter_ids = ids.split(',').uniq
+    f_ids = ids.is_a?(Array) ? ids : ids.to_s.split(',')
+
+    self.firefighter_ids = f_ids.uniq.compact.reject(&:blank?)
+  rescue PG::UniqueViolation
+    true
   end
 
   def firefighters_names

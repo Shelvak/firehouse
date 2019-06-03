@@ -31,9 +31,9 @@ class Firefighter < ActiveRecord::Base
   belongs_to :user
   belongs_to :hierarchy
 
-  has_many :endowment_line_firefighter_relations
+  has_many :endowment_line_firefighter_relations, dependent: :restrict_with_error
   has_many :endowment_lines, through: :endowment_line_firefighter_relations,
-   autosave: true
+   autosave: true, dependent: :restrict_with_error
   has_many :relatives
   has_many :shifts
   has_many :dockets
@@ -49,6 +49,7 @@ class Firefighter < ActiveRecord::Base
   end
 
   alias_method :label, :to_s
+  alias_method :text, :to_s
 
   def blood
     [blood_type, blood_factor].join(' ')
@@ -57,7 +58,7 @@ class Firefighter < ActiveRecord::Base
   def as_json(options = nil)
     default_options = {
       only: [:id],
-      methods: [:label]
+      methods: [:text]
     }
 
     super(default_options.merge(options || {}))

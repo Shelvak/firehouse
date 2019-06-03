@@ -16,7 +16,6 @@
 //= require jquery_ujs
 //= require jquery-customs/jquery-ui-timepicker-addon
 //= require jquery-customs/jquery.ui.datepicker-es
-//= require jquery/tokeninput
 //= require jquery/emuletab
 //= require jquery/textarea-autosize
 //= require twitter/bootstrap
@@ -26,6 +25,8 @@
 //= require leaflet/leaflet
 //= require leaflet/leaflet-routing-machine.min
 //= require socketio/core
+//= require select2
+//= require select2.es
 
 // Own
 //= require inspector

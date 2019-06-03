@@ -11,13 +11,18 @@
       <%= f.input :charge, as: :hidden %>
     </div>
     <div class='span9'>
-      <%= f.input :firefighters_names, label: false, input_html: {
-        class: 'span10 token-autocomplete',
-        autocomplete: 'off',
-        data: {
-          load: f.object.firefighters,
-          'token-limit' => ([3, 4, 6].include?(f.object.charge) ? nil : 1)
-        }
+      <%= f.input :firefighters_names,
+        label: false,
+        as: :select,
+        collection: [],
+        input_html: {
+          class: 'span10 multi-autocomplete-field',
+          autocomplete: 'off',
+          data: {
+            selected_ids: f.object.firefighter_ids,
+            url:          configs_firefighters_path(format: :json),
+            multi_select: [3, 4, 6].include?(f.object.charge)
+          }
       } %>
     </div>
   </div>

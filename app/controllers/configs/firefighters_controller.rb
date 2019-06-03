@@ -14,7 +14,7 @@ class Configs::FirefightersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @firefighters }
+      format.json { render json: Firefighter.all }
     end
   end
 

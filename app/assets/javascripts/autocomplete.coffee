@@ -1,3 +1,40 @@
+window.Autocomplete =
+  initFirefightersSelect2: ->
+    if _.isEmpty(Autocomplete.firefighterData)
+      $.ajax
+        url: '/configs/firefighters.json',
+        dataType: 'json',
+        cache: true
+        success: (data) ->
+          Autocomplete.firefighterData = data
+          Autocomplete.initFirefightersSelect2()
+    else
+      $('select.multi-autocomplete-field:not([data-observed]):visible').each (i, element) ->
+        Autocomplete.firefightersSelect2($(element))
+
+  firefightersSelect2: (element) ->
+    opts = {
+      selectOnClose: false,
+      closeOnSelect: false,
+      allowClear:    true
+      multiple:      true,
+      data:          Autocomplete.firefighterData,
+      language:      'es',
+      placeholder:   ''
+    }
+
+    if element.data('multi-select')
+      opts.maximumSelectionLength = 0
+      opts.closeOnSelect          = false
+      opts.multiple               = true
+    else
+      opts.maximumSelectionLength = 1
+      opts.closeOnSelect = true
+
+    element.select2(opts)
+    element.val(element.data('selected-ids')).trigger('change')
+    element.attr('data-observed', true)
+
 jQuery ($)->
   $(document).on 'change', 'input.autocomplete-field', ->
     if /^\s*$/.test($(this).val())
@@ -46,3 +83,8 @@ jQuery ($)->
         $('<a></a>').html(item.label)
       ).appendTo(ul)
   .attr('data-observed', true)
+
+  $(document).on 'shown.bs.tab', ->
+    Autocomplete.initFirefightersSelect2()
+
+  Autocomplete.initFirefightersSelect2()
