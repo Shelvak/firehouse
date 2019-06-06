@@ -2,7 +2,7 @@ window.Autocomplete =
   initFirefightersSelect2: ->
     if _.isEmpty(Autocomplete.firefighterData)
       $.ajax
-        url: '/configs/firefighters.json',
+        url: '/interventions/autocomplete_for_firefighter_name.json',
         dataType: 'json',
         cache: true
         success: (data) ->

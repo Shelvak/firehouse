@@ -124,10 +124,8 @@ class InterventionsController < ApplicationController
   end
 
   def autocomplete_for_firefighter_name
-    firefighters = Firefighter.filtered_list(params[:q]).limit(5)
-
     respond_to do |format|
-      format.json { render json: firefighters }
+      format.json { render json: Firefighter.all }
     end
   end
 
