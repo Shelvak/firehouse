@@ -83,7 +83,11 @@ class InterventionsController < ApplicationController
     respond_to do |format|
       if @intervention.update(params[:intervention])
         format.html { redirect_to @intervention, notice: t('view.interventions.correctly_created') }
-        format.json { render json: @intervention.changes_for_json }
+        format.json {
+          changes = @intervention.changes_for_json
+          changes[:redirectTo] = edit_intervention_path(@intervention.id) if changes['intervention_type_id'] || changes[:intervention_type_id]
+          render json: changes
+        }
       else
         format.html { render action: 'new' }
         format.json { render json: @intervention.errors.details }
@@ -139,10 +143,8 @@ class InterventionsController < ApplicationController
     @intervention.special_sign(sign)
 
     body = case sign
-           when 'qta'
+           when 'qta', 'electric_risk', 'trap'
              { redirectTo: edit_intervention_path(@intervention.id) }
-           when 'electric_risk', 'trap'
-             { hideElement: true }
            else
              {}
            end

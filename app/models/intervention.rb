@@ -15,7 +15,7 @@ class Intervention < ApplicationModel
 
   # before_validation :assign_endowment_number, :update_status
   # before_validation :update_status
-  before_create :assign_special_light_behaviors
+  before_save :assign_special_light_behaviors
   # before_update :first_endowment_change, if: ->(i) { i.endowments.any? }
   after_create :send_first_alert!, if: -> (i) { i.console_activation || i.intervention_type.priority? }
   after_create :create_first_endowment
@@ -197,6 +197,8 @@ class Intervention < ApplicationModel
     if play_audio
       ::Rails.logger.info("Dale play!!!")
       play_intervention_audio!
+    else
+      start_looping_active_alerts!
     end
   end
 
@@ -226,8 +228,8 @@ class Intervention < ApplicationModel
 
   def send_alert_to_lcd
     lines = {
-      line3: finished? ? '' : self.display_type[0..19],
-      line4: finished? ? '' : "D:#{endowments.first.try(:number)} M:#{endowments.first.try(:truck).to_s} ##{id}"[0..19]
+      line3: finished? ? 'Bomberos Voluntarios' : self.display_type[0..19],
+      line4: finished? ? '     Godoy Cruz     ' : "D:#{endowments.first.try(:number)} M:#{endowments.first.try(:truck).to_s} ##{id}"[0..19]
     }
 
     lines.each do |line, text|
@@ -260,6 +262,7 @@ class Intervention < ApplicationModel
 
     save_lights_on_redis(lights)
     put_in_redis_list
+    start_looping_active_alerts!
   end
 
   def turn_off_alert
@@ -278,9 +281,10 @@ class Intervention < ApplicationModel
     end
   end
 
-  # def start_looping_active_alerts!
-  #   RedisClient.publish('interventions:lights:start_loop', 'start')
-  # end
+  def start_looping_active_alerts!
+    stop_running_alerts!
+    RedisClient.publish('interventions:lights:start_loop', 'start')
+  end
 
   def stop_running_alerts!
     RedisClient.publish('interventions:lights:stop_loop', 'stop')
@@ -363,13 +367,19 @@ class Intervention < ApplicationModel
 
   def intervention_type_changed_tasks
     if self.intervention_type_id_was.present?
-      if intervention_type.priority? || alerts.any?
+      old = InterventionType.find(intervention_type_id_was)
+
+      update_columns(electric_risk: intervention_type.lights['blue'], its_a_trap: false)
+
+      if (old.priority? || intervention_type.priority? || alerts.any?) && !endowment_out?
         send_first_alert!
       # elsif alerts.any? # urgency with alerts
       #   send_lights(true)
+      else
+        lights_for_redis(true) # actualizar las luces
       end
 
-      update_observations_with("Cambio de Alarma (#{InterventionType.find(intervention_type_id_was)} => #{self.type})")
+      update_observations_with("Cambio de Alarma (#{old} => #{self.type})")
     end
   end
 

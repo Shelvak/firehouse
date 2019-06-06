@@ -82,14 +82,17 @@ class Endowment < ApplicationModel
     intervention.send_alert_to_lcd if number == 1 && (truck_id_changed? || number_changed?)
 
     # endowment_alert_changer
-    if number == 1 && !intervention.finished?
+    if !intervention.finished?
+      intervention.update_status
+
       case
       when in_at_changed? && in_at.present?  then intervention.turn_off_alert
       when out_at_changed? && out_at.present? then intervention.send_alert_on_repose
+      when back_at_changed? && back_at.present? then intervention.start_looping_active_alerts!
       end
+    else
+      intervention.update_status
     end
-
-    intervention.update_status
 
     # assign_mileage_to_trucks
     truck.update(mileage: in_mileage) if in_mileage && truck
