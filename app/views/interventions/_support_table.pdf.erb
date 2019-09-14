@@ -1,0 +1,22 @@
+<table class='table table-bordered table-hover'>
+  <thead>
+    <tr>
+      <th><%= t 'view.mobile_interventions.tables.in_the_place' %></th>
+      <th><%= t 'view.mobile_interventions.tables.mobil_number' %></th>
+      <th><%= t 'view.mobile_interventions.tables.responsible' %></th>
+      <th><%= t 'view.mobile_interventions.tables.driver' %></th>
+      <th><%= t 'view.mobile_interventions.tables.belongs' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% supports.each do |support| %>
+      <tr>
+        <td><%= support.support_type %></td>
+        <td><%= support.number %></td>
+        <td><%= support.responsible %></td>
+        <td><%= support.driver %></td>
+        <td><%= support.owner %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

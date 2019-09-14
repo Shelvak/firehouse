@@ -1,0 +1,35 @@
+<div class="row-fluid">
+  <div class='span3'>
+    <h4>
+      <b><%= t 'activerecord.attributes.vehicle.number' %>:</b>
+      <%= vehicle.number %>
+    </h4>
+    <p>
+      <b><%= t 'activerecord.attributes.vehicle.mark' %>:</b>
+      <%= vehicle.mark %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.vehicle.model' %>:</b>
+      <%= vehicle.model %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.vehicle.year' %>:</b>
+      <%= vehicle.year %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.vehicle.domain' %>:</b>
+      <%= vehicle.domain %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.vehicle.damage' %>:</b>
+      <%= vehicle.damage %>
+    </p>
+  </div>
+  <div class='span9'>
+    <%= render 'insurance', insurance: vehicle.insurance if vehicle.insurance %>
+
+    <%= render partial: 'people_table', locals: {
+      people: vehicle.people, type: vehicle
+    } %>
+  </div>
+</div>

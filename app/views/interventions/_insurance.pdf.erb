@@ -1,0 +1,16 @@
+<table class='table table-bordered table-hover'>
+  <thead>
+    <tr>
+      <th><%= t 'activerecord.attributes.insurance.company' %></th>
+      <th><%= t 'activerecord.attributes.insurance.policy_number' %></th>
+      <th><%= t 'activerecord.attributes.insurance.valid_until' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= insurance.company %></td>
+      <td><%= insurance.policy_number %></td>
+      <td><%= l insurance.valid_until if insurance.valid_until %></td>
+    </tr>
+  </tbody>
+</table>

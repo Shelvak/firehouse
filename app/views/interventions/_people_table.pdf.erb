@@ -1,0 +1,28 @@
+<table class='table table-bordered table-hover'>
+  <thead>
+    <tr>
+      <th><%= t 'view.mobile_interventions.tables.link' %></th>
+      <th><%= t 'view.mobile_interventions.tables.names' %></th>
+      <th><%= t 'view.mobile_interventions.tables.dni' %></th>
+      <th><%= t 'view.mobile_interventions.tables.genre' %></th>
+      <th><%= t 'view.mobile_interventions.tables.age' %></th>
+      <th><%= t 'view.mobile_interventions.tables.phone' %></th>
+      <th><%= t 'view.mobile_interventions.tables.moved_to' %></th>
+      <th><%= t 'view.mobile_interventions.tables.injuries' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% people.order(:created_at).each do |person| %>
+      <tr>
+        <td><%= person.relation %></td>
+        <td><%= person.name%> <%= person.last_name %></td>
+        <td><%= person.dni_type + person.dni_number %></td>
+        <td><%= person.genre %></td>
+        <td><%= person.age %></td>
+        <td><%= person.phone_number %></td>
+        <td><%= person.moved_to %></td>
+        <td><%= person.injuries %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

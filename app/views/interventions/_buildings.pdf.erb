@@ -1,0 +1,63 @@
+<div class='well'>
+  <div class='span3'>
+    <h4>
+      <b><%= t 'activerecord.attributes.building.address' %>:</b>
+      <%= building.address %>
+    </h4>
+    <p>
+      <b><%= t 'activerecord.attributes.building.description' %>:</b>
+      <%= building.description %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.affected_surface' %>:</b>
+      <%= building.affected_surface %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.details' %>:</b>
+      <%= building.details %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.building_type' %>:</b>
+      <%= building.building_type %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.number_of_floors' %>:</b>
+      <%= building.number_of_floors %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.number_of_rooms' %>:</b>
+      <%= building.number_of_rooms %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.floor' %>:</b>
+      <%= building.floor %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.roof_type' %>:</b>
+      <%= building.roof_type %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.window_type' %>:</b>
+      <%= building.window_type %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.automatic_alert' %>:</b>
+      <%= ternary_text_field building.automatic_alert %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.extinguishers' %>:</b>
+      <%= ternary_text_field building.extinguishers %>
+    </p>
+    <p>
+      <b><%= t 'activerecord.attributes.building.fire_hydrants' %>:</b>
+      <%= ternary_text_field building.fire_hydrants %>
+    </p>
+  </div>
+  <div class='span9'>
+    <%= render 'insurance', insurance: building.insurance if building.insurance %>
+
+    <%= render partial: 'people_table', locals: {
+      people: building.people, type: building
+    } %>
+  </div>
+</div>
