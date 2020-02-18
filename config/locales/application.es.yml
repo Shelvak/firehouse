@@ -318,6 +318,8 @@ es:
     firefighters:
       correctly_created: "Bombero agregado correctamente."
       correctly_updated: "Bombero actualizado correctamente."
+      correctly_destroyed: "Bombero borrado correctamente."
+      cannot_be_destroyed: "El bombero tiene intervenciones asociadas."
       edit_title: "Modificar bombero"
       education_levels:
         college: "Universitario Completo"

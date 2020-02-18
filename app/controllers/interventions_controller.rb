@@ -90,7 +90,7 @@ class InterventionsController < ApplicationController
         }
       else
         format.html { render action: 'new' }
-        format.json { render json: @intervention.errors.details }
+        format.json { render json: @intervention.errors.full_messages }
       end
     end
 

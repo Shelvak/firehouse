@@ -74,9 +74,14 @@ class Configs::FirefightersController < ApplicationController
   # DELETE /firefighters/1.json
   def destroy
     @firefighter = Firefighter.find(params[:id])
-    @firefighter.destroy
 
-    render nothing: true, content_type: 'text/html'
+    if @firefighter.destroy
+      redirect_to :back,
+        notice: t('view.firefighters.correctly_deleted')
+    else
+      redirect_to :back,
+        alert: t('view.firefighters.cannot_be_destroyed')
+    end
   end
 
   private
